@@ -1,0 +1,143 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="EPBM.Site" %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head runat="server">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="<%= ResolveUrl("~/assets/img/icons/icon-48x48.png") %>" />
+
+	<title>ePBM</title>
+
+	<link href="<%= ResolveUrl("~/assets/css/app.css") %>" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+	<div class="wrapper overflow-hidden">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="dashboard.php">
+				  <span class="align-middle">ePBM</span>
+				</a>
+
+				<ul class="sidebar-nav">
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/index.aspx">
+						  <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Utama</span>
+						</a>
+					<li class="sidebar-header">
+						Permohonan
+					</li>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/permohonan/daftar.aspx">
+						  <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Daftar Permohonan</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/permohonan/senarai.aspx">
+						  <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Senarai Permohonan</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/permohonan/senarai-pengesahan.aspx">
+						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Senarai Pengesahan</span>
+						</a>
+					</li>
+					
+					<li class="sidebar-header">
+						Mesyuarat
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/mesyuarat/daftar.aspx">
+						  <i class="align-middle" data-feather="folder-plus"></i> <span class="align-middle">Daftar Mesyuarat</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/mesyuarat/senarai.aspx">
+						  <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Keputusan Mesyuarat</span>
+						</a>
+					</li>
+
+					<li class="sidebar-header">
+						Keputusan
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/keputusan/senarai.aspx">
+						  <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Senarai Keputusan</span>
+						</a>
+					</li>
+					<li class="sidebar-header">
+						Laporan
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/laporan/carian.aspx">
+						  <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Carian Laporan</span>
+						</a>
+					</li>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          <i class="hamburger align-self-center"></i>
+        </a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                <i class="align-middle" data-feather="settings"></i>
+              </a>
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <img src="<%= ResolveUrl("~/assets/img/avatars/avatar.jpg") %>" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+              </a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="/auth/profile.aspx"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
+								<a class="dropdown-item" href="/auth/login.aspx">Log Keluar</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="content">
+				<form id="form2" runat="server">
+				<div class="container-fluid p-0">
+					<asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
+					</asp:ContentPlaceHolder>
+				</div>
+					</form>
+			</main>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<p class="mb-0 text-center">
+						<span class="text-muted">&copy; 2023, Hak Cipta Terpelihara</span> Kementerian Sumber Asli, Alam Sekitar dan Perubahan Iklim.
+					</p>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<script src="<%= ResolveUrl("~/assets/js/app.js") %>"></script>
+	<asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">
+    </asp:ContentPlaceHolder>
+</body>
+
+</html>
