@@ -13,5 +13,12 @@ namespace EPBM
         {
 
         }
+
+        protected void LinkButton1_Command(object sender, EventArgs e)
+        {
+            Session.Abandon();
+            Request.Cookies.Clear();
+            Response.Redirect("/auth/login.aspx");
+        }
     }
 }

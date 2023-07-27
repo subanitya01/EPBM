@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="EPBM.login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="EPBM.auth.login" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,28 +30,28 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="m-sm-3">
-                                    <form id="account" method="post" runat="server">
+                                    <form id="account" method="post" defaultbutton="BtnLogin" runat="server">
                                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                                         <div class="form-floating mb-3">
-                                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" autofocus />
-                                            <label asp-for="Input.Email" class="form-label">Nama Pengguna</label>
+                                            <asp:TextBox ID="txtUsername" runat="server" class="form-control" autofocus="" required="" placeholder="No Kad Pengenalan"></asp:TextBox>
+                                            <label for="txtUsername" class="form-label">No Kad Pengenalan</label>
                                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                                            <label asp-for="Input.Password" class="form-label">Kata Laluan</label>
-                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                            <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" class="form-control" required="" placeholder="Kata Laluan"></asp:TextBox>
+                                            <label for="txtPassword" class="form-label">Kata Laluan</label>
+                                            <asp:Label ID="errorLabel" runat="server" class="text-danger"></asp:Label>
                                         </div>
                                         <div class="mb-3">
                                             <div class="form-check align-items-center">
-                                                <label asp-for="Input.RememberMe" class="form-label">
-                                                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                                                <label for="chkPersist" class="form-label">
+                                                    <asp:CheckBox ID="chkPersist" runat="server" class="form-check-input" />
                                                     Ingat Saya
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="d-grid gap-2 mt-3">
-                                            <a href="/index.aspx" id="login-submit" type="submit" class="btn btn-lg btn-primary">Log masuk</a>
+                                            <asp:LinkButton ID="BtnLogin" runat="server" CssClass="btn btn-lg btn-primary" OnClick="Login_Click">Log masuk</asp:LinkButton>
                                         </div>
                                         <div class="text-center mt-2">
                                             <p>

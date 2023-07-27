@@ -90,27 +90,25 @@
 					</li>
 			</div>
 		</nav>
-
+		
+		<form id="form2" runat="server">
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
-				<a class="sidebar-toggle js-sidebar-toggle">
-          <i class="hamburger align-self-center"></i>
-        </a>
+				<a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i> </a>
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
-						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                <i class="align-middle" data-feather="settings"></i>
-              </a>
+								<i class="align-middle" data-feather="settings"></i>
+							</a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                <img src="<%= ResolveUrl("~/assets/img/avatars/avatar.jpg") %>" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
-              </a>
+								<img src="<%= ResolveUrl("~/assets/img/avatars/avatar.jpg") %>" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="/auth/profile.aspx"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-								<a class="dropdown-item" href="/auth/login.aspx">Log Keluar</a>
+								<asp:LinkButton ID="LinkButton1" runat="server" Text="Log Keluar" CssClass="dropdown-item" OnCommand="LinkButton1_Command"></asp:LinkButton>  
 							</div>
 						</li>
 					</ul>
@@ -118,12 +116,10 @@
 			</nav>
 
 			<main class="content">
-				<form id="form2" runat="server">
 				<div class="container-fluid p-0">
 					<asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server">
 					</asp:ContentPlaceHolder>
 				</div>
-					</form>
 			</main>
 
 			<footer class="footer">
@@ -134,6 +130,7 @@
 				</div>
 			</footer>
 		</div>
+		</form>
 	</div>
 	<script src="<%= ResolveUrl("~/assets/js/app.js") %>"></script>
 	<asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">
