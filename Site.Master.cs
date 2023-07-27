@@ -11,7 +11,13 @@ namespace EPBM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Session["User.Id"] == null)
+                {
+                    Response.Redirect("~/auth/login.aspx", false);
+                }
+            }
         }
 
         protected void LinkButton1_Command(object sender, EventArgs e)

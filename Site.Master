@@ -22,14 +22,14 @@
 	<div class="wrapper overflow-hidden">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="dashboard.php">
+				<a class="sidebar-brand" href="/">
 				  <span class="align-middle">ePBM</span>
 				</a>
 
 				<ul class="sidebar-nav">
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/index.aspx">
+						<a class="sidebar-link" href="/">
 						  <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Utama</span>
 						</a>
 					<li class="sidebar-header">
@@ -91,8 +91,7 @@
 			</div>
 		</nav>
 		
-		<form id="form2" runat="server">
-		<div class="main">
+		<form id="form2" class="main" runat="server">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i> </a>
 
@@ -104,7 +103,8 @@
 							</a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-								<img src="<%= ResolveUrl("~/assets/img/avatars/avatar.jpg") %>" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+								<img src="<%= Session["Profile.ProfileImage"] ?? "/assets/img/avatars/avatar.jpg" %>" class="avatar img-fluid rounded me-1" alt="" /> 
+								<span class="text-dark text-truncate"><%= Session["Profile.FullName"] %></span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="/auth/profile.aspx"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
@@ -129,7 +129,6 @@
 					</p>
 				</div>
 			</footer>
-		</div>
 		</form>
 	</div>
 	<script src="<%= ResolveUrl("~/assets/js/app.js") %>"></script>

@@ -9,13 +9,13 @@
 		<div class="col-md-5 mb-3">
 			<div class="card h-100">
 				<div class="card-body text-center">
-					<img src="/assets/img/avatars/avatar.jpg" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
-					<h5 class="card-title mb-0">Charles Hall</h5>
-					<div class="text-muted mb-2">Pengurus Projek</div>
+					<img src="<%= Session["Profile.ProfileImage"] ?? "/assets/img/avatars/avatar.jpg" %>" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+					<h5 class="card-title mb-0"><%= Session["Profile.FullName"] %></h5>
+					<div class="text-muted mb-2"><%= Session["Profile.Designation"] %></div>
 
 					<div>
-						<a class="btn btn-outline-primary btn-sm mb-1" href="tel:+6033456789"><span data-feather="phone"></span> 03-3456789</a>
-						<a class="btn btn-outline-primary btn-sm mb-1" href="mailto:charles@nrecc.gov.my"><span data-feather="mail"></span> charles@nrecc.gov.my</a>
+						<a class="btn btn-outline-primary btn-sm mb-1" href="tel:<%= Session["Profile.PhoneNo"] %>"><span data-feather="phone"></span> <%= Session["Profile.PhoneNo"] %></a>
+						<a class="btn btn-outline-primary btn-sm mb-1" href="mailto:<%= Session["Profile.UserEmail"] %>"><span data-feather="mail"></span> <%= Session["Profile.UserEmail"] %></a>
 					</div>
 				</div>
 			</div>
@@ -33,15 +33,11 @@
 						<tbody>
 						<tr>
 							<th scope="row">Kementerian / Agensi</th>
-							<td class="text-secondary">Kementerian Sumber Asli, Alam Sekitar dan Perubahan Iklim</td>
+							<td class="text-secondary"><%= Session["Profile.Organization"] %></td>
 						</tr>
 						<tr>
 							<th scope="row">Bahagian / Jabatan</th>
-							<td class="text-secondary">Bahagian Pengurusan Maklumat</td>
-						</tr>
-						<tr>
-							<th scope="row">Pejabat / Seksyen</th>
-							<td class="text-secondary">-</td>
+							<td class="text-secondary"><%= Session["Profile.Department"] %></td>
 						</tr>
 						</tbody>
 					</table>

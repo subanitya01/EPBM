@@ -33,12 +33,12 @@
                                     <form id="account" method="post" defaultbutton="BtnLogin" runat="server">
                                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                                         <div class="form-floating mb-3">
-                                            <asp:TextBox ID="txtUsername" runat="server" class="form-control" autofocus="" required="" placeholder="No Kad Pengenalan"></asp:TextBox>
+                                            <asp:TextBox ID="txtUsername" runat="server" class="form-control" autofocus="autofocus" required="required" placeholder="No Kad Pengenalan"></asp:TextBox>
                                             <label for="txtUsername" class="form-label">No Kad Pengenalan</label>
                                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" class="form-control" required="" placeholder="Kata Laluan"></asp:TextBox>
+                                            <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" class="form-control" required="required" placeholder="Kata Laluan"></asp:TextBox>
                                             <label for="txtPassword" class="form-label">Kata Laluan</label>
                                             <asp:Label ID="errorLabel" runat="server" class="text-danger"></asp:Label>
                                         </div>
