@@ -67,6 +67,74 @@
 			  </ul>--%>
 			</nav>
 		</div>
+
+
+
+				<table class="table table-bordered table-striped table-hover">
+			  <thead>
+				<tr>
+				  <th scope="col">#</th>
+				  <th scope="col">TAJUK</th>
+				  <th scope="col">JABATAN</th>
+				  <th scope="col">HARGA INDIKATIF (RM)</th>
+				  <th scope="col">TARIKH SAHLAKU</th>
+				  <th scope="col">STATUS</th>
+				  <th scope="col"></th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <th scope="row">1</th>
+				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
+				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
+				  <td class="text-end">3,456,789.00</td>
+				  <td class="text-nowrap">04 OKT 2023</td>
+				  <td class="text-center"><span class="badge text-bg-primary">BELUM DISAHKAN</span></td>
+				  <td class="table-action">
+						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+						<a href="/permohonan/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
+						<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="text-danger" title="Hapus"><i class="align-middle" data-feather="trash"></i></a>
+					</td>
+				</tr>
+				<tr>
+				  <th scope="row">2</th>
+				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
+				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
+				  <td class="text-end">3,456,789.00</td>
+				  <td class="text-nowrap">04 Okt 2023</td>
+				  <td class="text-center"><span class="badge text-bg-warning">TIDAK DISAHKAN</span></td>
+				  <td class="table-action">
+						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+						<a href="/permohonan/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
+						<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="text-danger" title="Hapus"><i class="align-middle" data-feather="trash"></i></a>
+					</td>
+				</tr>
+				<tr>
+				  <th scope="row">3</th>
+				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
+				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
+				  <td class="text-end">3,456,789.00</td>
+				  <td class="text-nowrap">04 Okt 2023</td>
+				  <td class="text-center"><span class="badge text-bg-success">DISAHKAN</span></td>
+				  <td class="table-action">
+						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+						<a href="#" data-bs-toggle="modal" data-bs-target="#meetingModal" class="text-info" title="Bawa Ke Mesyuarat"><i class="align-middle" data-feather="send"></i></a>
+					</td>
+				</tr>
+				<tr>
+				  <th scope="row">4</th>
+				  <td class="">PEROLEHAN PEMBAHARUAN LANGGANAN APLIKASI ZOOM BAGI VIRTUAL MEETING KEMENTERIAN SUMBER ASLI, ALAM SEKITAR DAN PERUBAHAN IKLIM</td>
+				  <td>BAHAGIAN PENGURUSAN MAKLUMAT</td>
+				  <td class="text-end">8,530.56</td>
+				  <td class="text-nowrap">22 Nov 2023</td>
+				  <td class="text-center"><span class="badge text-bg-info">BAWA KE MESYUARAT</span></td>
+				  <td class="table-action">
+						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+						<a href="/keputusan/edit.aspx" class="text-success" title="Keputusan"><i class="align-middle" data-feather="inbox"></i></a>
+					</td>
+				</tr>
+			  </tbody>
+			</table>
 	</div>
 	<div class="modal fade" id="deleteModal" tabindex="-1" aria-modal="true" role="dialog">
 		<div class="modal-dialog" role="document">
