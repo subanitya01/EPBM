@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="senarai.aspx.cs" Inherits="EPBM.Permohonan.senarai" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+
+<link href="../assets/css/gridview.css" rel="stylesheet" />
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 <h1 class="h3 mb-3">SENARAI <strong>PERMOHONAN</strong></h1>
@@ -19,73 +22,35 @@
 	</div>
 	<div class="card">
 		<div class="card-body table-responsive">
-			<table class="table table-bordered table-striped table-hover">
-			  <thead>
-				<tr>
-				  <th scope="col">#</th>
-				  <th scope="col">TAJUK</th>
-				  <th scope="col">JABATAN</th>
-				  <th scope="col">HARGA INDIKATIF (RM)</th>
-				  <th scope="col">TARIKH SAHLAKU</th>
-				  <th scope="col">STATUS</th>
-				  <th scope="col"></th>
-				</tr>
-			  </thead>
-			  <tbody>
-				<tr>
-				  <th scope="row">1</th>
-				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
-				  <td class="text-end">3,456,789.00</td>
-				  <td class="text-nowrap">04 OKT 2023</td>
-				  <td class="text-center"><span class="badge text-bg-primary">BELUM DISAHKAN</span></td>
-				  <td class="table-action">
-						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/permohonan/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
-						<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="text-danger" title="Hapus"><i class="align-middle" data-feather="trash"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">2</th>
-				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
-				  <td class="text-end">3,456,789.00</td>
-				  <td class="text-nowrap">04 Okt 2023</td>
-				  <td class="text-center"><span class="badge text-bg-warning">TIDAK DISAHKAN</span></td>
-				  <td class="table-action">
-						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/permohonan/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
-						<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="text-danger" title="Hapus"><i class="align-middle" data-feather="trash"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">3</th>
-				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
-				  <td class="text-end">3,456,789.00</td>
-				  <td class="text-nowrap">04 Okt 2023</td>
-				  <td class="text-center"><span class="badge text-bg-success">DISAHKAN</span></td>
-				  <td class="table-action">
-						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="#" data-bs-toggle="modal" data-bs-target="#meetingModal" class="text-info" title="Bawa Ke Mesyuarat"><i class="align-middle" data-feather="send"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">4</th>
-				  <td class="">PEROLEHAN PEMBAHARUAN LANGGANAN APLIKASI ZOOM BAGI VIRTUAL MEETING KEMENTERIAN SUMBER ASLI, ALAM SEKITAR DAN PERUBAHAN IKLIM</td>
-				  <td>BAHAGIAN PENGURUSAN MAKLUMAT</td>
-				  <td class="text-end">8,530.56</td>
-				  <td class="text-nowrap">22 Nov 2023</td>
-				  <td class="text-center"><span class="badge text-bg-info">BAWA KE MESYUARAT</span></td>
-				  <td class="table-action">
-						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/keputusan/edit.aspx" class="text-success" title="Keputusan"><i class="align-middle" data-feather="inbox"></i></a>
-					</td>
-				</tr>
-			  </tbody>
-			</table>
+	<%--		<table class="table table-bordered table-striped table-hover">--%>
+
+				<asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" OnPageIndexChanging="Senarai_PageIndexChanging" CssClass="table table-striped table-bordered table-hover Grid" AllowPaging="True">
+                                        <PagerSettings Mode="Numeric" Position="Bottom" />
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="No.">
+                                                <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField DataField="TajukPerolehan" HeaderText="Tajuk" SortExpression="Tajuk">
+                                                <ItemStyle Width="25%" Wrap="true" />
+                                            </asp:BoundField>
+                                            <asp:BoundField DataField="NamaJabatan" HeaderText="Jabatan" SortExpression="Jabatan">
+                                                <ItemStyle Width="25%" Wrap="true" />
+                                            </asp:BoundField>
+											<asp:BoundField DataField="NamaPencipta" HeaderText="NamaPencipta" SortExpression="NamaPencipta">
+                                                <ItemStyle Width="25%" Wrap="true" />
+                                            </asp:BoundField>
+											<asp:BoundField DataField="NamaBahagian" HeaderText="Bahagian" SortExpression="NamaBahagian">
+                                                <ItemStyle Width="25%" Wrap="true" />
+                                            </asp:BoundField>
+                                       
+                                        </Columns>
+                                    </asp:GridView>
+
+
+
+		<%--	</table>--%>
 			<nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-end">
+			<%--  <ul class="pagination justify-content-end">
 				<li class="page-item">
 				  <a class="page-link" href="#" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
@@ -99,7 +64,7 @@
 					<span aria-hidden="true">&raquo;</span>
 				  </a>
 				</li>
-			  </ul>
+			  </ul>--%>
 			</nav>
 		</div>
 	</div>
