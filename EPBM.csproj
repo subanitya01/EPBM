@@ -232,7 +232,6 @@
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="_apps\Shared.cs" />
     <Compile Include="_apps\SystemHelper.cs" />
   </ItemGroup>
   <ItemGroup>
