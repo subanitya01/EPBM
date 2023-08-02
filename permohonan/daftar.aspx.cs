@@ -170,12 +170,12 @@ namespace EPBM.permohonan
 
             txttkhcipta.Text = DateTime.Now.Date.ToString("dd-MMM-yyyy");
 
-            string query = "INSERT INTO Permohonan (Tajuk,TarikhTerima,TarikhSahlaku,Harga,IdJabatan,IdJenisPerolehan,IdKaedahPerolehan,IdJenisPertimbangan,IdSumberPeruntukan,IdPBMMuktamad,LulusPelanPPT,CatatanPendaftar,TarikhDicipta,DiciptaOleh) values (@Tajuk,@TarikhTerima,@TarikhSahlaku,@Harga,@IdJabatan,@IdJenisPerolehan,@IdKaedahPerolehan,@IdJenisPertimbangan,@IdSumberPeruntukan,@IdPBMMuktamad,@LulusPelanPPT,@CatatanPendaftar,@TarikhDicipta,@DiciptaOleh)";
+            string query = "INSERT INTO Permohonan (Tajuk,TarikhTerima,TarikhSahlaku,Harga,IdJabatan,IdJenisPerolehan,IdKaedahPerolehan,IdJenisPertimbangan,IdSumberPeruntukan,IdPBMMuktamad,LulusPelanPPT,CatatanPendaftar,TarikhDicipta,DiciptaOleh,IdStatusPermohonan) values (@Tajuk,@TarikhTerima,@TarikhSahlaku,@Harga,@IdJabatan,@IdJenisPerolehan,@IdKaedahPerolehan,@IdJenisPertimbangan,@IdSumberPeruntukan,@IdPBMMuktamad,@LulusPelanPPT,@CatatanPendaftar,@TarikhDicipta,@DiciptaOleh,'1')";
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
              
             sqlCommand.Parameters.AddWithValue("@Tajuk", txt_tajuk.Text);          
             sqlCommand.Parameters.AddWithValue("@TarikhTerima", tkhterima);
-            sqlCommand.Parameters.AddWithValue("@TarikhSahlaku", tkhsahlaku);          
+            sqlCommand.Parameters.AddWithValue("@TarikhSahlaku", tkhsahlaku);     
             sqlCommand.Parameters.AddWithValue("@TarikhDicipta", txttkhcipta.Text);
             sqlCommand.Parameters.AddWithValue("@Harga", txtharga.Text);
             sqlCommand.Parameters.AddWithValue("@IdJabatan", ddlJabatan.SelectedValue);
@@ -194,16 +194,16 @@ namespace EPBM.permohonan
 
         }
 
-        private void txtharga_TextChanged(object sender, EventArgs e)
-        {
+        //private void txtharga_TextChanged(object sender, EventArgs e)
+        //{
 
-            double parsedValue;
+        //    double parsedValue;
 
-            if (!double.TryParse(txtharga.Text, out parsedValue))
-            {
-                txtharga.Text = "";
-            }
-        }
+        //    if (!double.TryParse(txtharga.Text, out parsedValue))
+        //    {
+        //        txtharga.Text = "";
+        //    }
+        //}
 
        
 
