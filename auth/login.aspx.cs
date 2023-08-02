@@ -121,6 +121,7 @@ namespace EPBM.auth
 
             if (true == adAuth.IsAuthenticated(username, txtPassword.Text)) //check if user exist
             {
+                 Session["nokp"] = txtUsername.Text;
                 return true;
             }
             else { return false; }

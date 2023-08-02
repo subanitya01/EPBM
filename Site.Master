@@ -7,11 +7,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">  
+<%--	<link rel="shortcut icon" href="~/assets/img/icons/icon-48x48.png" />--%>
 	<link rel="shortcut icon" href="<%= ResolveUrl("~/assets/img/icons/icon-48x48.png") %>" />
-
 	<title>ePBM</title>
 
+	 <%--   <link href="assets/css/app.css" rel="stylesheet" />--%>
 	<link href="<%= ResolveUrl("~/assets/css/app.css") %>" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
