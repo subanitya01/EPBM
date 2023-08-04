@@ -39,9 +39,9 @@
 											<asp:BoundField DataField="NamaPencipta" HeaderText="NamaPencipta" SortExpression="NamaPencipta">
                                                 <ItemStyle Width="25%" Wrap="true" />
                                             </asp:BoundField>
-											<asp:BoundField DataField="NamaBahagian" HeaderText="Bahagian" SortExpression="NamaBahagian">
+											<%--<asp:BoundField DataField="NamaBahagian" HeaderText="Bahagian" SortExpression="NamaBahagian">
                                                 <ItemStyle Width="25%" Wrap="true" />
-                                            </asp:BoundField>
+                                            </asp:BoundField>--%>
                                        
                                         </Columns>
                                     </asp:GridView>

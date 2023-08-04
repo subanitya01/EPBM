@@ -1,7 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using AjaxControlToolkit;
 
 
@@ -14,12 +17,12 @@ namespace EPBM.permohonan
         {
             if (!Page.IsPostBack)
             {
-                Jenis_Pertimbangan();
-                Kaedah_Perolehan();
-                Jenis_Perolehan();
-                Sumber_Peruntukan();
-                PBM_Muktamad();
-                Jabatan();
+                ddl_JenisPertimbangan();
+                ddlKaedah_Perolehan();
+                ddlJenis_Perolehan();
+                ddlSumber_Peruntukan();
+                ddlPBM_Muktamad();
+                Bind_ddlJabatan();
                 Pemohon();
             }
         }
@@ -61,7 +64,7 @@ namespace EPBM.permohonan
 
 
 
-        private void Jenis_Pertimbangan()
+        protected void ddl_JenisPertimbangan()
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
             con.Open();
@@ -77,7 +80,27 @@ namespace EPBM.permohonan
             ddlJenisPertimbangan.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
         }
 
-        private void Kaedah_Perolehan()
+        protected void ddlJenisPertimbangann_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+
+            if (ddlJenisPertimbangan.SelectedValue == "99")
+            {
+                //string sMsg = "Rekod telah berjaya dihantar";
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + sMsg + "')", true);
+                ////Response.Redirect("/Permohonan/senarai.aspx");
+                PnlJenisPertimbangan.Visible = true;
+            }
+
+            else
+            {
+                PnlJenisPertimbangan.Visible = false;
+            }
+          
+        }
+
+
+        private void ddlKaedah_Perolehan()
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
             con.Open();
@@ -93,7 +116,7 @@ namespace EPBM.permohonan
             ddlKaedahPerolehan.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
         }
 
-        private void Jenis_Perolehan()
+        private void ddlJenis_Perolehan()
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
             con.Open();
@@ -109,7 +132,26 @@ namespace EPBM.permohonan
             ddlJenisPerolehan.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
         }
 
-        private void Sumber_Peruntukan()
+        protected void ddlJenisPerolehan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+            if (ddlJenisPerolehan.SelectedValue == "99")
+            {
+                //string sMsg = "Rekod telah berjaya dihantar";
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + sMsg + "')", true);
+                ////Response.Redirect("/Permohonan/senarai.aspx");
+                PnlJenisPerolehan.Visible = true;
+            }
+
+            else
+            {
+                PnlJenisPerolehan.Visible = false;
+            }
+
+        }
+
+        private void ddlSumber_Peruntukan()
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
             con.Open();
@@ -125,7 +167,27 @@ namespace EPBM.permohonan
             ddlSumberPeruntukan.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
         }
 
-        private void PBM_Muktamad()
+        protected void ddlSumberPeruntukan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+            if (ddlSumberPeruntukan.SelectedValue == "99")
+            {
+                //string sMsg = "Rekod telah berjaya dihantar";
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + sMsg + "')", true);
+                ////Response.Redirect("/Permohonan/senarai.aspx");
+                PnlSumberPeruntukan.Visible = true;
+            }
+
+            else
+            {
+                PnlSumberPeruntukan.Visible = false;
+            }
+
+        }
+
+
+        private void ddlPBM_Muktamad()
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
             con.Open();
@@ -141,21 +203,90 @@ namespace EPBM.permohonan
             ddlPBMMuktamad.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
         }
 
-        private void Jabatan()
+
+        protected void Bind_ddlJabatan()
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Jabatan", con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            con.Close();
-            ddlJabatan.DataSource = ds;
-            ddlJabatan.DataTextField = "Nama";
-            ddlJabatan.DataValueField = "Organisasi_Grp_ID";
-            ddlJabatan.DataBind();
-            ddlJabatan.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
+
+            this.ddlBahagian.Items.Clear();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString))
+            {
+                connection.Open();
+                SqlDataReader reader = new SqlCommand("SELECT * FROM Jabatan", connection).ExecuteReader();
+                this.ddlJabatan.DataSource = reader;
+                this.ddlJabatan.Items.Clear();
+                this.ddlJabatan.DataTextField = "Nama";
+                this.ddlJabatan.DataValueField = "Organisasi_Grp_ID";
+                this.ddlJabatan.DataBind();
+                this.ddlJabatan.Items.Insert(0, new ListItem("-- Sila Pilih Kementerian/ Jabatan --", "0"));
+                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", "0"));
+            }
+
         }
+
+
+        protected void ddlJabatan_SelectedIndexChanged(object sender, EventArgs e)
+        {    
+            this.ddlBahagian.Items.Clear();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString))
+            {
+                connection.Open();
+
+                SqlCommand command = new SqlCommand("SELECT* FROM Bahagian WHERE Organisasi_Grp_ID='" + ddlJabatan.SelectedValue + "'", connection);
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    this.ddlBahagian.DataSource = reader;
+                    this.ddlBahagian.DataTextField = "Nama";
+                    this.ddlBahagian.DataValueField = "Id";
+                    this.ddlBahagian.DataBind();
+                }
+
+                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", "0"));
+
+                if (this.ddlJabatan.SelectedValue == "1")
+                {
+                    this.pnlBahagian.Visible = true;
+                }
+                else if (this.ddlJabatan.SelectedValue != "1")
+                {
+                    this.pnlBahagian.Visible = false;
+
+                }
+
+                else if (this.ddlBahagian.SelectedValue == "0")
+                {
+                   
+                }
+
+            }
+        }
+
+
+        protected void ddlBahagian_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            conn.Open();           
+            DataTable dt = new DataTable();
+
+            if (ddlBahagian.SelectedIndex == 0 && ddlJabatan.SelectedIndex == 1)
+            {
+
+                //ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#daftarform').modal('hide')", false);
+            }
+
+            else if (ddlJabatan.SelectedIndex == 1 && ddlBahagian.SelectedIndex == 0)
+            {
+
+                //ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#daftarform').modal('hide')", false);
+            }
+
+        }
+
+
+
+
+
 
         protected void btnHantar_Click(object sender, EventArgs e)
         {
@@ -170,41 +301,37 @@ namespace EPBM.permohonan
 
             txttkhcipta.Text = DateTime.Now.Date.ToString("dd-MMM-yyyy");
 
-            string query = "INSERT INTO Permohonan (Tajuk,TarikhTerima,TarikhSahlaku,Harga,IdJabatan,IdJenisPerolehan,IdKaedahPerolehan,IdJenisPertimbangan,IdSumberPeruntukan,IdPBMMuktamad,LulusPelanPPT,CatatanPendaftar,TarikhDicipta,DiciptaOleh,IdStatusPermohonan) values (@Tajuk,@TarikhTerima,@TarikhSahlaku,@Harga,@IdJabatan,@IdJenisPerolehan,@IdKaedahPerolehan,@IdJenisPertimbangan,@IdSumberPeruntukan,@IdPBMMuktamad,@LulusPelanPPT,@CatatanPendaftar,@TarikhDicipta,@DiciptaOleh,'1')";
+            string query = "INSERT INTO Permohonan (Tajuk,IdJenisPertimbangan,LainJenisPertimbangan,IdKaedahPerolehan,IdJenisPerolehan,LainJenisPerolehan,IdJabatan,IdBahagian,Harga,IdSumberPeruntukan,LainSumberPeruntukan,TarikhSahlaku,TarikhTerima,LulusPelanPPT,IdPBMMuktamad,IdStatusPermohonan,CatatanPendaftar,TarikhDicipta,DiciptaOleh,NamaBahagian) values (@Tajuk,@IdJenisPertimbangan,@LainJenisPertimbangan,@IdKaedahPerolehan,@IdJenisPerolehan,@LainJenisPerolehan,@IdJabatan,@IdBahagian,@Harga,@IdSumberPeruntukan,@LainSumberPeruntukan,@TarikhSahlaku,@TarikhTerima,@LulusPelanPPT,@IdPBMMuktamad,'1',@CatatanPendaftar,@TarikhDicipta,@DiciptaOleh,@NamaBahagian)";
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
              
-            sqlCommand.Parameters.AddWithValue("@Tajuk", txt_tajuk.Text);          
-            sqlCommand.Parameters.AddWithValue("@TarikhTerima", tkhterima);
-            sqlCommand.Parameters.AddWithValue("@TarikhSahlaku", tkhsahlaku);     
-            sqlCommand.Parameters.AddWithValue("@TarikhDicipta", txttkhcipta.Text);
-            sqlCommand.Parameters.AddWithValue("@Harga", txtharga.Text);
-            sqlCommand.Parameters.AddWithValue("@IdJabatan", ddlJabatan.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@IdJenisPerolehan", ddlJenisPerolehan.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@IdKaedahPerolehan", ddlKaedahPerolehan.SelectedValue);
+            sqlCommand.Parameters.AddWithValue("@Tajuk", txt_tajuk.Text);
             sqlCommand.Parameters.AddWithValue("@IdJenisPertimbangan", ddlJenisPertimbangan.SelectedValue);
+            sqlCommand.Parameters.AddWithValue("@LainJenisPertimbangan", txtJenisPertimbangan.Text);
+            sqlCommand.Parameters.AddWithValue("@IdKaedahPerolehan", ddlKaedahPerolehan.SelectedValue);
+            sqlCommand.Parameters.AddWithValue("@IdJenisPerolehan",ddlJenisPerolehan.SelectedValue);
+            sqlCommand.Parameters.AddWithValue("@LainJenisPerolehan", txtJenisPerolehan.Text);
+            sqlCommand.Parameters.AddWithValue("@IdJabatan", ddlJabatan.SelectedValue);
+            sqlCommand.Parameters.AddWithValue("@IdBahagian", ddlBahagian.SelectedValue);
+            sqlCommand.Parameters.AddWithValue("@Harga", txtharga.Text);
             sqlCommand.Parameters.AddWithValue("@IdSumberPeruntukan", ddlSumberPeruntukan.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@IdPBMMuktamad", ddlPBMMuktamad.SelectedValue);
+            sqlCommand.Parameters.AddWithValue("@LainSumberPeruntukan", txtSumberPeruntukan.Text);
+            sqlCommand.Parameters.AddWithValue("@TarikhSahlaku", tkhsahlaku);  
+            sqlCommand.Parameters.AddWithValue("@TarikhTerima", tkhterima);
             sqlCommand.Parameters.AddWithValue("@LulusPelanPPT", cbPerakuan1.Checked ? "True" : "False");
-            sqlCommand.Parameters.AddWithValue("@CatatanPendaftar", txtcatatan.Text);
+            sqlCommand.Parameters.AddWithValue("@IdPBMMuktamad", ddlPBMMuktamad.SelectedValue);
+            sqlCommand.Parameters.AddWithValue("@CatatanPendaftar", txtcatatan.Text); 
+            sqlCommand.Parameters.AddWithValue("@TarikhDicipta", txttkhcipta.Text);
             sqlCommand.Parameters.AddWithValue("@DiciptaOleh", txticno.Text);
-            sqlCommand.ExecuteNonQuery();
+            sqlCommand.Parameters.AddWithValue("@NamaBahagian", ddlBahagian.SelectedItem.ToString());
 
+            sqlCommand.ExecuteNonQuery();
+            Response.Redirect("/Permohonan/senarai.aspx");
             sqlConnection.Close();
 
 
         }
 
-        //private void txtharga_TextChanged(object sender, EventArgs e)
-        //{
-
-        //    double parsedValue;
-
-        //    if (!double.TryParse(txtharga.Text, out parsedValue))
-        //    {
-        //        txtharga.Text = "";
-        //    }
-        //}
-
+       
        
 
 

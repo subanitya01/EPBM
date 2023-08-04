@@ -51,6 +51,15 @@ namespace EPBM.permohonan
         protected global::System.Web.UI.WebControls.TextBox txt_tajuk;
 
         /// <summary>
+        /// ddlKaedahPerolehan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlKaedahPerolehan;
+
+        /// <summary>
         /// ddlJenisPertimbangan control.
         /// </summary>
         /// <remarks>
@@ -60,13 +69,22 @@ namespace EPBM.permohonan
         protected global::System.Web.UI.WebControls.DropDownList ddlJenisPertimbangan;
 
         /// <summary>
-        /// ddlKaedahPerolehan control.
+        /// PnlJenisPertimbangan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlKaedahPerolehan;
+        protected global::System.Web.UI.WebControls.Panel PnlJenisPertimbangan;
+
+        /// <summary>
+        /// txtJenisPertimbangan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtJenisPertimbangan;
 
         /// <summary>
         /// ddlJenisPerolehan control.
@@ -78,6 +96,24 @@ namespace EPBM.permohonan
         protected global::System.Web.UI.WebControls.DropDownList ddlJenisPerolehan;
 
         /// <summary>
+        /// PnlJenisPerolehan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlJenisPerolehan;
+
+        /// <summary>
+        /// txtJenisPerolehan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtJenisPerolehan;
+
+        /// <summary>
         /// ddlJabatan control.
         /// </summary>
         /// <remarks>
@@ -85,6 +121,24 @@ namespace EPBM.permohonan
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlJabatan;
+
+        /// <summary>
+        /// pnlBahagian control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlBahagian;
+
+        /// <summary>
+        /// ddlBahagian control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBahagian;
 
         /// <summary>
         /// txtharga control.
@@ -96,15 +150,6 @@ namespace EPBM.permohonan
         protected global::System.Web.UI.WebControls.TextBox txtharga;
 
         /// <summary>
-        /// ddlSumberPeruntukan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSumberPeruntukan;
-
-        /// <summary>
         /// ddlPBMMuktamad control.
         /// </summary>
         /// <remarks>
@@ -112,6 +157,15 @@ namespace EPBM.permohonan
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPBMMuktamad;
+
+        /// <summary>
+        /// txttkhterima control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txttkhterima;
 
         /// <summary>
         /// txttkhsahlaku control.
@@ -123,13 +177,31 @@ namespace EPBM.permohonan
         protected global::System.Web.UI.WebControls.TextBox txttkhsahlaku;
 
         /// <summary>
-        /// txttkhterima control.
+        /// ddlSumberPeruntukan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txttkhterima;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSumberPeruntukan;
+
+        /// <summary>
+        /// PnlSumberPeruntukan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PnlSumberPeruntukan;
+
+        /// <summary>
+        /// txtSumberPeruntukan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSumberPeruntukan;
 
         /// <summary>
         /// cbPerakuan1 control.
@@ -175,5 +247,14 @@ namespace EPBM.permohonan
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txticno;
+
+        /// <summary>
+        /// NamaBahagian control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NamaBahagian;
     }
 }
