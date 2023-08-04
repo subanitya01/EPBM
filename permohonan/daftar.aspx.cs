@@ -300,7 +300,7 @@ namespace EPBM.permohonan
             sqlConnection.Open();
 
             txttkhcipta.Text = DateTime.Now.Date.ToString("dd-MMM-yyyy");
-
+          
             string query = "INSERT INTO Permohonan (Tajuk,IdJenisPertimbangan,LainJenisPertimbangan,IdKaedahPerolehan,IdJenisPerolehan,LainJenisPerolehan,IdJabatan,IdBahagian,Harga,IdSumberPeruntukan,LainSumberPeruntukan,TarikhSahlaku,TarikhTerima,LulusPelanPPT,IdPBMMuktamad,IdStatusPermohonan,CatatanPendaftar,TarikhDicipta,DiciptaOleh,NamaBahagian) values (@Tajuk,@IdJenisPertimbangan,@LainJenisPertimbangan,@IdKaedahPerolehan,@IdJenisPerolehan,@LainJenisPerolehan,@IdJabatan,@IdBahagian,@Harga,@IdSumberPeruntukan,@LainSumberPeruntukan,@TarikhSahlaku,@TarikhTerima,@LulusPelanPPT,@IdPBMMuktamad,'1',@CatatanPendaftar,@TarikhDicipta,@DiciptaOleh,@NamaBahagian)";
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
              
