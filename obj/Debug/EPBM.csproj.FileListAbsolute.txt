@@ -116,3 +116,26 @@ D:\2023\BACKUP SISTEM EPBM\SISTEM EPBM\EPBM\obj\Debug\EPBM.csproj.CoreCompileInp
 D:\2023\BACKUP SISTEM EPBM\SISTEM EPBM\EPBM\obj\Debug\EPBM.csproj.CopyComplete
 D:\2023\BACKUP SISTEM EPBM\SISTEM EPBM\EPBM\obj\Debug\EPBM.dll
 D:\2023\BACKUP SISTEM EPBM\SISTEM EPBM\EPBM\obj\Debug\EPBM.pdb
+D:\Asp.net-Projects\ePBM\bin\EntityFramework.dll
+D:\Asp.net-Projects\ePBM\bin\EntityFramework.SqlServer.dll
+D:\Asp.net-Projects\ePBM\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Asp.net-Projects\ePBM\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Asp.net-Projects\ePBM\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.dll
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.Security.Cookies.dll
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.Security.dll
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.Security.OAuth.dll
+D:\Asp.net-Projects\ePBM\bin\Newtonsoft.Json.dll
+D:\Asp.net-Projects\ePBM\bin\Owin.dll
+D:\Asp.net-Projects\ePBM\bin\EntityFramework.xml
+D:\Asp.net-Projects\ePBM\bin\EntityFramework.SqlServer.xml
+D:\Asp.net-Projects\ePBM\bin\Microsoft.AspNet.Identity.Core.xml
+D:\Asp.net-Projects\ePBM\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Asp.net-Projects\ePBM\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.xml
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.Security.xml
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.Security.Cookies.xml
+D:\Asp.net-Projects\ePBM\bin\Microsoft.Owin.Security.OAuth.xml
+D:\Asp.net-Projects\ePBM\bin\Newtonsoft.Json.xml

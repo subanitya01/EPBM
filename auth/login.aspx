@@ -34,13 +34,15 @@
                                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                                         <div class="form-floating mb-3">
                                             <asp:TextBox ID="txtUsername" runat="server" class="form-control" autofocus="autofocus" required="required" placeholder="No Kad Pengenalan"></asp:TextBox>
-                                            <label for="txtUsername" class="form-label">No Kad Pengenalan</label>
-                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                            <label for="txtUsername" class="form-label">No. Kad Pengenalan</label>
+                                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtUsername"
+                                                CssClass="text-danger" ErrorMessage="No. Kad Pengenalan wajib diisi." />
                                         </div>
                                         <div class="form-floating mb-3">
                                             <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" class="form-control" required="required" placeholder="Kata Laluan"></asp:TextBox>
                                             <label for="txtPassword" class="form-label">Kata Laluan</label>
-                                            <asp:Label ID="errorLabel" runat="server" class="text-danger"></asp:Label>
+                                            <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPassword"
+                                                CssClass="text-danger" ErrorMessage="Kata laluan wajib diisi." />
                                         </div>
                                         <div class="mb-3">
                                             <div class="form-check align-items-center">
@@ -50,6 +52,11 @@
                                                 </label>
                                             </div>
                                         </div>
+                                        <asp:PlaceHolder runat="server" ID="ErrorMessage" Visible="false">
+                                            <p class="text-danger">
+                                                <asp:Literal runat="server" ID="errorLabel" />
+                                            </p>
+                                        </asp:PlaceHolder>
                                         <div class="d-grid gap-2 mt-3">
                                             <asp:LinkButton ID="BtnLogin" runat="server" CssClass="btn btn-lg btn-primary" OnClick="Login_Click">Log masuk</asp:LinkButton>
                                         </div>

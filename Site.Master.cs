@@ -4,16 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 
 namespace EPBM
 {
-    public partial class Site : System.Web.UI.MasterPage
+    public partial class Site : MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                if (Session["User.Id"] == null)
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     Response.Redirect("~/auth/login.aspx", false);
                 }
@@ -22,8 +25,10 @@ namespace EPBM
 
         protected void LinkButton1_Command(object sender, EventArgs e)
         {
+            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
             Session.Abandon();
-            Request.Cookies.Clear();
+            Response.Cookies.Clear();
             Response.Redirect("/auth/login.aspx");
         }
     }

@@ -88,6 +88,21 @@
 						  <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Carian Laporan</span>
 						</a>
 					</li>
+					<li class="sidebar-header">
+						Pengguna
+					</li>
+					
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/pengguna/daftar.aspx">
+						  <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">Daftar Pengguna</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/pengguna/senarai.aspx">
+						  <i class="align-middle" data-feather="users"></i> <span class="align-middle">Senarai Pengguna</span>
+						</a>
+					</li>
 			</div>
 		</nav>
 		
