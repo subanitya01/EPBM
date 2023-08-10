@@ -30,7 +30,7 @@ namespace EPBM.permohonan
 
         private void Pemohon()
         {
-            string nokp = (string)Session["nokp"];
+            string nokp = (string)Session["Profile.ICNO"];
 
             string query = "SELECT FullName, ICNO, Designation, Grade, Organization.Name, UserProfile.OfficePhoneNo, UserProfile.UserEmail, PlacementStatus, Organization.GroupId,UserProfile.HomePhoneNo, UserProfile.UserId, UserCredential.UserName FROM UserProfile inner join UserCredential on UserProfile.UserId=UserCredential.UserId inner join Organization on Organization.OrganizationId=UserProfile.OrganizationId   WHERE UserProfile.ICNO='" + nokp + "' and blocked='0'";
 
@@ -45,7 +45,7 @@ namespace EPBM.permohonan
 
 
 
-        private DataTable GetDataTable(string query, string connectionName = "ePBM_Conn")
+        private DataTable GetDataTable(string query, string connectionName = "DefaultConnection")
         {
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings[connectionName].ConnectionString))
             {
@@ -66,7 +66,7 @@ namespace EPBM.permohonan
 
         protected void ddl_JenisPertimbangan()
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             con.Open();
             SqlCommand cmd = new SqlCommand("SELECT * FROM JenisPertimbangan", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -102,7 +102,7 @@ namespace EPBM.permohonan
 
         private void ddlKaedah_Perolehan()
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             con.Open();
             SqlCommand cmd = new SqlCommand("SELECT * FROM KaedahPerolehan", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -118,7 +118,7 @@ namespace EPBM.permohonan
 
         private void ddlJenis_Perolehan()
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             con.Open();
             SqlCommand cmd = new SqlCommand("SELECT * FROM JenisPerolehan", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -153,7 +153,7 @@ namespace EPBM.permohonan
 
         private void ddlSumber_Peruntukan()
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             con.Open();
             SqlCommand cmd = new SqlCommand("SELECT * FROM SumberPeruntukan", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -189,7 +189,7 @@ namespace EPBM.permohonan
 
         private void ddlPBM_Muktamad()
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             con.Open();
             SqlCommand cmd = new SqlCommand("SELECT * FROM PBMMuktamad", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -208,7 +208,7 @@ namespace EPBM.permohonan
         {
 
             this.ddlBahagian.Items.Clear();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
                 connection.Open();
                 SqlDataReader reader = new SqlCommand("SELECT * FROM Jabatan", connection).ExecuteReader();
@@ -227,7 +227,7 @@ namespace EPBM.permohonan
         protected void ddlJabatan_SelectedIndexChanged(object sender, EventArgs e)
         {    
             this.ddlBahagian.Items.Clear();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
                 connection.Open();
 
@@ -265,7 +265,7 @@ namespace EPBM.permohonan
         protected void ddlBahagian_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             conn.Open();           
             DataTable dt = new DataTable();
 
@@ -296,7 +296,7 @@ namespace EPBM.permohonan
 
 
 
-            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             sqlConnection.Open();
 
             txttkhcipta.Text = DateTime.Now.Date.ToString("dd-MMM-yyyy");

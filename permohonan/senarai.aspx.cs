@@ -34,7 +34,7 @@ namespace EPBM.Permohonan
         private void Load_GridData()
         {
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ePBM_Conn"].ConnectionString);
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
 
             conn.Open();
 
