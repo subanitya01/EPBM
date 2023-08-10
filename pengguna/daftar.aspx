@@ -17,7 +17,7 @@
 						<asp:ListItem>E-MEL</asp:ListItem>  
 					</asp:DropDownList>
 					<asp:TextBox ID="txtSearch" CssClass="form-control w-25" placeholder="Carian..." required="required" runat="server"></asp:TextBox>
-					<asp:LinkButton ID="btnSearch" CssClass="btn btn-primary" runat="server" OnClick="BtnSearch_Click"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
+					<asp:LinkButton ID="btnSearch" CssClass="btn btn-primary" runat="server" OnClick="BtnSearch_Click" CausesValidation="False"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
 				</div>
 			</asp:Panel>
 		</div>
@@ -83,7 +83,7 @@
 								CommandName='<%# Eval("E-MEL") %>' 
 								CommandArgument='<%# Eval("NO K/P") %>' 
 								OnClick="BtnAddUser_Click"
-								OnClientClick='<%# string.Concat("if(!popup(this",",",Eval("[NO K/P]"),",\"",Eval("NAMA"),"\"))return false; ") %>'
+								OnClientClick='<%# string.Concat("if(!popup(this",",\"",Eval("[NO K/P]"),"\",\"",Eval("NAMA"),"\"))return false; ") %>'
 							>
 								<i class="align-middle" data-feather="plus-circle"></i>
 							</asp:LinkButton>
@@ -109,9 +109,17 @@
 						   RepeatColumns="1"
 						   RepeatDirection="Vertical"
 						   RepeatLayout="Flow"
-						   TextAlign="Right"
+						   TextAlign="Right" 
+							CssClass="d-block"
 						   runat="server">
 					  </asp:CheckBoxList>
+						<asp:CustomValidator 
+							ID="RequiredRoleValidator" 
+							ClientValidationFunction="ValidateCheckBoxList"
+							runat="server" 
+							CssClass="text-danger"
+							ErrorMessage="Sila pilih sekurang-kurangnya satu peranan!">
+						</asp:CustomValidator>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -125,7 +133,19 @@
 		function popup(lnk, id, Name) {    
             document.querySelector("#addModal .modal-header h5").innerText = Name + " (" + id + ")";
             document.querySelector("#addModal .modal-footer a").setAttribute('href', lnk.getAttribute('href')); 
-    
-        }    
+		} 
+
+        function ValidateCheckBoxList(sender, args) {
+            var checkBoxList = document.getElementById("<%=CheckBoxList1.ClientID %>");
+			var checkboxes = checkBoxList.getElementsByTagName("input");
+			var isValid = false;
+			for (var i = 0; i < checkboxes.length; i++) {
+				if (checkboxes[i].checked) {
+					isValid = true;
+					break;
+				}
+			}
+			args.IsValid = isValid;
+		}
     </script>  
 </asp:Content>

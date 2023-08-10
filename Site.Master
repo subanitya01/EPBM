@@ -33,9 +33,9 @@
 						<a class="sidebar-link" href="/">
 						  <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Utama</span>
 						</a>
+					</li>
 					<li class="sidebar-header">
 						Permohonan
-					</li>
 					</li>
 
 					<li class="sidebar-item">
@@ -104,6 +104,7 @@
 						  <i class="align-middle" data-feather="users"></i> <span class="align-middle">Senarai Pengguna</span>
 						</a>
 					</li>
+				</ul>
 			</div>
 		</nav>
 		

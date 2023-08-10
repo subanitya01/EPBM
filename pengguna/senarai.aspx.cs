@@ -35,7 +35,7 @@ namespace EPBM.pengguna
 
             foreach (DataRow row in EpbmDT.Rows)
             {
-                userValues.Add("(" + row["Id"] + ",'" + row["UserName"] + "','" + row["RoleName"] + "')");
+                userValues.Add("('" + row["Id"] + "','" + row["UserName"] + "','" + row["RoleName"] + "')");
             }
 
             //get user info from eProfile

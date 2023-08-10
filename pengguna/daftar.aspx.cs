@@ -11,6 +11,8 @@ using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using EPBM.auth;
+using System.Data.Entity.Validation;
 
 namespace EPBM.pengguna
 {
@@ -46,7 +48,7 @@ namespace EPBM.pengguna
 
             foreach (DataRow row in EpbmDT.Rows)
             {
-                userValues.Add("(" + row["Id"] + ",'" + row["UserName"] + "','" + row["RoleName"] + "')");
+                userValues.Add("('" + row["Id"] + "','" + row["UserName"] + "','" + row["RoleName"] + "')");
             }
             //get user info from eProfile
             string selectData = "Select UP.ICNO as 'NO K/P', UserEmail as 'E-MEL', FullName as 'NAMA', O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN', EU.Id as 'Exist' ";
@@ -123,34 +125,50 @@ namespace EPBM.pengguna
         {
             GridView1.PageIndex = 0; 
             Panel2.Visible = true;
+
+            ViewState["txtSearch"] = txtSearch.Text.Trim();
+            ViewState["listSearchCol"] = listSearchCol.Text.Trim();
             BindData(txtSearch.Text.Trim(), listSearchCol.Text.Trim(), true);
         }
 
         protected void BtnAddUser_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
-            string IcNo = btn.CommandArgument.ToString();
-            string Email = btn.CommandName;
-            var userStore = new UserStore<IdentityUser>();
-            var manager = new UserManager<IdentityUser>(userStore);
-
-            var user = new IdentityUser() { Id= IcNo, UserName = IcNo, Email = Email };
-            IdentityResult result = manager.Create(user);
-            
-            if (result.Succeeded)
+            string IcNo = btn.CommandArgument.ToString().Trim();
+            if (ViewState["addedIcNo"] == null || IcNo != ViewState["addedIcNo"].ToString())
             {
-                var currentUser = manager.FindByName(user.UserName);
-
-                foreach (ListItem item in CheckBoxList1.Items)
+                try
                 {
-                    if (item.Selected)
-                        manager.AddToRole(currentUser.Id, item.Value);
+                    string Email = btn.CommandName;
+                    var userStore = new UserStore<IdentityUser>();
+                    var manager = new UserManager<IdentityUser>(userStore);
+
+                    var user = new IdentityUser() { Id = IcNo, UserName = IcNo, Email = Email };
+                    IdentityResult result = manager.Create(user);
+
+                    if (result.Succeeded)
+                    {
+                        var currentUser = manager.FindByName(user.UserName);
+
+                        foreach (ListItem item in CheckBoxList1.Items)
+                        {
+                            if (item.Selected)
+                                manager.AddToRole(currentUser.Id, item.Value);
+                        }
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.success('Pengguna berjaya ditambah!');", true);
+                        ViewState["addedIcNo"] = IcNo;
+                        BindData(ViewState["txtSearch"].ToString(), ViewState["listSearchCol"].ToString(), true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
+                    }
                 }
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.success('Pengguna berjaya ditambah!');", true);
-            }
-            else
-            {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
+                catch (Exception ex)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" +ex.Message + "\");", true);
+                }
+                CheckBoxList1.ClearSelection();
             }
         }
     }
