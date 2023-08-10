@@ -43,7 +43,7 @@ namespace EPBM.auth
                 string connString = ConfigurationManager.ConnectionStrings["NRE_ProfileConnectionString"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    SqlCommand sqlcmd = new SqlCommand("Select UC.UserName, UC.LoginType, UserEmail, PhoneNo, FullName, Designation, ProfileImage, O.Name as Department, OG.Name as Organization from UserProfile UP, UserCredential UC, Organization O, OrganizationGroup OG WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId And UP.Blocked='False' And UP.Deleted='False' And UP.ICNO=@nokp", conn);
+                    SqlCommand sqlcmd = new SqlCommand("Select UC.UserName, UC.LoginType, UserEmail, PhoneNo, FullName, Designation, ProfileImage, O.Name as Department, OG.Name, UP.ICNO as Organization from UserProfile UP, UserCredential UC, Organization O, OrganizationGroup OG WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId And UP.Blocked='False' And UP.Deleted='False' And UP.ICNO=@nokp", conn);
                     sqlcmd.Parameters.AddWithValue("@nokp", txtUsername.Text);
                     conn.Open();
                     SqlDataAdapter sda = new SqlDataAdapter(sqlcmd);
