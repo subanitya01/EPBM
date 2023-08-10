@@ -32,7 +32,7 @@ namespace EPBM.pengguna
             {
                 ListItem item = new ListItem();
                 item.Text = row["Name"].ToString();
-                item.Value = row["Id"].ToString();
+                //item.Value = row["Id"].ToString();
                 //item.Selected = Convert.ToBoolean(sdr["IsSelected"]);
                 CheckBoxList1.Items.Add(item);
             }
@@ -136,9 +136,16 @@ namespace EPBM.pengguna
 
             var user = new IdentityUser() { Id= IcNo, UserName = IcNo, Email = Email };
             IdentityResult result = manager.Create(user);
-
+            
             if (result.Succeeded)
             {
+                var currentUser = manager.FindByName(user.UserName);
+
+                foreach (ListItem item in CheckBoxList1.Items)
+                {
+                    if (item.Selected)
+                        manager.AddToRole(currentUser.Id, item.Value);
+                }
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.success('Pengguna berjaya ditambah!');", true);
             }
             else
