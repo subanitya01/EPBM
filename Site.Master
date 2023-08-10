@@ -145,9 +145,9 @@
 					</p>
 				</div>
 			</footer>
+			<script src="<%= ResolveUrl("~/assets/js/app.js") %>"></script>
 		</form>
 	</div>
-	<script src="<%= ResolveUrl("~/assets/js/app.js") %>"></script>
 	<asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">
     </asp:ContentPlaceHolder>
 </body>

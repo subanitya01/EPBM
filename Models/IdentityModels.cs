@@ -9,7 +9,7 @@ using Microsoft.Owin.Security;
 using EPBM.Models;
 
 namespace EPBM.Models
-{
+{/*
     public class UserRole : IdentityUserRole<int>
     {
     }
@@ -28,23 +28,22 @@ namespace EPBM.Models
         public Role(string name) { Name = name; }
     }
 
-    public class UserStore : UserStore<ApplicationUser, Role, int,
-        UserLogin, UserRole, UserClaim>
+    public class UserStore : UserStore<ApplicationUser>
     {
         public UserStore(ApplicationDbContext context) : base(context)
         {
         }
     }
-
+    
     public class RoleStore : RoleStore<Role, int, UserRole>
     {
         public RoleStore(ApplicationDbContext context) : base(context)
         {
         }
-    }
+    }*/
 
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser<int, UserLogin, UserRole, UserClaim>
+    public class ApplicationUser : IdentityUser/*<int, UserLogin, UserRole, UserClaim>*/
     {
         public DateTime? ActiveUntil;
 
@@ -57,8 +56,8 @@ namespace EPBM.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, int,
-        UserLogin, UserRole, UserClaim>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser/*, Role, int,
+        UserLogin, UserRole, UserClaim*/>
     {
         public ApplicationDbContext()
             : base("DefaultConnection")

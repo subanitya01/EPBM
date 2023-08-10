@@ -128,13 +128,23 @@ namespace EPBM.pengguna
 
         protected void BtnAddUser_Click(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            LinkButton btn = (LinkButton)sender;
             string IcNo = btn.CommandArgument.ToString();
+            string Email = btn.CommandName;
             var userStore = new UserStore<IdentityUser>();
             var manager = new UserManager<IdentityUser>(userStore);
 
-            var user = new IdentityUser() { UserName = IcNo };
-            IdentityResult result = manager.Create(user, null);
+            var user = new IdentityUser() { Id= IcNo, UserName = IcNo, Email = Email };
+            IdentityResult result = manager.Create(user);
+
+            if (result.Succeeded)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.success('Pengguna berjaya ditambah!');", true);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
+            }
         }
     }
 }

@@ -80,7 +80,9 @@
 								data-bs-toggle="modal" 
 								data-bs-target="#addModal" 
 								title="Tambah"
-								CommandArgument='<%# Eval("NO K/P") %>'
+								CommandName='<%# Eval("E-MEL") %>' 
+								CommandArgument='<%# Eval("NO K/P") %>' 
+								OnClick="BtnAddUser_Click"
 								OnClientClick='<%# string.Concat("if(!popup(this",",",Eval("[NO K/P]"),",\"",Eval("NAMA"),"\"))return false; ") %>'
 							>
 								<i class="align-middle" data-feather="plus-circle"></i>
@@ -119,33 +121,11 @@
 			</div>
 		</div>
 	</asp:Panel>
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
-        <script>    
-			function popup(lnk, id, Name) {    
-                document.querySelector("#addModal .modal-header h5").innerText = Name + " (" + id + ")";
-                document.querySelector("#addModal .modal-footer a").setAttribute('href', lnk.getAttribute('href'));
-                //__doPostBack('ctl00$ContentPlaceHolder3$GridView1$ctl02$lnkDelete','')
-                /*    BootstrapDialog.confirm({    
-                    title: 'WARNING',    
-                    message: 'Do You Want To Delete <b>'+Name+'</b>',    
-                    type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY    
-                    closable: true, // <-- Default value is false    
-                    draggable: true, // <-- Default value is false    
-                    btnCancelLabel: 'Cancel', // <-- Default value is 'Cancel',    
-                    btnOKLabel: 'Ok', // <-- Default value is 'OK',    
-                    btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,    
-                    callback: function (result) {    
-                        // result will be true if button was click, while it will be false if users close the dialog directly.    
-                        if (result) {    
-                             javascript: __doPostBack('grdDemo$ctl02$lnkDelete', '');    
+    <script>    
+		function popup(lnk, id, Name) {    
+            document.querySelector("#addModal .modal-header h5").innerText = Name + " (" + id + ")";
+            document.querySelector("#addModal .modal-footer a").setAttribute('href', lnk.getAttribute('href')); 
     
-                        } else {    
-                            BootstrapDialog.closeAll();    
-                        }    
-                    }    
-                }); */   
-    
-            }    
-        </script>  
+        }    
+    </script>  
 </asp:Content>
