@@ -155,18 +155,18 @@ namespace EPBM.pengguna
                             if (item.Selected)
                                 manager.AddToRole(currentUser.Id, item.Value);
                         }
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.success('Pengguna berjaya ditambah!');", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "notyf.success('Pengguna berjaya ditambah!');", true);
                         ViewState["addedIcNo"] = IcNo;
                         BindData(ViewState["txtSearch"].ToString(), ViewState["listSearchCol"].ToString(), true);
                     }
                     else
                     {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
                     }
                 }
                 catch (Exception ex)
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" +ex.Message + "\");", true);
+                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" +ex.Message + "\")", true);
                 }
                 CheckBoxList1.ClearSelection();
             }

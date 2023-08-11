@@ -32,11 +32,20 @@ namespace EPBM.pengguna
             DataTable EpbmDT = Utils.GetDataTable("Select U.Id, MAX(UserName) as UserName, STRING_AGG(R.Name, ',') AS RoleName from AspNetUsers U left join AspNetUserRoles UR on UR.UserId=U.Id left join ASpNetRoles R on UR.RoleId=R.Id group by U.Id");
 
             List<String> userValues = new List<String>();
+            List<String> ics = new List<String>();
 
             foreach (DataRow row in EpbmDT.Rows)
             {
                 userValues.Add("('" + row["Id"] + "','" + row["UserName"] + "','" + row["RoleName"] + "')");
+                ics.Add("'" + row["Id"] + "'");
             }
+
+            //get user info from eProfile
+            /*string CommandText = "Select EU.Id, RoleName, UP.ICNO as 'NO K/P', UC.UserName as 'NAMA PENGGUNA', UC.LoginType, UserEmail as 'E-MEL', PhoneNo as 'NO. TEL', FullName as 'NAMA', Designation as 'JAWATAN', ProfileImage, O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN',  IIF(UP.Blocked='True' Or UP.Deleted='True', 1, 0) as Inactive "
+                            + "from UserCredential UC, Organization O, OrganizationGroup OG, (select top " + ics.Count() + " from UserProfile where IcNo in (" + string.Join(",", ics.ToArray()) + ") group by IcNo order by Blocked asc, Deleted asc) UP "
+                            + "inner join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, IcNo, RoleName)) as EU on EU.IcNo=UP.ICNO "
+                            + "WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId";*/
+
 
             //get user info from eProfile
             string CommandText = "Select EU.Id, RoleName, UP.ICNO as 'NO K/P', UC.UserName as 'NAMA PENGGUNA', UC.LoginType, UserEmail as 'E-MEL', PhoneNo as 'NO. TEL', FullName as 'NAMA', Designation as 'JAWATAN', ProfileImage, O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN',  IIF(UP.Blocked='True' Or UP.Deleted='True', 1, 0) as Inactive "

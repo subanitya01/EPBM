@@ -14,22 +14,31 @@ namespace EPBM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(Session["Profile.UserName"] as string))
+                logout();
             if (!IsPostBack)
             {
-                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+
+                /*if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     Response.Redirect("~/auth/login.aspx", false);
-                }
+                }*/
+
             }
         }
 
         protected void LinkButton1_Command(object sender, EventArgs e)
         {
+            logout();
+        }
+
+        protected void logout()
+        {
             var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
             authenticationManager.SignOut();
             Session.Abandon();
             Response.Cookies.Clear();
-            Response.Redirect("/auth/login.aspx");
+            Response.Redirect("~/auth/login.aspx", false);
         }
     }
 }

@@ -95,26 +95,33 @@ namespace EPBM
 
         public override Task<bool> CheckPasswordAsync(ApplicationUser user, string password)
         {
-            if (this.LoginType == "1") // login AD
-            {
-                return Task.FromResult(LoginAD(this.ProfileUsername, password));
-            }
-            else    // login profile
-            {
-                return Task.FromResult(LoginProfile(user.UserName, password));
-            }
+                if (this.LoginType == "1") // login AD
+                {
+                    return Task.FromResult(LoginAD(this.ProfileUsername, password));
+                }
+                else    // login profile
+                {
+                    return Task.FromResult(LoginProfile(user.UserName, password));
+                }
         }
 
         protected bool LoginAD(string username, string password)
         {
-            string adPath = "LDAP://wsa.gov:3268/dc=wsa,dc=gov"; //Path to your LDAP directory server
-            LdapAuthentication adAuth = new LdapAuthentication(adPath);
-
-            if (true == adAuth.IsAuthenticated(username, password)) //check if user exist
+            try
             {
-                return true;
+                string adPath = "LDAP://wsa.gov:3268/dc=wsa,dc=gov"; //Path to your LDAP directory server
+                LdapAuthentication adAuth = new LdapAuthentication(adPath);
+
+                if (true == adAuth.IsAuthenticated(username, password)) //check if user exist
+                {
+                    return true;
+                }
+                else { return false; }
             }
-            else { return false; }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         protected bool LoginProfile(string nokp, string password)
