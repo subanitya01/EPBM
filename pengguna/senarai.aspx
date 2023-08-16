@@ -39,6 +39,7 @@
 				OnRowCommand="GridView1_RowCommand" 
 				OnDataBound="GridView1_DataBound" 
 				OnRowDataBound="GridView1_OnRowDataBound" 
+				OnRowDeleting="GridView1_RowDeleting"
 				AutoGenerateColumns="False" 
 				CssClass="table table-bordered table-striped table-hover" 
 				OnPageIndexChanging="GridView1_PageIndexChanging" 

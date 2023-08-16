@@ -9,7 +9,8 @@ using Microsoft.Owin.Security;
 using EPBM.Models;
 
 namespace EPBM.Models
-{/*
+{
+    /*
     public class UserRole : IdentityUserRole<int>
     {
     }
@@ -46,6 +47,7 @@ namespace EPBM.Models
     public class ApplicationUser : IdentityUser/*<int, UserLogin, UserRole, UserClaim>*/
     {
         public DateTime? ActiveUntil;
+        public long? ProfileId { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUserManager manager)
         {

@@ -29,14 +29,14 @@ namespace EPBM.pengguna
         protected void BindData(string searchTerm=null, string searchCol=null)
         {
             //Get users
-            DataTable EpbmDT = Utils.GetDataTable("Select U.Id, MAX(UserName) as UserName, STRING_AGG(R.Name, ',') AS RoleName from AspNetUsers U left join AspNetUserRoles UR on UR.UserId=U.Id left join ASpNetRoles R on UR.RoleId=R.Id group by U.Id");
+            DataTable EpbmDT = Utils.GetDataTable("Select U.Id, MAX(UserName) as UserName, max(ProfileId) as ProfileId, STRING_AGG(R.Name, ',') AS RoleName from AspNetUsers U left join AspNetUserRoles UR on UR.UserId=U.Id left join ASpNetRoles R on UR.RoleId=R.Id group by U.Id");
 
             List<String> userValues = new List<String>();
             List<String> ics = new List<String>();
 
             foreach (DataRow row in EpbmDT.Rows)
             {
-                userValues.Add("('" + row["Id"] + "','" + row["UserName"] + "','" + row["RoleName"] + "')");
+                userValues.Add("('" + row["Id"] + "','" + row["ProfileId"] + "','" + row["RoleName"] + "')");
                 ics.Add("'" + row["Id"] + "'");
             }
 
@@ -50,7 +50,7 @@ namespace EPBM.pengguna
             //get user info from eProfile
             string CommandText = "Select EU.Id, RoleName, UP.ICNO as 'NO K/P', UC.UserName as 'NAMA PENGGUNA', UC.LoginType, UserEmail as 'E-MEL', PhoneNo as 'NO. TEL', FullName as 'NAMA', Designation as 'JAWATAN', ProfileImage, O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN',  IIF(UP.Blocked='True' Or UP.Deleted='True', 1, 0) as Inactive "
                             + "from UserCredential UC, Organization O, OrganizationGroup OG, UserProfile UP "
-                            + "inner join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, IcNo, RoleName)) as EU on EU.IcNo=UP.ICNO "
+                            + "inner join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, ProfileId, RoleName)) as EU on EU.ProfileId=UP.UserId "
                             + "WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId";
 
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
@@ -204,6 +204,7 @@ namespace EPBM.pengguna
                     {"@Id",  lnkView.CommandArgument }
                 };
                 Utils.ExcuteQuery("DELETE FROM AspNetUsers WHERE Id = @Id", queryParams);
+                BindData();
                 /*LinkButton lnkView = (LinkButton)e.CommandSource;
                 string dealId = lnkView.CommandArgument;
                 List<Details> data = (List<Details>)ViewState["Data"];
@@ -213,6 +214,10 @@ namespace EPBM.pengguna
                 //System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertBox", "BootstrapDialog.alert('Record Deleted Successfully.');", true);
                 //data.    
             }
+        }
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
         }
 
         protected void Search(object sender, EventArgs e)

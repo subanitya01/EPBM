@@ -13,6 +13,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using EPBM.auth;
 using System.Data.Entity.Validation;
+using EPBM.Models;
 
 namespace EPBM.pengguna
 {
@@ -42,18 +43,18 @@ namespace EPBM.pengguna
         protected void BindData(string searchTerm = null, string searchCol = null, bool count=false)
         {
             //Get users
-            DataTable EpbmDT = Utils.GetDataTable("Select U.Id, MAX(UserName) as UserName, STRING_AGG(R.Name, ',') AS RoleName from AspNetUsers U left join AspNetUserRoles UR on UR.UserId=U.Id left join ASpNetRoles R on UR.RoleId=R.Id group by U.Id");
+            DataTable EpbmDT = Utils.GetDataTable("Select U.Id, MAX(ProfileId) as ProfileId, STRING_AGG(R.Name, ',') AS RoleName from AspNetUsers U left join AspNetUserRoles UR on UR.UserId=U.Id left join ASpNetRoles R on UR.RoleId=R.Id group by U.Id");
 
             List<String> userValues = new List<String>();
 
             foreach (DataRow row in EpbmDT.Rows)
             {
-                userValues.Add("('" + row["Id"] + "','" + row["UserName"] + "','" + row["RoleName"] + "')");
+                userValues.Add("('" + row["Id"] + "','" + row["ProfileId"] + "','" + row["RoleName"] + "')");
             }
             //get user info from eProfile
-            string selectData = "Select UP.ICNO as 'NO K/P', UserEmail as 'E-MEL', FullName as 'NAMA', O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN', EU.Id as 'Exist' ";
+            string selectData = "Select UP.UserId as ProfileId, UP.ICNO as 'NO K/P', UserEmail as 'E-MEL', FullName as 'NAMA', O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN', EU.Id as 'Exist' ";
             string CommandText = "from UserCredential UC, Organization O, OrganizationGroup OG, UserProfile UP "
-                            + "left join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, IcNo, RoleName)) as EU on EU.IcNo=UP.ICNO "
+                            + "left join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, ProfileId, RoleName)) as EU on EU.ProfileId=UP.UserId "
                             + "WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId And UP.Blocked='False' And UP.Deleted='False'";
             Dictionary<string, string> queryParams = new Dictionary<string, string>();
             if (!string.IsNullOrEmpty(searchTerm))
@@ -139,11 +140,12 @@ namespace EPBM.pengguna
             {
                 try
                 {
-                    string Email = btn.CommandName;
-                    var userStore = new UserStore<IdentityUser>();
-                    var manager = new UserManager<IdentityUser>(userStore);
+                    string Email = HiddenField1.Value;
+                    long ProfileId = Convert.ToInt32(HiddenField2.Value);
+                    var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                    var manager = new UserManager<ApplicationUser>(userStore);
 
-                    var user = new IdentityUser() { Id = IcNo, UserName = IcNo, Email = Email };
+                    var user = new ApplicationUser() { Id = IcNo, UserName = IcNo, Email = Email, ProfileId = ProfileId };
                     IdentityResult result = manager.Create(user);
 
                     if (result.Succeeded)
@@ -161,12 +163,12 @@ namespace EPBM.pengguna
                     }
                     else
                     {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
                     }
                 }
                 catch (Exception ex)
                 {
-                    //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" +ex.Message + "\")", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" +ex.Message + "\")", true);
                 }
                 CheckBoxList1.ClearSelection();
             }

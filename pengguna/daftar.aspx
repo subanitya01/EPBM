@@ -83,7 +83,7 @@
 								CommandName='<%# Eval("E-MEL") %>' 
 								CommandArgument='<%# Eval("NO K/P") %>' 
 								OnClick="BtnAddUser_Click"
-								OnClientClick='<%# string.Concat("if(!popup(this",",\"",Eval("[NO K/P]"),"\",\"",Eval("NAMA"),"\"))return false; ") %>'
+								OnClientClick='<%# string.Concat("if(!popup(this",",\"",Eval("[NO K/P]"),"\",\"",Eval("NAMA"),"\",\"",Eval("ProfileId"),"\",\"",Eval("E-MEL"),"\"))return false; ") %>'
 							>
 								<i class="align-middle" data-feather="plus-circle"></i>
 							</asp:LinkButton>
@@ -120,6 +120,8 @@
 							CssClass="text-danger"
 							ErrorMessage="Sila pilih sekurang-kurangnya satu peranan!">
 						</asp:CustomValidator>
+						<asp:HiddenField ID="HiddenField1" runat="server" />
+						<asp:HiddenField ID="HiddenField2" runat="server" />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -130,9 +132,11 @@
 		</div>
 	</asp:Panel>
     <script>    
-		function popup(lnk, id, Name) {    
+		function popup(lnk, id, Name, ProfileId, Email) {    
             document.querySelector("#addModal .modal-header h5").innerText = Name + " (" + id + ")";
-            document.querySelector("#addModal .modal-footer a").setAttribute('href', lnk.getAttribute('href')); 
+			document.querySelector("#addModal .modal-footer a").setAttribute('href', lnk.getAttribute('href'));
+            document.getElementById("<%=HiddenField1.ClientID %>").value = Email;
+            document.getElementById("<%=HiddenField2.ClientID %>").value = ProfileId;
 		} 
 
         function ValidateCheckBoxList(sender, args) {
