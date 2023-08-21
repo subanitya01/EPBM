@@ -86,9 +86,7 @@ namespace EPBM.permohonan
 
             if (ddlJenisPertimbangan.SelectedValue == "99")
             {
-                //string sMsg = "Rekod telah berjaya dihantar";
-                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + sMsg + "')", true);
-                ////Response.Redirect("/Permohonan/senarai.aspx");
+            
                 PnlJenisPertimbangan.Visible = true;
             }
 
@@ -138,9 +136,7 @@ namespace EPBM.permohonan
 
             if (ddlJenisPerolehan.SelectedValue == "99")
             {
-                //string sMsg = "Rekod telah berjaya dihantar";
-                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + sMsg + "')", true);
-                ////Response.Redirect("/Permohonan/senarai.aspx");
+    
                 PnlJenisPerolehan.Visible = true;
             }
 
@@ -173,9 +169,7 @@ namespace EPBM.permohonan
 
             if (ddlSumberPeruntukan.SelectedValue == "99")
             {
-                //string sMsg = "Rekod telah berjaya dihantar";
-                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + sMsg + "')", true);
-                ////Response.Redirect("/Permohonan/senarai.aspx");
+                
                 PnlSumberPeruntukan.Visible = true;
             }
 
@@ -294,40 +288,47 @@ namespace EPBM.permohonan
             DateTime tkhterima = SystemHelper.GetDateTime(txttkhterima.Text);
             DateTime tkhsahlaku = SystemHelper.GetDateTime(txttkhsahlaku.Text);
 
+            MessageAlert.Visible = false;
 
+           if (!cbPerakuan1.Checked)
+            {
+                MessageAlert.Visible = true;
+            }
+            else
+            {
+                SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                sqlConnection.Open();
 
-            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            sqlConnection.Open();
+                txttkhcipta.Text = DateTime.Now.Date.ToString("dd-MMM-yyyy");
 
-            txttkhcipta.Text = DateTime.Now.Date.ToString("dd-MMM-yyyy");
-          
-            string query = "INSERT INTO Permohonan (Tajuk,IdJenisPertimbangan,LainJenisPertimbangan,IdKaedahPerolehan,IdJenisPerolehan,LainJenisPerolehan,IdJabatan,IdBahagian,Harga,IdSumberPeruntukan,LainSumberPeruntukan,TarikhSahlaku,TarikhTerima,LulusPelanPPT,IdPBMMuktamad,IdStatusPermohonan,CatatanPendaftar,TarikhDicipta,DiciptaOleh,NamaBahagian) values (@Tajuk,@IdJenisPertimbangan,@LainJenisPertimbangan,@IdKaedahPerolehan,@IdJenisPerolehan,@LainJenisPerolehan,@IdJabatan,@IdBahagian,@Harga,@IdSumberPeruntukan,@LainSumberPeruntukan,@TarikhSahlaku,@TarikhTerima,@LulusPelanPPT,@IdPBMMuktamad,'1',@CatatanPendaftar,@TarikhDicipta,@DiciptaOleh,@NamaBahagian)";
-            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-             
-            sqlCommand.Parameters.AddWithValue("@Tajuk", txt_tajuk.Text);
-            sqlCommand.Parameters.AddWithValue("@IdJenisPertimbangan", ddlJenisPertimbangan.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@LainJenisPertimbangan", txtJenisPertimbangan.Text);
-            sqlCommand.Parameters.AddWithValue("@IdKaedahPerolehan", ddlKaedahPerolehan.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@IdJenisPerolehan",ddlJenisPerolehan.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@LainJenisPerolehan", txtJenisPerolehan.Text);
-            sqlCommand.Parameters.AddWithValue("@IdJabatan", ddlJabatan.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@IdBahagian", ddlBahagian.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@Harga", txtharga.Text);
-            sqlCommand.Parameters.AddWithValue("@IdSumberPeruntukan", ddlSumberPeruntukan.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@LainSumberPeruntukan", txtSumberPeruntukan.Text);
-            sqlCommand.Parameters.AddWithValue("@TarikhSahlaku", tkhsahlaku);  
-            sqlCommand.Parameters.AddWithValue("@TarikhTerima", tkhterima);
-            sqlCommand.Parameters.AddWithValue("@LulusPelanPPT", cbPerakuan1.Checked ? "True" : "False");
-            sqlCommand.Parameters.AddWithValue("@IdPBMMuktamad", ddlPBMMuktamad.SelectedValue);
-            sqlCommand.Parameters.AddWithValue("@CatatanPendaftar", txtcatatan.Text); 
-            sqlCommand.Parameters.AddWithValue("@TarikhDicipta", txttkhcipta.Text);
-            sqlCommand.Parameters.AddWithValue("@DiciptaOleh", txticno.Text);
-            sqlCommand.Parameters.AddWithValue("@NamaBahagian", ddlBahagian.SelectedItem.ToString());
+                string query = "INSERT INTO Permohonan (Tajuk,IdJenisPertimbangan,LainJenisPertimbangan,IdKaedahPerolehan,IdJenisPerolehan,LainJenisPerolehan,IdJabatan,IdBahagian,Harga,IdSumberPeruntukan,LainSumberPeruntukan,TarikhSahlaku,TarikhTerima,LulusPelanPPT,IdPBMMuktamad,IdStatusPermohonan,CatatanPendaftar,TarikhDicipta,DiciptaOleh,NamaBahagian) values (@Tajuk,@IdJenisPertimbangan,@LainJenisPertimbangan,@IdKaedahPerolehan,@IdJenisPerolehan,@LainJenisPerolehan,@IdJabatan,@IdBahagian,@Harga,@IdSumberPeruntukan,@LainSumberPeruntukan,@TarikhSahlaku,@TarikhTerima,@LulusPelanPPT,@IdPBMMuktamad,'1',@CatatanPendaftar,@TarikhDicipta,@DiciptaOleh,@NamaBahagian)";
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
-            sqlCommand.ExecuteNonQuery();
-            Response.Redirect("/Permohonan/senarai.aspx");
-            sqlConnection.Close();
+                sqlCommand.Parameters.AddWithValue("@Tajuk", txt_tajuk.Text);
+                sqlCommand.Parameters.AddWithValue("@IdJenisPertimbangan", ddlJenisPertimbangan.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@LainJenisPertimbangan", txtJenisPertimbangan.Text);
+                sqlCommand.Parameters.AddWithValue("@IdKaedahPerolehan", ddlKaedahPerolehan.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@IdJenisPerolehan", ddlJenisPerolehan.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@LainJenisPerolehan", txtJenisPerolehan.Text);
+                sqlCommand.Parameters.AddWithValue("@IdJabatan", ddlJabatan.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@IdBahagian", ddlBahagian.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@Harga", txtharga.Text);
+                sqlCommand.Parameters.AddWithValue("@IdSumberPeruntukan", ddlSumberPeruntukan.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@LainSumberPeruntukan", txtSumberPeruntukan.Text);
+                sqlCommand.Parameters.AddWithValue("@TarikhSahlaku", tkhsahlaku);
+                sqlCommand.Parameters.AddWithValue("@TarikhTerima", tkhterima);
+                sqlCommand.Parameters.AddWithValue("@LulusPelanPPT", cbPerakuan1.Checked ? "True" : "False");
+                sqlCommand.Parameters.AddWithValue("@IdPBMMuktamad", ddlPBMMuktamad.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@CatatanPendaftar", txtcatatan.Text);
+                sqlCommand.Parameters.AddWithValue("@TarikhDicipta", txttkhcipta.Text);
+                sqlCommand.Parameters.AddWithValue("@DiciptaOleh", txticno.Text);
+                sqlCommand.Parameters.AddWithValue("@NamaBahagian", ddlBahagian.SelectedItem.ToString());
 
+                sqlCommand.ExecuteNonQuery();
+                Response.Redirect("/Permohonan/senarai.aspx");
+                sqlConnection.Close();
+
+            }
 
         }
 

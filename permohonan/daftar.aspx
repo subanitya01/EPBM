@@ -12,34 +12,23 @@
 
 <script src="../assets/js/jquery.min.js"></script>
 
-
 <link href="../assets/css/chosen.min.css" rel="stylesheet"/>	
 <script src="../assets/js/jquery.chosen.min.js"></script>
 <link href="../assets/css/chosen.css" rel="stylesheet" />
 
 
-<style>
-    input[type="text" i] {
+<style type="text/css">
+        .messagealert {
+            width: 100%;
+            position: fixed;
+             top:0px;
+            z-index: 100000;
+            padding: 0;
+            font-size: 15px;
+        }
+    </style>
 
-    
-  /*  margin-block-end:6px;*/
-/*    margin-block-start:2.5px;*/
  
-}
-
-.row {
- /*   --bs-gutter-x: 24px;
-    --bs-gutter-y: 1px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: calc(var(--bs-gutter-x)*-.5);
-    margin-right: calc(var(--bs-gutter-x)*-.5);
-    margin-top: 5px;*/
-}
-
-</style>	
-
-
 	<ajaxToolkit:ToolkitScriptManager ID="smPage" runat="server" ScriptMode="Release" />	
     <asp:UpdatePanel ID="upContent" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
@@ -49,6 +38,19 @@
 		<div class="card-body">
 			 <asp:UpdatePanel ID="upApplicationDetails" runat="server" UpdateMode="Conditional">
 				 <ContentTemplate>
+
+        
+            <div id="MessageAlert" runat="server" Visible="false" class="alert alert-warning d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				<div class="alert-icon me-3">
+					<i class="mt-n1" data-feather="bell"></i>
+				</div>
+				<div class="alert-message">
+					Sila Tandakan pada bahagian lulus pelan perancangan perolehan tahunan !<br>
+								 
+				</div>
+			</div>
+
                      <div class="row">
                          <div class="col-12 col-lg-6">
                              <div>
@@ -87,8 +89,9 @@
 
                     <div class="row">
                         <div class="col-12 col-lg-6">
-                            <label class="control-label">KEMENTERIAN /JABATAN <span class="text-danger">*</span></label>
-                            <asp:DropDownList ID="ddlJabatan" runat="server" CssClass="chosen-select" class="form-select mb-3" OnSelectedIndexChanged="ddlJabatan_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            <asp:Label ID ="lblJabatan" runat="server" class="control-label">KEMENTERIAN /JABATAN <span class="text-danger">*</span> </asp:Label>
+                           <%-- <label </label>--%>
+                            <asp:DropDownList ID="ddlJabatan" runat="server" CssClass="chosen-select" class="form-select mb-3" OnSelectedIndexChanged="ddlJabatan_SelectedIndexChanged" required="required" AutoPostBack="true"></asp:DropDownList>
                             <br />
                         </div>
 
@@ -104,7 +107,7 @@
                         <div class="col-12 col-lg-6">
                             <div>
                                 <label class="control-label">HARGA INDIKATIF / NILAI KONTRAK <span class="text-danger">*</span></label>
-                                <asp:TextBox ID="txtharga" runat="server" class="form-control mb-3" type="number" step=".01" autocomplete="off"></asp:TextBox>
+                                <asp:TextBox ID="txtharga" runat="server" class="form-control mb-3" type="number" step=".01" autocomplete="off" required="required"></asp:TextBox>
                                 <%--					<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
                                         ControlToValidate="txtharga" Display="Dynamic"
                                         ErrorMessage="Sila masukan Nombor shj"
@@ -113,7 +116,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
-                            <div> 
+                            <div>
                                 <label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
                                 <asp:DropDownList ID="ddlPBMMuktamad" CssClass="chosen-select" class="form-select mb-3" runat="server" DataTextField="SumberPeruntukan" required="required"></asp:DropDownList>
                             </div>
@@ -207,7 +210,24 @@
     </script>
 
 
-
-
+   <script type="text/javascript">
+       function ShowMessage(message, messagetype) {
+           var cssclass;
+           switch (messagetype) {
+               case 'Success':
+                   cssclass = 'alert-success'
+                   break;
+               case 'Error':
+                   cssclass = 'alert-danger'
+                   break;
+               case 'Warning':
+                   cssclass = 'alert-warning'
+                   break;
+               default:
+                   cssclass = 'alert-info'
+           }
+           $('#alert_container').append('<div id="alert_div" style="margin: 0 0.5%; -webkit-box-shadow: 3px 4px 6px #999;" class="alert fade in ' + cssclass + '"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + messagetype + '!</strong> <span>' + message + '</span></div>');
+       }
+   </script>
 
 </asp:Content>

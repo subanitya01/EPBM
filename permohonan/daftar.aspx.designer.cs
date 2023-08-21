@@ -42,6 +42,15 @@ namespace EPBM.permohonan
         protected global::System.Web.UI.UpdatePanel upApplicationDetails;
 
         /// <summary>
+        /// MessageAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MessageAlert;
+
+        /// <summary>
         /// txt_tajuk control.
         /// </summary>
         /// <remarks>
@@ -112,6 +121,15 @@ namespace EPBM.permohonan
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtJenisPerolehan;
+
+        /// <summary>
+        /// lblJabatan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblJabatan;
 
         /// <summary>
         /// ddlJabatan control.
