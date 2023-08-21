@@ -16,7 +16,7 @@
 						<asp:ListItem>PERANAN</asp:ListItem>  
 					</asp:DropDownList>
 					<asp:TextBox ID="txtSearch" CssClass="form-control w-25" placeholder="Carian..." runat="server"></asp:TextBox>
-					<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary" runat="server" OnClick="Search"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
+					<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary" runat="server" OnClick="Search" CausesValidation="false"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
 				</div>
 			</asp:Panel>
 		</div>
@@ -36,10 +36,8 @@
 				runat="server" 
 				EmptyDataText="Tiada Rekod Dijumpai." 
 				ShowHeaderWhenEmpty="True" 
-				OnRowCommand="GridView1_RowCommand" 
 				OnDataBound="GridView1_DataBound" 
 				OnRowDataBound="GridView1_OnRowDataBound" 
-				OnRowDeleting="GridView1_RowDeleting"
 				AutoGenerateColumns="False" 
 				CssClass="table table-bordered table-striped table-hover" 
 				OnPageIndexChanging="GridView1_PageIndexChanging" 
@@ -92,7 +90,19 @@
                 </asp:TemplateField>
                 <asp:TemplateField ItemStyle-CssClass="text-center">
                     <ItemTemplate>
-						<a href="/mesyuarat/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
+						<asp:LinkButton 
+								ID="BtnEditUser" 
+								runat="server" 
+								CssClass="text-secondary"  
+								data-bs-toggle="modal" 
+								data-bs-target="#editModal" 
+								title="Edit"
+								CommandArgument='<%# Eval("Id") %>' 
+								OnClick="BtnEditUser_Click"
+								OnClientClick='<%# string.Concat("if(!popupEdit(this",",\"",Eval("[NO K/P]"),"\",\"",Eval("NAMA"),"\"))return false; ") %>'
+							>
+								<i class="align-middle" data-feather="edit-2"></i>
+						</asp:LinkButton>
 						<asp:LinkButton 
 							ID="lnkDelete" 
 							runat="server" 
@@ -101,8 +111,9 @@
 							data-bs-target="#deleteModal" 
 							title="Hapus"
 							CommandArgument='<%# Eval("Id") %>' 
-							CommandName="Delete"
-							OnClientClick='<%# string.Concat("if(!popup(this",",",Eval("Id"),",\"",Eval("NAMA"),"\"))return false; ") %>'
+							CausesValidation="false"
+							OnClick="BtnDeleteUser_Click"
+							OnClientClick='<%# string.Concat("if(!popup(this",",",Eval("[NO K/P]"),",\"",Eval("NAMA"),"\"))return false; ") %>'
 						>
 							<i class="align-middle" data-feather="trash"></i>
 						</asp:LinkButton>
@@ -112,6 +123,7 @@
 			</asp:GridView>
 		</div>
 	</div>
+
 	<div class="modal fade" id="deleteModal" tabindex="-1" aria-modal="true" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -124,38 +136,88 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-					<a href="" type="button" class="btn btn-danger">Hapus</a>
+					<a href="#" type="button" class="btn btn-danger">Hapus</a>
 				</div>
 			</div>
 		</div>
 	</div>
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
-        <script>    
-			function popup(lnk, id, Name) {    
-				document.querySelector("#deleteModal .modal-header h5").innerText = Name;
-                document.querySelector("#deleteModal .modal-footer a").setAttribute('href', lnk.getAttribute('href'));
-                //__doPostBack('ctl00$ContentPlaceHolder3$GridView1$ctl02$lnkDelete','')
-                /*    BootstrapDialog.confirm({    
-                    title: 'WARNING',    
-                    message: 'Do You Want To Delete <b>'+Name+'</b>',    
-                    type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY    
-                    closable: true, // <-- Default value is false    
-                    draggable: true, // <-- Default value is false    
-                    btnCancelLabel: 'Cancel', // <-- Default value is 'Cancel',    
-                    btnOKLabel: 'Ok', // <-- Default value is 'OK',    
-                    btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,    
-                    callback: function (result) {    
-                        // result will be true if button was click, while it will be false if users close the dialog directly.    
-                        if (result) {    
-                             javascript: __doPostBack('grdDemo$ctl02$lnkDelete', '');    
-    
-                        } else {    
-                            BootstrapDialog.closeAll();    
-                        }    
-                    }    
-                }); */   
-    
-            }    
-        </script>    
+	<div class="modal fade" id="editModal" tabindex="-1" aria-modal="true" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white text-truncate">???</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body m-3">
+					<h5 class="">Sila Pilih Peranan:</h5>
+					<asp:CheckBoxList id="CheckBoxList1" 
+						AutoPostBack="false"
+						DataValueField="roles"
+						CellPadding="5"
+						CellSpacing="5"
+						RepeatColumns="1"
+						RepeatDirection="Vertical"
+						RepeatLayout="Flow"
+						TextAlign="Right" 
+						CssClass="d-block"
+						runat="server">
+					</asp:CheckBoxList>
+					<asp:CustomValidator 
+						ID="RequiredRoleValidator" 
+						ClientValidationFunction="ValidateCheckBoxList"
+						runat="server" 
+						CssClass="text-danger"
+						ErrorMessage="Sila pilih sekurang-kurangnya satu peranan!">
+					</asp:CustomValidator>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+					<a href="#" type="button" class="btn btn-primary">Simpan</a>
+				</div>
+			</div>
+		</div>
+	</div>
+    <script>   
+        function popup(lnk, id, Name) {
+            document.querySelector("#deleteModal .modal-header h5").innerText = Name + " (" + id + ")";
+            document.querySelector("#deleteModal .modal-footer a").setAttribute('href', lnk.getAttribute('href'));
+
+        }     
+        function popupEdit(lnk, id, Name) {
+            document.querySelector("#editModal .modal-header h5").innerText = Name + " (" + id + ")";
+			document.querySelector("#editModal .modal-footer a").setAttribute('href', lnk.getAttribute('href'));
+            var userRoles = JSON.parse(lnk.getAttribute("data-roles"));
+            userRoles.forEach((role) => {
+                document.querySelector('#<%=CheckBoxList1.ClientID %> input[type="checkbox"][value="' + role + '"]').checked = true;
+			});
+            /*for (const checkbox of document.querySelectorAll('.myCheckBox')) {
+                //iterating over all matched elements
+
+                checkbox.checked = true //for selection
+                checkbox.checked = false //for unselection
+            }
+            var checkBoxList = document.getElementById("<%=CheckBoxList1.ClientID %>");
+            var checkboxes = checkBoxList.getElementsByTagName("input");
+            var isValid = false;
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    isValid = true;
+                    break;
+                }
+            }*/
+		} 
+
+        function ValidateCheckBoxList(sender, args) {
+            var checkBoxList = document.getElementById("<%=CheckBoxList1.ClientID %>");
+            var checkboxes = checkBoxList.getElementsByTagName("input");
+            var isValid = false;
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    isValid = true;
+                    break;
+                }
+            }
+            args.IsValid = isValid;
+        }
+    </script>  
 </asp:Content>

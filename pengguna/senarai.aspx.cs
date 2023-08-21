@@ -17,6 +17,9 @@ using System.Security.Cryptography;
 using System.Collections;
 using System.Runtime.Remoting.Contexts;
 using EPBM.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
+using System.Data.Entity.Infrastructure;
 
 namespace EPBM.pengguna
 {
@@ -24,10 +27,30 @@ namespace EPBM.pengguna
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                initRoleList();
+            }
             BindData();
         }
-        protected void BindData(string searchTerm=null, string searchCol=null)
+
+        protected void initRoleList()
         {
+            DataTable dtRoles = Utils.GetDataTable("Select * from AspNetRoles");
+
+            foreach (DataRow row in dtRoles.Rows)
+            {
+                ListItem item = new ListItem();
+                item.Text = row["Name"].ToString();
+                //item.Value = row["Id"].ToString();
+                //item.Selected = Convert.ToBoolean(sdr["IsSelected"]);
+                CheckBoxList1.Items.Add(item);
+            }
+        }
+        protected void BindData()
+        {
+            string searchTerm = Convert.ToString(ViewState["txtSearch"]) ?? null;
+            string searchCol = Convert.ToString(ViewState["listSearchCol"]) ?? null;
             //Get users
             DataTable EpbmDT = Utils.GetDataTable("Select U.Id, MAX(UserName) as UserName, max(ProfileId) as ProfileId, STRING_AGG(R.Name, ',') AS RoleName from AspNetUsers U left join AspNetUserRoles UR on UR.UserId=U.Id left join ASpNetRoles R on UR.RoleId=R.Id group by U.Id");
 
@@ -48,7 +71,7 @@ namespace EPBM.pengguna
 
 
             //get user info from eProfile
-            string CommandText = "Select EU.Id, RoleName, UP.ICNO as 'NO K/P', UC.UserName as 'NAMA PENGGUNA', UC.LoginType, UserEmail as 'E-MEL', PhoneNo as 'NO. TEL', FullName as 'NAMA', Designation as 'JAWATAN', ProfileImage, O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN',  IIF(UP.Blocked='True' Or UP.Deleted='True', 1, 0) as Inactive "
+            string CommandText = "Select EU.Id, UP.UserId as ProfileId, RoleName, UP.ICNO as 'NO K/P', UC.UserName as 'NAMA PENGGUNA', UC.LoginType, UserEmail as 'E-MEL', PhoneNo as 'NO. TEL', FullName as 'NAMA', Designation as 'JAWATAN', ProfileImage, O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN',  IIF(UP.Blocked='True' Or UP.Deleted='True', 1, 0) as Inactive "
                             + "from UserCredential UC, Organization O, OrganizationGroup OG, UserProfile UP "
                             + "inner join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, ProfileId, RoleName)) as EU on EU.ProfileId=UP.UserId "
                             + "WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId";
@@ -149,21 +172,24 @@ namespace EPBM.pengguna
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                ListView inner = e.Row.FindControl("RoleList") as ListView;
+                ListView roleList = e.Row.FindControl("RoleList") as ListView;
                 Label activeLbl = e.Row.FindControl("lblStatusActive") as Label;
                 Label inactiveLbl = e.Row.FindControl("lblStatusInactive") as Label;
+                LinkButton btnEditUser = e.Row.FindControl("BtnEditUser") as LinkButton;
                 DataTable dt = new DataTable();
                 dt.Columns.AddRange(new DataColumn[2] { new DataColumn("UserId"), new DataColumn("Role") });
                 DataRowView drv = e.Row.DataItem as DataRowView;
                 DataRow[] rows = drv.Row.GetChildRows("userRoles");
+                List<string> roles = new List<string>();
 
                 foreach (DataRow row in rows)
                 {
                     dt.Rows.Add(row["UserId"].ToString(), row["Name"].ToString());
+                    roles.Add(row["Name"].ToString());
                 }
-
-                inner.DataSource = dt;
-                inner.DataBind();
+                btnEditUser.Attributes["data-roles"] = JsonConvert.SerializeObject(roles.ToArray());
+                roleList.DataSource = dt;
+                roleList.DataBind();
 
                 if (drv["Inactive"].ToString()=="1")
                 {
@@ -194,36 +220,62 @@ namespace EPBM.pengguna
             }
         }
 
-        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "Delete")
-            {
-                LinkButton lnkView = (LinkButton)e.CommandSource;
-                Dictionary<string, string> queryParams = new Dictionary<string, string>()
-                {
-                    {"@Id",  lnkView.CommandArgument }
-                };
-                Utils.ExcuteQuery("DELETE FROM AspNetUsers WHERE Id = @Id", queryParams);
-                BindData();
-                /*LinkButton lnkView = (LinkButton)e.CommandSource;
-                string dealId = lnkView.CommandArgument;
-                List<Details> data = (List<Details>)ViewState["Data"];
-                data.RemoveAll(d => d.Id == Convert.ToInt32(dealId));
-                ViewState["Data"] = data;
-                gridbind();*/
-                //System.Web.UI.ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "AlertBox", "BootstrapDialog.alert('Record Deleted Successfully.');", true);
-                //data.    
-            }
-        }
-        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-
-        }
-
         protected void Search(object sender, EventArgs e)
         {
             GridView1.PageIndex = 0;
-            BindData(txtSearch.Text.Trim(), listSearchCol.Text.Trim());
+
+            ViewState["txtSearch"] = txtSearch.Text.Trim();
+            ViewState["listSearchCol"] = listSearchCol.Text.Trim();
+            BindData();
+        }
+
+        protected void BtnDeleteUser_Click(object sender, EventArgs e)
+        {
+            LinkButton btn = (LinkButton)sender;
+            Dictionary<string, string> queryParams = new Dictionary<string, string>()
+                {
+                    {"@Id",  btn.CommandArgument }
+                };
+            Utils.ExcuteQuery("DELETE FROM AspNetUsers WHERE Id = @Id", queryParams);
+            BindData();
+        }
+
+        protected void BtnEditUser_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton btn = (LinkButton)sender;
+                string userId = btn.CommandArgument.ToString().Trim();
+                var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                var manager = new UserManager<ApplicationUser>(userStore);
+
+                var roles = manager.GetRoles(userId);
+                var result = manager.RemoveFromRoles(userId, roles.ToArray());
+                
+                if (!result.Succeeded)
+                {
+                    throw new Exception("Pengguna gagal dikemaskini.");
+                }
+
+                foreach (ListItem item in CheckBoxList1.Items)
+                {
+                    if (item.Selected)
+                        manager.AddToRole(userId, item.Value);
+                }
+
+                if (!result.Succeeded)
+                {
+                    throw new Exception("Pengguna gagal dikemaskini.");
+                }
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "notyf.success('Pengguna berjaya dikemaskini!');", true);
+                BindData();
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" + ex.Message + "\")", true);
+            }
+            CheckBoxList1.ClearSelection();
         }
     }
 }

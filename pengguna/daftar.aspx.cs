@@ -98,7 +98,7 @@ namespace EPBM.pengguna
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;
-            BindData(txtSearch.Text.Trim(), listSearchCol.Text.Trim());
+            BindData(ViewState["txtSearch"].ToString(), ViewState["listSearchCol"].ToString());
         }
 
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -134,44 +134,40 @@ namespace EPBM.pengguna
 
         protected void BtnAddUser_Click(object sender, EventArgs e)
         {
-            LinkButton btn = (LinkButton)sender;
-            string IcNo = btn.CommandArgument.ToString().Trim();
-            if (ViewState["addedIcNo"] == null || IcNo != ViewState["addedIcNo"].ToString())
+            try
             {
-                try
+                LinkButton btn = (LinkButton)sender;
+                string IcNo = btn.CommandArgument.ToString().Trim();
+                string Email = HiddenField1.Value;
+                long ProfileId = Convert.ToInt32(HiddenField2.Value);
+                var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                var manager = new UserManager<ApplicationUser>(userStore);
+
+                var user = new ApplicationUser() { Id = IcNo, UserName = IcNo, Email = Email, ProfileId = ProfileId };
+                IdentityResult result = manager.Create(user);
+
+                if (result.Succeeded)
                 {
-                    string Email = HiddenField1.Value;
-                    long ProfileId = Convert.ToInt32(HiddenField2.Value);
-                    var userStore = new UserStore<ApplicationUser>(new ApplicationDbContext());
-                    var manager = new UserManager<ApplicationUser>(userStore);
+                    var currentUser = manager.FindByName(user.UserName);
 
-                    var user = new ApplicationUser() { Id = IcNo, UserName = IcNo, Email = Email, ProfileId = ProfileId };
-                    IdentityResult result = manager.Create(user);
-
-                    if (result.Succeeded)
+                    foreach (ListItem item in CheckBoxList1.Items)
                     {
-                        var currentUser = manager.FindByName(user.UserName);
-
-                        foreach (ListItem item in CheckBoxList1.Items)
-                        {
-                            if (item.Selected)
-                                manager.AddToRole(currentUser.Id, item.Value);
-                        }
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "notyf.success('Pengguna berjaya ditambah!');", true);
-                        ViewState["addedIcNo"] = IcNo;
-                        BindData(ViewState["txtSearch"].ToString(), ViewState["listSearchCol"].ToString(), true);
+                        if (item.Selected)
+                            manager.AddToRole(currentUser.Id, item.Value);
                     }
-                    else
-                    {
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
-                    }
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "notyf.success('Pengguna berjaya ditambah!');", true);
+                    BindData(ViewState["txtSearch"].ToString(), ViewState["listSearchCol"].ToString(), true);
                 }
-                catch (Exception ex)
+                else
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" +ex.Message + "\")", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error('" + result.Errors.FirstOrDefault() + "');", true);
                 }
-                CheckBoxList1.ClearSelection();
             }
+            catch (Exception ex)
+            {
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" +ex.Message + "\")", true);
+            }
+            CheckBoxList1.ClearSelection();
         }
     }
 }

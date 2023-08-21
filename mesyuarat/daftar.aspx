@@ -6,31 +6,21 @@
 	<div class="card">
 		<div class="card-body">
 			<div class="row">
-				<div class="col-12 col-lg-6">
-					<div>
-						<label class="control-label">JENIS <span class="text-danger">*</span></label>
-						<select class="form-select mb-3" aria-label="JENIS" required>
-						  <option >SILA PILIH</option>
-						  <option>MLP</option>
-						  <option>JKSH</option>
-						</select>
+				<div class="col-12 col-lg-6 mb-3">
+					<label class="control-label">JENIS <span class="text-danger">*</span></label>
+                    <asp:DropDownList ID="ddlJenis" runat="server" CssClass="form-control form-select" required="required"></asp:DropDownList>
+				</div>
+				<div class="col-12 col-lg-6 mb-3">
+					<label class="control-label">BILANGAN <span class="text-danger">*</span></label>
+					<div class="input-group">
+                        <asp:TextBox ID="TextBox1" type="number" runat="server" CssClass="form-control" placeholder="BIL" required="required"></asp:TextBox>
+						<span class="input-group-text">/</span>
+                        <asp:TextBox ID="txtTahun" type="number" runat="server" CssClass="form-control" placeholder="TAHUN" min="1999" max="2020" required="required"></asp:TextBox>
 					</div>
 				</div>
-				<div class="col-12 col-lg-6">
-					<div>
-						<label class="control-label">BILANGAN <span class="text-danger">*</span></label>
-						<div class="input-group">
-							<input type="number" class="form-control" placeholder="BIL" value="2" required>
-							<span class="input-group-text">/</span>
-							<input type="number" class="form-control" placeholder="TAHUN" min="1999" max="2020" value="2023" required>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-lg-6">
-					<div>
-						<label class="control-label">TARIKH <span class="text-danger">*</span></label>
-						<input type="date" class="form-control mb-3" placeholder="" required>
-					</div>
+				<div class="col-12 col-lg-6 mb-3">
+					<label class="control-label">TARIKH <span class="text-danger">*</span></label>
+                    <asp:TextBox ID="txtTarikh" type="date" runat="server" CssClass="form-control" placeholder="TARIKH" required="required"></asp:TextBox>
 				</div>
 				<div class="col-12">
 					<a href="/mesyuarat/senarai.aspx" class="btn btn-primary">SIMPAN</a>
