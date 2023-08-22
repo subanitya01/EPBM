@@ -317,7 +317,7 @@ namespace EPBM.permohonan
                 sqlCommand.Parameters.AddWithValue("@LainSumberPeruntukan", txtSumberPeruntukan.Text);
                 sqlCommand.Parameters.AddWithValue("@TarikhSahlaku", tkhsahlaku);
                 sqlCommand.Parameters.AddWithValue("@TarikhTerima", tkhterima);
-                sqlCommand.Parameters.AddWithValue("@LulusPelanPPT", cbPerakuan1.Checked ? "True" : "False");
+                sqlCommand.Parameters.AddWithValue("@LulusPelanPPT", cbPerakuan1.Checked ? "YA" : "TIDAK");
                 sqlCommand.Parameters.AddWithValue("@IdPBMMuktamad", ddlPBMMuktamad.SelectedValue);
                 sqlCommand.Parameters.AddWithValue("@CatatanPendaftar", txtcatatan.Text);
                 sqlCommand.Parameters.AddWithValue("@TarikhDicipta", txttkhcipta.Text);
