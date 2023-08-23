@@ -82,7 +82,7 @@ namespace EPBM.permohonan
 
         protected void ddlJenisPertimbangann_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            txtJenisPertimbangan.Text = string.Empty;
 
             if (ddlJenisPertimbangan.SelectedValue == "99")
             {
@@ -132,10 +132,10 @@ namespace EPBM.permohonan
 
         protected void ddlJenisPerolehan_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+          txtJenisPerolehan.Text = string.Empty;
 
             if (ddlJenisPerolehan.SelectedValue == "99")
-            {
+            {  
     
                 PnlJenisPerolehan.Visible = true;
             }
@@ -165,7 +165,7 @@ namespace EPBM.permohonan
 
         protected void ddlSumberPeruntukan_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            txtSumberPeruntukan.Text = string.Empty;
 
             if (ddlSumberPeruntukan.SelectedValue == "99")
             {
