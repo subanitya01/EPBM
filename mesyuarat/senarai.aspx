@@ -5,88 +5,101 @@
 <h1 class="h3 mb-3">SENARAI <strong>MESYUARAT</strong></h1>
 	<div class="card">
 		<div class="card-body">
-			<div class="input-group">
-				<select class="form-select">
-					<option>SEMUA KOLUM</option>
-					<option>JENIS</option>
-					<option>BILANGAN</option>
-					<option>TARIKH</option>
-					<option>PENGERUSI</option>
-				</select>
-				<input type="text" class="form-control w-25" placeholder="Carian...">
-				<button class="btn btn-primary" type="button"><i class="align-middle" data-feather="search"></i></button>
-			</div>
+			<asp:Panel ID="Panel1" runat="server" defaultbutton="btnSubmit">
+				<div class="input-group">
+					<asp:DropDownList ID="listSearchCol" CssClass="form-select" runat="server" >  
+						<asp:ListItem Value="">SEMUA KOLUM</asp:ListItem>  
+						<asp:ListItem>JENIS</asp:ListItem>  
+						<asp:ListItem>BILANGAN</asp:ListItem>  
+						<asp:ListItem>TARIKH</asp:ListItem>  
+						<asp:ListItem>PENGERUSI</asp:ListItem>  
+					</asp:DropDownList>
+					<asp:TextBox ID="txtSearch" CssClass="form-control w-25" placeholder="Carian..." runat="server"></asp:TextBox>
+					<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary" runat="server" OnClick="Search" CausesValidation="false"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
+				</div>
+			</asp:Panel>
 		</div>
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<table class="table table-bordered table-striped table-hover">
-			  <thead>
-				<tr>
-				  <th scope="col">#</th>
-				  <th scope="col">JENIS</th>
-				  <th scope="col">BILANGAN</th>
-				  <th scope="col">TARIKH</th>
-				  <th scope="col">PENGERUSI</th>
-				  <th scope="col">JUMLAH KELULUSAN</th>
-				  <th scope="col"></th>
-				</tr>
-			  </thead>
-			  <tbody>
-				<tr>
-				  <th scope="row">1</th>
-				  <td class="">MLP</td>
-				  <td>1/2023</td>
-				  <td class="text-nowrap">04 OKT 2023</td>
-				  <td>MOHD NORHISHAM BIN MUSA</td>
-				  <td class="text-center">0/5</td>
-				  <td class="table-action">
-						<a href="/mesyuarat/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/mesyuarat/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
-						<a href="/mesyuarat/senarai-keputusan.aspx" class="text-success" title="Keputusan"><i class="align-middle" data-feather="inbox"></i></a>
-						<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="text-danger" title="Hapus"><i class="align-middle" data-feather="trash"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">2</th>
-				  <td class="">JKSH</td>
-				  <td>2/2023</td>
-				  <td class="text-nowrap">22 NOV 2023</td>
-				  <td>TAJUDDIN TAN BIN ABDULLAH</td>
-				  <td class="text-center">7/10</td>
-				  <td class="table-action">
-						<a href="/mesyuarat/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/mesyuarat/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
-						<a href="/mesyuarat/senarai-keputusan.aspx" class="text-success" title="Keputusan"><i class="align-middle" data-feather="inbox"></i></a>
-						<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="text-danger" title="Hapus"><i class="align-middle" data-feather="trash"></i></a>
-					</td>
-				</tr>
-			  </tbody>
-			</table>
-			<nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-end">
-				<li class="page-item">
-				  <a class="page-link" href="#" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				  </a>
-				</li>
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-				  <a class="page-link" href="#" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				  </a>
-				</li>
-			  </ul>
-			</nav>
+			<div class="row input-group-sm justify-content-between">
+				<div class="col-sm-6 col-md-5 mb-3">
+					<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" /></label>
+				</div>
+				<div class="col-sm-3 col-md-2 mb-3 text-end">
+					
+				</div>
+			</div>
+			<asp:GridView 
+				ID="GridView1" 
+				runat="server" 
+				EmptyDataText="Tiada Rekod Dijumpai." 
+				ShowHeaderWhenEmpty="True" 
+				AutoGenerateColumns="False" 
+				CssClass="table table-bordered table-striped table-hover" 
+				OnPageIndexChanging="GridView1_PageIndexChanging" 
+				OnSorting="GridView1_Sorting" 
+				AllowPaging="True" 
+				AllowSorting="true"
+				PageSize="20">  
+			<PagerSettings Mode="NumericFirstLast" Position="Bottom" PageButtonCount="5" FirstPageText="&laquo;" LastPageText="&raquo;" />
+			<PagerStyle HorizontalAlign = "Right" CssClass = "bs-pager" />
+            <Columns>
+                <asp:TemplateField HeaderText="#">
+                    <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:BoundField DataField="JENIS" HeaderText="JENIS" SortExpression="JENIS" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+                </asp:BoundField>
+
+                <asp:BoundField DataField="BILANGAN" HeaderText="BILANGAN" SortExpression="BILANGAN" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+                </asp:BoundField>
+
+				<asp:TemplateField HeaderText="TARIKH" SortExpression="TARIKH" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+					<ItemTemplate>
+						<%# Eval("TARIKHMS") %>
+					</ItemTemplate>
+				</asp:TemplateField>
+
+                <asp:BoundField DataField="PENGERUSI" HeaderText="PENGERUSI" SortExpression="PENGERUSI">
+                </asp:BoundField>
+
+				<asp:TemplateField HeaderText="JUMLAH KELULUSAN" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+					<ItemTemplate>
+						<%# Eval("JumlahKelulusan") %>/<%# Eval("JumlahPermohonan") %>
+					</ItemTemplate>
+				</asp:TemplateField>
+
+                <asp:TemplateField ItemStyle-CssClass="text-center">
+                    <ItemTemplate>
+						<a href="/mesyuarat/papar.aspx?id=<%# Eval("Id") %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+						<a href="/mesyuarat/edit.aspx?id=<%# Eval("Id") %>" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
+						<a href="/mesyuarat/senarai-keputusan.aspx?id=<%# Eval("Id") %>" class="text-success" title="Keputusan"><i class="align-middle" data-feather="inbox"></i></a>
+						<asp:LinkButton 
+							ID="lnkDelete" 
+							runat="server" 
+							CssClass="text-danger"  
+							data-bs-toggle="modal" 
+							data-bs-target="#deleteModal" 
+							title="Hapus"
+							CommandArgument='<%# Eval("Id") %>' 
+							CausesValidation="false"
+							OnClick="BtnDelete_Click"
+							OnClientClick='<%# string.Concat("if(!popup(this",",\"MESYUARAT ",Eval("JENIS")," Bil. ",Eval("BILANGAN"),"\"))return false; ") %>'
+						>
+							<i class="align-middle" data-feather="trash"></i>
+						</asp:LinkButton>
+					</ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+			</asp:GridView>
 		</div>
 	</div>
 	<div class="modal fade" id="deleteModal" tabindex="-1" aria-modal="true" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header bg-danger">
-					<h5 class="modal-title text-white text-truncate">MESYUARAT MLP Bil. 1/2023</h5>
+					<h5 class="modal-title text-white text-truncate">???</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body m-3">
@@ -94,11 +107,18 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
+					<a href="#" type="button" class="btn btn-danger">Hapus</a>
 				</div>
 			</div>
 		</div>
 	</div>
+    <script>   
+        function popup(lnk, title) {
+            document.querySelector("#deleteModal .modal-header h5").innerText = title;
+            document.querySelector("#deleteModal .modal-footer a").setAttribute('href', lnk.getAttribute('href'));
+
+        }     
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
 </asp:Content>

@@ -36,7 +36,6 @@
 				runat="server" 
 				EmptyDataText="Tiada Rekod Dijumpai." 
 				ShowHeaderWhenEmpty="True" 
-				OnDataBound="GridView1_DataBound" 
 				OnRowDataBound="GridView1_OnRowDataBound" 
 				AutoGenerateColumns="False" 
 				CssClass="table table-bordered table-striped table-hover" 

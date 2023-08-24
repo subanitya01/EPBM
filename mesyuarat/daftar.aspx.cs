@@ -29,5 +29,22 @@ namespace EPBM.mesyuarat
                 ddlJenis.Items.Add(item);
             }
         }
+
+        protected void Save(object sender, EventArgs e)
+        {
+
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
+                {
+                    {"@Jenis",  ddlJenis.SelectedValue },
+                    {"@Bil",  txtBil.Text },
+                    {"@Tahun",  txtTahun.Text },
+                    {"@Tarikh",  txtTarikh.Text },
+                    {"@TarikhCipta", DateTime.Now },
+                    {"@DiciptaOleh", Session["Profile.ICNO"] },
+                };
+            Utils.ExcuteQuery("INSERT INTO Mesyuarat(IdJenisMesyuarat, Bilangan, Tahun, Tarikh, TarikhDicipta, DiciptaOleh) VALUES(@Jenis, @Bil, @Tahun, @Tarikh, @TarikhCipta, @DiciptaOleh)", queryParams);
+            
+            Response.Redirect("/mesyuarat/senarai.aspx");
+        }
     }
 }

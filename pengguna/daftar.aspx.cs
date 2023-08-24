@@ -56,7 +56,7 @@ namespace EPBM.pengguna
             string CommandText = "from UserCredential UC, Organization O, OrganizationGroup OG, UserProfile UP "
                             + "left join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, ProfileId, RoleName)) as EU on EU.ProfileId=UP.UserId "
                             + "WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId And UP.Blocked='False' And UP.Deleted='False'";
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 if (string.IsNullOrEmpty(searchCol))

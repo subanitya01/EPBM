@@ -30,8 +30,8 @@ namespace EPBM.pengguna
             if (!IsPostBack)
             {
                 initRoleList();
+                BindData();
             }
-            BindData();
         }
 
         protected void initRoleList()
@@ -76,7 +76,7 @@ namespace EPBM.pengguna
                             + "inner join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, ProfileId, RoleName)) as EU on EU.ProfileId=UP.UserId "
                             + "WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId";
 
-            Dictionary<string, string> queryParams = new Dictionary<string, string>();
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 if (string.IsNullOrEmpty(searchCol))
@@ -204,10 +204,6 @@ namespace EPBM.pengguna
             }
         }
 
-        protected void GridView1_DataBound(object sender, EventArgs e)
-        {
-        }
-
         protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
         {
             DataTable dtrslt = (DataTable)ViewState["dtProfile"];
@@ -232,7 +228,7 @@ namespace EPBM.pengguna
         protected void BtnDeleteUser_Click(object sender, EventArgs e)
         {
             LinkButton btn = (LinkButton)sender;
-            Dictionary<string, string> queryParams = new Dictionary<string, string>()
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
                 {
                     {"@Id",  btn.CommandArgument }
                 };

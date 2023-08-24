@@ -10,7 +10,7 @@ namespace EPBM
 {
     public static class Utils
     {
-        public static DataTable GetDataTable(string query, Dictionary<string, string> queryParams = null, string connectionName = "DefaultConnection")
+        public static DataTable GetDataTable(string query, Dictionary<string, dynamic> queryParams = null, string connectionName = "DefaultConnection")
         {
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings[connectionName].ConnectionString))
             {
@@ -20,7 +20,7 @@ namespace EPBM
 
                 if (queryParams != null)
                 {
-                    foreach (KeyValuePair<string, string> param in queryParams)
+                    foreach (KeyValuePair<string, dynamic> param in queryParams)
                     {
                         sqlCommand.Parameters.AddWithValue(param.Key, param.Value);
                     }
@@ -35,7 +35,7 @@ namespace EPBM
             }
         }
 
-        public static bool ExcuteQuery(string query, Dictionary<string, string> queryParams = null, string connectionName = "DefaultConnection")
+        public static bool ExcuteQuery(string query, Dictionary<string, dynamic> queryParams = null, string connectionName = "DefaultConnection")
         {
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings[connectionName].ConnectionString))
             {
@@ -45,7 +45,7 @@ namespace EPBM
 
                 if (queryParams != null)
                 {
-                    foreach (KeyValuePair<string, string> param in queryParams)
+                    foreach (KeyValuePair<string, dynamic> param in queryParams)
                     {
                         sqlCommand.Parameters.AddWithValue(param.Key, param.Value);
                     }
@@ -57,6 +57,13 @@ namespace EPBM
 
                 return rowEffected > 0;
             }
+        }
+        public static void HttpNotFound()
+        {
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.StatusCode = 404;
+            HttpContext.Current.Response.End();
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
         }
     }
 }

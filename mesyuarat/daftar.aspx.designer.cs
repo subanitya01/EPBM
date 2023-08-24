@@ -15,6 +15,15 @@ namespace EPBM.mesyuarat
     {
 
         /// <summary>
+        /// Panel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel1;
+
+        /// <summary>
         /// ddlJenis control.
         /// </summary>
         /// <remarks>
@@ -24,13 +33,13 @@ namespace EPBM.mesyuarat
         protected global::System.Web.UI.WebControls.DropDownList ddlJenis;
 
         /// <summary>
-        /// TextBox1 control.
+        /// txtBil control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtBil;
 
         /// <summary>
         /// txtTahun control.
@@ -49,5 +58,14 @@ namespace EPBM.mesyuarat
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTarikh;
+
+        /// <summary>
+        /// btnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnSubmit;
     }
 }

@@ -39,7 +39,7 @@ namespace EPBM.auth
         {
             if (IsValid)
             {
-                Dictionary<string, string> queryParams = new Dictionary<string, string>();
+                Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
                 queryParams.Add("@nokp", txtUsername.Text);
                 DataTable dt = Utils.GetDataTable("Select UC.UserName, UC.LoginType, UserEmail, PhoneNo, FullName, Designation, ProfileImage, O.Name as Department, OG.Name as Organization , UP.ICNO " +
                                 "from UserProfile UP, UserCredential UC, Organization O, OrganizationGroup OG " +
@@ -74,10 +74,12 @@ namespace EPBM.auth
                             break;
                         case SignInStatus.LockedOut:
                             errorLabel.Text = "Akaun anda telah dikunci. Sila cuba lagi selepas 5 minit.";
+                            ErrorMessage.Visible = true;
                             break;
                         case SignInStatus.Failure:
                         default:
                             errorLabel.Text = "No Kad Pengenalan dan/atau Kata laluan tidak sah.";
+                            ErrorMessage.Visible = true;
                             break;
                     }
                 }
