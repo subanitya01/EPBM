@@ -13,7 +13,10 @@ namespace EPBM.mesyuarat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            initTypeList();
+            if (!IsPostBack)
+            {
+                initTypeList();
+            }
         }
 
         protected void initTypeList()

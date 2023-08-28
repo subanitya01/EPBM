@@ -30,15 +30,13 @@
                                             <asp:TemplateField HeaderText="No.">
                                                 <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="TajukPerolehan" HeaderText="Tajuk" SortExpression="Tajuk">
+                                            <asp:BoundField DataField="Tajuk" HeaderText="Tajuk" SortExpression="Tajuk">
                                                 <ItemStyle Width="25%" Wrap="true" />
                                             </asp:BoundField>
                                             <asp:BoundField DataField="NamaJabatan" HeaderText="Jabatan" SortExpression="Jabatan">
                                                 <ItemStyle Width="25%" Wrap="true" />
                                             </asp:BoundField>
-											<asp:BoundField DataField="NamaPencipta" HeaderText="NamaPencipta" SortExpression="NamaPencipta">
-                                                <ItemStyle Width="25%" Wrap="true" />
-                                            </asp:BoundField>
+										
 											<%--<asp:BoundField DataField="NamaBahagian" HeaderText="Bahagian" SortExpression="NamaBahagian">
                                                 <ItemStyle Width="25%" Wrap="true" />
                                             </asp:BoundField>--%>

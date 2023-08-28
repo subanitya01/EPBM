@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 	<h1 class="h3 mb-3">EDIT <strong>MESYUARAT</strong></h1>
-	<asp:Panel ID="Panel1" runat="server" defaultbutton="btnSubmit">
+	<asp:Panel ID="Panel1" runat="server">
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
@@ -31,41 +31,62 @@
 				<h5 class="card-title">AHLI-AHLI MESYUARAT</h5>
 			</div>
 			<div class="card-body">
+						<label class="control-label">PENGERUSI</label>
 				<div class="row">
-					<div class="col-12 col-lg-6">
-						<div>
-							<label class="control-label">PENGERUSI</label>
-							<input type="text" class="form-control mb-3" placeholder="" value="MOHD NORHISHAM BIN MUSA">
-						</div>
-					</div>
-					<div class="col-12">
-						<label class="form-label">AHLI MESYUARAT</label>
-						<div class="entry input-group mb-3">
-						  <input class="form-control" name="members[]" type="text" placeholder="NAMA AHLI" value="ZAENAP BINTI MOHAMAD" />
-						  <span class="input-group-btn">
-							<button class="btn btn-success btn-remove" type="button">
-								<i class="align-middle" data-feather="minus"></i>
-							</button>
-						  </span>
-						</div>
-						<div class="entry input-group mb-3">
-						  <input class="form-control" name="members[]" type="text" placeholder="NAMA AHLI" value="ZABIR BIN SARIP@SHARIFF" />
-						  <span class="input-group-btn">
-							<button class="btn btn-success btn-remove" type="button">
-								<i class="align-middle" data-feather="minus"></i>
-							</button>
-						  </span>
-						</div>
-						<div class="entry input-group mb-3">
-						  <input class="form-control" name="members[]" type="text" placeholder="NAMA AHLI" value="MUHAMMAD RIDZWAN BIN LOOD" />
-						  <span class="input-group-btn">
-							<button class="btn btn-success btn-add" type="button">
-								<i class="align-middle" data-feather="plus"></i>
-							</button>
-						  </span>
-						</div>
+					<div class="col-12 col-lg-6 mb-3">
+						<asp:TextBox ID="txtPengerusi" runat="server" CssClass="form-control" placeholder="PENGERUSI"></asp:TextBox>
 					</div>
 				</div>
+				<label class="form-label">AHLI MESYUARAT</label>
+				<asp:ScriptManager ID="ScriptManager1" runat="server" />
+				
+				<asp:UpdatePanel ID="UpdatePanel2" runat="server">
+					<ContentTemplate>
+						<div class="row">
+							<asp:Repeater ID="Repeater1" runat="server">
+								<ItemTemplate>
+									<div class="col-12 col-lg-6">
+										<asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="false" RenderMode="inline" UpdateMode="conditional">
+											<ContentTemplate>
+												<div class="entry input-group mb-3">
+													<asp:TextBox ID="txtMembers" runat="server" Text='<%# Eval("Nama") %>' AutoPostBack="True" OnTextChanged="updateMember" CssClass="form-control" placeholder="NAMA AHLI" required="required">
+													</asp:TextBox>
+
+													<span class="input-group-btn">
+														<asp:LinkButton ID="removeBtn" runat="server" CssClass="btn btn-danger" OnClick="removeMember_Click" CommandArgument='<%# Eval("Id") %>'>
+															<i class="align-middle" data-feather="minus"></i>
+														</asp:LinkButton>
+													</span>
+												</div>
+											</ContentTemplate>
+											<Triggers>
+												<asp:AsyncPostBackTrigger ControlID="txtMembers" EventName="TextChanged" />
+												<asp:AsyncPostBackTrigger ControlID="removeBtn" EventName="Click" />
+											</Triggers>
+										</asp:UpdatePanel>
+									</div>
+								</ItemTemplate>
+							</asp:Repeater>
+						</div>
+						<div class="row">
+							<div class="col-12 col-lg-6">
+								<div class="entry input-group mb-3">
+									<asp:TextBox ID="newMember" runat="server" CssClass="form-control" placeholder="NAMA AHLI" required="required" ValidateRequestMode="Enabled">
+									</asp:TextBox>
+
+									<span class="input-group-btn">
+										<asp:LinkButton ID="addBtn" runat="server" CssClass="btn btn-success" OnClick="addMember_Click">
+											<i class="align-middle" data-feather="plus"></i>
+										</asp:LinkButton>
+									</span>
+								</div>
+							</div>
+						</div>
+					</ContentTemplate>
+					<Triggers>
+						<asp:AsyncPostBackTrigger ControlID="addBtn" EventName="Click" />
+					</Triggers>
+				</asp:UpdatePanel>
 			</div>
 		</div>
 		<div class="card">
@@ -76,30 +97,19 @@
 				<div class="row">
 					<div class="col-12">
 						<ul class="list-group mb-3">
-						  <li class="list-group-item">
-							<input class="form-check-input me-1" type="checkbox" value="" aria-label="..." id="checkAll">
-							<label class="form-check-label" for="firstRadio">
-							<b>SEMUA</b>
-							</label>
-						  </li>
-						  <li class="list-group-item bg-white">
-							<input class="form-check-input me-1" type="checkbox" name="papers[]" value="" aria-label="..." checked>
-							<label class="form-check-label" for="firstRadio">
-							PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025
-							</label>
-						  </li>
-						  <li class="list-group-item bg-white">
-							<input class="form-check-input me-1" type="checkbox" name="papers[]" value="" aria-label="..." checked>
-							<label class="form-check-label" for="firstRadio">
-							PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN ALAM SEKITAR DAN AIR TAHUN 2020 HINGGA 2023
-							</label>
-						  </li>
-						  <li class="list-group-item bg-white">
-							<input class="form-check-input me-1" type="checkbox" name="papers[]" value="" aria-label="...">
-							<label class="form-check-label" for="firstRadio">
-							PERKHIDMATAN AUDIT PENGAWASAN ISO/IEC 27001:2013 INFORMATION SECURITY MANAGEMENT SYSTEM (ISMS) KEMENTERIAN SUMBER ASLI, ALAM SEKITAR DAN PERUBAHAN IKLIM (NRECC)
-							</label>
-						  </li>
+							<li class="list-group-item">
+								<input class="form-check-input me-1" type="checkbox" value="" aria-label="..." id="checkAll">
+								<label class="form-check-label" for="firstRadio">
+								<b>SEMUA</b>
+								</label>
+							</li>
+							<asp:Repeater ID="Repeater2" runat="server" OnItemDataBound="Repeater2_ItemDataBound">
+								<ItemTemplate>
+								  <li class="list-group-item check-input-permohonan bg-white">
+									<asp:CheckBox ID="CheckBoxPermohonan" Text='<%# Eval("Tajuk").ToString() %>' runat="server" Checked='<%# !String.IsNullOrEmpty(Eval("IdMesyuarat").ToString()) %>' />
+								  </li>
+								</ItemTemplate>
+							</asp:Repeater>
 						</ul>
 					</div>
 
@@ -111,42 +121,18 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
 	<script>
-	document.addEventListener('click', function (event) {
-
-		console.log(event.target);
-		// If the clicked element doesn't have the right selector, bail
-		if (event.target.closest('.btn-add')){
-
-			var elem = event.target.closest('.entry');
-			var clone = elem.cloneNode(true);
-			
-			clone.querySelector('input').value = "";
-			elem.after(clone);
-			event.target.closest('.btn-add').classList.add('btn-remove');
-			event.target.closest('.btn-add').classList.remove('btn-add');
-			event.target.innerHTML = '<i class="align-middle" data-feather="minus"></i>';
-			feather.replace();
-			event.preventDefault();
-		}
-		else if(event.target.closest('.btn-remove')){
-			var elem = event.target.closest('.entry');
-			elem.parentNode.removeChild(elem);
-		}
-		
-	}, false);
 	
 	var checkAll = document.querySelector('#checkAll');
     
     checkAll.addEventListener('change', function (event) {
         if (checkAll.checked) {
-            getAllCheckBox = document.querySelectorAll('input[type=checkbox][name="papers[]"]');
+            getAllCheckBox = document.querySelectorAll('.check-input-permohonan input[type=checkbox]');
 			getAllCheckBox.forEach(function (checkbox, index) {
 				checkbox.checked = true;
 			});
         } else {
-            getAllCheckBox = document.querySelectorAll('input[type=checkbox][name="papers[]"]');
+            getAllCheckBox = document.querySelectorAll('.check-input-permohonan input[type=checkbox]');
 			getAllCheckBox.forEach(function (checkbox, index) {
-				console.log(checkbox);
 				checkbox.checked = false;
 			});
         }

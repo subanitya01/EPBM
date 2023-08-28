@@ -22,48 +22,52 @@ namespace EPBM.mesyuarat
         }
         protected void BindData()
         {
-            var Id = Request.QueryString["id"];
-            if(string.IsNullOrEmpty(Id) )
-                Utils.HttpNotFound();
-
-            string CommandText = "Select TOP 1 * from PaparMesyuarat WHERE Id=@Id";
-            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@Id", Id } };
-            DataTable dtMesyuarat = Utils.GetDataTable(CommandText, queryParams);
-
-            if (dtMesyuarat.Rows.Count == 0)
-                Utils.HttpNotFound();
-
-            DataRow row = dtMesyuarat.Rows[0];
-            PaparJenis.Text = row["JENIS"].ToString();
-            PaparBil.Text = row["BILANGAN"].ToString();
-            PaparTarikh.Text = row["TARIKHMS"].ToString();
-            PaparPengerusi.Text = row["PENGERUSI"].ToString();
-            deleteTitle.Text = "MESYUARAT " + row["JENIS"].ToString() + " BIL. " + row["BILANGAN"].ToString();
-            lnkDelete.CommandArgument = row["Id"].ToString();
-
-            string CommandText2 = "Select * from AhliMesyuarat WHERE IdMesyuarat=@Id";
-            Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", row["Id"].ToString() } };
-            DataTable dtAhliMesyuarat = Utils.GetDataTable(CommandText2, queryParams2);
-
-            foreach (DataRow rowAhli in dtAhliMesyuarat.Rows)
+            try
             {
-                ListItem li = new ListItem();
-                li.Attributes["class"] = "list-group-item";
-                li.Text = rowAhli["Nama"].ToString();
-                ListAhli.Items.Add(li);
-            }
+                var Id = Request.QueryString["id"];
+                if(string.IsNullOrEmpty(Id) )
+                    Utils.HttpNotFound();
 
-            string CommandText3 = "Select * from Permohonan WHERE IdMesyuarat=@Id";
-            Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@Id", row["Id"].ToString() } };
-            DataTable dtPermohonan = Utils.GetDataTable(CommandText3, queryParams3);
+                string CommandText = "Select TOP 1 * from PaparMesyuarat WHERE Id=@Id";
+                Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@Id", Id } };
+                DataTable dtMesyuarat = Utils.GetDataTable(CommandText, queryParams);
 
-            foreach (DataRow rowPermohonan in dtPermohonan.Rows)
-            {
-                ListItem li = new ListItem();
-                li.Attributes["class"] = "list-group-item";
-                li.Text = rowPermohonan["Tajuk"].ToString();
-                ListPermohonan.Items.Add(li);
+                if (dtMesyuarat.Rows.Count == 0)
+                    Utils.HttpNotFound();
+
+                DataRow row = dtMesyuarat.Rows[0];
+                PaparJenis.Text = row["JENIS"].ToString();
+                PaparBil.Text = row["BILANGAN"].ToString();
+                PaparTarikh.Text = row["TARIKHMS"].ToString();
+                PaparPengerusi.Text = row["PENGERUSI"].ToString();
+                deleteTitle.Text = "MESYUARAT " + row["JENIS"].ToString() + " BIL. " + row["BILANGAN"].ToString();
+                lnkDelete.CommandArgument = row["Id"].ToString();
+
+                string CommandText2 = "Select * from AhliMesyuarat WHERE IdMesyuarat=@Id";
+                Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", row["Id"].ToString() } };
+                DataTable dtAhliMesyuarat = Utils.GetDataTable(CommandText2, queryParams2);
+
+                foreach (DataRow rowAhli in dtAhliMesyuarat.Rows)
+                {
+                    ListItem li = new ListItem();
+                    li.Attributes["class"] = "list-group-item";
+                    li.Text = rowAhli["Nama"].ToString();
+                    ListAhli.Items.Add(li);
+                }
+
+                string CommandText3 = "Select * from Permohonan WHERE IdMesyuarat=@Id";
+                Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@Id", row["Id"].ToString() } };
+                DataTable dtPermohonan = Utils.GetDataTable(CommandText3, queryParams3);
+
+                foreach (DataRow rowPermohonan in dtPermohonan.Rows)
+                {
+                    ListItem li = new ListItem();
+                    li.Attributes["class"] = "list-group-item";
+                    li.Text = rowPermohonan["Tajuk"].ToString();
+                    ListPermohonan.Items.Add(li);
+                }
             }
+            catch (Exception) { Utils.HttpNotFound(); }
         }
 
         protected void BtnDelete_Click(object sender, EventArgs e)

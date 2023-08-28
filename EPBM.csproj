@@ -113,6 +113,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="auth\profile.aspx" />
+    <Content Include="errors\404.aspx" />
+    <Content Include="errors\default.aspx" />
     <Content Include="keputusan\senarai.aspx" />
     <Content Include="laporan\carian.aspx" />
     <Content Include="auth\login.aspx" />
@@ -143,6 +145,20 @@
     </Compile>
     <Compile Include="auth\profile.aspx.designer.cs">
       <DependentUpon>profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="errors\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="errors\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="errors\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="errors\default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="keputusan\senarai.aspx.cs">
