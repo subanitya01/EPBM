@@ -2,9 +2,45 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	<h1 class="h3 mb-3">SENARAI KEPUTUSAN BAGI <strong>MESYUARAT JKSH BIL. 1/2023</strong></h1>
+	<h1 class="h3 mb-3">SENARAI KEPUTUSAN BAGI <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal>MESYUARAT JKSH BIL. 1/2023</strong></h1>
 	<div class="card">
 		<div class="card-body table-responsive">
+			<asp:GridView 
+				ID="GridView1" 
+				runat="server" 
+				EmptyDataText="Tiada Rekod Dijumpai." 
+				ShowHeaderWhenEmpty="True" 
+				AutoGenerateColumns="False" 
+				CssClass="table table-bordered table-striped table-hover">  
+            <Columns>
+                <asp:TemplateField HeaderText="#">
+                    <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:BoundField DataField="TAJUK" HeaderText="TAJUK">
+                </asp:BoundField>
+
+                <asp:BoundField DataField="JABATAN" HeaderText="JABATAN" HeaderStyle-CssClass="text-center">
+                </asp:BoundField>
+
+				<asp:TemplateField HeaderText="STATUS" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+					<ItemTemplate>
+						<%# Eval("STATUS") %>
+					</ItemTemplate>
+				</asp:TemplateField>
+
+                <asp:BoundField DataField="KETERANGAN" HeaderText="KETERANGAN" HeaderStyle-CssClass="text-center">
+                </asp:BoundField>
+
+                <asp:TemplateField ItemStyle-CssClass="text-center">
+                    <ItemTemplate>
+						<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+						<a href="/keputusan/edit.aspx?id=<%# Eval("Id") %>" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
+						
+					</ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+			</asp:GridView>
 			<table class="table table-bordered table-striped table-hover">
 			  <thead>
 				<tr>
