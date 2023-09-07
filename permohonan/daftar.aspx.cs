@@ -43,8 +43,6 @@ namespace EPBM.permohonan
             }
         }
 
-
-
         private DataTable GetDataTable(string query, string connectionName = "DefaultConnection")
         {
             using (SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings[connectionName].ConnectionString))
@@ -61,8 +59,6 @@ namespace EPBM.permohonan
                 return dataTable;
             }
         }
-
-
 
         protected void ddl_JenisPertimbangan()
         {
@@ -96,7 +92,6 @@ namespace EPBM.permohonan
             }
           
         }
-
 
         private void ddlKaedah_Perolehan()
         {
@@ -180,7 +175,6 @@ namespace EPBM.permohonan
 
         }
 
-
         private void ddlPBM_Muktamad()
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
@@ -196,7 +190,6 @@ namespace EPBM.permohonan
             ddlPBMMuktamad.DataBind();
             ddlPBMMuktamad.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
         }
-
 
         protected void Bind_ddlJabatan()
         {
@@ -216,7 +209,6 @@ namespace EPBM.permohonan
             }
 
         }
-
 
         protected void ddlJabatan_SelectedIndexChanged(object sender, EventArgs e)
         {    
@@ -255,7 +247,6 @@ namespace EPBM.permohonan
             }
         }
 
-
         protected void ddlBahagian_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -277,11 +268,6 @@ namespace EPBM.permohonan
 
         }
 
-
-
-
-
-
         protected void btnHantar_Click(object sender, EventArgs e)
         {
 
@@ -289,11 +275,22 @@ namespace EPBM.permohonan
             DateTime tkhsahlaku = SystemHelper.GetDateTime(txttkhsahlaku.Text);
 
             MessageAlert.Visible = false;
+            MessageAlertbhg.Visible = false;
 
-           if (!cbPerakuan1.Checked)
+            if ((ddlBahagian.SelectedValue == "0" && ddlJabatan.SelectedValue == "1") || (ddlJabatan.SelectedValue == "0"))
+            {
+
+                MessageAlertbhg.Visible = true;
+            }
+
+
+
+            else if (!cbPerakuan1.Checked)
             {
                 MessageAlert.Visible = true;
             }
+
+
             else
             {
                 SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
@@ -333,8 +330,6 @@ namespace EPBM.permohonan
         }
 
        
-       
-
 
     }
 }

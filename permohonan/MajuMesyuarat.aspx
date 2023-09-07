@@ -1,19 +1,25 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="papar.aspx.cs" Inherits="EPBM.permohonan.papar" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MajuMesyuarat.aspx.cs" Inherits="EPBM.permohonan.MajuMesyuarat" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	
-	<h1 class="h3 mb-4 text-truncate">PERMOHONAN: <strong> <asp:Label ID="lblTajukUtama" runat="server" ></asp:Label></strong></h1>
-	<div class="card">
-	
-
-
-		<div class="card-body">
 	<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-			<a href="/permohonan/senarai.aspx" class="btn btn-secondary" >Back</a>			
+			<a href="/permohonan/senarai.aspx" class="btn btn-secondary" style=text-align:right; width="1px">Back</a>			
 			</div>
+	<h1 class="h3 mb-4 text-truncate">PERMOHONAN: <strong> <asp:Label ID="lblTajukUtama" runat="server" ></asp:Label></strong></h1>
+
+	<asp:TextBox ID="ID_Meeting" style="display:none" runat="server"  type="text" ></asp:TextBox> 
+	
+	<div class="card">
+
+		
+		<div class="card-header pb-0">
+			<h5 class="card-title">MAKLUMAT PERMOHONAN</h5>
+		</div>
+		
+		<div class="card-body collapse" id="showDetails">
 			<table class="table table-bordered table-hover">
-			  <tbody>			
+		<tbody>			
 				 <tr>
 				  <th scope="row" class="align-middle bg-primary text-white">TAJUK</th>
 				  <td class=""><asp:Label ID="lblTajuk" runat="server" ></asp:Label></td>
@@ -83,52 +89,67 @@
 
 			  </tbody>
 			</table>
-		</div>
-	</div>
-	<div class="modal fade" id="confirmationModal" tabindex="-1" aria-modal="true" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-danger">
-					<h5 class="modal-title text-white text-truncate">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body m-3">
-					<p class="mb-0">Anda pasti untuk menghapuskan permohonan ini?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
-				</div>
+			<div class="show-full text-center">
+				<button type="button" class="btn btn-outline-primary rounded-pill" data-bs-toggle="collapse" data-bs-target="#showDetails">
+					<span class="btn-before">Papar Penuh <i class="mt-n1" data-feather="chevrons-down"></i ></span>
+					<span class="btn-after">Papar Sedikit <i class="mt-n1" data-feather="chevrons-up"></i ></span>
+				</button>
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="meetingModal" tabindex="-1" aria-modal="true" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-info">
-					<h5 class="modal-title text-white text-truncate">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body m-3">
-					<p class="">Anda pasti untuk bawa permohonan ini ke mesyuarat?</p>
-					
+	<div class="card">
+		<div class="card-body">
+			<div class="row">
+				
+				<div class="col-12 col-lg-6 success">
 					<div>
-						<select class="form-select mb-3" required>
-						  <option>SILA PILIH MESYUARAT</option>
-						  <option>MLP BIL. 1/2023</option>
-						  <option>JKSH BIL. 1/2023</option>
-						</select>
+						 <label class="control-label">Majukan Ke Mesyuarat<span class="text-danger">*</span></label>
+                            
+                             <asp:DropDownList ID="ddlMeeting" class="form-select mb-3" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlMeeting_SelectedIndexChanged" required="required"></asp:DropDownList>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-info" data-bs-dismiss="modal">Teruskan</button>
-				</div>
+
 			</div>
 		</div>
 	</div>
+
+	<div class="col-12">
+                        <asp:Button ID="btnhantar" OnClick="btnHantar_Click" runat="server" class="btn btn-primary" Text="Hantar" CausesValidation="false" />
+                    </div>
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
+	<script>
+	var statuses = document.querySelectorAll('input[name="inlineRadioOptions"]');
+    statuses.forEach(status => {
+		status.addEventListener('change', function (event) {
+            if (status.value == 1 || status.value == 2) {
+                failFields = document.querySelectorAll('.fail');
+                failFields.forEach(function (field, index) {
+                    field.classList.add("d-none");
+                });
+				successFields = document.querySelectorAll('.success');
+				successFields.forEach(function (field, index) {
+					field.classList.remove("d-none");
+				});
+			} else {
+				successFields = document.querySelectorAll('.success');
+				successFields.forEach(function (field, index) {
+					field.classList.add("d-none");
+				});
+				failFields = document.querySelectorAll('.fail');
+				failFields.forEach(function (field, index) {
+					field.classList.remove("d-none");
+				});
+			}
+		});
+    });
+	
+	var removeAttachment = document.getElementById('removeAttachment');
+	removeAttachment.addEventListener('click', function (event) {
+		document.getElementById('attachmentLabel').classList.add('d-none');
+		document.getElementById('attachment').value = '';
+		document.querySelector('input[name="keepAttachment"]').value = 0;
+	})
+    </script>
 </asp:Content>

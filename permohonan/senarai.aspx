@@ -1,181 +1,137 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="senarai.aspx.cs" Inherits="EPBM.Permohonan.senarai" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="senarai.aspx.cs" Inherits="EPBM.Permohonan.senarai" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <link href="../assets/css/gridview.css" rel="stylesheet" />
 
+
+<style>
+img {
+padding-top: 10px;
+width: 22px;
+height: 27px;
+}
+
+</style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
+<%-- <ajaxToolkit:ToolkitScriptManager ID="tsmPage" runat="server" ScriptMode="Release" />--%>
 <h1 class="h3 mb-3">SENARAI <strong>PERMOHONAN</strong></h1>
-	<div class="card">
+
+<div class="card">
 		<div class="card-body">
-			<div class="input-group">
-				<select class="form-select">
-					<option>SEMUA KOLUM</option>
-					<option>TAJUK</option>
-					<option>JABATAN</option>
-					<option>STATUS</option>
-				</select>
-				<input type="text" class="form-control w-25" placeholder="Carian...">
-				<button class="btn btn-primary" type="button"><i class="align-middle" data-feather="search"></i></button>
-			</div>
+			<asp:Panel ID="Panel1" runat="server" defaultbutton="btnSearch">
+				<div class="input-group">
+					<asp:DropDownList ID="listSearchCol" CssClass="form-select" runat="server" >  
+						<asp:ListItem Value="">SEMUA KOLUM</asp:ListItem>  
+						<asp:ListItem>JABATAN</asp:ListItem>  
+						<asp:ListItem>TAJUK</asp:ListItem>  
+						<asp:ListItem>STATUS</asp:ListItem>  
+					</asp:DropDownList>
+					<asp:TextBox ID="txtSearch" CssClass="form-control w-25" placeholder="Carian..." runat="server"></asp:TextBox>
+					<asp:LinkButton ID="btnSearch" CssClass="btn btn-primary" runat="server" OnClick="BtnSearch_Click" CausesValidation="False"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
+					
+				
+				</div>
+			</asp:Panel>
 		</div>
 	</div>
+<asp:ScriptManager ID="ScriptManager1"  EnablePageMethods="true"   EnablePartialRendering="true" runat="server">  </asp:ScriptManager>
+ <asp:UpdatePanel ID="UpdatePanel1" runat="server"  UpdateMode="Conditional">
+   <ContentTemplate>
+
 	<div class="card">
 		<div class="card-body table-responsive">
-	<%--		<table class="table table-bordered table-striped table-hover">--%>
 
-				<asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" OnPageIndexChanging="Senarai_PageIndexChanging" CssClass="table table-striped table-bordered table-hover Grid" AllowPaging="True">
+		
+			<div ID="SORT" runat="server" Visible="false" class="row input-group-sm justify-content-between">
+				<div   class ="col-sm-6 col-md-5 mb-3">
+					<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" /></label>
+				</div>
+				<div class="col-sm-3 col-md-2 mb-3 text-end">
+					
+				</div>
+			</div>
+			<table class="table table-bordered table-striped table-hover">
+				<asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" EmptyDataText="Tiada Rekod Dijumpai." ShowHeaderWhenEmpty="True" OnPageIndexChanging="Senarai_PageIndexChanging" OnSorting="Senarai_Sorting" AllowSorting="true" CssClass="table table-striped table-bordered table-hover Grid" OnDataBound="Senarai_DataBound" AllowPaging="True">
                                         <PagerSettings Mode="Numeric" Position="Bottom" />
                                         <Columns>
-                                            <asp:TemplateField HeaderText="No.">
+                                            <asp:TemplateField HeaderText="ID" Visible="true" SortExpression="ID">
+                                                <ItemTemplate>
+                                                <asp:Label ID="lblID" runat="server" Text='<%#Eval("Id") %>'></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>											
+											<asp:TemplateField HeaderText="No.">
                                                 <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="Tajuk" HeaderText="Tajuk" SortExpression="Tajuk">
-                                                <ItemStyle Width="25%" Wrap="true" />
+											<asp:TemplateField HeaderText="Tajuk">
+                                                <ItemStyle Wrap="true" />
+                                                <ItemTemplate>
+												<asp:Label ID="lblTajukUtama" runat="server" Text='<%# Eval("Tajuk") %>'></asp:Label>                                
+												</ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField DataField="NamaJabatan" HeaderText="Kemetenterian /Jabatan" SortExpression="NamaJabatan">
+                                                <ItemStyle  Wrap="true" />
                                             </asp:BoundField>
-                                            <asp:BoundField DataField="NamaJabatan" HeaderText="Jabatan" SortExpression="Jabatan">
-                                                <ItemStyle Width="25%" Wrap="true" />
-                                            </asp:BoundField>
-										
-											<%--<asp:BoundField DataField="NamaBahagian" HeaderText="Bahagian" SortExpression="NamaBahagian">
-                                                <ItemStyle Width="25%" Wrap="true" />
-                                            </asp:BoundField>--%>
-                                       
+                                            <asp:TemplateField HeaderText="STATUS" Visible="true" SortExpression="Status_Permohonan">
+                                                <ItemStyle Width="0.5%" Wrap="true" />
+                                                <ItemTemplate>
+												<asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status_Permohonan") %>'></asp:Label>
+                                                <asp:Label ID="lblIDStatus" Visible="false" runat="server" Text='<%# Eval("IdStatusPermohonan") %>'></asp:Label>
+												</ItemTemplate>
+                                            </asp:TemplateField>
+											<asp:TemplateField HeaderText="Tindakan">
+												<ItemStyle Width="12%" Wrap="true" />
+												<ItemTemplate>													 													
+												    <asp:HyperLink ID="HyperLinkPapar" runat="server" NavigateUrl='<%# Eval("Id", "papar.aspx?ID={0}") %>'  ImageUrl="~/image/View.png" title="Papar"  ></asp:HyperLink>
+													<asp:HyperLink ID="HyperLinkEdit" runat="server" Visible="false" NavigateUrl='<%# Eval("Id", "edit.aspx?ID={0}") %>'  ImageUrl="~/image/Edit.png"  title="Kemaskini"></asp:HyperLink>
+													<asp:HyperLink ID="HyperLinkMaju" runat="server" Visible="false" NavigateUrl='<%# Eval("Id", "MajuMesyuarat.aspx?ID={0}") %>'  ImageUrl="~/image/Maju.png" style="text-align:center" title="Maju Mesyuarat"></asp:HyperLink>
+													<asp:ImageButton ID="btnhapus" runat="server"  Visible="false" ImageUrl="~/image/delete.png"  OnClick="btn_hapus_Click" ImageAlign="middle" width="18" height="18" title="Delete"/>
+												  
+												</ItemTemplate>
+											</asp:TemplateField>
                                         </Columns>
+
                                     </asp:GridView>
 
-
-
-		<%--	</table>--%>
+			</table>
 			<nav aria-label="Page navigation example">
-			<%--  <ul class="pagination justify-content-end">
-				<li class="page-item">
-				  <a class="page-link" href="#" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				  </a>
-				</li>
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-				  <a class="page-link" href="#" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				  </a>
-				</li>
-			  </ul>--%>
+			
 			</nav>
 		</div>
-
-
-
-				<table class="table table-bordered table-striped table-hover">
-			  <thead>
-				<tr>
-				  <th scope="col">#</th>
-				  <th scope="col">TAJUK</th>
-				  <th scope="col">JABATAN</th>
-				  <th scope="col">HARGA INDIKATIF (RM)</th>
-				  <th scope="col">TARIKH SAHLAKU</th>
-				  <th scope="col">STATUS</th>
-				  <th scope="col"></th>
-				</tr>
-			  </thead>
-			  <tbody>
-				<tr>
-				  <th scope="row">1</th>
-				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
-				  <td class="text-end">3,456,789.00</td>
-				  <td class="text-nowrap">04 OKT 2023</td>
-				  <td class="text-center"><span class="badge text-bg-primary">BELUM DISAHKAN</span></td>
-				  <td class="table-action">
-						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/permohonan/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
-						<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="text-danger" title="Hapus"><i class="align-middle" data-feather="trash"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">2</th>
-				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
-				  <td class="text-end">3,456,789.00</td>
-				  <td class="text-nowrap">04 Okt 2023</td>
-				  <td class="text-center"><span class="badge text-bg-warning">TIDAK DISAHKAN</span></td>
-				  <td class="table-action">
-						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/permohonan/edit.aspx" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
-						<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="text-danger" title="Hapus"><i class="align-middle" data-feather="trash"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">3</th>
-				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
-				  <td class="text-end">3,456,789.00</td>
-				  <td class="text-nowrap">04 Okt 2023</td>
-				  <td class="text-center"><span class="badge text-bg-success">DISAHKAN</span></td>
-				  <td class="table-action">
-						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="#" data-bs-toggle="modal" data-bs-target="#meetingModal" class="text-info" title="Bawa Ke Mesyuarat"><i class="align-middle" data-feather="send"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">4</th>
-				  <td class="">PEROLEHAN PEMBAHARUAN LANGGANAN APLIKASI ZOOM BAGI VIRTUAL MEETING KEMENTERIAN SUMBER ASLI, ALAM SEKITAR DAN PERUBAHAN IKLIM</td>
-				  <td>BAHAGIAN PENGURUSAN MAKLUMAT</td>
-				  <td class="text-end">8,530.56</td>
-				  <td class="text-nowrap">22 Nov 2023</td>
-				  <td class="text-center"><span class="badge text-bg-info">BAWA KE MESYUARAT</span></td>
-				  <td class="table-action">
-						<a href="/permohonan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/keputusan/edit.aspx" class="text-success" title="Keputusan"><i class="align-middle" data-feather="inbox"></i></a>
-					</td>
-				</tr>
-			  </tbody>
-			</table>
-	</div>
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-modal="true" role="dialog">
+	<asp:TextBox ID="ID" runat="server" Style="display: none;" type="text"></asp:TextBox>		
+	</div>	   
+	<div class="modal fade" id="deleteModal" tabindex="-1"  aria-modal="true" role="dialog">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content">
+			<div class="modal-content">				
 				<div class="modal-header bg-danger">
-					<h5 class="modal-title text-white text-truncate">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</h5>
+					<h5 class="modal-title text-white text-truncate"><asp:Label ID="lblTajukUtama" runat="server"></asp:Label> </h5>				    
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body m-3">
+					<br />	
 					<p class="mb-0">Anda pasti untuk menghapuskan permohonan ini?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hapus</button>
+				    <asp:LinkButton ID="btnhapus" runat="server" OnClick="btnSahHapus_Click" Text="HAPUS" class="btn btn-danger" > </asp:LinkButton>
 				</div>
 			</div>
 		</div>
+		
 	</div>
-	<div class="modal fade" id="meetingModal" tabindex="-1" aria-modal="true" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-info">
-					<h5 class="modal-title text-white text-truncate">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body m-3">
-					<p class="">Anda pasti untuk bawa permohonan ini ke mesyuarat?</p>
-					
-					<div>
-						<select class="form-select mb-3" required>
-						  <option>SILA PILIH MESYUARAT</option>
-						  <option>MLP BIL. 1/2023</option>
-						  <option>JKSH BIL. 1/2023</option>
-						</select>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-info" data-bs-dismiss="modal">Teruskan</button>
-				</div>
-			</div>
-		</div>
-	</div>
+
+
+</ContentTemplate>    </asp:UpdatePanel> 
+
+
+<script type="text/javascript">
+    
+	function opendeleteModal() {
+        var myModal = new bootstrap.Modal(document.getElementById('deleteModal'), { keyboard: false });
+        myModal.show();
+    }
+</script>
+
 </asp:Content>

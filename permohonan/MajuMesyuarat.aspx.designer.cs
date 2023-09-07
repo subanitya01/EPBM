@@ -11,7 +11,7 @@ namespace EPBM.permohonan
 {
 
 
-    public partial class papar
+    public partial class MajuMesyuarat
     {
 
         /// <summary>
@@ -22,6 +22,15 @@ namespace EPBM.permohonan
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTajukUtama;
+
+        /// <summary>
+        /// ID_Meeting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ID_Meeting;
 
         /// <summary>
         /// lblTajuk control.
@@ -175,5 +184,23 @@ namespace EPBM.permohonan
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCatatan;
+
+        /// <summary>
+        /// ddlMeeting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMeeting;
+
+        /// <summary>
+        /// btnhantar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnhantar;
     }
 }

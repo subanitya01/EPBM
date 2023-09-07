@@ -11,13 +11,14 @@ using System.Web.UI.WebControls;
 
 namespace EPBM.permohonan
 {
-    public partial class papar : System.Web.UI.Page
+    public partial class MajuMesyuarat : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                Papar();          
+                Papar();
+                ddlMesyuarat();
             }
         }
 
@@ -100,5 +101,76 @@ namespace EPBM.permohonan
                 }
             }
         }
+
+        protected void ddlMeeting_SelectedIndexChanged(Object sender, EventArgs e)
+
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            SqlDataAdapter sda = new SqlDataAdapter("SELECT * FROM JenisMesyuarat WHERE Id  = '" + ddlMeeting.SelectedValue + "'", conn);
+
+            conn.Open();
+
+            DataTable dt = new DataTable();
+            sda.Fill(dt);
+            conn.Close();
+
+            if (dt.Rows.Count != 0)
+            {
+                ID_Meeting.Text = dt.Rows[0][0].ToString().Trim();
+                //var selectedValue = ((DropDownList)sender).SelectedValue;
+            }
+
+            else
+            {
+
+            }
+
+        }
+
+        private void ddlMesyuarat()
+        {
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM JenisMesyuarat", con);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            con.Close();
+            ddlMeeting.DataSource = ds;
+            ddlMeeting.DataTextField = "Nama";
+            ddlMeeting.DataValueField = "Id";
+            ddlMeeting.DataBind();
+            ddlMeeting.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
+        }
+
+
+        protected void btnHantar_Click(object sender, EventArgs e)
+        {
+            
+            try
+            {
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Permohonan WHERE ID ='" + Request.QueryString["Id"] + "'", conn);
+
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    conn.Open();
+                    string insertQuery = "UPDATE Permohonan SET IdStatusPermohonan  = '4', IdMesyuarat = '" + ddlMeeting.SelectedValue + "' where ID ='" + Request.QueryString["Id"] + "'";
+                    SqlCommand com = new SqlCommand(insertQuery, conn);
+
+                    com.ExecuteNonQuery();
+
+                    Response.Redirect("/Permohonan/senarai.aspx");
+
+                    conn.Close();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw new Exception("Error: " + ex);
+            }
+        }
+
     }
 }
