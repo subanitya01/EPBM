@@ -45,7 +45,7 @@ namespace EPBM.mesyuarat
                 if (string.IsNullOrEmpty(Id))
                     Utils.HttpNotFound();
 
-                string CommandText = "Select TOP 1 * from Mesyuarat WHERE Id=@Id";
+                string CommandText = "Select TOP 1 * from Mesyuarat WHERE Id=@Id and TarikhHapus IS NULL";
                 Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@Id", Id } };
                 DataTable dtMesyuarat = Utils.GetDataTable(CommandText, queryParams);
 
@@ -68,7 +68,7 @@ namespace EPBM.mesyuarat
                 ViewState["dtAhliMesyuarat"] = dtAhliMesyuarat;
                 Repeater1.DataBind();
 
-                string CommandText3 = "Select Id, Tajuk, IdMesyuarat from Permohonan WHERE IdMesyuarat=@Id or IdMesyuarat IS NULL";
+                string CommandText3 = "Select Id, Tajuk, IdMesyuarat from Permohonan WHERE (IdMesyuarat=@Id or IdMesyuarat IS NULL) and (IdStatusPermohonan IN (3,4)) and TarikhHapus IS NULL";
                 Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@Id", row["Id"].ToString() } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText3, queryParams3);
                 Repeater2.DataSource = dtPermohonan;
@@ -88,9 +88,11 @@ namespace EPBM.mesyuarat
 
         protected void Save(object sender, EventArgs e)
         {
-
-            LinkButton btn = (LinkButton)sender;
-            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
+            Page.Validate("submit");
+            if (Page.IsValid)
+            {
+                LinkButton btn = (LinkButton)sender;
+                Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
                 {
                     {"@Id",  btn.CommandArgument },
                     {"@Jenis",  ddlJenis.SelectedValue },
@@ -99,73 +101,74 @@ namespace EPBM.mesyuarat
                     {"@Tarikh",  txtTarikh.Text },
                     {"@Pengerusi",  txtPengerusi.Text },
                 };
-            Utils.ExcuteQuery("UPDATE Mesyuarat SET IdJenisMesyuarat=@Jenis, Bilangan=@Bil, Tahun=@Tahun, Tarikh=@Tarikh, Pengerusi=@Pengerusi WHERE Id=@Id", queryParams);
+                Utils.ExcuteQuery("UPDATE Mesyuarat SET IdJenisMesyuarat=@Jenis, Bilangan=@Bil, Tahun=@Tahun, Tarikh=@Tarikh, Pengerusi=@Pengerusi WHERE Id=@Id", queryParams);
 
 
-            Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>(){ { "@IdMesyuarat",  btn.CommandArgument } };
-            //Delete Existing Ahli Mesyuarat
-            Utils.ExcuteQuery("DELETE FROM AhliMesyuarat where IdMesyuarat=@IdMesyuarat", queryParams2);
+                Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
+                //Delete Existing Ahli Mesyuarat
+                Utils.ExcuteQuery("DELETE FROM AhliMesyuarat where IdMesyuarat=@IdMesyuarat", queryParams2);
 
-            DataTable dtAhliMesyuarat = (DataTable)ViewState["dtAhliMesyuarat"];
-            Int32 batchSize = 0; //how many rows we have build up so far
-            Int32 p = 1; //the current paramter name (i.e. "@p1") we're going to use
-            StringBuilder insertAhliValues = new StringBuilder();
-            Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>(){ { "@IdMesyuarat", btn.CommandArgument } };
+                DataTable dtAhliMesyuarat = (DataTable)ViewState["dtAhliMesyuarat"];
+                Int32 batchSize = 0; //how many rows we have build up so far
+                Int32 p = 1; //the current paramter name (i.e. "@p1") we're going to use
+                StringBuilder insertAhliValues = new StringBuilder();
+                Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
 
-            foreach (DataRow entry in dtAhliMesyuarat.Rows)
-            {
-                //Build the names of the parameters
-                String pName = String.Format("@p{0}", p + 1); //the "Name" parameter name (i.e. "p1")
-                p += 1;
-
-                //Build a single "(IdMesyuarat, p1)" row
-                String row = String.Format("(@IdMesyuarat, {0})", pName); //a single values tuple
-
-                //Add the row to our running SQL batch
-                if (batchSize > 0)
-                    insertAhliValues.AppendLine(",");
-                insertAhliValues.Append(row);
-                batchSize += 1;
-
-                //Add the parameter values for this row
-                queryParams3.Add(pName, entry["Nama"].ToString());
-            }
-
-            //Insert Ahli Mesyuarat if any
-            if (batchSize > 0)
-            {
-                Utils.ExcuteQuery("INSERT INTO AhliMesyuarat (IdMesyuarat, Nama) VALUES" + insertAhliValues.ToString(), queryParams3);
-            }
-
-            Dictionary<string, dynamic> queryParams4 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
-            //Delete Existing Permohonan
-            Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=NULL where IdMesyuarat=@IdMesyuarat", queryParams4);
-
-            Dictionary<string, dynamic> queryParams5 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
-            StringBuilder updatePermohonanId = new StringBuilder();
-            Int32 p2 = 1;
-            DataTable dtPermohonan = (DataTable)ViewState["dtPermohonan"];
-
-            foreach (RepeaterItem item in Repeater2.Items)
-            {
-                CheckBox CheckBoxPermohonan = (CheckBox)item.FindControl("CheckBoxPermohonan");
-                if (CheckBoxPermohonan.Checked)
+                foreach (DataRow entry in dtAhliMesyuarat.Rows)
                 {
-                    String pName = String.Format("@p{0}", p2 + 1);
-                    if (p2 > 1)
-                        updatePermohonanId.AppendLine(",");
-                    updatePermohonanId.Append(pName);
-                    queryParams5.Add(pName, dtPermohonan.Rows[item.ItemIndex]["Id"]);
-                    p2 += 1;
+                    //Build the names of the parameters
+                    String pName = String.Format("@p{0}", p + 1); //the "Name" parameter name (i.e. "p1")
+                    p += 1;
+
+                    //Build a single "(IdMesyuarat, p1)" row
+                    String row = String.Format("(@IdMesyuarat, {0})", pName); //a single values tuple
+
+                    //Add the row to our running SQL batch
+                    if (batchSize > 0)
+                        insertAhliValues.AppendLine(",");
+                    insertAhliValues.Append(row);
+                    batchSize += 1;
+
+                    //Add the parameter values for this row
+                    queryParams3.Add(pName, entry["Nama"].ToString());
                 }
-            }
 
-            if (p2 > 1)
-            {
-                Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=@IdMesyuarat WHERE Id IN (" + updatePermohonanId.ToString() + ")", queryParams5);
-            }
+                //Insert Ahli Mesyuarat if any
+                if (batchSize > 0)
+                {
+                    Utils.ExcuteQuery("INSERT INTO AhliMesyuarat (IdMesyuarat, Nama) VALUES" + insertAhliValues.ToString(), queryParams3);
+                }
 
-            Response.Redirect("/mesyuarat/senarai.aspx");
+                Dictionary<string, dynamic> queryParams4 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
+                //Delete Existing Permohonan
+                Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=NULL, IdStatusPermohonan=3 where IdMesyuarat=@IdMesyuarat", queryParams4);
+
+                Dictionary<string, dynamic> queryParams5 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
+                StringBuilder updatePermohonanId = new StringBuilder();
+                Int32 p2 = 1;
+                DataTable dtPermohonan = (DataTable)ViewState["dtPermohonan"];
+
+                foreach (RepeaterItem item in Repeater2.Items)
+                {
+                    CheckBox CheckBoxPermohonan = (CheckBox)item.FindControl("CheckBoxPermohonan");
+                    if (CheckBoxPermohonan.Checked)
+                    {
+                        String pName = String.Format("@p{0}", p2 + 1);
+                        if (p2 > 1)
+                            updatePermohonanId.AppendLine(",");
+                        updatePermohonanId.Append(pName);
+                        queryParams5.Add(pName, dtPermohonan.Rows[item.ItemIndex]["Id"]);
+                        p2 += 1;
+                    }
+                }
+
+                if (p2 > 1)
+                {
+                    Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=@IdMesyuarat, IdStatusPermohonan=4 WHERE Id IN (" + updatePermohonanId.ToString() + ")", queryParams5);
+                }
+
+                Response.Redirect("/mesyuarat/papar.aspx?id=" + btn.CommandArgument);
+            }
         }
         protected void removeMember_Click(object sender, EventArgs e)
         {

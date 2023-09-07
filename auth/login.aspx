@@ -30,7 +30,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="m-sm-3">
-                                    <form id="account" method="post" defaultbutton="BtnLogin" runat="server">
+                                    <form id="account" method="post" defaultfocus="txtUsername" defaultbutton="BtnLogin" runat="server">
                                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                                         <div class="form-floating">
                                             <asp:TextBox ID="txtUsername" runat="server" class="form-control" autofocus="autofocus" required="required" placeholder="No Kad Pengenalan"></asp:TextBox>

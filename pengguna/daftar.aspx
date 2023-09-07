@@ -17,8 +17,9 @@
 						<asp:ListItem>E-MEL</asp:ListItem>  
 					</asp:DropDownList>
 					<asp:TextBox ID="txtSearch" CssClass="form-control w-25" placeholder="Carian..." required="required" runat="server"></asp:TextBox>
-					<asp:LinkButton ID="btnSearch" CssClass="btn btn-primary" runat="server" OnClick="BtnSearch_Click" CausesValidation="False"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
+					<asp:LinkButton ID="btnSearch" CssClass="btn btn-primary" runat="server" OnClick="BtnSearch_Click" validationgroup="search"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
 				</div>
+				<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Sila isi ruangan carian" ValidationGroup="search" ControlToValidate="txtSearch" ForeColor="Red"></asp:RequiredFieldValidator>
 			</asp:Panel>
 		</div>
 	</div>

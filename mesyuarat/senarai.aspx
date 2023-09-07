@@ -103,6 +103,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body m-3">
+					<p><b class="text-danger">Jika mesyuarat ini dihapuskan, semua permohonan berkaitan akan dikeluarkan daripada mesyuarat ini.</b></p>
 					<p class="mb-0">Anda pasti untuk menghapuskan mesyuarat ini?</p>
 				</div>
 				<div class="modal-footer">

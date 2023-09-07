@@ -6,7 +6,7 @@
 	<div class="card">
 		<div class="card-body">
 			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-				<a href="/mesyuarat/edit.aspx" class="btn btn-secondary"><i class="mt-n1" data-feather="edit-2"></i > Edit</a>
+				<asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-secondary" ><i class="align-middle" data-feather="edit-2"></i> Edit</asp:HyperLink>
 				<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger"><i class="mt-n1" data-feather="trash"></i> Hapus</a>
 			</div>
 			<table class="table table-bordered">

@@ -125,6 +125,7 @@ namespace EPBM.mesyuarat
                     {"@Id",  btn.CommandArgument }
                 };
             Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = GETDATE() WHERE Id = @Id", queryParams);
+            Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat = NULL, IdStatusPermohonan=3 WHERE IdMesyuarat = @Id", queryParams);
             BindData();
         }
     }

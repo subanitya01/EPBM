@@ -7,21 +7,25 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
-					<div class="col-12 col-lg-6 mb-3">
+					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">JENIS <span class="text-danger">*</span></label>
 						<asp:DropDownList ID="ddlJenis" runat="server" CssClass="form-control form-select" required="required"></asp:DropDownList>
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Sila Pilih Jenis Mesyuarat" ControlToValidate="ddlJenis" ValidationGroup="submit" ForeColor="Red"></asp:RequiredFieldValidator>
 					</div>
-					<div class="col-12 col-lg-6 mb-3">
+					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">BILANGAN <span class="text-danger">*</span></label>
 						<div class="input-group">
 							<asp:TextBox ID="txtBil" type="number" runat="server" CssClass="form-control" placeholder="BIL" min="1" required="required"></asp:TextBox>
 							<span class="input-group-text">/</span>
 							<asp:TextBox ID="txtTahun" type="number" runat="server" CssClass="form-control" placeholder="TAHUN" min="1900" max="3000" required="required"></asp:TextBox>
 						</div>
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Sila Isi Bil. Mesyuarat" ControlToValidate="txtBil" ForeColor="Red"></asp:RequiredFieldValidator>
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Sila Isi Tahun Bil. Mesyuarat" ControlToValidate="txtTahun" ValidationGroup="submit" ForeColor="Red" CssClass="float-end"></asp:RequiredFieldValidator>
 					</div>
-					<div class="col-12 col-lg-6 mb-3">
+					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">TARIKH <span class="text-danger">*</span></label>
 						<asp:TextBox ID="txtTarikh" type="date" runat="server" CssClass="form-control" placeholder="TARIKH" required="required"></asp:TextBox>
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Sila Isi Tarikh Mesyuarat" ControlToValidate="txtTarikh" ValidationGroup="submit" ForeColor="Red"></asp:RequiredFieldValidator>
 					</div>
 				</div>
 			</div>
@@ -45,10 +49,10 @@
 						<div class="row">
 							<asp:Repeater ID="Repeater1" runat="server">
 								<ItemTemplate>
-									<div class="col-12 col-lg-6">
+									<div class="col-12 col-lg-6 mb-2">
 										<asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="false" RenderMode="inline" UpdateMode="conditional">
 											<ContentTemplate>
-												<div class="entry input-group mb-3">
+												<div class="entry input-group">
 													<asp:TextBox ID="txtMembers" runat="server" Text='<%# Eval("Nama") %>' AutoPostBack="True" OnTextChanged="updateMember" CssClass="form-control" placeholder="NAMA AHLI" required="required">
 													</asp:TextBox>
 
@@ -58,6 +62,7 @@
 														</asp:LinkButton>
 													</span>
 												</div>
+												<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Sila Isi Nama Ahli Mesyuarat" ControlToValidate="txtMembers" ValidationGroup="submit" ForeColor="Red"></asp:RequiredFieldValidator>
 											</ContentTemplate>
 											<Triggers>
 												<asp:AsyncPostBackTrigger ControlID="txtMembers" EventName="TextChanged" />
@@ -69,17 +74,18 @@
 							</asp:Repeater>
 						</div>
 						<div class="row">
-							<div class="col-12 col-lg-6">
-								<div class="entry input-group mb-3">
+							<div class="col-12 col-lg-6 mb-1">
+								<div class="entry input-group">
 									<asp:TextBox ID="newMember" runat="server" CssClass="form-control" placeholder="NAMA AHLI" required="required" ValidateRequestMode="Enabled">
 									</asp:TextBox>
 
 									<span class="input-group-btn">
-										<asp:LinkButton ID="addBtn" runat="server" CssClass="btn btn-success" OnClick="addMember_Click">
+										<asp:LinkButton ID="addBtn" runat="server" CssClass="btn btn-success" OnClick="addMember_Click" ValidationGroup="newMember">
 											<i class="align-middle" data-feather="plus"></i>
 										</asp:LinkButton>
 									</span>
 								</div>
+								<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Sila Isi Nama Ahli Mesyuarat" ControlToValidate="newMember" ValidationGroup="newMember" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
 						</div>
 					</ContentTemplate>
@@ -116,7 +122,7 @@
 				</div>
 			</div>
 		</div>
-		<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary" runat="server" OnClick="Save">SIMPAN</asp:LinkButton>
+		<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary" runat="server" OnClick="Save" ValidationGroup="submit">SIMPAN</asp:LinkButton>
 	</asp:Panel>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">

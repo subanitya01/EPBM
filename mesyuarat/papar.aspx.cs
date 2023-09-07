@@ -42,6 +42,7 @@ namespace EPBM.mesyuarat
                 PaparPengerusi.Text = row["PENGERUSI"].ToString();
                 deleteTitle.Text = "MESYUARAT " + row["JENIS"].ToString() + " BIL. " + row["BILANGAN"].ToString();
                 lnkDelete.CommandArgument = row["Id"].ToString();
+                HyperLink1.NavigateUrl = "/mesyuarat/edit.aspx?id=" + row["Id"].ToString();
 
                 string CommandText2 = "Select * from AhliMesyuarat WHERE IdMesyuarat=@Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", row["Id"].ToString() } };
@@ -78,7 +79,8 @@ namespace EPBM.mesyuarat
                     {"@Id",  btn.CommandArgument }
                 };
             Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = GETDATE() WHERE Id = @Id", queryParams);
-            Response.Redirect("/mesyuarat/senarai.aspx");
+            Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat = NULL, IdStatusPermohonan=3 WHERE IdMesyuarat = @Id", queryParams);
+            BindData();
         }
     }
 }

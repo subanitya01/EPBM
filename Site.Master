@@ -9,9 +9,9 @@
 	
     <link rel="preconnect" href="https://fonts.gstatic.com">  
 <%--	<link rel="shortcut icon" href="~/assets/img/icons/icon-48x48.png" />--%>
-	<link rel="shortcut icon" href="<%= ResolveUrl("~/assets/img/icons/icon-48x48.png") %>" />
+	<link rel="shortcut icon" href="<%= ResolveUrl("~/assets/img/icons/300px-Jata_MalaysiaV2.png") %>" />
 	<title>ePBM</title>
-
+	
 	 <%--   <link href="assets/css/app.css" rel="stylesheet" />--%>
 	<link href="<%= ResolveUrl("~/assets/css/app.css") %>" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">

@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	<h1 class="h3 mb-3">SENARAI KEPUTUSAN BAGI <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal>MESYUARAT JKSH BIL. 1/2023</strong></h1>
+	<h1 class="h3 mb-3">SENARAI KEPUTUSAN BAGI <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></h1>
 	<div class="card">
 		<div class="card-body table-responsive">
 			<asp:GridView 
@@ -11,6 +11,7 @@
 				EmptyDataText="Tiada Rekod Dijumpai." 
 				ShowHeaderWhenEmpty="True" 
 				AutoGenerateColumns="False" 
+				OnRowDataBound="GridView1_OnRowDataBound" 
 				CssClass="table table-bordered table-striped table-hover">  
             <Columns>
                 <asp:TemplateField HeaderText="#">
@@ -25,12 +26,26 @@
 
 				<asp:TemplateField HeaderText="STATUS" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
 					<ItemTemplate>
-						<%# Eval("STATUS") %>
+                        <asp:Label ID="lblStatus" CssClass="badge" runat="server"><%# Eval("STATUS") %></asp:Label>
 					</ItemTemplate>
 				</asp:TemplateField>
 
-                <asp:BoundField DataField="KETERANGAN" HeaderText="KETERANGAN" HeaderStyle-CssClass="text-center">
-                </asp:BoundField>
+				<asp:TemplateField HeaderText="KETERANGAN" HeaderStyle-CssClass="text-center">
+					<ItemTemplate>
+						<asp:Label ID="LblKeterangan" runat="server"><%# Eval("KETERANGAN").ToString().Replace(Environment.NewLine, "<br />") %></asp:Label>
+						
+						<asp:ListView runat="server"  ID="DetailsList">
+							<LayoutTemplate>
+								<ul class="list-group text-sm">
+									<li id="itemPlaceholder" runat="server" />
+								</ul>
+							</LayoutTemplate>
+							<ItemTemplate>
+								<li class="list-group-item p-1"><!--%#: Eval("Role") %--></li>
+							</ItemTemplate>
+						</asp:ListView>
+					</ItemTemplate>
+				</asp:TemplateField>
 
                 <asp:TemplateField ItemStyle-CssClass="text-center">
                     <ItemTemplate>
