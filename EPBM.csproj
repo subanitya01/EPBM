@@ -123,6 +123,7 @@
     <Content Include="mesyuarat\edit.aspx" />
     <Content Include="keputusan\papar.aspx" />
     <Content Include="mesyuarat\papar.aspx" />
+    <Content Include="mesyuarat\pengesahan.aspx" />
     <Content Include="mesyuarat\senarai-keputusan.aspx" />
     <Content Include="mesyuarat\senarai.aspx" />
     <Content Include="pengguna\daftar.aspx" />
@@ -159,6 +160,13 @@
     </Compile>
     <Compile Include="errors\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mesyuarat\pengesahan.aspx.cs">
+      <DependentUpon>pengesahan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mesyuarat\pengesahan.aspx.designer.cs">
+      <DependentUpon>pengesahan.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Mesyuarat.cs" />
     <Compile Include="Utils.cs" />

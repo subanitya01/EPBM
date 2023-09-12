@@ -52,8 +52,13 @@ namespace EPBM.mesyuarat
                     CommandText += " AND PENGERUSI LIKE '%' + @searchTerm + '%'";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
+                else if (searchCol == "STATUS PENGESAHAN")
+                {
+                    CommandText += " AND StatusPengesahan LIKE '%' + @searchTerm + '%'";
+                    queryParams.Add("@searchTerm", searchTerm);
+                }
             }
-            CommandText += " order by Tarikh desc";
+            CommandText += " order by Tarikh desc, Id desc";
             DataTable dtMesyuarat = Utils.GetDataTable(CommandText, queryParams);
 
             GridView1.DataSource = dtMesyuarat;
@@ -94,6 +99,25 @@ namespace EPBM.mesyuarat
         {
             GridView1.PageIndex = e.NewPageIndex;
             BindData();
+        }
+
+        protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+
+                if (drv.Row["IdStatusPengesahan"].ToString() == "1")
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
+                else if (drv.Row["IdStatusPengesahan"].ToString() == "2")
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-primary";
+                else if (drv.Row["IdStatusPengesahan"].ToString() == "3")
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-warning";
+                else if (drv.Row["IdStatusPengesahan"].ToString() == "4")
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
+
+            }
         }
 
         protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)

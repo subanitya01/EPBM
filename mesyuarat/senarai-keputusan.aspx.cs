@@ -20,8 +20,8 @@ namespace EPBM.mesyuarat
         }
         protected void BindData()
         {
-            /*try
-            {*/
+            try
+            {
                 var Id = Request.QueryString["id"];
                 if (string.IsNullOrEmpty(Id))
                     Utils.HttpNotFound();
@@ -29,17 +29,17 @@ namespace EPBM.mesyuarat
                 string CommandText = "Select * from PaparMesyuarat WHERE Id=@Id";
                 Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@Id", Id } };
                 DataTable dtMesyuarat = Utils.GetDataTable(CommandText, queryParams);
-                TajukMesyuarat.Text = "MESYUARAT " + dtMesyuarat.Rows[0]["JENIS"] + " BIL. " + dtMesyuarat.Rows[0]["BILANGAN"];
+                TajukMesyuaratModal.Text = TajukMesyuarat.Text = "MESYUARAT " + dtMesyuarat.Rows[0]["JENIS"] + " BIL. " + dtMesyuarat.Rows[0]["BILANGAN"];
 
-                string CommandText2 = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN from Papar_Permohonan WHERE IdMesyuarat=@Id and TarikhHapus IS NULL";
+                string CommandText2 = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN from Papar_Permohonan WHERE IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", Id } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
 
                 GridView1.DataSource = dtPermohonan;
                 GridView1.DataBind();
                 ViewState["dtPermohonan"] = dtPermohonan;
-            /*}
-            catch (Exception) { Utils.HttpNotFound(); }*/
+            }
+            catch (Exception) { Utils.HttpNotFound(); }
         }
 
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -48,43 +48,31 @@ namespace EPBM.mesyuarat
             {
                 DataRowView drv = e.Row.DataItem as DataRowView;
                 Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+                Label LblKeterangan = e.Row.FindControl("LblKeterangan") as Label;
+                ListView detailsList = e.Row.FindControl("DetailsList") as ListView;
 
                 if (drv.Row["IdStatusKeputusan"].ToString()=="1")
-                    lblStatus.Attributes.Add("class", "text-bg-info");
-                else if (drv.Row["IdStatusKeputusan"].ToString() == "1")
-                    lblStatus.Attributes.Add("class", "text-bg-success");
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
+                else if (drv.Row["IdStatusKeputusan"].ToString() == "2")
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
                 else
-                    lblStatus.Attributes.Add("class", "text-bg-danger");
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-danger";
 
-                /*ListView roleList = e.Row.FindControl("RoleList") as ListView;
-                Label activeLbl = e.Row.FindControl("lblStatusActive") as Label;
-                Label inactiveLbl = e.Row.FindControl("lblStatusInactive") as Label;
-                LinkButton btnEditUser = e.Row.FindControl("BtnEditUser") as LinkButton;
-                DataTable dt = new DataTable();
-                dt.Columns.AddRange(new DataColumn[2] { new DataColumn("UserId"), new DataColumn("Role") });
-                DataRowView drv = e.Row.DataItem as DataRowView;
-                DataRow[] rows = drv.Row.GetChildRows("userRoles");
-                List<string> roles = new List<string>();
-
-                foreach (DataRow row in rows)
+                if (drv.Row["IdStatusKeputusan"].ToString() == "3")
                 {
-                    dt.Rows.Add(row["UserId"].ToString(), row["Name"].ToString());
-                    roles.Add(row["Name"].ToString());
+                    detailsList.Visible = false;
                 }
-                btnEditUser.Attributes["data-roles"] = JsonConvert.SerializeObject(roles.ToArray());
-                roleList.DataSource = dt;
-                roleList.DataBind();
-
-                if (drv["Inactive"].ToString() == "1")
+                else if(!string.IsNullOrEmpty(drv.Row["IdStatusKeputusan"].ToString()))
                 {
-                    activeLbl.Visible = false;
-                    inactiveLbl.Visible = true;
+                    DataTable dt = new DataTable();
+                    dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
+                    dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
+                    dt.Rows.Add("NILAI", "RM " + string.Format("{0:#,0.00}", drv.Row["Harga"]));
+                    dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    detailsList.DataSource = dt;
+                    detailsList.DataBind();
+                    LblKeterangan.Visible = false;
                 }
-                else
-                {
-                    activeLbl.Visible = true;
-                    inactiveLbl.Visible = false;
-                }*/
             }
         }
     }

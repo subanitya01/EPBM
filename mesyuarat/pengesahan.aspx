@@ -1,27 +1,34 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="senarai-keputusan.aspx.cs" Inherits="EPBM.mesyuarat.senarai_keputusan" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="pengesahan.aspx.cs" Inherits="EPBM.mesyuarat.pengesahan" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	<asp:HyperLink ID="HyperLink2" NavigateUrl="~/mesyuarat/senarai.aspx" runat="server" CssClass="btn btn-link ps-0 pt-0" ><i class="align-middle" data-feather="corner-up-left"></i> Senarai Mesyuarat</asp:HyperLink>
-	<h1 class="h3 mb-3">SENARAI KEPUTUSAN BAGI <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></h1>
-	<asp:Panel ID="PanelComment" runat="server">
-		<div class="alert alert-warning d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
-			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			<div class="alert-icon me-3">
-				<i class="mt-n1" data-feather="bell"></i>
-			</div>
-			<div class="alert-message">
-				Terdapat kesilapan pada tarikh terima dan kaedah perolehan!<br>
-				Sila semak dengan teliti<br>
-				blablaablaaa
-			</div>
-		</div>
-	</asp:Panel>
+	<h1 class="h3 mb-3">PERAKUAN <strong>MESYUARAT</strong></h1>
 	<div class="card">
+		<div class="card-header pb-0">
+			<h5 class="card-title">MESYUARAT</h5>
+		</div>
+		<div class="card-body">
+			<asp:Panel ID="Panel1" runat="server">
+				<div class="input-group row">
+					<div class="col-md-6">
+					<asp:DropDownList ID="listMesyuarat" CssClass="form-select" runat="server" AutoPostBack="true" OnSelectedIndexChanged="RefreshPage" >  
+					</asp:DropDownList>
+					</div>
+					<div class="col-md-6">
+						<div class="btn-group btn-group-sm mb-3 float-end" role="group">
+							<a href="#" data-bs-toggle="modal" data-bs-target="#approveModal" class="btn btn-success"><i class="mt-n1" data-feather="check"></i> SAHKAN</a>
+							<a href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" class="btn btn-warning"><i class="mt-n1" data-feather="x"></i> KEMBALIKAN</a>
+						</div>
+					</div>
+				</div>
+			</asp:Panel>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header pb-0">
+			<h5 class="card-title">SENARAI PERMOHONAN</h5>
+		</div>
 		<div class="card-body table-responsive">
-			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-				<a href="#" data-bs-toggle="modal" data-bs-target="#meetingModal" class="btn btn-info"><i class="mt-n1" data-feather="send"></i> Hantar Untuk Kelulusan</a>
-			</div>
 			<asp:GridView 
 				ID="GridView1" 
 				runat="server" 
@@ -75,19 +82,40 @@
 			</asp:GridView>
 		</div>
 	</div>
-	<div class="modal fade" id="meetingModal" tabindex="-1" aria-modal="true" role="dialog">
+	<div class="modal fade" id="approveModal" tabindex="-1" aria-modal="true" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header bg-info">
-					<h5 class="modal-title text-white text-truncate"><asp:Literal ID="TajukMesyuaratModal" runat="server"></asp:Literal></h5>
+				<div class="modal-header bg-primary">
+					<h5 class="modal-title text-white text-truncate">SAHKAN PERMOHONAN</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body m-3">
-					<p class="">Anda pasti hantar mesyuarat ini untuk kelulusan penyelia?</p>
+					<p class="mb-0">Anda pasti untuk mengesahkan permohonan ini?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-info" data-bs-dismiss="modal">Hantar</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">SAHKAN</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="rejectModal" tabindex="-1" aria-modal="true" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<h5 class="modal-title text-white text-truncate">KEMBALIKAN PERMOHONAN</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body m-3">
+					<p class="">Anda pasti untuk bawa kembalikan permohonan ini untuk pengemaskinian?</p>
+					
+					<div>
+						<textarea class="form-control mb-3" rows="4" placeholder="CATATAN"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+					<button type="button" class="btn btn-warning" data-bs-dismiss="modal">KEMBALIKAN</button>
 				</div>
 			</div>
 		</div>

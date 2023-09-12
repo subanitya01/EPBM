@@ -51,7 +51,7 @@ namespace EPBM.mesyuarat
                 ListItem item = new ListItem(row["Nama"].ToString(), row["Id"].ToString());
                 item.Selected = Convert.ToBoolean(row["Selected"]);
                 listPbmMuktamad.Items.Add(item);
-                //listPbmMuktamad2.Items.Add(item);
+                listPbmMuktamad2.Items.Add(item);
             }
         }
         protected void BindData()
@@ -193,7 +193,7 @@ namespace EPBM.mesyuarat
                         {"@Status",  RadioStatus.SelectedValue },
                         {"@syarikat",  Convert.DBNull },
                         {"@Tempoh",  Convert.DBNull },
-                        {"@PbmMuktamad",   Convert.DBNull/*listPbmMuktamad2.SelectedValue*/ },
+                        {"@PbmMuktamad",   listPbmMuktamad2.SelectedValue },
                         {"@TarikhSetuju",  Convert.DBNull },
                         {"@RujukanSetuju",  "" },
                         {"@Alasan", txtAlasan.Text },

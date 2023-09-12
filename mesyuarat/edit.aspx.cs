@@ -140,18 +140,34 @@ namespace EPBM.mesyuarat
                 }
 
                 Dictionary<string, dynamic> queryParams4 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
-                //Delete Existing Permohonan
-                Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=NULL, IdStatusPermohonan=3 where IdMesyuarat=@IdMesyuarat", queryParams4);
-
                 Dictionary<string, dynamic> queryParams5 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
+                StringBuilder uncheckPermohonanId = new StringBuilder();
                 StringBuilder updatePermohonanId = new StringBuilder();
+                Int32 count = 0;
+                Int32 p1 = 1;
                 Int32 p2 = 1;
                 DataTable dtPermohonan = (DataTable)ViewState["dtPermohonan"];
+                Int32[] existingPermohonanIds = new int[dtPermohonan.Rows.Count];
+
+                foreach (DataRow data in dtPermohonan.Rows)
+                {
+                    existingPermohonanIds[count] = Convert.ToInt32(data["Id"]);
+                    count++;
+                }
 
                 foreach (RepeaterItem item in Repeater2.Items)
                 {
                     CheckBox CheckBoxPermohonan = (CheckBox)item.FindControl("CheckBoxPermohonan");
-                    if (CheckBoxPermohonan.Checked)
+                    if (!CheckBoxPermohonan.Checked && existingPermohonanIds.Contains(Convert.ToInt32(dtPermohonan.Rows[item.ItemIndex]["Id"])))
+                    {
+                        String pName = String.Format("@p{0}", p1 + 1);
+                        if (p1 > 1)
+                            uncheckPermohonanId.AppendLine(",");
+                        uncheckPermohonanId.Append(pName);
+                        queryParams4.Add(pName, dtPermohonan.Rows[item.ItemIndex]["Id"]);
+                        p1 += 1;
+                    }
+                    else if (CheckBoxPermohonan.Checked)
                     {
                         String pName = String.Format("@p{0}", p2 + 1);
                         if (p2 > 1)
@@ -161,6 +177,19 @@ namespace EPBM.mesyuarat
                         p2 += 1;
                     }
                 }
+
+                if (p1 > 1) //Delete Existing Permohonan
+                    Utils.ExcuteQuery("UPDATE Permohonan SET " +
+                        "IdMesyuarat=NULL, " +
+                        "IdStatusPermohonan=3, " +
+                        "IdStatusKeputusan=NULL, " +
+                        "SyarikatBerjaya=NULL, " +
+                        "Tempoh=NULL, " +
+                        "LampiranKeputusan=NULL, " +
+                        "TarikhSuratSetujuTerima=NULL, " +
+                        "RujukanSuratSetujuTerima=NULL, " +
+                        "AlasanKeputusan=NULL " +
+                        "where IdMesyuarat=@IdMesyuarat and Id in (" + uncheckPermohonanId.ToString() + ")", queryParams4);
 
                 if (p2 > 1)
                 {

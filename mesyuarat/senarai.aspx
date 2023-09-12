@@ -13,6 +13,7 @@
 						<asp:ListItem>BILANGAN</asp:ListItem>  
 						<asp:ListItem>TARIKH</asp:ListItem>  
 						<asp:ListItem>PENGERUSI</asp:ListItem>  
+						<asp:ListItem>STATUS PENGESAHAN</asp:ListItem>  
 					</asp:DropDownList>
 					<asp:TextBox ID="txtSearch" CssClass="form-control w-25" placeholder="Carian..." runat="server"></asp:TextBox>
 					<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary" runat="server" OnClick="Search" CausesValidation="false"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
@@ -38,6 +39,7 @@
 				AutoGenerateColumns="False" 
 				CssClass="table table-bordered table-striped table-hover" 
 				OnPageIndexChanging="GridView1_PageIndexChanging" 
+				OnRowDataBound="GridView1_OnRowDataBound" 
 				OnSorting="GridView1_Sorting" 
 				AllowPaging="True" 
 				AllowSorting="true"
@@ -64,9 +66,15 @@
                 <asp:BoundField DataField="PENGERUSI" HeaderText="PENGERUSI" SortExpression="PENGERUSI">
                 </asp:BoundField>
 
-				<asp:TemplateField HeaderText="JUMLAH KELULUSAN" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+				<asp:TemplateField HeaderText="KEPUTUSAN/PERMOHONAN" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
 					<ItemTemplate>
 						<%# Eval("JumlahKelulusan") %>/<%# Eval("JumlahPermohonan") %>
+					</ItemTemplate>
+				</asp:TemplateField>
+
+				<asp:TemplateField HeaderText="STATUS PENGESAHAN" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+					<ItemTemplate>
+						<asp:Label ID="lblStatus" CssClass="badge" runat="server"><%# Eval("StatusPengesahan") %></asp:Label>
 					</ItemTemplate>
 				</asp:TemplateField>
 

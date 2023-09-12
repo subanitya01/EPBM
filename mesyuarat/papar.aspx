@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
+	<asp:HyperLink ID="HyperLink2" NavigateUrl="~/mesyuarat/senarai.aspx" runat="server" CssClass="btn btn-link ps-0 pt-0" ><i class="align-middle" data-feather="corner-up-left"></i> Senarai Mesyuarat</asp:HyperLink>
 	<h1 class="h3 mb-4 text-truncate">MESYUARAT: <strong>JKSH BIL. 1/2023</strong></h1>
 	<div class="card">
 		<div class="card-body">
@@ -9,6 +10,19 @@
 				<asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-secondary" ><i class="align-middle" data-feather="edit-2"></i> Edit</asp:HyperLink>
 				<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger"><i class="mt-n1" data-feather="trash"></i> Hapus</a>
 			</div>
+			<asp:Panel ID="PanelComment" runat="server">
+				<div class="alert alert-warning d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					<div class="alert-icon me-3">
+						<i class="mt-n1" data-feather="bell"></i>
+					</div>
+					<div class="alert-message">
+						Terdapat kesilapan pada tarikh terima dan kaedah perolehan!<br>
+						Sila semak dengan teliti<br>
+						blablaablaaa
+					</div>
+				</div>
+			</asp:Panel>
 			<table class="table table-bordered">
 			  <tbody>
 				<tr>

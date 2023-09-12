@@ -72,6 +72,12 @@
 						</a>
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/mesyuarat/pengesahan.aspx">
+						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Perakuan Mesyuarat</span>
+						</a>
+					</li>
+
 					<li class="sidebar-header">
 						Keputusan
 					</li>

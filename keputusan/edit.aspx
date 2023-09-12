@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	<h1 class="h3 mb-4 text-truncate">KEPUTUSAN  <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></h1>
+	<h1 class="h3 mb-4 text-truncate">KEPUTUSAN <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></h1>
 	<div class="card">
 		<div class="card-header pb-0">
 			<h5 class="card-title">MAKLUMAT PERMOHONAN</h5>
@@ -90,6 +90,11 @@
 						<asp:DropDownList ID="listPbmMuktamad" CssClass="form-select" required="required" runat="server" /> 
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>
+					<div class="col-12 col-lg-6 mb-2 fail">
+						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
+						<asp:DropDownList ID="listPbmMuktamad2" CssClass="form-select" required="required" runat="server" /> 
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad2" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+					</div>
 					<div class="col-12 col-lg-6 mb-2 success">
 						<label class="control-label" >TARIKH SURAT SETUJU TERIMA</label>
 						<asp:TextBox ID="txtTarikhSetuju" runat="server" CssClass="form-control" TextMode="Date" placeholder="TARIKH SURAT SETUJU TERIMA" />
@@ -143,7 +148,7 @@
 					</div>
 					<div class="col-12 fail mb-2 d-none">
 						<div>
-							<label class="control-label">ALASAN</label>
+							<label class="control-label">ALASAN <span class="text-danger">*</span></label>
 							<asp:TextBox ID="txtAlasan" type="file" runat="server" CssClass="form-control" placeholder="ALASAN" TextMode="MultiLine" Rows="4" />
 							<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Sila Isi Alasan" ControlToValidate="txtAlasan" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 						</div>

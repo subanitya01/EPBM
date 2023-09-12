@@ -107,6 +107,59 @@
 					<button class="btn btn-primary btn-sm"><i class="align-middle" data-feather="printer"></i> CETAK</button>
 				</div>
 			</div>
+			<asp:GridView 
+				ID="GridView1" 
+				runat="server" 
+				EmptyDataText="Tiada Rekod Dijumpai." 
+				ShowHeaderWhenEmpty="True" 
+				AutoGenerateColumns="False" 
+				OnRowDataBound="GridView1_OnRowDataBound" 
+				CssClass="table table-bordered table-striped table-hover">  
+            <Columns>
+                <asp:TemplateField HeaderText="#">
+                    <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:BoundField DataField="MESYUARAT" HeaderText="MESYUARAT">
+                </asp:BoundField>
+
+                <asp:BoundField DataField="TAJUK" HeaderText="TAJUK">
+                </asp:BoundField>
+
+                <asp:BoundField DataField="JABATAN" HeaderText="JABATAN" HeaderStyle-CssClass="text-center">
+                </asp:BoundField>
+
+				<asp:TemplateField HeaderText="STATUS" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+					<ItemTemplate>
+                        <asp:Label ID="lblStatus" CssClass="badge" runat="server"><%# Eval("STATUS") %></asp:Label>
+					</ItemTemplate>
+				</asp:TemplateField>
+
+				<asp:TemplateField HeaderText="KETERANGAN" HeaderStyle-CssClass="text-center">
+					<ItemTemplate>
+						<asp:Label ID="LblKeterangan" runat="server"><%# Eval("KETERANGAN").ToString().Replace(Environment.NewLine, "<br />") %></asp:Label>
+						
+						<asp:ListView runat="server"  ID="DetailsList">
+							<LayoutTemplate>
+								<ul class="list-group text-sm">
+									<li id="itemPlaceholder" runat="server" />
+								</ul>
+							</LayoutTemplate>
+							<ItemTemplate>
+								<li class="list-group-item p-1"><b><%#: Eval("Label") %>:</b> <%#: Eval("Text") %></li>
+							</ItemTemplate>
+						</asp:ListView>
+					</ItemTemplate>
+				</asp:TemplateField>
+
+                <asp:TemplateField ItemStyle-CssClass="text-center">
+                    <ItemTemplate>
+						<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+						
+					</ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+			</asp:GridView>
 			<table class="table table-bordered table-striped table-hover">
 			  <thead>
 				<tr>
