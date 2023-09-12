@@ -2,71 +2,85 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	<h1 class="h3 mb-4 text-truncate">PERMOHONAN: <strong>PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</strong></h1>
+	
+	<h1 class="h3 mb-4 text-truncate">PERMOHONAN: <strong> <asp:Label ID="lblTajukUtama" runat="server" ></asp:Label></strong></h1>
 	<div class="card">
+	
+
+
 		<div class="card-body">
-			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-				<a href="/permohonan/edit.aspx" class="btn btn-secondary"><i class="mt-n1" data-feather="edit-2"></i > Edit</a>
-				<a href="#" data-bs-toggle="modal" data-bs-target="#meetingModal" class="btn btn-info"><i class="mt-n1" data-feather="send"></i> Bawa Ke Mesyuarat</a>
-				<a href="#" data-bs-toggle="modal" data-bs-target="#confirmationModal" class="btn btn-danger"><i class="mt-n1" data-feather="trash"></i> Hapus</a>
-			</div>
-			<div class="alert alert-warning d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				<div class="alert-icon me-3">
-					<i class="mt-n1" data-feather="bell"></i>
-				</div>
-				<div class="alert-message">
-					Terdapat kesilapan pada tarikh terima dan kaedah perolehan!<br>
-					Sila semak dengan teliti<br>
-					blablaablaaa
-				</div>
+	<div class="btn-group btn-group-sm mb-3 float-end" role="group">
+			<a href="/permohonan/senarai.aspx" class="btn btn-secondary" >Back</a>			
 			</div>
 			<table class="table table-bordered table-hover">
-			  <tbody>
-				<tr>
+			  <tbody>			
+				 <tr>
 				  <th scope="row" class="align-middle bg-primary text-white">TAJUK</th>
-				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
+				  <td class=""><asp:Label ID="lblTajuk" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">JENIS PERTIMBANGAN</th>
-				  <td class="">PENTADBIRAN KONTRAK</td>
+				  <td class=""><asp:Label ID="lblJPertimbangan" runat="server" ></asp:Label>	<br />				   					     					   
+                              <asp:Label ID="lblLainLainJPertimbangan" Visible="false" runat="server" ></asp:Label>
+                    
+				  </td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">KAEDAH PEROLEHAN</th>
-				  <td class="">RUNDINGAN TERUS (PK 2.4)</td>
+				  <td class=""><asp:Label ID="lblKaedahPerolehan" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">JENIS PEROLEHAN/KONTRAK</th>
-				  <td class="">PERKHIDMATAN</td>
-				</tr>
+				  <td class=""><asp:Label ID="lblJenisPerolehan_Kontrak" runat="server" ></asp:Label><br />					  
+                             <asp:Label ID="lblLainLainJPerolehan" runat="server" Visible="false"></asp:Label>
+                   
+				</tr>				  	 
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">JABATAN</th>
-				  <td class="">JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
+				  <td class=""><asp:Label ID="lblJabatan" runat="server" ></asp:Label></td>
+				 
 				</tr>
+
+				<asp:Panel ID="PnlBahagian" runat="server" Visible="false">
+				  <tr>
+				  <th scope="row" class="align-middle bg-primary text-white">BAHAGIAN</th>
+				  <td class=""><asp:Label ID="lblBahagian" runat="server" ></asp:Label></td>
+				 
+				</tr>
+				</asp:Panel>
+
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">HARGA INDIKATIF / NILAI KONTRAK</th>
-				  <td class="">RM 3,456,789.00</td>
+				  <td class="">RM <asp:Label ID="lblHargaIndikatif" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">SUMBER PERUNTUKAN</th>
-				  <td class="">LAIN-LAIN (SUMBANGAN)</td>
+				  <td class=""><asp:Label ID="lblSumberPeruntukan" runat="server" ></asp:Label><br />	
+                              <asp:Label ID="lblLainLainSPeruntukan" runat="server" Visible="false"></asp:Label>
+				  </td>
+				 
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">PBM MUKTAMAD</th>
-				  <td class="">MOF</td>
+				  <td class=""><asp:Label ID="lblPBM_Muktamad" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">TARIKH SAHLAKU TENDER/KONTRAK</th>
-				  <td class="">04 Disember 2023</td>
+				  <td class=""><asp:Label ID="TarikhSahlaku" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">TARIKH TERIMA</th>
-				  <td class="">04 Oktober 2023</td>
+				  <td class=""><asp:Label ID="lblTarikhTerima" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN</th>
-				  <td class="">YA</td>
+				  <td class=""><asp:Label ID="lblLulus_Pelan" runat="server" ></asp:Label></td>
 				</tr>
+				  <tr>
+				  <th scope="row" class="align-middle bg-primary text-white">Catatan</th>
+				  <td class=""><asp:Label ID="lblCatatan" runat="server" ></asp:Label></td>
+				</tr>
+
 			  </tbody>
 			</table>
 		</div>

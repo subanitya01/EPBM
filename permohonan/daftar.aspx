@@ -32,9 +32,10 @@
 	<ajaxToolkit:ToolkitScriptManager ID="smPage" runat="server" ScriptMode="Release" />	
     <asp:UpdatePanel ID="upContent" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
-
+          
 	<h1 class="h3 mb-3">DAFTAR <strong>PERMOHONAN</strong></h1>
 	<div class="card">
+
 		<div class="card-body">
 			 <asp:UpdatePanel ID="upApplicationDetails" runat="server" UpdateMode="Conditional">
 				 <ContentTemplate>
@@ -46,10 +47,23 @@
 					<i class="mt-n1" data-feather="bell"></i>
 				</div>
 				<div class="alert-message">
-					Sila Tandakan pada bahagian lulus pelan perancangan perolehan tahunan !<br>
+					 Sila Tandakan pada bahagian lulus pelan perancangan perolehan tahunan !<br>
 								 
 				</div>
+         
 			</div>
+            <div id="MessageAlertbhg" runat="server" Visible="false" class="alert alert-warning d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				<div class="alert-icon me-3">
+					<i class="mt-n1" data-feather="bell"></i>
+				</div>
+				<div class="alert-message">
+					Sila Lengkapkan maklumat Jabatan / Bahagian !<br>
+								 
+				</div>
+         
+			</div>
+
 
                      <div class="row">
                          <div class="col-12 col-lg-6">
