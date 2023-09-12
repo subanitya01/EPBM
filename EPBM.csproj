@@ -49,14 +49,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="GemBox.Document, Version=31.0.0.1260, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\SISTEM EPBM\AfterUpdateLogin\EPBM\extension\GemBox.Document.dll</HintPath>
-    </Reference>
-    <Reference Include="GemBox.Spreadsheet, Version=45.0.0.1225, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\SISTEM EPBM\AfterUpdateLogin\EPBM\extension\GemBox.Spreadsheet.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -126,7 +118,6 @@
     <Content Include="keputusan\senarai.aspx" />
     <Content Include="laporan\carian.aspx" />
     <Content Include="auth\login.aspx" />
-    <Content Include="laporan\CarianSyarikat.aspx" />
     <Content Include="mesyuarat\daftar.aspx" />
     <Content Include="keputusan\edit.aspx" />
     <Content Include="mesyuarat\edit.aspx" />
@@ -139,7 +130,6 @@
     <Content Include="pengguna\senarai.aspx" />
     <Content Include="permohonan\daftar.aspx" />
     <Content Include="permohonan\edit.aspx" />
-    <Content Include="permohonan\MajuMesyuarat.aspx" />
     <Content Include="permohonan\papar-pengesahan.aspx" />
     <Content Include="permohonan\papar.aspx" />
     <Content Include="permohonan\senarai-pengesahan.aspx" />
@@ -171,30 +161,14 @@
     <Compile Include="errors\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="mesyuarat\pengesahan.aspx.cs">
       <DependentUpon>pengesahan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="mesyuarat\pengesahan.aspx.designer.cs">
       <DependentUpon>pengesahan.aspx</DependentUpon>
-=======
-    <Compile Include="laporan\CarianSyarikat.aspx.cs">
-      <DependentUpon>CarianSyarikat.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="laporan\CarianSyarikat.aspx.designer.cs">
-      <DependentUpon>CarianSyarikat.aspx</DependentUpon>
->>>>>>> 6ce7c240a665a1a995e38a62a0d934d9b8b21c44
     </Compile>
     <Compile Include="Models\Mesyuarat.cs" />
-    <Compile Include="permohonan\MajuMesyuarat.aspx.cs">
-      <DependentUpon>MajuMesyuarat.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="permohonan\MajuMesyuarat.aspx.designer.cs">
-      <DependentUpon>MajuMesyuarat.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="keputusan\senarai.aspx.cs">
       <DependentUpon>senarai.aspx</DependentUpon>
@@ -339,9 +313,6 @@
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="_apps\Constants.cs" />
-    <Compile Include="_apps\ReportFunction.cs" />
-    <Compile Include="_apps\ServiceUtility.cs" />
     <Compile Include="_apps\SystemHelper.cs" />
   </ItemGroup>
   <ItemGroup>
