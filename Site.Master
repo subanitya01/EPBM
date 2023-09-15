@@ -153,6 +153,19 @@
 				</div>
 			</footer>
 			<script src="<%= ResolveUrl("~/assets/js/app.js") %>"></script>
+			<script>
+				<% if (Session["flash.success"] != null)
+				{
+					Response.Write("notyf.success(\"" + Session["flash.success"] + "\");");
+					Session.Remove("flash.success");
+				}
+				if (Session["flash.error"] != null)
+				{
+					Response.Write("notyf.error(\"" + Session["flash.error"] + "\");");
+					Session.Remove("flash.error");
+				}
+                %>
+            </script>
 		</form>
 	</div>
 	<asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">

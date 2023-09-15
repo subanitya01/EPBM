@@ -68,7 +68,7 @@ namespace EPBM.mesyuarat
                     "CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, " +
                     "CASE WHEN IdSumberPeruntukan = 99 THEN LainSumberPeruntukan ELSE SumberPeruntukan END as SumberPeruntukan, " +
                     "StatusKeputusan as STATUS, SyarikatBerjaya, Tempoh, TarikhSuratSetujuTerima, RujukanSuratSetujuTerima, LampiranKeputusan, AlasanKeputusan " +
-                    "from Papar_Permohonan WHERE Id=@Id and TarikhHapus IS NULL and (IdStatusPermohonan IN (3,4))";
+                    "from Papar_Permohonan WHERE Id=@Id and TarikhHapus IS NULL and (IdStatusPermohonan IN (3,4)) and IdStatusPengesahan <> 4";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", Id } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
 
@@ -178,8 +178,11 @@ namespace EPBM.mesyuarat
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" + ex.Message.Replace(System.Environment.NewLine, " ")+ "\");", true);
                     return;
                 }
-            
-                Response.Redirect("/mesyuarat/senarai-keputusan.aspx?id=" + ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdMesyuarat"].ToString());
+
+                if (Request.QueryString["ReturnURL"] != null)
+                    Response.Redirect(Request.QueryString["ReturnURL"]);
+                else
+                    Response.Redirect("/mesyuarat/senarai-keputusan.aspx?id=" + ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdMesyuarat"].ToString());
 
             //}
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
+using System.DirectoryServices;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -21,17 +23,44 @@ namespace EPBM.keputusan
         {
             /*try
             {*/
+            string searchTerm = Convert.ToString(ViewState["txtSearch"]) ?? null;
+            string searchCol = Convert.ToString(ViewState["listSearchCol"]) ?? null;
+            string sortDir = ViewState["SortDirection"] as string;
+            string sortBy = ViewState["SortExpression"] as string;
+            string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, " +
+                                "StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN, MESYUARAT ";
+            string CommandText = "from Papar_Permohonan WHERE TarikhHapus IS NULL AND IdStatusPengesahan = 4 ";
+            string limit = " OFFSET  " + (GridView1.PageIndex * GridView1.PageSize) + " ROWS FETCH NEXT " + GridView1.PageSize + " ROWS ONLY";
 
-            string CommandText2 = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, " +
-                "StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN, MESYUARAT " +
-                "from Papar_Permohonan WHERE TarikhHapus IS NULL AND Disahkan = 1 ORDER BY Id";
-            DataTable dtPermohonan = Utils.GetDataTable(CommandText2);
+            if (!string.IsNullOrEmpty(sortBy))
+                sortBy = " ORDER BY " + sortBy + " " + sortDir;
+            else
+                sortBy = " ORDER BY Id";
+
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
+
+            string selectCount = "Select count(*) ";
+            DataTable dtCountPermohonan = Utils.GetDataTable(selectCount + CommandText, queryParams);
+            GridView1.VirtualItemCount = Convert.ToInt16(dtCountPermohonan.Rows[0][0].ToString());
+            
+            DataTable dtPermohonan = Utils.GetDataTable(selectData + CommandText + sortBy + limit, queryParams);
 
             GridView1.DataSource = dtPermohonan;
             GridView1.DataBind();
             ViewState["dtPermohonan"] = dtPermohonan;
             /*}
             catch (Exception) { Utils.HttpNotFound(); }*/
+        }
+        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridView1.PageIndex = e.NewPageIndex;
+            BindData();
+        }
+
+        protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            lblSortRecord.Text = e.SortExpression + " " + GetSortDirection(e.SortExpression);
+            BindData();
         }
 
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -42,7 +71,8 @@ namespace EPBM.keputusan
                 Label lblStatus = e.Row.FindControl("lblStatus") as Label;
                 Label LblKeterangan = e.Row.FindControl("LblKeterangan") as Label;
                 ListView detailsList = e.Row.FindControl("DetailsList") as ListView;
-
+                Literal numbering = e.Row.FindControl("Numbering") as Literal;
+                
                 if (drv.Row["IdStatusKeputusan"].ToString() == "1")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
                 else if (drv.Row["IdStatusKeputusan"].ToString() == "2")
@@ -65,7 +95,37 @@ namespace EPBM.keputusan
                     detailsList.DataBind();
                     LblKeterangan.Visible = false;
                 }
+                numbering.Text = (GridView1.PageIndex * GridView1.PageSize + e.Row.RowIndex + 1).ToString();
             }
+        }
+        private string GetSortDirection(string column)
+        {
+
+            // By default, set the sort direction to ascending.
+            string sortDirection = "ASC";
+
+            // Retrieve the last column that was sorted.
+            string sortExpression = ViewState["SortExpression"] as string;
+
+            if (sortExpression != null)
+            {
+                // Check if the same column is being sorted.
+                // Otherwise, the default value can be returned.
+                if (sortExpression == column)
+                {
+                    string lastDirection = ViewState["SortDirection"] as string;
+                    if ((lastDirection != null) && (lastDirection == "ASC"))
+                    {
+                        sortDirection = "DESC";
+                    }
+                }
+            }
+
+            // Save new values in ViewState.
+            ViewState["SortDirection"] = sortDirection;
+            ViewState["SortExpression"] = column;
+
+            return sortDirection == "ASC" ? "&uarr;" : "&darr;";
         }
     }
 }

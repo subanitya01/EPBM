@@ -89,22 +89,10 @@
 		<div class="card-body table-responsive">
 			<div class="row input-group-sm justify-content-between">
 				<div class="col-sm-6 col-md-5 mb-3">
-					<div class="input-group input-group-sm">
-						<select class="form-select">
-							<option>SUSUN IKUT</option>
-							<option>MESYUARAT</option>
-							<option>TAJUK</option>
-							<option>JABATAN</option>
-							<option>STATUS</option>
-						</select>
-						<select class="form-select">
-							<option>MENAIK</option>
-							<option>MENURUN</option>
-						</select>
-					</div>
+					<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" /></label>
 				</div>
 				<div class="col-sm-3 col-md-2 mb-3 text-end">
-					<button class="btn btn-primary btn-sm"><i class="align-middle" data-feather="printer"></i> CETAK</button>
+					
 				</div>
 			</div>
 			<asp:GridView 
@@ -114,140 +102,62 @@
 				ShowHeaderWhenEmpty="True" 
 				AutoGenerateColumns="False" 
 				OnRowDataBound="GridView1_OnRowDataBound" 
+				OnSorting="GridView1_Sorting" 
+				OnPageIndexChanging="GridView1_PageIndexChanging" 
+				AllowSorting="true"
+				AllowCustomPaging="true"
+				AllowPaging="True" 
+				PageSize="20"
 				CssClass="table table-bordered table-striped table-hover">  
-            <Columns>
-                <asp:TemplateField HeaderText="#">
-                    <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
-                </asp:TemplateField>
 
-                <asp:BoundField DataField="MESYUARAT" HeaderText="MESYUARAT">
-                </asp:BoundField>
+				<PagerSettings Mode="NumericFirstLast" Position="Bottom" PageButtonCount="5" FirstPageText="&laquo;" LastPageText="&raquo;" />
+				<PagerStyle HorizontalAlign = "Right" CssClass = "bs-pager" />
 
-                <asp:BoundField DataField="TAJUK" HeaderText="TAJUK">
-                </asp:BoundField>
+				<Columns>
+					<asp:TemplateField HeaderText="#">
+						<ItemTemplate><asp:Literal ID="Numbering" runat="server" /></ItemTemplate>
+					</asp:TemplateField>
 
-                <asp:BoundField DataField="JABATAN" HeaderText="JABATAN" HeaderStyle-CssClass="text-center">
-                </asp:BoundField>
+					<asp:BoundField DataField="MESYUARAT" HeaderText="MESYUARAT" SortExpression="MESYUARAT">
+					</asp:BoundField>
 
-				<asp:TemplateField HeaderText="STATUS" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
-					<ItemTemplate>
-                        <asp:Label ID="lblStatus" CssClass="badge" runat="server"><%# Eval("STATUS") %></asp:Label>
-					</ItemTemplate>
-				</asp:TemplateField>
+					<asp:BoundField DataField="TAJUK" HeaderText="TAJUK" SortExpression="TAJUK">
+					</asp:BoundField>
 
-				<asp:TemplateField HeaderText="KETERANGAN" HeaderStyle-CssClass="text-center">
-					<ItemTemplate>
-						<asp:Label ID="LblKeterangan" runat="server"><%# Eval("KETERANGAN").ToString().Replace(Environment.NewLine, "<br />") %></asp:Label>
+					<asp:BoundField DataField="JABATAN" HeaderText="JABATAN" HeaderStyle-CssClass="text-center" SortExpression="JABATAN">
+					</asp:BoundField>
+
+					<asp:TemplateField HeaderText="STATUS" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center" SortExpression="STATUS">
+						<ItemTemplate>
+							<asp:Label ID="lblStatus" CssClass="badge" runat="server"><%# Eval("STATUS") %></asp:Label>
+						</ItemTemplate>
+					</asp:TemplateField>
+
+					<asp:TemplateField HeaderText="KETERANGAN" HeaderStyle-CssClass="text-center">
+						<ItemTemplate>
+							<asp:Label ID="LblKeterangan" runat="server"><%# Eval("KETERANGAN").ToString().Replace(Environment.NewLine, "<br />") %></asp:Label>
 						
-						<asp:ListView runat="server"  ID="DetailsList">
-							<LayoutTemplate>
-								<ul class="list-group text-sm">
-									<li id="itemPlaceholder" runat="server" />
-								</ul>
-							</LayoutTemplate>
-							<ItemTemplate>
-								<li class="list-group-item p-1"><b><%#: Eval("Label") %>:</b> <%#: Eval("Text") %></li>
-							</ItemTemplate>
-						</asp:ListView>
-					</ItemTemplate>
-				</asp:TemplateField>
+							<asp:ListView runat="server"  ID="DetailsList">
+								<LayoutTemplate>
+									<ul class="list-group text-sm">
+										<li id="itemPlaceholder" runat="server" />
+									</ul>
+								</LayoutTemplate>
+								<ItemTemplate>
+									<li class="list-group-item p-1"><b><%#: Eval("Label") %>:</b> <%#: Eval("Text") %></li>
+								</ItemTemplate>
+							</asp:ListView>
+						</ItemTemplate>
+					</asp:TemplateField>
 
-                <asp:TemplateField ItemStyle-CssClass="text-center">
-                    <ItemTemplate>
-						<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+					<asp:TemplateField ItemStyle-CssClass="text-center">
+						<ItemTemplate>
+							<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/keputusan/senarai.aspx") %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
 						
-					</ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
+						</ItemTemplate>
+					</asp:TemplateField>
+				</Columns>
 			</asp:GridView>
-			<table class="table table-bordered table-striped table-hover">
-			  <thead>
-				<tr>
-				  <th scope="col">#</th>
-				  <th scope="col">MESYUARAT</th>
-				  <th scope="col">TAJUK</th>
-				  <th scope="col">JABATAN</th>
-				  <th scope="col">STATUS</th>
-				  <th scope="col">KETERANGAN</th>
-				  <th scope="col"></th>
-				</tr>
-			  </thead>
-			  <tbody>
-				<tr>
-				  <th scope="row">1</th>
-				  <td class="">JKSH BIL. 1/2023</td>
-				  <td class="">PEROLEHAN PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN TENAGA DAN SUMBER ASLI (KETSA) TAHUN 2022 - 2025</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
-				  <td class="text-center"><span class="badge text-bg-info">PERINGKAT MOF</span></td>
-				  <td>
-					<ul class="list-group text-sm">
-					  <li class="list-group-item p-1"><b>SYARIKAT BERJAYA:</b> BINTARA SOLUTIONS SDN BHD</li>
-					  <li class="list-group-item p-1"><b>NILAI:</b> RM 3,456,789.00</li>
-					  <li class="list-group-item p-1"><b>TEMPOH:</b> 2 BULAN</li>
-					</ul>
-				  </td>
-				  <td class="table-action">
-						<a href="/keputusan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">2</th>
-				  <td class="">JKSH BIL. 1/2023</td>
-				  <td class="">PERKHIDMATAN SEWAAN PERALATAN ICT BAGI KEMENTERIAN ALAM SEKITAR DAN AIR TAHUN 2020 HINGGA 2023</td>
-				  <td>BAHAGIAN PENGURUSAN MAKLUMAT</td>
-				  <td class="text-center"><span class="badge text-bg-success">SELESAI</span></td>
-				  <td>
-					<ul class="list-group text-sm">
-					  <li class="list-group-item p-1"><b>SYARIKAT BERJAYA:</b> HIJRAH INOVATIF SDN. BHD.</li>
-					  <li class="list-group-item p-1"><b>NILAI:</b> RM 3,456,789.00</li>
-					  <li class="list-group-item p-1"><b>TEMPOH:</b> 2 BULAN</li>
-					</ul>
-				  </td>
-				  <td class="table-action">
-						<a href="/keputusan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">3</th>
-				  <td class="">JKSH BIL. 1/2023</td>
-				  <td class="">PEROLEHAN PEMBAHARUAN LANGGANAN APLIKASI ZOOM BAGI VIRTUAL MEETING KEMENTERIAN SUMBER ASLI, ALAM SEKITAR DAN PERUBAHAN IKLIM</td>
-				  <td>JABATAN UKUR DAN PEMETAAN MALAYSIA</td>
-				  <td class="text-center"><span class="badge text-bg-warning">IKLAN SEMULA</span></td>
-				  <td>HARGA DIKEMUKAKAN MELEBIHI NILAI MAKSIMUM DAN TIADA SUMBER BAJET</td>
-				  <td class="table-action">
-						<a href="/keputusan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-					</td>
-				</tr>
-				<tr>
-				  <th scope="row">4</th>
-				  <td class="">JKSH BIL. 1/2023</td>
-				  <td class="">PEROLEHAN PEMBAHARUAN LANGGANAN APLIKASI ZOOM BAGI VIRTUAL MEETING KEMENTERIAN SUMBER ASLI, ALAM SEKITAR DAN PERUBAHAN IKLIM</td>
-				  <td>BAHAGIAN PENGURUSAN MAKLUMAT</td>
-				  <td class="text-center"><span class="badge text-bg-danger">BATAL</span></td>
-				  <td>MAKLUMAT TIDAK SEPADAN</td>
-				  <td class="table-action">
-						<a href="/keputusan/papar.aspx" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-					</td>
-				</tr>
-			  </tbody>
-			</table>
-			<nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-end">
-				<li class="page-item">
-				  <a class="page-link" href="#" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				  </a>
-				</li>
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item">
-				  <a class="page-link" href="#" aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-				  </a>
-				</li>
-			  </ul>
-			</nav>
 		</div>
 	</div>
 </asp:Content>

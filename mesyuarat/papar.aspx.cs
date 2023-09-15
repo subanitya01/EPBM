@@ -35,14 +35,21 @@ namespace EPBM.mesyuarat
                 if (dtMesyuarat.Rows.Count == 0)
                     Utils.HttpNotFound();
 
+                ViewState["dtMesyuarat"] = dtMesyuarat;
                 DataRow row = dtMesyuarat.Rows[0];
                 PaparJenis.Text = row["JENIS"].ToString();
                 PaparBil.Text = row["BILANGAN"].ToString();
                 PaparTarikh.Text = row["TARIKHMS"].ToString();
                 PaparPengerusi.Text = row["PENGERUSI"].ToString();
+                pageTitle.Text = row["JENIS"].ToString() + " BIL. " + row["BILANGAN"].ToString();
                 deleteTitle.Text = "MESYUARAT " + row["JENIS"].ToString() + " BIL. " + row["BILANGAN"].ToString();
                 lnkDelete.CommandArgument = row["Id"].ToString();
                 HyperLink1.NavigateUrl = "/mesyuarat/edit.aspx?id=" + row["Id"].ToString();
+
+                if (Convert.ToInt32(row["IdStatusPengesahan"]) == 4)
+                {
+                    actionButtons.Visible = false;
+                }
 
                 string CommandText2 = "Select * from AhliMesyuarat WHERE IdMesyuarat=@Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", row["Id"].ToString() } };
@@ -78,9 +85,15 @@ namespace EPBM.mesyuarat
                 {
                     {"@Id",  btn.CommandArgument }
                 };
-            Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = GETDATE() WHERE Id = @Id", queryParams);
-            Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat = NULL, IdStatusPermohonan=3 WHERE IdMesyuarat = @Id", queryParams);
-            BindData();
+            DataTable dtrslt = ((DataTable)ViewState["dtMesyuarat"]);
+
+            if (Convert.ToInt32(dtrslt.Rows[0]["IdStatusPengesahan"]) != 4)
+            {
+                Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = GETDATE() WHERE Id = @Id", queryParams);
+                Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat = NULL, IdStatusPermohonan=3 WHERE IdMesyuarat = @Id", queryParams);
+                Session["flash.success"] = "Mesyuarat " + dtrslt.Rows[0]["JENIS"] + " Bil. " + dtrslt.Rows[0]["BILANGAN"] + " telah dihapuskan!";
+                Response.Redirect("/mesyuarat/senarai.aspx");
+            }
         }
     }
 }

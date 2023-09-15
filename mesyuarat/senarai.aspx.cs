@@ -1,6 +1,8 @@
-﻿using System;
+﻿using EPBM.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -107,15 +109,27 @@ namespace EPBM.mesyuarat
             {
                 DataRowView drv = e.Row.DataItem as DataRowView;
                 Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+                HyperLink viewButton = e.Row.FindControl("viewButton") as HyperLink;
+                HyperLink editButton = e.Row.FindControl("editButton") as HyperLink;
+                HyperLink decideButton = e.Row.FindControl("decideButton") as HyperLink;
+                LinkButton lnkDelete = e.Row.FindControl("lnkDelete") as LinkButton;
 
-                if (drv.Row["IdStatusPengesahan"].ToString() == "1")
+                viewButton.NavigateUrl = "/mesyuarat/papar.aspx?id=" + drv.Row["Id"];
+                editButton.NavigateUrl = "/mesyuarat/edit.aspx?id=" + drv.Row["Id"];
+                decideButton.NavigateUrl = "/mesyuarat/senarai-keputusan.aspx?id=" + drv.Row["Id"];
+
+                if (Convert.ToInt32(drv.Row["IdStatusPengesahan"]) == 1)
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
-                else if (drv.Row["IdStatusPengesahan"].ToString() == "2")
+                else if (Convert.ToInt32(drv.Row["IdStatusPengesahan"]) == 2)
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-primary";
-                else if (drv.Row["IdStatusPengesahan"].ToString() == "3")
+                else if (Convert.ToInt32(drv.Row["IdStatusPengesahan"]) == 3)
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-warning";
-                else if (drv.Row["IdStatusPengesahan"].ToString() == "4")
+                else if (Convert.ToInt32(drv.Row["IdStatusPengesahan"]) == 4)
+                {
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
+                    editButton.Visible = false;
+                    lnkDelete.Visible = false;
+                }
 
             }
         }
@@ -148,9 +162,15 @@ namespace EPBM.mesyuarat
                 {
                     {"@Id",  btn.CommandArgument }
                 };
-            Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = GETDATE() WHERE Id = @Id", queryParams);
-            Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat = NULL, IdStatusPermohonan=3 WHERE IdMesyuarat = @Id", queryParams);
-            BindData();
+            DataRow[] dtrslt = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + btn.CommandArgument);
+            
+            if (Convert.ToInt32(dtrslt[0]["IdStatusPengesahan"]) != 4)
+            {
+                Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = GETDATE() WHERE Id = @Id", queryParams);
+                Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat = NULL, IdStatusPermohonan=3 WHERE IdMesyuarat = @Id", queryParams);
+                Session["flash.success"] = "Mesyuarat " + dtrslt[0]["JENIS"] + " Bil. " + dtrslt[0]["BILANGAN"] + " telah dihapuskan!";
+                Response.Redirect("/mesyuarat/senarai.aspx");
+            }
         }
     }
 }

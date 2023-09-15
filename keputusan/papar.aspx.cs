@@ -60,9 +60,25 @@ namespace EPBM.mesyuarat
                 LtlRujukanSST.Text = dtPermohonan.Rows[0]["RujukanSuratSetujuTerima"].ToString();
                 LtlAlasan.Text = dtPermohonan.Rows[0]["AlasanKeputusan"].ToString().Replace(Environment.NewLine, "<br />");
                 LtlIdStatus.Text = dtPermohonan.Rows[0]["IdStatusKeputusan"].ToString();
+                string returnUrl = "";
+                if (Request.QueryString["ReturnURL"] != null)
+                {
+                    returnUrl = "&ReturnURL=" + System.Web.HttpUtility.UrlEncode(Request.QueryString["ReturnURL"]);
+                    if (Request.QueryString["ReturnURL"] == "/keputusan/senarai.aspx")
+                        LinkToList.Text = LinkToList.Text + " Senarai Keputusan";
+                    else
+                        LinkToList.Text = LinkToList.Text + " Perakuan Mesyuarat";
 
-                LinkToList.NavigateUrl = "/mesyuarat/senarai-keputusan.aspx?id=" + dtPermohonan.Rows[0]["IdMesyuarat"];
-                LinkToEdit.NavigateUrl = "/keputusan/edit.aspx?id=" + dtPermohonan.Rows[0]["Id"];
+                    LinkToList.NavigateUrl = Request.QueryString["ReturnURL"];
+                }
+                else
+                {
+                    LinkToList.Text = LinkToList.Text + " Senarai Keputusan Bagi Mesyuarat Sama";
+                    LinkToList.NavigateUrl = "/mesyuarat/senarai-keputusan.aspx?id=" + dtPermohonan.Rows[0]["IdMesyuarat"];
+                }
+
+
+                LinkToEdit.NavigateUrl = "/keputusan/edit.aspx?id=" + dtPermohonan.Rows[0]["Id"] + returnUrl;
 
                 if (string.IsNullOrEmpty(dtPermohonan.Rows[0]["LampiranKeputusan"].ToString()))
                     LinkLampiran.Visible = false;

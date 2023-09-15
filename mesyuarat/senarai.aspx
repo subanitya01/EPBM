@@ -80,9 +80,9 @@
 
                 <asp:TemplateField ItemStyle-CssClass="text-center">
                     <ItemTemplate>
-						<a href="/mesyuarat/papar.aspx?id=<%# Eval("Id") %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-						<a href="/mesyuarat/edit.aspx?id=<%# Eval("Id") %>" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
-						<a href="/mesyuarat/senarai-keputusan.aspx?id=<%# Eval("Id") %>" class="text-success" title="Keputusan"><i class="align-middle" data-feather="inbox"></i></a>
+						<asp:HyperLink ID="viewButton" title="Papar" runat="server"><i class="align-middle" data-feather="eye"></i></asp:HyperLink>
+						<asp:HyperLink ID="editButton" CssClass="text-secondary" title="Edit" runat="server"><i class="align-middle" data-feather="edit-2"></i></asp:HyperLink>
+						<asp:HyperLink ID="decideButton" CssClass="text-success" title="Keputusan" runat="server"><i class="align-middle" data-feather="inbox"></i></asp:HyperLink>
 						<asp:LinkButton 
 							ID="lnkDelete" 
 							runat="server" 

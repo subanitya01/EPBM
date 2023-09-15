@@ -21,18 +21,21 @@ namespace EPBM.mesyuarat
 
         protected void initMesyuaratList()
         {
-            string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan=1 and JumlahPermohonan > 0 ORDER BY Id";
+            string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan=2 ORDER BY Id";
             DataTable dtMesyuarat = Utils.GetDataTable(CommandText);
-            bool selected = false;
+            ViewState["dtMesyuarat"] = dtMesyuarat;
+            //bool selected = false;
+            int id = Convert.ToInt32(Request.QueryString["id"]);
 
             foreach (DataRow row in dtMesyuarat.Rows)
             {
-                ListItem item = new ListItem(row["JENIS"].ToString() + " BIL. " + row["BILANGAN"].ToString(), row["Id"].ToString());
+                ListItem item = new ListItem(row["JENIS"] + " BIL. " + row["BILANGAN"], row["Id"].ToString());
                 //item.Value = row["Id"].ToString();
-                if (!selected)
+                if (id== Convert.ToInt32(row["Id"]))
                 {
                     item.Selected = true;
-                    selected = true;
+                    modalTitle1.Text = modalTitle2.Text = row["JENIS"] + " BIL. " + row["BILANGAN"];
+                    //selected = true;
                 }
                 listMesyuarat.Items.Add(item);
             }
@@ -40,21 +43,25 @@ namespace EPBM.mesyuarat
             if (dtMesyuarat.Rows.Count > 0)
             {
                 BindData();
+                PanelFound.Visible = true;
+                PanelNotFound.Visible = false;
             }
         }
         protected void BindData()
         {
-            /*try
-            {*/
+            try
+            {
 
-            string CommandText2 = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN from Papar_Permohonan WHERE IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
-            Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", listMesyuarat.SelectedValue } };
-            DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
-            GridView1.DataSource = dtPermohonan;
-            GridView1.DataBind();
-            ViewState["dtPermohonan"] = dtPermohonan;
-            /*}
-            catch (Exception) { Utils.HttpNotFound(); }*/
+                string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN " +
+                                      "from Papar_Permohonan WHERE IdStatusPengesahan=2 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
+                Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", listMesyuarat.SelectedValue } };
+                DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
+                GridView1.DataSource = dtPermohonan;
+                GridView1.DataBind();
+                approveBtn.CommandArgument = listMesyuarat.SelectedValue;
+                returnBtn.CommandArgument = listMesyuarat.SelectedValue;
+            }
+            catch (Exception) { Utils.HttpNotFound(); }
         }
 
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -95,6 +102,39 @@ namespace EPBM.mesyuarat
             if (listMesyuarat.Items.Count > 0)
             {
                 BindData();
+            }
+        }
+
+        protected void ApproveBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@Id", btn.CommandArgument } };
+            DataRow[] dtrslt = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + btn.CommandArgument);
+            int idStatus = Convert.ToInt32(dtrslt[0]["IdStatusPengesahan"]);
+
+            if (idStatus == 2)
+            {
+                Utils.ExcuteQuery("UPDATE Mesyuarat SET IdStatusPengesahan = 4 WHERE Id = @Id", queryParams);
+                Session["flash.success"] = "Mesyuarat " + dtrslt[0]["JENIS"] + " Bil. " + dtrslt[0]["BILANGAN"] + "telah disahkan!";
+                Response.Redirect("/mesyuarat/pengesahan.aspx");
+            }
+        }
+
+        protected void ReturnBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            DataRow[] dtrslt = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + btn.CommandArgument);
+            int idStatus = Convert.ToInt32(dtrslt[0]["IdStatusPengesahan"]);
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() {
+                { "@Id", btn.CommandArgument },
+                { "@Catatan", Server.HtmlEncode(txtCatatan.Text) }
+            };
+
+            if (idStatus == 2)
+            {
+                Utils.ExcuteQuery("UPDATE Mesyuarat SET IdStatusPengesahan = 3, CatatanPengesahan = @Catatan WHERE Id = @Id", queryParams);
+                Session["flash.success"] = "Mesyuarat " + dtrslt[0]["JENIS"] + " Bil. " + dtrslt[0]["BILANGAN"] + "telah dikembalikan untuk pengemaskinian!";
+                Response.Redirect("/mesyuarat/pengesahan.aspx");
             }
         }
     }

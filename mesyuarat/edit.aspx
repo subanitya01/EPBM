@@ -4,19 +4,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 	<h1 class="h3 mb-3">EDIT <strong>MESYUARAT</strong></h1>
 	<asp:Panel ID="Panel1" runat="server">
-		<asp:Panel ID="PanelComment" runat="server">
-			<div class="alert alert-warning d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-				<div class="alert-icon me-3">
-					<i class="mt-n1" data-feather="bell"></i>
-				</div>
-				<div class="alert-message">
-					Terdapat kesilapan pada tarikh terima dan kaedah perolehan!<br>
-					Sila semak dengan teliti<br>
-					blablaablaaa
-				</div>
-			</div>
-		</asp:Panel>
 		<div class="card">
 			<div class="card-body">
 				<div class="row">
