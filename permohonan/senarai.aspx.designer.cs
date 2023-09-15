@@ -87,6 +87,33 @@ namespace EPBM.Permohonan
         protected global::System.Web.UI.WebControls.Label lblSortRecord;
 
         /// <summary>
+        /// lblSortColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSortColumn;
+
+        /// <summary>
+        /// lblSortDirection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSortDirection;
+
+        /// <summary>
+        /// lblIcon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIcon;
+
+        /// <summary>
         /// Senarai control.
         /// </summary>
         /// <remarks>

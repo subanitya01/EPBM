@@ -45,9 +45,14 @@ height: 27px;
 		<div class="card-body table-responsive">
 
 		
-			<div ID="SORT" runat="server" Visible="false" class="row input-group-sm justify-content-between">
+			<div ID="SORT" runat="server" Visible="true" class="row input-group-sm justify-content-between">
 				<div   class ="col-sm-6 col-md-5 mb-3">
-					<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" /></label>
+					<%--<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" /></label>--%>
+					<label>SUSUNAN BERDASARKAN:
+                               <asp:Label ID="lblSortRecord" runat="server" /></label>
+                               <asp:Label ID="lblSortColumn" runat="server" Visible="false" />
+                               <asp:Label ID="lblSortDirection" runat="server" Visible="false" />
+                               <asp:Label ID="lblIcon" runat="server" Visible="false" />
 				</div>
 				<div class="col-sm-3 col-md-2 mb-3 text-end">
 					
@@ -57,22 +62,29 @@ height: 27px;
 				<asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" EmptyDataText="Tiada Rekod Dijumpai." ShowHeaderWhenEmpty="True" OnPageIndexChanging="Senarai_PageIndexChanging" OnSorting="Senarai_Sorting" AllowSorting="true" CssClass="table table-striped table-bordered table-hover Grid" OnDataBound="Senarai_DataBound" AllowPaging="True">
                                         <PagerSettings Mode="Numeric" Position="Bottom" />
                                         <Columns>
-                                            <asp:TemplateField HeaderText="ID" Visible="true" SortExpression="ID">
+                                            <asp:TemplateField HeaderText="ID" Visible="false" SortExpression="ID">
                                                 <ItemTemplate>
                                                 <asp:Label ID="lblID" runat="server" Text='<%#Eval("Id") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>											
 											<asp:TemplateField HeaderText="No.">
-                                                <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
+                                               <ItemStyle Width="0.5%" Wrap="true" />
+												<ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                                             </asp:TemplateField>
-											<asp:TemplateField HeaderText="Tajuk">
+											<asp:TemplateField HeaderText="TAJUK" SortExpression="Tajuk">
                                                 <ItemStyle Wrap="true" />
                                                 <ItemTemplate>
 												<asp:Label ID="lblTajukUtama" runat="server" Text='<%# Eval("Tajuk") %>'></asp:Label>                                
 												</ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="NamaJabatan" HeaderText="Kemetenterian /Jabatan" SortExpression="NamaJabatan">
-                                                <ItemStyle  Wrap="true" />
+                                            <asp:BoundField DataField="NamaJabatan" HeaderText="KEMENTERIAN /JABATAN" SortExpression="NamaJabatan">
+                                                <ItemStyle Width="25%" Wrap="true" />
+                                            </asp:BoundField>
+											<%--<asp:BoundField DataField="ShortName" HeaderText="KEMENTERIAN /JABATAN" SortExpression="ShortName">
+                                               <ItemStyle Width="25%" Wrap="true" />
+                                            </asp:BoundField>--%>
+											 <asp:BoundField DataField="Harga" HeaderText="HARGA" DataFormatString= "RM {0:n}" SortExpression="Harga">
+                                                <ItemStyle Width="15%" Wrap="true" />
                                             </asp:BoundField>
                                             <asp:TemplateField HeaderText="STATUS" Visible="true" SortExpression="Status_Permohonan">
                                                 <ItemStyle Width="0.5%" Wrap="true" />
@@ -81,7 +93,7 @@ height: 27px;
                                                 <asp:Label ID="lblIDStatus" Visible="false" runat="server" Text='<%# Eval("IdStatusPermohonan") %>'></asp:Label>
 												</ItemTemplate>
                                             </asp:TemplateField>
-											<asp:TemplateField HeaderText="Tindakan">
+											<asp:TemplateField HeaderText="TINDAKAN">
 												<ItemStyle Width="12%" Wrap="true" />
 												<ItemTemplate>													 													
 												    <asp:HyperLink ID="HyperLinkPapar" runat="server" NavigateUrl='<%# Eval("Id", "papar.aspx?ID={0}") %>'  ImageUrl="~/image/View.png" title="Papar"  ></asp:HyperLink>

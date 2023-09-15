@@ -64,25 +64,25 @@ height: 27px;
                                    <asp:Label ID="lblID" runat="server" Text='<%#Eval("Id") %>'></asp:Label>
                                </ItemTemplate>
                            </asp:TemplateField>
-                           <asp:TemplateField HeaderText="No.">
+                           <asp:TemplateField HeaderText="NO.">
                                <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                            </asp:TemplateField>
-                           <asp:BoundField DataField="Tajuk" HeaderText="Tajuk" SortExpression="Tajuk">
+                           <asp:BoundField DataField="Tajuk" HeaderText="TAJUK" SortExpression="Tajuk">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
-                           <asp:BoundField DataField="NamaJabatan" HeaderText="Jabatan" SortExpression="Jabatan">
+                           <asp:BoundField DataField="NamaJabatan" HeaderText="KEMEN/JAB" SortExpression="Jabatan">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
-                           <asp:BoundField DataField="Nama_JPerolehan" HeaderText="Jenis Perolehan" SortExpression="Jenis Perolehan">
+                           <asp:BoundField DataField="Nama_JPerolehan" HeaderText="JENIS PEROLEHAN" SortExpression="Jenis Perolehan">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
-                            <asp:BoundField DataField="Harga" HeaderText="Harga" DataFormatString= "RM {0:n}" SortExpression="Harga">
+                            <asp:BoundField DataField="Harga" HeaderText="HARGA" DataFormatString= "RM {0:n}" SortExpression="Harga">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
-                             <asp:BoundField DataField="TarikhSuratSetujuTerima" HeaderText="SST" DataFormatString="{0:dd/MM/yyyy}" SortExpression="TarikhSuratSetujuTerima">
+                             <asp:BoundField DataField="TarikhSuratSetujuTerima" HeaderText="TKH SST" DataFormatString="{0:dd/MM/yyyy}" SortExpression="TarikhSuratSetujuTerima">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
-                           <asp:BoundField DataField="Tempoh" HeaderText="Tempoh" SortExpression="Tempoh">
+                           <asp:BoundField DataField="Tempoh" HeaderText="TEMPOH" SortExpression="Tempoh">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
                            <%--<asp:BoundField DataField="Status_Permohonan" HeaderText="Status" SortExpression="Status">

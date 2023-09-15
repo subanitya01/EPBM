@@ -33,31 +33,28 @@ body {
             <asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" OnPageIndexChanging="Senarai_PageIndexChanging" CssClass="table table-striped table-bordered table-hover Grid" OnDataBound="Senarai_DataBound" AllowPaging="True">
                 <PagerSettings Mode="Numeric" Position="Bottom" />
                 <Columns>
-                    <asp:TemplateField HeaderText="ID" Visible="true">
+                    <asp:TemplateField HeaderText="ID" Visible="false">
                         <ItemTemplate>
                             <asp:Label ID="lblID" runat="server" Text='<%#Eval("Id") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="No.">
+                    <asp:TemplateField HeaderText="NO.">
                         <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="Tajuk" HeaderText="Tajuk" SortExpression="Tajuk">
+                    <asp:BoundField DataField="TAJUK" HeaderText="Tajuk" SortExpression="Tajuk">
                         <ItemStyle Wrap="true" />
                     </asp:BoundField>
-                    <asp:BoundField DataField="NamaJabatan" HeaderText="Jabatan" SortExpression="Jabatan">
+                    <asp:BoundField DataField="NamaJabatan" HeaderText="KEMENTERIAN / JABATAN" SortExpression="Jabatan">
                         <ItemStyle Wrap="true" />
                     </asp:BoundField>
-                    <%--<asp:BoundField DataField="Status_Permohonan" HeaderText="Status" SortExpression="Status">
-                                                <ItemStyle  Wrap="true" />
-                                            </asp:BoundField>--%>
-                    <asp:TemplateField HeaderText="Status">
+                    <asp:TemplateField HeaderText="STATUS">
                         <ItemStyle Width="0.5%" Wrap="true" />
                         <ItemTemplate>
                             <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status_Permohonan") %>'></asp:Label>
                             <asp:Label ID="lblIDStatus" Visible="false" runat="server" Text='<%# Eval("IdStatusPermohonan") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="Tindakan">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="TINDAKAN">
                         <ItemStyle  Width="0.5%"  Wrap="true" />
                         <ItemTemplate>
                             <a href="papar-pengesahan.aspx?id=<%# Eval("Id") %>"><img src="/image/check.png" title=""></a>
@@ -65,7 +62,6 @@ body {
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-
         </div>
 	</div>
 
