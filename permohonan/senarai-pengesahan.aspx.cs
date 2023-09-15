@@ -39,13 +39,12 @@ namespace EPBM.permohonan
 
             conn.Open();
 
-            SqlDataAdapter Sqa = new SqlDataAdapter("select * FROM Papar_Permohonan where IdStatusPermohonan = '1' ", conn);
+            SqlDataAdapter Sqa = new SqlDataAdapter("select * FROM Papar_Permohonan where IdStatusPermohonan = '1' ORDER BY Id DESC ", conn);
             DataSet ds = new DataSet();
             Sqa.Fill(ds);
             Senarai.DataSource = ds;
             Senarai.DataBind();
             conn.Close();
-
 
         }
 
@@ -55,9 +54,6 @@ namespace EPBM.permohonan
             Load_GridData();
         }
 
-        
-
-       
 
         protected void Senarai_DataBound(object sender, EventArgs e)
         {

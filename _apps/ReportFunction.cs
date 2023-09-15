@@ -78,16 +78,16 @@ namespace EPBM
 
        
 
-        public void GenerateLaporanSyarikatExcel(string title, DataTable dataTable, ref string fileName, ref string filePath)
+        public void GenerateLaporanSyarikatExcel(string title, DataTable dataTable, string totalAmount, ref string fileName, ref string filePath)
         {
           
             fileName = CARIAN_MENGIKUT_SYARIKAT_XLSX;
             filePath = Path.Combine(Constants.TEMP_PATH,fileName);
 
-            GenerateExcelReport(dataTable, title, filePath);
+            GenerateExcelReport(dataTable, title, totalAmount, filePath);
         }
         
-        private void GenerateExcelReport(DataTable dataTable, string title, string filePath)
+        private void GenerateExcelReport(DataTable dataTable, string title, string totalAmount, string filePath)
         {
             ExcelFile excelFile = new ExcelFile();
             ExcelWorksheet workSheet = excelFile.Worksheets.Add(LAPORAN);
@@ -137,7 +137,8 @@ namespace EPBM
             CellRange dataCells = workSheet.Cells.GetSubrangeAbsolute(headerRow, 0, headerRow + dataTable.Rows.Count, workSheet.CalculateMaxUsedColumns() - 1);
             dataCells.Style.Borders.SetBorders(GemBox.Spreadsheet.MultipleBorders.All, GetColorBlack(), LineStyle.Thin);
             dataCells.Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
-
+           
+            if (!String.IsNullOrWhiteSpace(totalAmount)) workSheet.Cells[dataTable.Rows.Count + 3, 1].Value = "Jumlah Peruntukan : " + totalAmount;
             #endregion
 
             #region Autofit
@@ -157,17 +158,17 @@ namespace EPBM
 
         #region PDF Report
 
-        public void GenerateLaporanSyarikatPdf (string title, DataTable dataTable, ref string fileName, ref string filePath)
+        public void GenerateLaporanSyarikatPdf (string title, DataTable dataTable, string totalAmount, ref string fileName, ref string filePath)
         {
            
 
             fileName = CARIAN_MENGIKUT_SYARIKAT_PDF;
             filePath = Path.Combine(Constants.TEMP_PATH,fileName);
 
-            GeneratePdfReport(dataTable, title, filePath);
+            GeneratePdfReport(dataTable, title, totalAmount, filePath);
         }
 
-        private void GeneratePdfReport(DataTable dataTable, string title, string filePath, bool isA3 = false)
+        private void GeneratePdfReport(DataTable dataTable, string title, string totalAmount, string filePath, bool isA3 = false)
         {
             DocumentModel document = new DocumentModel();
             document.DefaultCharacterFormat.FontName = CALIBRI;
@@ -254,6 +255,11 @@ namespace EPBM
                 contentTable.Rows.Add(row);
             }
 
+            Paragraph summaryTitle = new Paragraph(document);
+            summaryTitle.Inlines.Add(new SpecialCharacter(document, SpecialCharacterType.LineBreak));
+
+            if (!String.IsNullOrWhiteSpace(totalAmount)) GetTitleText("Jumlah Peruntukan : " + totalAmount, document, ref summaryTitle);
+
             #endregion
 
             #region Section
@@ -261,7 +267,7 @@ namespace EPBM
             GemBox.Document.HeaderFooter footer = new GemBox.Document.HeaderFooter(document, HeaderFooterType.FooterDefault,
                  new Paragraph(document, new Run(document, "Page "), new Field(document, FieldType.Page), new Run(document, " of "), new Field(document, FieldType.NumPages)) { ParagraphFormat = new ParagraphFormat() { Alignment = HorizontalAlignment.Right } });
 
-            Section section = new Section(document, headerTable, contentTable);
+            Section section = new Section(document, headerTable, contentTable, summaryTitle);
             section.HeadersFooters.Add(footer);
 
             double defaultMargin = GemBox.Document.LengthUnitConverter.Convert(0.45, GemBox.Document.LengthUnit.Inch, GemBox.Document.LengthUnit.Point);

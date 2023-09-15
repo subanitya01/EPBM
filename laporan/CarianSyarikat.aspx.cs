@@ -168,7 +168,7 @@ namespace EPBM.laporan
                 Load_GridData(); 
                 DataTable dataTable = (DataTable)gvData.DataSource;
 
-                reportFunction.GenerateLaporanSyarikatExcel(GetPdfLaporanTitle(), dataTable, ref fileName, ref filePath);
+                reportFunction.GenerateLaporanSyarikatExcel(GetPdfLaporanTitle(), dataTable, String.Empty, ref fileName, ref filePath);
 
                 DownloadFile(fileName, filePath);
             }
@@ -196,7 +196,7 @@ namespace EPBM.laporan
                 Load_GridData();
                 DataTable dataTable = (DataTable)gvData.DataSource;
 
-                reportFunction.GenerateLaporanSyarikatPdf(GetPdfLaporanTitle(), dataTable, ref fileName, ref filePath);
+                reportFunction.GenerateLaporanSyarikatPdf(GetPdfLaporanTitle(), dataTable, String.Empty, ref fileName, ref filePath);
 
                 DownloadFile(fileName, filePath);
             }

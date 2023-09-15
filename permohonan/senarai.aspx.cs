@@ -27,51 +27,31 @@ namespace EPBM.Permohonan
             if (!IsPostBack)
             
             {
-                Load_GridData();
-          
-
+                Load_GridData();        
             }
  
         }
 
-        //private void Load_GridData()
-        //{
-
-        //    DataTable EpbmDT = Utils.GetDataTable("Select * from Papar_Permohonan where IdStatusPermohonan IN ('1','2','3')");
-        //    SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-
-        //    conn.Open();
-
-        //    SqlDataAdapter Sqa = new SqlDataAdapter("select * FROM Papar_Permohonan where IdStatusPermohonan IN ('1','2','3') ", conn);
-        //    DataSet ds = new DataSet();
-        //    Sqa.Fill(ds);
-
-        //    Senarai.DataSource = ds;
-        //    Senarai.DataBind();
-        //    conn.Close();
-
-        //}
 
         private void Load_GridData()
         {
-            string searchTerm = Convert.ToString(ViewState["txtSearch"]) ?? null;
-            string searchCol = Convert.ToString(ViewState["listSearchCol"]) ?? null;
-
-            DataTable EpbmDT = Utils.GetDataTable("Select * from Papar_Permohonan where IdStatusPermohonan IN ('1','2','3')");
+            string searchTerm = txtSearch.Text;
+            string searchCol = listSearchCol.SelectedItem.Text;
 
             Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
-            string CommandText = "Select * from Papar_Permohonan where IdStatusPermohonan IN ('1','2','3')";
+            string CommandText = "Select * from  Papar_Permohonan  where IdStatusPermohonan IN ('1','2','3')";
+        
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                if (string.IsNullOrEmpty(searchCol))
+                if (string.IsNullOrEmpty(searchCol) || searchCol == "SEMUA KOLUM")
                 {
                     CommandText += " AND (NamaJabatan LIKE '%' + @searchTerm + '%' OR Tajuk LIKE '%' + @searchTerm + '%' OR Status_Permohonan LIKE '%' + @searchTerm + '%')";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
                 else if (searchCol == "JABATAN")
                 {
-                    CommandText += " AND NamaJabatan LIKE '%' + @searchTerm + '%'";
+                    CommandText += " AND NamaJabatan LIKE '%' + @searchTerm + '%' ";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
                 else if (searchCol == "TAJUK")
@@ -84,8 +64,11 @@ namespace EPBM.Permohonan
                     CommandText += " AND Status_Permohonan LIKE '%' + @searchTerm + '%'";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
+               
             }
-
+     
+            CommandText += GetOrder();
+         
             DataTable dtProfile = Utils.GetDataTable(CommandText, queryParams, "DefaultConnection");
             dtProfile.TableName = "Papar_Permohonan";
 
@@ -94,7 +77,7 @@ namespace EPBM.Permohonan
 
             Senarai.DataSource = ds;
             Senarai.DataBind();
-            ViewState["dtProfile"] = dtProfile;
+
         }
 
         protected void Senarai_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -184,53 +167,53 @@ namespace EPBM.Permohonan
         {
             Senarai.PageIndex = 0;
             //Panel2.Visible = true;
-
-            ViewState["txtSearch"] = txtSearch.Text.Trim();
-            ViewState["listSearchCol"] = listSearchCol.Text.Trim();
             Load_GridData();
         }
 
-        private string GetSortDirection(string column)
+        private string GetOrder()
         {
 
-            // By default, set the sort direction to ascending.
-            string sortDirection = "ASC";
+            string orderBy = String.Empty;
 
-            // Retrieve the last column that was sorted.
-            string sortExpression = ViewState["SortExpression"] as string;
+            if (String.IsNullOrEmpty(lblSortColumn.Text))
+                lblSortColumn.Text = "ID";
 
-            if (sortExpression != null)
+            if (String.IsNullOrEmpty(lblSortDirection.Text))
+                
+            lblSortDirection.Text = Constants.DESC;
+
+            lblIcon.Text = lblSortDirection.Text == Constants.ASC ? "↑" : "↓";
+
+            lblSortRecord.Text = String.Format(" {0} {1}", GetSortingHeader(lblSortColumn.Text), lblIcon.Text);
+
+
+            return String.Format(" order by {0} {1}", lblSortColumn.Text, lblSortDirection.Text);
+        }
+
+        private string GetSortingHeader(string columnName)
+        {
+            foreach (DataControlField column in Senarai.Columns)
             {
-                // Check if the same column is being sorted.
-                // Otherwise, the default value can be returned.
-                if (sortExpression == column)
-                {
-                    string lastDirection = ViewState["SortDirection"] as string;
-                    if ((lastDirection != null) && (lastDirection == "ASC"))
-                    {
-                        sortDirection = "DESC";
-                    }
-                }
+                if (column.SortExpression.Equals(columnName))
+                    return column.HeaderText;
             }
 
-            // Save new values in ViewState.
-            ViewState["SortDirection"] = sortDirection;
-            ViewState["SortExpression"] = column;
-
-            return sortDirection == "ASC" ? "&uarr;" : "&darr;";
+            return "ID ";
         }
 
         protected void Senarai_Sorting(object sender, GridViewSortEventArgs e)
         {
-            DataTable dtrslt = (DataTable)ViewState["dtProfile"];
-            if (dtrslt.Rows.Count > 0)
-            {
-                lblSortRecord.Text = e.SortExpression + " " + GetSortDirection(e.SortExpression);
-                dtrslt.DefaultView.Sort = e.SortExpression + " " + ViewState["SortDirection"];
-                Senarai.DataSource = dtrslt;
-                Senarai.DataBind();
-            }
+
+            if (lblSortColumn.Text.Equals(e.SortExpression))
+                lblSortDirection.Text = lblSortDirection.Text.Equals(Constants.ASC) ? Constants.DESC : Constants.ASC;
+            else
+                lblSortColumn.Text = e.SortExpression;
+
+            Load_GridData();
+
+
         }
+   
 
     }
 }
