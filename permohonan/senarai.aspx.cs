@@ -46,7 +46,7 @@ namespace EPBM.Permohonan
             {
                 if (string.IsNullOrEmpty(searchCol) || searchCol == "SEMUA KOLUM")
                 {
-                    CommandText += " AND (NamaJabatan LIKE '%' + @searchTerm + '%' OR Tajuk LIKE '%' + @searchTerm + '%' OR Status_Permohonan LIKE '%' + @searchTerm + '%')";
+                    CommandText += " AND (NamaJabatan LIKE '%' + @searchTerm + '%' OR Tajuk LIKE '%' + @searchTerm + '%' OR Status_Permohonan LIKE '%' + @searchTerm + '%' OR Harga LIKE '%' + @searchTerm + '%')";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
                 else if (searchCol == "JABATAN")
