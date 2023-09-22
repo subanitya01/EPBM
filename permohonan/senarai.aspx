@@ -25,9 +25,9 @@ height: 27px;
 				<div class="input-group">
 					<asp:DropDownList ID="listSearchCol" CssClass="form-select" runat="server" >  
 						<asp:ListItem Value="">SEMUA KOLUM</asp:ListItem>  
-						<asp:ListItem>JABATAN</asp:ListItem>  
+						<%--<asp:ListItem>JABATAN</asp:ListItem>  
 						<asp:ListItem>TAJUK</asp:ListItem>  
-						<asp:ListItem>STATUS</asp:ListItem>  
+						<asp:ListItem>STATUS</asp:ListItem> --%> 
 					</asp:DropDownList>
 					<asp:TextBox ID="txtSearch" CssClass="form-control w-25" placeholder="Carian..." runat="server"></asp:TextBox>
 					<asp:LinkButton ID="btnSearch" CssClass="btn btn-primary" runat="server" OnClick="BtnSearch_Click" CausesValidation="False"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
@@ -59,7 +59,7 @@ height: 27px;
 				</div>
 			</div>
 			<table class="table table-bordered table-striped table-hover">
-				<asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" EmptyDataText="Tiada Rekod Dijumpai." ShowHeaderWhenEmpty="True" OnPageIndexChanging="Senarai_PageIndexChanging" OnSorting="Senarai_Sorting" AllowSorting="true" CssClass="table table-striped table-bordered table-hover Grid" OnDataBound="Senarai_DataBound" AllowPaging="True">
+				<asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" EmptyDataText="Tiada Rekod Dijumpai." ShowHeaderWhenEmpty="True" OnPageIndexChanging="Senarai_PageIndexChanging" OnSorting="Senarai_Sorting" AllowSorting="true" CssClass="table table-striped table-bordered table-hover Grid" OnDataBound="Senarai_DataBound" OnRowDataBound="OnRowDataBound" AllowPaging="True">
                                         <PagerSettings Mode="Numeric" Position="Bottom" />
                                         <Columns>
                                             <asp:TemplateField HeaderText="ID" Visible="false" SortExpression="ID">
@@ -83,6 +83,17 @@ height: 27px;
 											<%--<asp:BoundField DataField="ShortName" HeaderText="KEMENTERIAN /JABATAN" SortExpression="ShortName">
                                                <ItemStyle Width="25%" Wrap="true" />
                                             </asp:BoundField>--%>
+
+											<asp:TemplateField HeaderText="ShortName" Visible="false">
+                                                <ItemStyle Width="0.5%" Wrap="true" />
+                                                <ItemTemplate>								
+												<asp:HiddenField ID="hfStatus" runat="server" Value='<%#Eval("ShortName") %>' />		
+												</ItemTemplate>
+                                            </asp:TemplateField>
+
+
+
+
 											 <asp:BoundField DataField="Harga" HeaderText="HARGA" DataFormatString= "RM {0:n}" SortExpression="Harga">
                                                 <ItemStyle Width="12%" Wrap="true" />
                                             </asp:BoundField>

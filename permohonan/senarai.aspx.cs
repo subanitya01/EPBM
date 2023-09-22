@@ -201,6 +201,21 @@ namespace EPBM.Permohonan
             return "ID ";
         }
 
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                HiddenField hfStatus = (e.Row.FindControl("hfStatus") as HiddenField);
+
+                //if (hfStatus.Value == "NRECC")
+                //{
+                //    e.Row.ToolTip = (e.Row.DataItem as DataRowView)["NamaBahagian"].ToString();
+                //}
+            }
+
+        }
+
         protected void Senarai_Sorting(object sender, GridViewSortEventArgs e)
         {
 
