@@ -41,11 +41,18 @@ body {
                     <asp:TemplateField HeaderText="NO.">
                         <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="TAJUK" HeaderText="Tajuk" SortExpression="Tajuk">
-                        <ItemStyle Wrap="true" />
-                    </asp:BoundField>
+              
+                    <asp:TemplateField HeaderText="TAJUK" SortExpression="Tajuk">
+                        <ItemStyle Width="50%" Wrap="true" />
+                        <ItemTemplate>
+                            <asp:Label ID="lblTajukUtama" runat="server" Text='<%# Eval("Tajuk") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="NamaJabatan" HeaderText="KEMENTERIAN / JABATAN" SortExpression="Jabatan">
                         <ItemStyle Wrap="true" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="Harga" HeaderText="HARGA" DataFormatString="RM {0:n}" SortExpression="Harga">
+                        <ItemStyle Width="12%" Wrap="true" />
                     </asp:BoundField>
                     <asp:TemplateField HeaderText="STATUS">
                         <ItemStyle Width="0.5%" Wrap="true" />
