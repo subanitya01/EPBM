@@ -255,7 +255,7 @@ namespace EPBM.laporan
         {
             //List<string> conditions = new List<string>();
 
-            string condition = String.Format("Where Id_StatusKeputusan IN ('1','2') AND TarikhSuratSetujuTerima > '{0}' AND TarikhSuratSetujuTerima < '{1}'", SystemHelper.GetDate(txttkhmula.Text).ToString("yyyy-MM-dd"), SystemHelper.GetDate(txttkhakhir.Text).ToString("yyyy-MM-dd"));
+            string condition = String.Format("Where Id_StatusKeputusan IN ('1','2','3') AND TarikhSuratSetujuTerima > '{0}' AND TarikhSuratSetujuTerima < '{1}'", SystemHelper.GetDate(txttkhmula.Text).ToString("yyyy-MM-dd"), SystemHelper.GetDate(txttkhakhir.Text).ToString("yyyy-MM-dd"));
 
             int jenisLaporan = SystemHelper.GetInteger(ddlFilterLaporan.SelectedValue);
             int jabatanId = SystemHelper.GetInteger(ddlFilterJabatan.SelectedValue);
@@ -370,13 +370,19 @@ namespace EPBM.laporan
 
                 if (lblIDStatus.Text == "1")
                 {
-                    lblStatus.CssClass = "badge text-bg-success";
+                    lblStatus.CssClass = "badge text-bg-info";
 
                 }
 
                 if (lblIDStatus.Text == "2")
                 {
                     lblStatus.CssClass = "badge text-bg-success";
+
+                }
+
+                if (lblIDStatus.Text == "3")
+                {
+                    lblStatus.CssClass = "badge text-bg-danger";
 
                 }
 
