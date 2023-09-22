@@ -72,19 +72,19 @@ height: 27px;
 												<ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                                             </asp:TemplateField>
 											<asp:TemplateField HeaderText="TAJUK" SortExpression="Tajuk">
-                                                <ItemStyle Wrap="true" />
+                                                <ItemStyle Width="50%" Wrap="true" />
                                                 <ItemTemplate>
 												<asp:Label ID="lblTajukUtama" runat="server" Text='<%# Eval("Tajuk") %>'></asp:Label>                                
 												</ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="NamaJabatan" HeaderText="KEMENTERIAN /JABATAN" SortExpression="NamaJabatan">
-                                                <ItemStyle Width="25%" Wrap="true" />
+                                                <ItemStyle Width="20%" Wrap="true" />
                                             </asp:BoundField>
 											<%--<asp:BoundField DataField="ShortName" HeaderText="KEMENTERIAN /JABATAN" SortExpression="ShortName">
                                                <ItemStyle Width="25%" Wrap="true" />
                                             </asp:BoundField>--%>
 											 <asp:BoundField DataField="Harga" HeaderText="HARGA" DataFormatString= "RM {0:n}" SortExpression="Harga">
-                                                <ItemStyle Width="15%" Wrap="true" />
+                                                <ItemStyle Width="12%" Wrap="true" />
                                             </asp:BoundField>
                                             <asp:TemplateField HeaderText="STATUS" Visible="true" SortExpression="Status_Permohonan">
                                                 <ItemStyle Width="0.5%" Wrap="true" />
@@ -94,7 +94,7 @@ height: 27px;
 												</ItemTemplate>
                                             </asp:TemplateField>
 											<asp:TemplateField HeaderText="TINDAKAN">
-												<ItemStyle Width="12%" Wrap="true" />
+												<ItemStyle Width="9%" Wrap="true" />
 												<ItemTemplate>													 													
 												    <asp:HyperLink ID="HyperLinkPapar" runat="server" NavigateUrl='<%# Eval("Id", "papar.aspx?ID={0}") %>'  ImageUrl="~/image/View.png" title="Papar"  ></asp:HyperLink>
 													<asp:HyperLink ID="HyperLinkEdit" runat="server" Visible="false" NavigateUrl='<%# Eval("Id", "edit.aspx?ID={0}") %>'  ImageUrl="~/image/Edit.png"  title="Kemaskini"></asp:HyperLink>
