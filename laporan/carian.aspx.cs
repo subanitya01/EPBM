@@ -201,7 +201,7 @@ namespace EPBM.laporan
 
         protected void ddlFilterJabatan_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Load_GridData();
+            
         }
 
         private void InitilaizeWebControl()
@@ -216,7 +216,6 @@ namespace EPBM.laporan
             pnlFilterJabatan.Visible = false;
         }
     
-
         #endregion
 
         #region Sum
@@ -251,6 +250,7 @@ namespace EPBM.laporan
 
         #endregion
 
+        #region Carian
         private string GetCondition()
         {
             //List<string> conditions = new List<string>();
@@ -269,48 +269,16 @@ namespace EPBM.laporan
             if (sumberPeruntukan > 0) condition = String.Format("{0} AND IdSumberPeruntukan = {1}", condition, sumberPeruntukan);
 
             return condition;
-
-            #region Carian
-
-            //if (ddlFilterLaporan.SelectedValue == "1")
-            //{ 
-            //    if (ddlFilterLaporan.SelectedValue == "1")
-            //        conditions.Add("Organisasi_Grp_ID = 1");
-            //    else if (ddlFilterLaporan.SelectedValue == "2" && SystemHelper.GetInteger(ddlFilterJabatan.SelectedValue) > 0)
-            //        conditions.Add(String.Format("Organisasi_Grp_ID = {0}", ddlFilterJabatan.SelectedValue));
-            //    else if (ddlFilterLaporan.SelectedValue == "2")
-            //        conditions.Add("Organisasi_Grp_ID != 1");
-            //}
-            //else
-            //if (ddlJenisPerolehan.SelectedIndex > 0)
-            //{
-            //    //conditions.Add(String.Format(ddlJenisPerolehan.SelectedValue.Trim()));
-            //    conditions.Add(String.Format("Id={0} AND Id_StatusKeputusan IN ('1','2')", ddlJenisPerolehan.SelectedValue));
-            //    //conditions.Add(ddlJenisPerolehan.SelectedItem.Text.Trim());                
-            //}
-            //
-            //if ((ddlSumberPeruntukan.SelectedIndex > 0) && (ddlJenisPerolehan.SelectedValue == "0"))
-            //{
-            //    //conditions.Add(ddlSumberPeruntukan.SelectedItem.Text.Trim());
-            //}
-            //
-            //if ((ddlJenisPerolehan.SelectedIndex > 0) && (ddlSumberPeruntukan.SelectedValue == "0"))
-            //{
-            //    //conditions.Add(ddlSumberPeruntukan.SelectedItem.Text.Trim());
-            //}
-            //
-            //if ((ddlSumberPeruntukan.SelectedValue == "0") && (ddlJenisPerolehan.SelectedValue == "0"))
-            //{
-            //    //conditions.Add(ddlJenisPerolehan.SelectedItem.Text.Trim());
-            //}
-
-            #endregion
          
         }
+
+        #endregion
 
         private string GetLaporanTitle1()
         {
             string jabatan = String.Empty;
+            DateTime TarikhMula = SystemHelper.GetDateTime(txttkhmula.Text);
+            DateTime TarikhAkhir = SystemHelper.GetDateTime(txttkhakhir.Text);
 
             if (ddlFilterLaporan.SelectedValue == "2")
             {
@@ -323,7 +291,7 @@ namespace EPBM.laporan
 
             jabatan = !String.IsNullOrWhiteSpace(jabatan) ? String.Format("({0})", jabatan) : String.Empty;
 
-            return String.Format("Laporan EPBM {0}\nTarikh Dijana: {1}", jabatan, DateTime.Now.ToString(Constants.FORMAT_DATE));
+            return String.Format("Laporan EPBM {0}\nTarikh Mula SST: {1}{2}{3}", jabatan, TarikhMula.ToString("dd-MMM-yyyy"), "  Hingga  ",TarikhAkhir.ToString("dd-MMM-yyyy"));
 
         }
 
@@ -379,16 +347,6 @@ namespace EPBM.laporan
             }
            
         }
-
-        //private string GetLaporanTitle()
-        //{
-        //    return String.Format("CARIAN BERDASARKAN KEPADA SYARIKAT BERJAYA\n");
-        //}
-
-        //private string GetPdfLaporanTitle()
-        //{
-        //    return String.Format("CARIAN BERDASARKAN KEPADA SYARIKAT BERJAYA\n");
-        //}
 
         private void DownloadFile(string fileName, string location)
         {
