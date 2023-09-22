@@ -68,10 +68,10 @@ height: 27px;
                                <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                            </asp:TemplateField>
                            <asp:BoundField DataField="Tajuk" HeaderText="TAJUK" SortExpression="Tajuk">
-                               <ItemStyle Wrap="true" />
+                               <ItemStyle Width="45%" Wrap="true" />
                            </asp:BoundField>
                            <asp:BoundField DataField="NamaJabatan" HeaderText="KEMEN/JAB" SortExpression="Jabatan">
-                               <ItemStyle Wrap="true" />
+                               <ItemStyle Width="20%" Wrap="true" />
                            </asp:BoundField>
                            <asp:BoundField DataField="Nama_JPerolehan" HeaderText="JENIS PEROLEHAN" SortExpression="Jenis Perolehan">
                                <ItemStyle Wrap="true" />
