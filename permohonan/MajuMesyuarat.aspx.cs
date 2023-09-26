@@ -135,27 +135,6 @@ namespace EPBM.permohonan
                 
             }
 
-
-            //string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan=1 and JumlahPermohonan > 0 ORDER BY Id";
-            //DataTable dtMesyuarat = Utils.GetDataTable(CommandText);
-            //bool selected = false;
-
-            //foreach (DataRow row in dtMesyuarat.Rows)
-            //{
-            //    ListItem item = new ListItem(row["JENIS"].ToString() + " BIL. " + row["BILANGAN"].ToString(), row["Id"].ToString());
-            //    //item.Value = row["Id"].ToString();
-            //    if (!selected)
-            //    {
-            //        item.Selected = true;
-            //        selected = true;
-            //    }
-            //    ddlMeeting.Items.Add(item);
-            //}
-
-            //if (dtMesyuarat.Rows.Count > 0)
-            //{
-            //    //BindData();
-            //}
         }
 
 

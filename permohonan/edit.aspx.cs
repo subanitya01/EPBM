@@ -368,23 +368,7 @@ namespace EPBM.permohonan
                     this.ddlBahagian.DataBind();
                 }
 
-                //this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", "0"));
-
-                //if (this.ddlJabatan.SelectedValue == "1")
-                //{
-                //    this.pnlBahagian.Visible = true;
-                //}
-                //else if (this.ddlJabatan.SelectedValue != "1")
-                //{
-                //    this.pnlBahagian.Visible = false;
-
-                //}
-
-                //else if (this.ddlBahagian.SelectedValue == "0")
-                //{
-
-                //}
-
+               
             }
         }
 
