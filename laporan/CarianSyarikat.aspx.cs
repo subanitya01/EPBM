@@ -241,7 +241,7 @@ namespace EPBM.laporan
 
                 if (lblIDStatus.Text == "1")
                 {
-                    lblStatus.CssClass = "badge text-bg-success";
+                    lblStatus.CssClass = "badge text-bg-info";
 
                 }
 
@@ -249,7 +249,7 @@ namespace EPBM.laporan
                 {
                     lblStatus.CssClass = "badge text-bg-success";
 
-                }               
+                }
 
             }
 

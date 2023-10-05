@@ -18,7 +18,7 @@ namespace EPBM.permohonan
             if (!IsPostBack)
             {
                 Papar();
-                ddlMesyuarat();
+                initMesyuaratList();         
             }
         }
 
@@ -104,43 +104,37 @@ namespace EPBM.permohonan
 
         protected void ddlMeeting_SelectedIndexChanged(Object sender, EventArgs e)
 
-        {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            SqlDataAdapter sda = new SqlDataAdapter("SELECT * FROM JenisMesyuarat WHERE Id  = '" + ddlMeeting.SelectedValue + "'", conn);
-
-            conn.Open();
-
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
-            conn.Close();
-
-            if (dt.Rows.Count != 0)
-            {
-                ID_Meeting.Text = dt.Rows[0][0].ToString().Trim();
-                //var selectedValue = ((DropDownList)sender).SelectedValue;
-            }
-
-            else
-            {
-
-            }
+        {          
 
         }
+      
 
-        private void ddlMesyuarat()
+        protected void initMesyuaratList()
         {
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM JenisMesyuarat", con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            con.Close();
-            ddlMeeting.DataSource = ds;
-            ddlMeeting.DataTextField = "Nama";
-            ddlMeeting.DataValueField = "Id";
-            ddlMeeting.DataBind();
-            ddlMeeting.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Sila Pilih--", ""));
+            string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan=2 ORDER BY Id";
+            DataTable dtMesyuarat = Utils.GetDataTable(CommandText);
+            //ViewState["dtMesyuarat"] = dtMesyuarat;
+            //bool selected = false;
+            int id = Convert.ToInt32(Request.QueryString["id"]);
+
+            foreach (DataRow row in dtMesyuarat.Rows)
+            {
+                ListItem item = new ListItem(row["JENIS"] + " BIL. " + row["BILANGAN"], row["Id"].ToString());
+                //item.Value = row["Id"].ToString();
+                if (id == Convert.ToInt32(row["Id"]))
+                {
+                    item.Selected = true;
+                  
+                    //selected = true;
+                }
+                ddlMeeting.Items.Add(item);
+            }
+
+            if (dtMesyuarat.Rows.Count > 0)
+            {
+                
+            }
+
         }
 
 

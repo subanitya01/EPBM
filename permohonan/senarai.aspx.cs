@@ -46,7 +46,7 @@ namespace EPBM.Permohonan
             {
                 if (string.IsNullOrEmpty(searchCol) || searchCol == "SEMUA KOLUM")
                 {
-                    CommandText += " AND (NamaJabatan LIKE '%' + @searchTerm + '%' OR Tajuk LIKE '%' + @searchTerm + '%' OR Status_Permohonan LIKE '%' + @searchTerm + '%')";
+                    CommandText += " AND (NamaJabatan LIKE '%' + @searchTerm + '%' OR Tajuk LIKE '%' + @searchTerm + '%' OR Status_Permohonan LIKE '%' + @searchTerm + '%' OR Harga LIKE '%' + @searchTerm + '%')";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
                 else if (searchCol == "JABATAN")
@@ -199,6 +199,21 @@ namespace EPBM.Permohonan
             }
 
             return "ID ";
+        }
+
+        protected void OnRowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                HiddenField hfStatus = (e.Row.FindControl("hfStatus") as HiddenField);
+
+                //if (hfStatus.Value == "NRECC")
+                //{
+                //    e.Row.ToolTip = (e.Row.DataItem as DataRowView)["NamaBahagian"].ToString();
+                //}
+            }
+
         }
 
         protected void Senarai_Sorting(object sender, GridViewSortEventArgs e)
