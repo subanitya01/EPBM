@@ -2,62 +2,89 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
+	<asp:HyperLink ID="LinkToList" NavigateUrl="javascript:history.back()" runat="server" CssClass="btn btn-link ps-0 pt-0" ><i class="align-middle" data-feather="corner-up-left"></i> Kembali</asp:HyperLink>
 	<h1 class="h3 mb-4 text-truncate">KEPUTUSAN <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></h1>
 	<div class="card">
 		<div class="card-header pb-0">
 			<h5 class="card-title">MAKLUMAT PERMOHONAN</h5>
 		</div>
-		<div class="card-body collapse" id="showDetails">
-			<table class="table table-bordered table-hover">
+		<div class="card-body" id="showDetails">
+			<div class="row px-2">
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">TAJUK</b>
+					<div><asp:Literal ID="LtlTajuk" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">JENIS PERTIMBANGAN</b>
+					<div><asp:Literal ID="LtlJenisPertimbangan" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">KAEDAH PEROLEHAN</b>
+					<div><asp:Literal ID="LtlKaedahPerolehan" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">JENIS PEROLEHAN/KONTRAK</b>
+					<div><asp:Literal ID="LtlJenisPerolehan" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">JABATAN</b>
+					<div><asp:Literal ID="LtlJabatan" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">HARGA INDIKATIF / NILAI KONTRAK</b>
+					<div>RM <asp:Literal ID="LtlHarga" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">SUMBER PERUNTUKAN</b>
+					<div><asp:Literal ID="LtlSumberPeruntukan" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">TARIKH SAHLAKU TENDER/KONTRAK</b>
+					<div><asp:Literal ID="LtlTarikhSahlaku" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">TARIKH TERIMA</b>
+					<div><asp:Literal ID="LtlTarikhTerima" runat="server"></asp:Literal></div>
+				</div>
+				<div class="col-md-6 border">
+					<b class="text-muted text-sm">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN</b>
+					<div><asp:Literal ID="LtlLulusPelan" runat="server"></asp:Literal></div>
+				</div>
+			</div>
+			<table class="table table-bordered table-hover table-sm d-none">
 			  <tbody>
 				<tr>
-					<th scope="row" class="align-middle bg-primary text-white">TAJUK</th>
-					<td class=""><asp:Literal ID="LtlTajuk" runat="server"></asp:Literal></td>
+					<td scope="row" class="align-middle bg-secondary text-white w-25">TAJUK</td>
+					<td class=""></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">JENIS PERTIMBANGAN</td>
+				  <td class=""></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">JENIS PERTIMBANGAN</th>
-				  <td class=""><asp:Literal ID="LtlJenisPertimbangan" runat="server"></asp:Literal></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">KAEDAH PEROLEHAN</td>
+				  <td class=""></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">JENIS PEROLEHAN/KONTRAK</td>
+				  <td class=""></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">KAEDAH PEROLEHAN</th>
-				  <td class=""><asp:Literal ID="LtlKaedahPerolehan" runat="server"></asp:Literal></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">JABATAN</td>
+				  <td class=""></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">HARGA INDIKATIF / NILAI KONTRAK</td>
+				  <td class=""></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">JENIS PEROLEHAN/KONTRAK</th>
-				  <td class=""><asp:Literal ID="LtlJenisPerolehan" runat="server"></asp:Literal></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">SUMBER PERUNTUKAN</td>
+				  <td class=""></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">TARIKH SAHLAKU TENDER/KONTRAK</td>
+				  <td class=""></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">JABATAN</th>
-				  <td class=""><asp:Literal ID="LtlJabatan" runat="server"></asp:Literal></td>
-				</tr>
-				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">HARGA INDIKATIF / NILAI KONTRAK</th>
-				  <td class="">RM <asp:Literal ID="LtlHarga" runat="server"></asp:Literal></td>
-				</tr>
-				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">SUMBER PERUNTUKAN</th>
-				  <td class=""><asp:Literal ID="LtlSumberPeruntukan" runat="server"></asp:Literal></td>
-				</tr>
-				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">TARIKH SAHLAKU TENDER/KONTRAK</th>
-				  <td class=""><asp:Literal ID="LtlTarikhSahlaku" runat="server"></asp:Literal></td>
-				</tr>
-				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">TARIKH TERIMA</th>
-				  <td class=""><asp:Literal ID="LtlTarikhTerima" runat="server"></asp:Literal></td>
-				</tr>
-				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN</th>
-				  <td class=""><asp:Literal ID="LtlLulusPelan" runat="server"></asp:Literal></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">TARIKH TERIMA</td>
+				  <td class=""></td>
+				  <td scope="row" class="align-middle bg-secondary text-white w-25">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN</td>
+				  <td class=""></td>
 				</tr>
 			  </tbody>
 			</table>
-			<div class="show-full text-center">
-				<button type="button" class="btn btn-outline-primary rounded-pill" data-bs-toggle="collapse" data-bs-target="#showDetails">
-					<span class="btn-before">Papar Penuh <i class="mt-n1" data-feather="chevrons-down"></i ></span>
-					<span class="btn-after">Papar Sedikit <i class="mt-n1" data-feather="chevrons-up"></i ></span>
-				</button>
-			</div>
 		</div>
 	</div>
 	<div class="card">
@@ -73,8 +100,10 @@
 					</div>
 					<div class="col-12 col-lg-6 mb-2 success">
 						<label class="control-label" >SYARIKAT BERJAYA <span class="text-danger">*</span></label>
-						<asp:TextBox ID="txtSyarikat" runat="server" CssClass="form-control" placeholder="SYARIKAT BERJAYA" required="required" />
-						<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Sila Isi Syarikat Berjaya" ControlToValidate="txtSyarikat" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+								<asp:TextBox ID="txtSyarikat" runat="server" CssClass="form-control" placeholder="SYARIKAT BERJAYA" required="required" autocomplete="off" />
+								<div class="position-absolute invisible" id="autocompleteSyarikat"></div>
+								<span id="syarikatBerjayaLimit" class="text-danger d-none">Syarikat ini telah dilantik melebihi 2 kali dalam 2 tahun</span>
+								<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Sila Isi Syarikat Berjaya" ControlToValidate="txtSyarikat" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>
 					<div class="col-12 col-lg-6 mb-2 success">
 						<label class="control-label" >TEMPOH <span class="text-danger">*</span></label>
@@ -105,7 +134,6 @@
 					</div>
 					<div class="col-12 col-lg-6 mb-2 success">
 						<label class="control-label">LAMPIRAN</label>
-						<asp:ScriptManager ID="ScriptManager1" runat="server" />
 						<div class="d-flex position-relative">
 							<asp:Label runat="server" id="attachmentLabel" AssociatedControlId="fileAttachment" class="w-100 preview-file position-absolute border bg-white text-truncate d-flex align-items-stretch" title="168187124571_Screenshot 2023-04-04 110107.jpg">
 								<span class="py-1 px-3 bg-body-tertiary border">Choose File</span> 
@@ -162,7 +190,19 @@
 			</asp:Panel>
 		</div>
 	</div>
+	
+	<script src="<%= ResolveUrl("~/assets/js/autocomplete.js") %>"></script>
 	<script>
+		var company_list = <asp:Literal ID="companyList" runat="server" />;
+		set_autocomplete('<%=txtSyarikat.ClientID %>', 'autocompleteSyarikat', Object.keys(company_list));
+		var inputSyarikat = document.getElementById('<%=txtSyarikat.ClientID %>');
+        var errorSyarikat = document.getElementById('syarikatBerjayaLimit');
+		inputSyarikat.addEventListener('change', function (event) {
+            if (event.target.value in company_list && company_list[event.target.value] != "") {
+                errorSyarikat.classList.remove("d-none");
+			}
+            else errorSyarikat.classList.add("d-none");
+		})
 		var statuses = document.querySelectorAll('#<%=RadioStatus.ClientID %> input[type="radio"]');
 
 		statuses.forEach(status => {

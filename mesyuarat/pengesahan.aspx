@@ -36,7 +36,7 @@
 	</div>
 	<div class="card">
 		<div class="card-header pb-0">
-			<h5 class="card-title">SENARAI PERMOHONAN</h5>
+			<h5 class="card-title">SENARAI PERMOHONAN <asp:Literal ID="TajukPermohonan" runat="server" /></h5>
 		</div>
 		<div class="card-body table-responsive">
 			<asp:GridView 

@@ -15,6 +15,15 @@ namespace EPBM.mesyuarat
     {
 
         /// <summary>
+        /// LinkToList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink LinkToList;
+
+        /// <summary>
         /// TajukMesyuarat control.
         /// </summary>
         /// <remarks>
@@ -231,15 +240,6 @@ namespace EPBM.mesyuarat
         protected global::System.Web.UI.WebControls.TextBox txtRujukanSetuju;
 
         /// <summary>
-        /// ScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
-
-        /// <summary>
         /// attachmentLabel control.
         /// </summary>
         /// <remarks>
@@ -364,5 +364,14 @@ namespace EPBM.mesyuarat
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnSubmit2;
+
+        /// <summary>
+        /// companyList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal companyList;
     }
 }

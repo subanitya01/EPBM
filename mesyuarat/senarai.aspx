@@ -8,9 +8,8 @@
 			<asp:Panel ID="Panel1" runat="server" defaultbutton="btnSubmit">
 				<div class="input-group">
 					<asp:DropDownList ID="listSearchCol" CssClass="form-select" runat="server" >  
-						<asp:ListItem Value="">SEMUA KOLUM</asp:ListItem>  
-						<asp:ListItem>JENIS</asp:ListItem>  
-						<asp:ListItem>BILANGAN</asp:ListItem>  
+						<asp:ListItem Value="">SEMUA KOLUM</asp:ListItem> 
+						<asp:ListItem>MESYUARAT</asp:ListItem>  
 						<asp:ListItem>TARIKH</asp:ListItem>  
 						<asp:ListItem>PENGERUSI</asp:ListItem>  
 						<asp:ListItem>STATUS PENGESAHAN</asp:ListItem>  
@@ -51,13 +50,10 @@
                     <ItemTemplate><%# Container.DataItemIndex + 1 %></ItemTemplate>
                 </asp:TemplateField>
 
-                <asp:BoundField DataField="JENIS" HeaderText="JENIS" SortExpression="JENIS" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+                <asp:BoundField DataField="MESYUARAT" HeaderText="MESYUARAT" SortExpression="MESYUARAT" ItemStyle-CssClass="text-center text-nowrap" HeaderStyle-CssClass="text-center">
                 </asp:BoundField>
 
-                <asp:BoundField DataField="BILANGAN" HeaderText="BILANGAN" SortExpression="BILANGAN" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
-                </asp:BoundField>
-
-				<asp:TemplateField HeaderText="TARIKH" SortExpression="TARIKH" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
+				<asp:TemplateField HeaderText="TARIKH" SortExpression="TARIKH" ItemStyle-CssClass="text-center text-nowrap" HeaderStyle-CssClass="text-center">
 					<ItemTemplate>
 						<%# Eval("TARIKHMS") %>
 					</ItemTemplate>

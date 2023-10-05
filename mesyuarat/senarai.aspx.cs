@@ -31,10 +31,16 @@ namespace EPBM.mesyuarat
             {
                 if (string.IsNullOrEmpty(searchCol))
                 {
-                    CommandText += " AND (JENIS LIKE '%' + @searchTerm + '%' OR BILANGAN LIKE '%' + @searchTerm + '%' OR TARIKHMS LIKE '%' + @searchTerm + '%' OR PENGERUSI LIKE '%' + @searchTerm + '%')";
+                    //CommandText += " AND (JENIS LIKE '%' + @searchTerm + '%' OR BILANGAN LIKE '%' + @searchTerm + '%' OR TARIKHMS LIKE '%' + @searchTerm + '%' OR PENGERUSI LIKE '%' + @searchTerm + '%')";
+                    CommandText += " AND (MESYUARAT LIKE '%' + @searchTerm + '%' OR TARIKHMS LIKE '%' + @searchTerm + '%' OR PENGERUSI LIKE '%' + @searchTerm + '%')";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
-                else if (searchCol == "JENIS")
+                else if (searchCol == "MESYUARAT")
+                {
+                    CommandText += " AND MESYUARAT LIKE '%' + @searchTerm + '%'";
+                    queryParams.Add("@searchTerm", searchTerm);
+                }
+                /*else if (searchCol == "JENIS")
                 {
                     CommandText += " AND JENIS LIKE '%' + @searchTerm + '%'";
                     queryParams.Add("@searchTerm", searchTerm);
@@ -43,7 +49,7 @@ namespace EPBM.mesyuarat
                 {
                     CommandText += " AND BILANGAN LIKE '%' + @searchTerm + '%'";
                     queryParams.Add("@searchTerm", searchTerm);
-                }
+                }*/
                 else if (searchCol == "TARIKH")
                 {
                     CommandText += " AND TARIKHMS LIKE '%' + @searchTerm + '%'";

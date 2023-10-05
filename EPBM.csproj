@@ -121,6 +121,7 @@
     <Content Include="auth\profile.aspx" />
     <Content Include="errors\404.aspx" />
     <Content Include="errors\default.aspx" />
+    <Content Include="keputusan\cetak-senarai.aspx" />
     <Content Include="keputusan\senarai.aspx" />
     <Content Include="laporan\carian.aspx" />
     <Content Include="auth\login.aspx" />
@@ -168,6 +169,13 @@
     </Compile>
     <Compile Include="errors\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="keputusan\cetak-senarai.aspx.cs">
+      <DependentUpon>cetak-senarai.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="keputusan\cetak-senarai.aspx.designer.cs">
+      <DependentUpon>cetak-senarai.aspx</DependentUpon>
     </Compile>
     <Compile Include="laporan\CarianSyarikat.aspx.cs">
       <DependentUpon>CarianSyarikat.aspx</DependentUpon>

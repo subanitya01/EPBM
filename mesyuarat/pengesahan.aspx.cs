@@ -34,7 +34,6 @@ namespace EPBM.mesyuarat
                 if (id== Convert.ToInt32(row["Id"]))
                 {
                     item.Selected = true;
-                    modalTitle1.Text = modalTitle2.Text = row["JENIS"] + " BIL. " + row["BILANGAN"];
                     //selected = true;
                 }
                 listMesyuarat.Items.Add(item);
@@ -51,7 +50,9 @@ namespace EPBM.mesyuarat
         {
             try
             {
-
+                DataTable dtMesyuarat = (DataTable)ViewState["dtMesyuarat"];
+                modalTitle1.Text = modalTitle2.Text = dtMesyuarat.Rows[0]["JENIS"] + " BIL. " + dtMesyuarat.Rows[0]["BILANGAN"];
+                TajukPermohonan.Text = "BAGI MESYUARAT " + modalTitle1.Text;
                 string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN " +
                                       "from Papar_Permohonan WHERE IdStatusPengesahan=2 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", listMesyuarat.SelectedValue } };

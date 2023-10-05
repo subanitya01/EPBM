@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 
 namespace EPBM
 {
@@ -64,6 +65,20 @@ namespace EPBM
             HttpContext.Current.Response.StatusCode = 404;
             HttpContext.Current.Response.End();
             HttpContext.Current.ApplicationInstance.CompleteRequest();
+        }
+        public static Control FindControlRecursive(Control container, string name)
+        {
+            if (container.ID == name)
+                return container;
+
+            foreach (Control ctrl in container.Controls)
+            {
+                Control foundCtrl = FindControlRecursive(ctrl, name);
+
+                if (foundCtrl != null)
+                    return foundCtrl;
+            }
+            return null;
         }
     }
 }

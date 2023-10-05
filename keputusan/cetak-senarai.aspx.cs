@@ -1,9 +1,6 @@
-﻿using AjaxControlToolkit.HTMLEditor.ToolbarButton;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.DirectoryServices;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,79 +8,38 @@ using System.Web.UI.WebControls;
 
 namespace EPBM.keputusan
 {
-    public partial class senarai : System.Web.UI.Page
+    public partial class cetak_senarai : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (PreviousPage != null && PreviousPage.IsCrossPagePostBack)
             {
-                initDropdownList();
-                ViewState["extendSearch"] = false;
-                BindData();
+                //TextBox txtName = (TextBox)PreviousPage.FindControl("txtName");
+                //LblName.Text = "Welcome " + txtName.Text;
+                LinkButton btn = (LinkButton)Utils.FindControlRecursive(Page.PreviousPage, "btnCetak");
+                if(btn != null)
+                    BindData((String)btn.CommandArgument);
+            }
+            else
+            {
+                Response.Redirect("~/keputusan/senarai.aspx");
             }
         }
-
-        protected void initDropdownList()
-        {
-            string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan=4 ORDER BY Id";
-            DataTable dtMesyuarat = Utils.GetDataTable(CommandText);
-            ViewState["dtMesyuarat"] = dtMesyuarat;
-            //bool selected = false;
-            ListItem item = new ListItem("SILA PILIH", "");
-            listMesyuarat.Items.Add(item);
-
-            foreach (DataRow row in dtMesyuarat.Rows)
-            {
-                item = new ListItem(row["MESYUARAT"].ToString(), row["Id"].ToString());
-                //item.Value = row["Id"].ToString();
-                /*if (!selected)
-                {
-                    item.Selected = true;
-                    //selected = true;
-                }*/
-                listMesyuarat.Items.Add(item);
-            }
-
-            string CommandText2 = "Select * from Jabatan WHERE aktif=1 ORDER BY Organisasi_Grp_ID";
-            DataTable dtJabatan = Utils.GetDataTable(CommandText2);
-            
-            ListItem item2 = new ListItem("SILA PILIH", "");
-            listJabatan.Items.Add(item2);
-
-            foreach (DataRow row in dtJabatan.Rows)
-            {
-                item2 = new ListItem(row["Nama"].ToString(), row["Organisasi_Grp_ID"].ToString());
-                listJabatan.Items.Add(item2);
-            }
-
-            string CommandText3 = "Select * from Bahagian where Organisasi_Grp_ID=1 ORDER BY Id";
-            DataTable dtBahagian = Utils.GetDataTable(CommandText3);
-            
-            ListItem item3 = new ListItem("SILA PILIH BAHAGIAN", "");
-            listBahagian.Items.Add(item3);
-
-            foreach (DataRow row in dtBahagian.Rows)
-            {
-                item3 = new ListItem(row["Nama"].ToString(), row["Id"].ToString());
-                listBahagian.Items.Add(item3);
-            }
-
-            string CommandText4 = "Select * from StatusKeputusan ORDER BY Id";
-            DataTable dtStatus = Utils.GetDataTable(CommandText4);
-            
-            ListItem item4 = new ListItem("SILA PILIH", "");
-            listStatus.Items.Add(item4);
-
-            foreach (DataRow row in dtStatus.Rows)
-            {
-                item4 = new ListItem(row["Nama"].ToString(), row["Id"].ToString());
-                listStatus.Items.Add(item4);
-            }
-        }
-        protected void BindData()
+        protected void BindData(string method)
         {
             /*try
             {*/
+
+            ViewState["txtSearch"] = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtSearch")).Text.Trim();
+            ViewState["listSearchCol"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listSearchCol")).Text.Trim();
+            ViewState["listMesyuarat"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listMesyuarat")).Text.Trim();
+            ViewState["txtTajuk"] = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtTajuk")).Text.Trim();
+            ViewState["listJabatan"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listJabatan")).Text.Trim();
+            ViewState["listBahagian"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listBahagian")).Text.Trim();
+            ViewState["listStatus"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listStatus")).Text.Trim();
+            ViewState["listCondSyarikat"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listCondSyarikat")).Text.Trim();
+            ViewState["txtSyarikat"] = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtSyarikat")).Text.Trim();
+            ViewState["extendSearch"] = method=="extend";
             string searchTerm = Convert.ToString(ViewState["txtSearch"]) ?? null;
             string searchCol = Convert.ToString(ViewState["listSearchCol"]) ?? null;
             bool extendSearch = Convert.ToBoolean(ViewState["extendSearch"]);
@@ -92,7 +48,7 @@ namespace EPBM.keputusan
             string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, " +
                                 "StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN, MESYUARAT ";
             string CommandText = "from Papar_Permohonan WHERE TarikhHapus IS NULL AND IdStatusPengesahan = 4 ";
-            string limit = " OFFSET  " + (GridView1.PageIndex * GridView1.PageSize) + " ROWS FETCH NEXT " + GridView1.PageSize + " ROWS ONLY";
+            string limit = "";// " OFFSET  " + (GridView1.PageIndex * GridView1.PageSize) + " ROWS FETCH NEXT " + GridView1.PageSize + " ROWS ONLY";
 
             Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
 
@@ -180,11 +136,11 @@ namespace EPBM.keputusan
                 }
                 if (!string.IsNullOrEmpty(Syarikat))
                 {
-                    if(CondSyarikat == "SAMA DENGAN")
+                    if (CondSyarikat == "SAMA DENGAN")
                         CommandText += " AND SyarikatBerjaya = @Syarikat";
-                    else if(CondSyarikat == "BERMULA DENGAN")
+                    else if (CondSyarikat == "BERMULA DENGAN")
                         CommandText += " AND SyarikatBerjaya LIKE @Syarikat + '%'";
-                    else if(CondSyarikat == "BERAKHIR DENGAN")
+                    else if (CondSyarikat == "BERAKHIR DENGAN")
                         CommandText += " AND SyarikatBerjaya LIKE '%' + @Syarikat";
                     else
                         CommandText += " AND SyarikatBerjaya LIKE '%' + @Syarikat + '%'";
@@ -200,7 +156,7 @@ namespace EPBM.keputusan
             string selectCount = "Select count(*) ";
             DataTable dtCountPermohonan = Utils.GetDataTable(selectCount + CommandText, queryParams);
             GridView1.VirtualItemCount = Convert.ToInt16(dtCountPermohonan.Rows[0][0].ToString());
-            
+
             DataTable dtPermohonan = Utils.GetDataTable(selectData + CommandText + sortBy + limit, queryParams);
 
             GridView1.DataSource = dtPermohonan;
@@ -209,34 +165,15 @@ namespace EPBM.keputusan
             /*}
             catch (Exception) { Utils.HttpNotFound(); }*/
         }
-        protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            GridView1.PageIndex = e.NewPageIndex;
-            BindData();
-        }
-
-        protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            lblSortRecord.Text = e.SortExpression + " " + GetSortDirection(e.SortExpression);
-            BindData();
-        }
 
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 DataRowView drv = e.Row.DataItem as DataRowView;
-                Label lblStatus = e.Row.FindControl("lblStatus") as Label;
                 Label LblKeterangan = e.Row.FindControl("LblKeterangan") as Label;
                 ListView detailsList = e.Row.FindControl("DetailsList") as ListView;
                 Literal numbering = e.Row.FindControl("Numbering") as Literal;
-                
-                if (drv.Row["IdStatusKeputusan"].ToString() == "1")
-                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
-                else if (drv.Row["IdStatusKeputusan"].ToString() == "2")
-                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
-                else
-                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-danger";
 
                 if (drv.Row["IdStatusKeputusan"].ToString() == "3")
                 {
@@ -253,66 +190,8 @@ namespace EPBM.keputusan
                     detailsList.DataBind();
                     LblKeterangan.Visible = false;
                 }
-                numbering.Text = (GridView1.PageIndex * GridView1.PageSize + e.Row.RowIndex + 1).ToString();
+                numbering.Text = (e.Row.RowIndex + 1).ToString();
             }
-        }
-        private string GetSortDirection(string column)
-        {
-
-            // By default, set the sort direction to ascending.
-            string sortDirection = "ASC";
-
-            // Retrieve the last column that was sorted.
-            string sortExpression = ViewState["SortExpression"] as string;
-
-            if (sortExpression != null)
-            {
-                // Check if the same column is being sorted.
-                // Otherwise, the default value can be returned.
-                if (sortExpression == column)
-                {
-                    string lastDirection = ViewState["SortDirection"] as string;
-                    if ((lastDirection != null) && (lastDirection == "ASC"))
-                    {
-                        sortDirection = "DESC";
-                    }
-                }
-            }
-
-            // Save new values in ViewState.
-            ViewState["SortDirection"] = sortDirection;
-            ViewState["SortExpression"] = column;
-
-            return sortDirection == "ASC" ? "&uarr;" : "&darr;";
-        }
-
-        protected void Search(object sender, EventArgs e)
-        {
-            GridView1.PageIndex = 0;
-
-            ViewState["txtSearch"] = txtSearch.Text.Trim();
-            ViewState["listSearchCol"] = listSearchCol.Text.Trim();
-            ViewState["extendSearch"] = false;
-            btnCetak.CommandArgument = "basic";
-            BindData();
-        }
-
-        protected void SearchExtend(object sender, EventArgs e)
-        {
-            GridView1.PageIndex = 0;
-
-            ViewState["txtSearch"] = txtSearch.Text.Trim();
-            ViewState["listSearchCol"] = listSearchCol.Text.Trim();
-            ViewState["listMesyuarat"] = listMesyuarat.Text.Trim();
-            ViewState["txtTajuk"] = txtTajuk.Text.Trim();
-            ViewState["listJabatan"] = listJabatan.Text.Trim();
-            ViewState["listBahagian"] = listBahagian.Text.Trim();
-            ViewState["listStatus"] = listStatus.Text.Trim();
-            ViewState["listCondSyarikat"] = listCondSyarikat.Text.Trim();
-            ViewState["txtSyarikat"] = txtSyarikat.Text.Trim();
-            ViewState["extendSearch"] = true;
-            btnCetak.CommandArgument = "extend";
-            BindData();
         }
     }
 }

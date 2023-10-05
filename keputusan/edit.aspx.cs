@@ -1,7 +1,10 @@
 ﻿using AjaxControlToolkit.HTMLEditor.ToolbarButton;
+using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
@@ -56,12 +59,32 @@ namespace EPBM.mesyuarat
         }
         protected void BindData()
         {
-            try
-            {
+            /*try
+            {*/
                 var Id = Request.QueryString["id"];
                 if (string.IsNullOrEmpty(Id))
                     Utils.HttpNotFound();
+                string CommandText1 = "select SyarikatBerjaya, case when TarikhSuratSetujuTerima > DATEADD(year,-2,GETDATE()) then 1 else 0 end as more2year, count(*) as total from Papar_Permohonan WHERE TarikhHapus IS NULL AND IdStatusPengesahan = 4 group by SyarikatBerjaya, case when TarikhSuratSetujuTerima > DATEADD(year,-2,GETDATE()) then 1 else 0 end";
+                DataTable dtSyarikat = Utils.GetDataTable(CommandText1);
+                SortedList<string, bool> sortlistSyarikat = new SortedList<string, bool>();
+                SortedList<string, string> listSyarikat = new SortedList<string, string>();
 
+                foreach(DataRow row in dtSyarikat.Rows)
+                {
+                    if (sortlistSyarikat.ContainsKey(row["SyarikatBerjaya"].ToString()))
+                    {
+                        if (Convert.ToInt32(sortlistSyarikat[row["SyarikatBerjaya"].ToString()]) == 0)
+                            sortlistSyarikat[row["SyarikatBerjaya"].ToString()] = true;
+                    }
+                    else sortlistSyarikat.Add(row["SyarikatBerjaya"].ToString(), (Convert.ToInt32(row["more2year"])==1 && Convert.ToInt32(row["total"]) >= 3));
+                }
+                foreach (KeyValuePair<string, bool> kvp in sortlistSyarikat)
+                {
+                    if (kvp.Value) listSyarikat.Add(kvp.Key, "Syarikat ini telah dilantik melebihi 2 kali dalam 2 tahun");
+                    else listSyarikat.Add(kvp.Key, "");
+                }
+                companyList.Text = JsonConvert.SerializeObject(listSyarikat);
+                
                 string CommandText2 = "Select Id, IdMesyuarat, IdStatusKeputusan, IdPBMMuktamad, Tajuk, KaedahPerolehan, Harga, TarikhSahlakuMS, TarikhTerimaMS, LulusPelanPPT, " +
                     "CASE WHEN IdJenisPertimbangan = 99 THEN LainJenisPertimbangan ELSE JenisPertimbangan END as JenisPertimbangan, " +
                     "CASE WHEN IdJenisPerolehan = 99 THEN LainJenisPerolehan ELSE Nama_JPerolehan END as JenisPerolehan, " +
@@ -112,8 +135,8 @@ namespace EPBM.mesyuarat
                     //else
                         LiteralFileName.Text = dtPermohonan.Rows[0]["LampiranKeputusan"].ToString();
                 }
-            }
-            catch (Exception) { Utils.HttpNotFound(); }
+            /*}
+            catch (Exception) { Utils.HttpNotFound(); }*/
         }
 
         protected void SaveSuccess(object sender, EventArgs e)
@@ -257,6 +280,9 @@ namespace EPBM.mesyuarat
             }
 
             Response.Redirect("/mesyuarat/senarai-keputusan.aspx?id=" + ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdMesyuarat"].ToString());
+        }
+        protected void SyarikatBerjaya_Change(Object sender, EventArgs e)
+        {
         }
     }
 }

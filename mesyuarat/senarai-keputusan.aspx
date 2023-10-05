@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	<asp:HyperLink ID="HyperLink2" NavigateUrl="~/mesyuarat/senarai.aspx" runat="server" CssClass="btn btn-link ps-0 pt-0" ><i class="align-middle" data-feather="corner-up-left"></i> Senarai Mesyuarat</asp:HyperLink>
+	<asp:HyperLink ID="HyperLink2" NavigateUrl="javascript:history.back()" runat="server" CssClass="btn btn-link ps-0 pt-0" ><i class="align-middle" data-feather="corner-up-left"></i> Kembali</asp:HyperLink>
 	<h1 class="h3 mb-3">SENARAI KEPUTUSAN BAGI <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></h1>
 	<asp:Panel ID="PanelComment" runat="server" Visible="false">
 		<div class="alert alert-warning d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">

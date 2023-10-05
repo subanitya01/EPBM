@@ -64,21 +64,23 @@ namespace EPBM.mesyuarat
                 if (Request.QueryString["ReturnURL"] != null)
                 {
                     returnUrl = "&ReturnURL=" + System.Web.HttpUtility.UrlEncode(Request.QueryString["ReturnURL"]);
-                    if (Request.QueryString["ReturnURL"] == "/keputusan/senarai.aspx")
+                    /*if (Request.QueryString["ReturnURL"] == "/keputusan/senarai.aspx")
                         LinkToList.Text = LinkToList.Text + " Senarai Keputusan";
                     else
-                        LinkToList.Text = LinkToList.Text + " Perakuan Mesyuarat";
+                        LinkToList.Text = LinkToList.Text + " Perakuan Mesyuarat";*/
 
-                    LinkToList.NavigateUrl = Request.QueryString["ReturnURL"];
+                    //LinkToList.NavigateUrl = Request.QueryString["ReturnURL"];
                 }
                 else
                 {
-                    LinkToList.Text = LinkToList.Text + " Senarai Keputusan Bagi Mesyuarat Sama";
-                    LinkToList.NavigateUrl = "/mesyuarat/senarai-keputusan.aspx?id=" + dtPermohonan.Rows[0]["IdMesyuarat"];
+                    //LinkToList.Text = LinkToList.Text + " Senarai Keputusan Bagi Mesyuarat Sama";
+                    //LinkToList.NavigateUrl = "/mesyuarat/senarai-keputusan.aspx?id=" + dtPermohonan.Rows[0]["IdMesyuarat"];
                 }
 
-
-                LinkToEdit.NavigateUrl = "/keputusan/edit.aspx?id=" + dtPermohonan.Rows[0]["Id"] + returnUrl;
+                if (Convert.ToInt32(dtMesyuarat.Rows[0]["IdStatusPengesahan"]) == 4)
+                    LinkToEdit.Visible = false;
+                else
+                    LinkToEdit.NavigateUrl = "/keputusan/edit.aspx?id=" + dtPermohonan.Rows[0]["Id"] + returnUrl;
 
                 if (string.IsNullOrEmpty(dtPermohonan.Rows[0]["LampiranKeputusan"].ToString()))
                     LinkLampiran.Visible = false;
