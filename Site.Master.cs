@@ -7,6 +7,11 @@ using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Collections;
+
 
 namespace EPBM
 {
@@ -14,10 +19,16 @@ namespace EPBM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Session["Profile.UserName"] as string))
-                logout();
+            if (string.IsNullOrEmpty((string)Session["Profile.UserName"])) logout();
+
             if (!IsPostBack)
             {
+                string noKP = (string)Session["nokp"];
+
+                if (!String.IsNullOrWhiteSpace(noKP))
+                {
+                    Enable_Panel();
+                }
 
                 /*if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 {
@@ -26,6 +37,32 @@ namespace EPBM
 
             }
         }
+
+        protected void Enable_Panel()
+        {
+            if (Session["level"] != null)
+            {
+                ArrayList levelList = (ArrayList)Session["level"];
+                List<int> _levelList = new List<int>();
+
+                for (int x = 0; x < levelList.Count; x++)
+                    _levelList.Add(SystemHelper.GetInteger(levelList[x].ToString()));
+
+                pnlUrusetia.Visible = IsRoleIncluded(_levelList, 1, 2);
+                pnlPenyemak.Visible = IsRoleIncluded(_levelList, 1, 3);
+                pnlDaftarMesyuarat.Visible = IsRoleIncluded(_levelList, 1, 2);
+                pnlKeputusanMesyuarat.Visible = IsRoleIncluded(_levelList, 1, 2, 3);
+                pnlSenaraiKeputusan.Visible = IsRoleIncluded(_levelList, 1, 2, 3, 4);
+                pnlLaporan.Visible = IsRoleIncluded(_levelList, 1, 2, 3, 4);
+                pnlNamaPermohonan.Visible = IsRoleIncluded(_levelList, 1,2,3);
+                pnlNamaMesyuarat.Visible = IsRoleIncluded(_levelList, 1,2,3);
+                pnlAdmin.Visible = IsRoleIncluded(_levelList, 1);
+
+            }
+        }
+
+
+
 
         protected void LinkButton1_Command(object sender, EventArgs e)
         {
@@ -40,5 +77,19 @@ namespace EPBM
             Response.Cookies.Clear();
             Response.Redirect("~/auth/login.aspx", false);
         }
+
+        #region Added By Inteksoft
+
+        private bool IsRoleIncluded(List<int> levelList, params int[] roleIds)
+        {
+            for (int i = 0; i < roleIds.Length; i++)
+            {
+                if (levelList.Contains(roleIds[i]))
+                    return true;
+            }
+            return false;
+        }
+
+        #endregion
     }
 }

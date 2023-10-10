@@ -70,6 +70,8 @@ namespace EPBM.auth
                                 //Response.Cookies["Profile." + dc.ColumnName].Value = dt.Rows[0][dc.ColumnName].ToString();
                             }
 
+                            check_UserRoles(txtUsername.Text);
+
                             IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                             break;
                         case SignInStatus.LockedOut:
@@ -83,7 +85,54 @@ namespace EPBM.auth
                             break;
                     }
                 }
+
+
+
             }
         }
+
+        protected void check_UserRoles(string nokp)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT RoleId FROM AspNetUserRoles WHERE UserId=@noic", conn);
+                    cmd.Parameters.AddWithValue("@noic", nokp);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    ArrayList levelList = new ArrayList();
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        //Session["level"] = dt.Rows[0][0].ToString();
+                        for (int x = 0; x < dt.Rows.Count; x++)
+                        {
+                            levelList.Add(dt.Rows[x][0].ToString());
+                        }
+
+                    }
+                    else
+                    {
+                        //Session["level"] = "2";
+                        levelList.Add("2");
+                    }
+
+                    Session["nokp"] = nokp;
+                    Session["level"] = levelList;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+
     }
 }
