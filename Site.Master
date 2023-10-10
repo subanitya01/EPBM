@@ -34,10 +34,15 @@
 						  <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Utama</span>
 						</a>
 					</li>
+				
+					
+					<asp:Panel ID="pnlNamaPermohonan" runat="server">
 					<li class="sidebar-header">
 						Permohonan
 					</li>
+				   </asp:Panel>
 
+					<asp:Panel ID="pnlUrusetia" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/permohonan/daftar.aspx">
 						  <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Daftar Permohonan</span>
@@ -49,47 +54,55 @@
 						  <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Senarai Permohonan</span>
 						</a>
 					</li>
-
+                    </asp:Panel>
+					
+					<asp:Panel ID="pnlPenyemak" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/permohonan/senarai-pengesahan.aspx">
 						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Senarai Pengesahan</span>
 						</a>
 					</li>
-					
+					</asp:Panel>
+
+					<asp:Panel ID="pnlNamaMesyuarat" runat="server">
 					<li class="sidebar-header">
 						Mesyuarat
 					</li>
+					  </asp:Panel>
 
+					<asp:Panel ID="pnlDaftarMesyuarat" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/mesyuarat/daftar.aspx">
 						  <i class="align-middle" data-feather="folder-plus"></i> <span class="align-middle">Daftar Mesyuarat</span>
 						</a>
 					</li>
+					</asp:Panel>
 
+					<asp:Panel ID="pnlKeputusanMesyuarat" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/mesyuarat/senarai.aspx">
 						  <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Keputusan Mesyuarat</span>
 						</a>
 					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="/mesyuarat/pengesahan.aspx">
-						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Perakuan Mesyuarat</span>
-						</a>
-					</li>
+					</asp:Panel>
 
 					<li class="sidebar-header">
 						Keputusan
 					</li>
+					<asp:Panel ID="pnlSenaraiKeputusan" runat="server">
+
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/keputusan/senarai.aspx">
 						  <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Senarai Keputusan</span>
 						</a>
 					</li>
+						</asp:Panel>
+					
+					<asp:Panel ID="pnlLaporan" runat="server">
 					<li class="sidebar-header">
 						Laporan
 					</li>
-
+				
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/laporan/carian.aspx">
 						  <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Carian Laporan</span>
@@ -100,6 +113,10 @@
 						  <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Syarikat Berjaya</span>
 						</a>
 					</li>
+					</asp:Panel>
+
+
+					<asp:Panel ID="pnlAdmin" runat="server">
 					<li class="sidebar-header">
 						Pengguna
 					</li>
@@ -115,6 +132,8 @@
 						  <i class="align-middle" data-feather="users"></i> <span class="align-middle">Senarai Pengguna</span>
 						</a>
 					</li>
+						</asp:Panel>
+
 				</ul>
 			</div>
 		</nav>
@@ -158,19 +177,6 @@
 				</div>
 			</footer>
 			<script src="<%= ResolveUrl("~/assets/js/app.js") %>"></script>
-			<script>
-				<% if (Session["flash.success"] != null)
-				{
-					Response.Write("notyf.success(\"" + Session["flash.success"] + "\");");
-					Session.Remove("flash.success");
-				}
-				if (Session["flash.error"] != null)
-				{
-					Response.Write("notyf.error(\"" + Session["flash.error"] + "\");");
-					Session.Remove("flash.error");
-				}
-                %>
-            </script>
 		</form>
 	</div>
 	<asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">
