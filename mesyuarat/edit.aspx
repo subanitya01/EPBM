@@ -7,6 +7,15 @@
 	<asp:Panel ID="Panel1" runat="server">
 		<div class="card">
 			<div class="card-body">
+				<asp:Panel ID="errorMsg" runat="server" Visible="false">
+					<div class="alert alert-warning alert-outline alert-dismissible" role="alert">
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						<h4 class="alert-icon text-danger"><i class="align-middle" data-feather="alert-triangle"></i> <strong>Ralat!</strong></h4>
+						<div class="alert-message">
+							<asp:BulletedList ID="ErrorList" runat="server" />
+						</div>
+					</div>
+				</asp:Panel>
 				<div class="row">
 					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">JENIS <span class="text-danger">*</span></label>
