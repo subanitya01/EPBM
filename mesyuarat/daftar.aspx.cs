@@ -50,7 +50,7 @@ namespace EPBM.mesyuarat
             var results = new List<ValidationResult>();
             var isValid = Validator.TryValidateObject(reg, context, results, true);*/
             Page.Validate();
-            if (Page.IsValid)
+            if (Page.IsValid && !string.IsNullOrEmpty(Session["Profile.ICNO"] as string))
             {
                 Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
                 {
@@ -61,9 +61,19 @@ namespace EPBM.mesyuarat
                     {"@TarikhCipta", DateTime.Now },
                     {"@DiciptaOleh", Session["Profile.ICNO"] },
                 };
-                Utils.ExcuteQuery("INSERT INTO Mesyuarat(IdJenisMesyuarat, Bilangan, Tahun, Tarikh, TarikhDicipta, DiciptaOleh) VALUES(@Jenis, @Bil, @Tahun, @Tarikh, @TarikhCipta, @DiciptaOleh)", queryParams);
+                DataTable dtMesyuarat = Utils.GetDataTable("Select count(*) as total from Mesyuarat where IdJenisMesyuarat=@Jenis AND Bilangan=@Bil AND Tahun=@Tahun AND TarikhHapus IS NULL", queryParams);
+                if (dtMesyuarat.Rows.Count == 0 || Convert.ToInt32(dtMesyuarat.Rows[0]["total"]) == 0)
+                {
+                    Utils.ExcuteQuery("INSERT INTO Mesyuarat(IdJenisMesyuarat, Bilangan, Tahun, Tarikh, TarikhDicipta, DiciptaOleh) VALUES(@Jenis, @Bil, @Tahun, @Tarikh, @TarikhCipta, @DiciptaOleh)", queryParams);
 
-                Response.Redirect("/mesyuarat/senarai.aspx");
+                    Response.Redirect("/mesyuarat/senarai.aspx");
+                }
+                else
+                {
+                    ErrorList.Items.Clear();
+                    ErrorList.Items.Add(new ListItem("Mesyuarat telah wujud. Sila semak senarai mesyuarat untuk mengelakkan pertindihan."));
+                    errorMsg.Visible = true;
+                }
             }
             /*else
             {

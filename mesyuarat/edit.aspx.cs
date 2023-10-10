@@ -101,102 +101,111 @@ namespace EPBM.mesyuarat
                     {"@Tarikh",  txtTarikh.Text },
                     {"@Pengerusi",  txtPengerusi.Text },
                 };
-                Utils.ExcuteQuery("UPDATE Mesyuarat SET IdJenisMesyuarat=@Jenis, Bilangan=@Bil, Tahun=@Tahun, Tarikh=@Tarikh, Pengerusi=@Pengerusi WHERE Id=@Id", queryParams);
-
-
-                Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
-                //Delete Existing Ahli Mesyuarat
-                Utils.ExcuteQuery("DELETE FROM AhliMesyuarat where IdMesyuarat=@IdMesyuarat", queryParams2);
-
-                DataTable dtAhliMesyuarat = (DataTable)ViewState["dtAhliMesyuarat"];
-                Int32 batchSize = 0; //how many rows we have build up so far
-                Int32 p = 1; //the current paramter name (i.e. "@p1") we're going to use
-                StringBuilder insertAhliValues = new StringBuilder();
-                Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
-
-                foreach (DataRow entry in dtAhliMesyuarat.Rows)
+                DataTable dtMesyuarat = Utils.GetDataTable("Select count(*) as total from Mesyuarat where IdJenisMesyuarat=@Jenis AND Bilangan=@Bil AND Tahun=@Tahun AND TarikhHapus IS NULL AND Id<>@Id", queryParams);
+                if (dtMesyuarat.Rows.Count == 0 || Convert.ToInt32(dtMesyuarat.Rows[0]["total"]) == 0)
                 {
-                    //Build the names of the parameters
-                    String pName = String.Format("@p{0}", p + 1); //the "Name" parameter name (i.e. "p1")
-                    p += 1;
+                    Utils.ExcuteQuery("UPDATE Mesyuarat SET IdJenisMesyuarat=@Jenis, Bilangan=@Bil, Tahun=@Tahun, Tarikh=@Tarikh, Pengerusi=@Pengerusi WHERE Id=@Id", queryParams);
 
-                    //Build a single "(IdMesyuarat, p1)" row
-                    String row = String.Format("(@IdMesyuarat, {0})", pName); //a single values tuple
+                    Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
+                    //Delete Existing Ahli Mesyuarat
+                    Utils.ExcuteQuery("DELETE FROM AhliMesyuarat where IdMesyuarat=@IdMesyuarat", queryParams2);
 
-                    //Add the row to our running SQL batch
+                    DataTable dtAhliMesyuarat = (DataTable)ViewState["dtAhliMesyuarat"];
+                    Int32 batchSize = 0; //how many rows we have build up so far
+                    Int32 p = 1; //the current paramter name (i.e. "@p1") we're going to use
+                    StringBuilder insertAhliValues = new StringBuilder();
+                    Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
+
+                    foreach (DataRow entry in dtAhliMesyuarat.Rows)
+                    {
+                        //Build the names of the parameters
+                        String pName = String.Format("@p{0}", p + 1); //the "Name" parameter name (i.e. "p1")
+                        p += 1;
+
+                        //Build a single "(IdMesyuarat, p1)" row
+                        String row = String.Format("(@IdMesyuarat, {0})", pName); //a single values tuple
+
+                        //Add the row to our running SQL batch
+                        if (batchSize > 0)
+                            insertAhliValues.AppendLine(",");
+                        insertAhliValues.Append(row);
+                        batchSize += 1;
+
+                        //Add the parameter values for this row
+                        queryParams3.Add(pName, entry["Nama"].ToString());
+                    }
+
+                    //Insert Ahli Mesyuarat if any
                     if (batchSize > 0)
-                        insertAhliValues.AppendLine(",");
-                    insertAhliValues.Append(row);
-                    batchSize += 1;
-
-                    //Add the parameter values for this row
-                    queryParams3.Add(pName, entry["Nama"].ToString());
-                }
-
-                //Insert Ahli Mesyuarat if any
-                if (batchSize > 0)
-                {
-                    Utils.ExcuteQuery("INSERT INTO AhliMesyuarat (IdMesyuarat, Nama) VALUES" + insertAhliValues.ToString(), queryParams3);
-                }
-
-                Dictionary<string, dynamic> queryParams4 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
-                Dictionary<string, dynamic> queryParams5 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
-                StringBuilder uncheckPermohonanId = new StringBuilder();
-                StringBuilder updatePermohonanId = new StringBuilder();
-                Int32 count = 0;
-                Int32 p1 = 1;
-                Int32 p2 = 1;
-                DataTable dtPermohonan = (DataTable)ViewState["dtPermohonan"];
-                Int32[] existingPermohonanIds = new int[dtPermohonan.Rows.Count];
-
-                foreach (DataRow data in dtPermohonan.Rows)
-                {
-                    existingPermohonanIds[count] = Convert.ToInt32(data["Id"]);
-                    count++;
-                }
-
-                foreach (RepeaterItem item in Repeater2.Items)
-                {
-                    CheckBox CheckBoxPermohonan = (CheckBox)item.FindControl("CheckBoxPermohonan");
-                    if (!CheckBoxPermohonan.Checked && existingPermohonanIds.Contains(Convert.ToInt32(dtPermohonan.Rows[item.ItemIndex]["Id"])))
                     {
-                        String pName = String.Format("@p{0}", p1 + 1);
-                        if (p1 > 1)
-                            uncheckPermohonanId.AppendLine(",");
-                        uncheckPermohonanId.Append(pName);
-                        queryParams4.Add(pName, dtPermohonan.Rows[item.ItemIndex]["Id"]);
-                        p1 += 1;
+                        Utils.ExcuteQuery("INSERT INTO AhliMesyuarat (IdMesyuarat, Nama) VALUES" + insertAhliValues.ToString(), queryParams3);
                     }
-                    else if (CheckBoxPermohonan.Checked)
+
+                    Dictionary<string, dynamic> queryParams4 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
+                    Dictionary<string, dynamic> queryParams5 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
+                    StringBuilder uncheckPermohonanId = new StringBuilder();
+                    StringBuilder updatePermohonanId = new StringBuilder();
+                    Int32 count = 0;
+                    Int32 p1 = 1;
+                    Int32 p2 = 1;
+                    DataTable dtPermohonan = (DataTable)ViewState["dtPermohonan"];
+                    Int32[] existingPermohonanIds = new int[dtPermohonan.Rows.Count];
+
+                    foreach (DataRow data in dtPermohonan.Rows)
                     {
-                        String pName = String.Format("@p{0}", p2 + 1);
-                        if (p2 > 1)
-                            updatePermohonanId.AppendLine(",");
-                        updatePermohonanId.Append(pName);
-                        queryParams5.Add(pName, dtPermohonan.Rows[item.ItemIndex]["Id"]);
-                        p2 += 1;
+                        existingPermohonanIds[count] = Convert.ToInt32(data["Id"]);
+                        count++;
                     }
+
+                    foreach (RepeaterItem item in Repeater2.Items)
+                    {
+                        CheckBox CheckBoxPermohonan = (CheckBox)item.FindControl("CheckBoxPermohonan");
+                        if (!CheckBoxPermohonan.Checked && existingPermohonanIds.Contains(Convert.ToInt32(dtPermohonan.Rows[item.ItemIndex]["Id"])))
+                        {
+                            String pName = String.Format("@p{0}", p1 + 1);
+                            if (p1 > 1)
+                                uncheckPermohonanId.AppendLine(",");
+                            uncheckPermohonanId.Append(pName);
+                            queryParams4.Add(pName, dtPermohonan.Rows[item.ItemIndex]["Id"]);
+                            p1 += 1;
+                        }
+                        else if (CheckBoxPermohonan.Checked)
+                        {
+                            String pName = String.Format("@p{0}", p2 + 1);
+                            if (p2 > 1)
+                                updatePermohonanId.AppendLine(",");
+                            updatePermohonanId.Append(pName);
+                            queryParams5.Add(pName, dtPermohonan.Rows[item.ItemIndex]["Id"]);
+                            p2 += 1;
+                        }
+                    }
+
+                    if (p1 > 1) //Delete Existing Permohonan
+                        Utils.ExcuteQuery("UPDATE Permohonan SET " +
+                            "IdMesyuarat=NULL, " +
+                            "IdStatusPermohonan=3, " +
+                            "IdStatusKeputusan=NULL, " +
+                            "SyarikatBerjaya=NULL, " +
+                            "Tempoh=NULL, " +
+                            "LampiranKeputusan=NULL, " +
+                            "TarikhSuratSetujuTerima=NULL, " +
+                            "RujukanSuratSetujuTerima=NULL, " +
+                            "AlasanKeputusan=NULL " +
+                            "where IdMesyuarat=@IdMesyuarat and Id in (" + uncheckPermohonanId.ToString() + ")", queryParams4);
+
+                    if (p2 > 1)
+                    {
+                        Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=@IdMesyuarat, IdStatusPermohonan=4 WHERE Id IN (" + updatePermohonanId.ToString() + ")", queryParams5);
+                    }
+
+                    Response.Redirect("/mesyuarat/papar.aspx?id=" + btn.CommandArgument);
                 }
-
-                if (p1 > 1) //Delete Existing Permohonan
-                    Utils.ExcuteQuery("UPDATE Permohonan SET " +
-                        "IdMesyuarat=NULL, " +
-                        "IdStatusPermohonan=3, " +
-                        "IdStatusKeputusan=NULL, " +
-                        "SyarikatBerjaya=NULL, " +
-                        "Tempoh=NULL, " +
-                        "LampiranKeputusan=NULL, " +
-                        "TarikhSuratSetujuTerima=NULL, " +
-                        "RujukanSuratSetujuTerima=NULL, " +
-                        "AlasanKeputusan=NULL " +
-                        "where IdMesyuarat=@IdMesyuarat and Id in (" + uncheckPermohonanId.ToString() + ")", queryParams4);
-
-                if (p2 > 1)
+                else
                 {
-                    Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=@IdMesyuarat, IdStatusPermohonan=4 WHERE Id IN (" + updatePermohonanId.ToString() + ")", queryParams5);
+                    ErrorList.Items.Clear();
+                    ErrorList.Items.Add(new ListItem("Mesyuarat telah wujud. Sila semak senarai mesyuarat untuk mengelakkan pertindihan."));
+                    errorMsg.Visible = true;
                 }
-
-                Response.Redirect("/mesyuarat/papar.aspx?id=" + btn.CommandArgument);
             }
         }
         protected void removeMember_Click(object sender, EventArgs e)

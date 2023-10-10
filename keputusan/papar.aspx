@@ -99,7 +99,7 @@
 					  <th scope="row" class="align-middle bg-secondary text-white">ALASAN</th>
 					  <td class=""><asp:Literal ID="LtlAlasan" runat="server"></asp:Literal></td>
 					</tr>
-					<tr class="fail">
+					<tr>
 					  <th scope="row" class="align-middle bg-secondary text-white">LAMPIRAN</th>
 					  <td class=""><asp:HyperLink ID="LinkLampiran" runat="server" Target="_blank" ><i class="mt-n1" data-feather="download"></i > </asp:HyperLink></td>
 					</tr>

@@ -23,7 +23,7 @@
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3 text-white">3 Permohonan</h1>
+								<h1 class="mt-1 mb-3 text-white"><asp:Literal ID="Sah2Minggu" runat="server" >0</asp:Literal> Permohonan</h1>
 								<div class="mb-0">
 									<span class="text-white">Tempoh sahlaku kurang 2 minggu</span>
 								</div>
@@ -32,7 +32,7 @@
 					</a>
 				</div>
 				<div class="col-sm-6 col-xl-4">
-					<a href="/mesyuarat/papar.aspx">
+					<asp:HyperLink ID="NextMeetingLink" runat="server" >
 						<div class="card bg-warning">
 							<div class="card-body">
 								<div class="row">
@@ -46,13 +46,13 @@
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3 text-white">3 Hari Lagi</h1>
+								<h1 class="mt-1 mb-3 text-white"><asp:Literal ID="NextMeeting" runat="server" /></h1>
 								<div class="mb-0">
 									<span class="text-white">Mesyuarat seterusnya</span>
 								</div>
 							</div>
 						</div>
-					</a>
+					</asp:HyperLink>
 				</div>
 				<div class="col-sm-6 col-xl-4">
 					<a href="/permohonan/senarai.aspx">
@@ -69,7 +69,7 @@
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3 text-white">4 Permohonan</h1>
+								<h1 class="mt-1 mb-3 text-white"><asp:Literal ID="BelumKeMesyuarat" runat="server" >0</asp:Literal> Permohonan</h1>
 								<div class="mb-0">
 									<span class="text-white">Belum dibawa ke mesyuarat</span>
 								</div>
@@ -92,7 +92,7 @@
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3">64/120</h1>
+								<h1 class="mt-1 mb-3"><asp:Literal ID="JumlahKeputusan" runat="server" >-</asp:Literal></h1>
 								<div class="mb-0">
 									<span class="">Permohonan telah diputuskan</span>
 								</div>
@@ -101,7 +101,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="row">
+			<!--div class="row">
 				<div class="card">
 					<div class="card-header pb-0">
 						<h5 class="card-title">SYARIKAT YANG MENDAPAT PROJEK 3 KALI DAN KEATAS DALAM TEMPOH 3 TAHUN TERKINI</h5>
@@ -130,7 +130,7 @@
 						</table>
 					</div>
 				</div>
-			</div>
+			</div-->
 		</div>
 	</div>
 </asp:Content>
