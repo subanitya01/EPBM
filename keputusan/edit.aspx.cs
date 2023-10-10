@@ -59,8 +59,8 @@ namespace EPBM.mesyuarat
         }
         protected void BindData()
         {
-            /*try
-            {*/
+            try
+            {
                 var Id = Request.QueryString["id"];
                 if (string.IsNullOrEmpty(Id))
                     Utils.HttpNotFound();
@@ -135,8 +135,8 @@ namespace EPBM.mesyuarat
                     //else
                         LiteralFileName.Text = dtPermohonan.Rows[0]["LampiranKeputusan"].ToString();
                 }
-            /*}
-            catch (Exception) { Utils.HttpNotFound(); }*/
+            }
+            catch (Exception) { Utils.HttpNotFound(); }
         }
 
         protected void SaveSuccess(object sender, EventArgs e)

@@ -45,7 +45,7 @@ namespace EPBM.mesyuarat
                 if (string.IsNullOrEmpty(Id))
                     Utils.HttpNotFound();
 
-                string CommandText = "Select TOP 1 * from Mesyuarat WHERE Id=@Id and TarikhHapus IS NULL and IdStatusPengesahan<>4";
+                string CommandText = "Select TOP 1 * from Mesyuarat WHERE Id=@Id and TarikhHapus IS NULL and IdStatusPengesahan<>2 AND IdStatusPengesahan<>4";
                 Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@Id", Id } };
                 DataTable dtMesyuarat = Utils.GetDataTable(CommandText, queryParams);
 

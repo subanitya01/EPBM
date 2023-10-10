@@ -133,10 +133,13 @@ namespace EPBM.mesyuarat
                 else if (Convert.ToInt32(drv.Row["IdStatusPengesahan"]) == 4)
                 {
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
+                }
+
+                if (new[]{2,4}.Contains( Convert.ToInt32(drv.Row["IdStatusPengesahan"])))
+                {
                     editButton.Visible = false;
                     lnkDelete.Visible = false;
                 }
-
             }
         }
 

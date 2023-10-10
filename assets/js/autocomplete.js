@@ -26,9 +26,9 @@ function set_autocomplete(id_formfield, id_autocomplete_div, result_list, start_
             // clear input field on lost focus if reult not in result list
             input.onblur = function() {
                 setTimeout(function() {
-                    if (result_list.indexOf(input.value) == -1) {
+                    /*if (result_list.indexOf(input.value) == -1) {
                         input.value = "";
-                        }
+                        }*/
                     autocomplete_div.classList.add("invisible");
                     }, 200);
                 }
