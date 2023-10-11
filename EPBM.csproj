@@ -130,6 +130,7 @@
     <Content Include="keputusan\edit.aspx" />
     <Content Include="mesyuarat\edit.aspx" />
     <Content Include="keputusan\papar.aspx" />
+    <Content Include="mesyuarat\keputusan.aspx" />
     <Content Include="mesyuarat\papar.aspx" />
     <Content Include="mesyuarat\pengesahan.aspx" />
     <Content Include="mesyuarat\senarai-keputusan.aspx" />
@@ -183,6 +184,13 @@
     </Compile>
     <Compile Include="laporan\CarianSyarikat.aspx.designer.cs">
       <DependentUpon>CarianSyarikat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="mesyuarat\keputusan.aspx.cs">
+      <DependentUpon>keputusan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mesyuarat\keputusan.aspx.designer.cs">
+      <DependentUpon>keputusan.aspx</DependentUpon>
     </Compile>
     <Compile Include="mesyuarat\pengesahan.aspx.cs">
       <DependentUpon>pengesahan.aspx</DependentUpon>

@@ -78,13 +78,26 @@
 					</li>
 					</asp:Panel>
 
-					<asp:Panel ID="pnlKeputusanMesyuarat" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/mesyuarat/senarai.aspx">
-						  <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Keputusan Mesyuarat</span>
+						  <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Senarai Mesyuarat</span>
+						</a>
+					</li>
+
+					<asp:Panel ID="pnlKeputusanMesyuarat" runat="server">
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/mesyuarat/keputusan.aspx">
+						  <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Keputusan Mesyuarat</span>
 						</a>
 					</li>
 					</asp:Panel>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/mesyuarat/pengesahan.aspx">
+						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Perakuan Mesyuarat</span>
+						</a>
+					</li>
+
 
 					<li class="sidebar-header">
 						Keputusan
