@@ -48,14 +48,17 @@
 						  <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Daftar Perolehan</span>
 						</a>
 					</li>
+					</asp:Panel>
 
+					<asp:Panel ID="pnlSenaraiPerolehan" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/permohonan/senarai.aspx">
 						  <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Senarai Perolehan</span>
 						</a>
 					</li>
-                    </asp:Panel>
-					
+                   
+					</asp:Panel>
+
 					<asp:Panel ID="pnlPenyemak" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/permohonan/senarai-pengesahan.aspx">

@@ -49,6 +49,7 @@ namespace EPBM
                     _levelList.Add(SystemHelper.GetInteger(levelList[x].ToString()));
 
                 pnlUrusetia.Visible = IsRoleIncluded(_levelList, 1, 2);
+                pnlSenaraiPerolehan.Visible = IsRoleIncluded(_levelList, 1, 2, 3);
                 pnlPenyemak.Visible = IsRoleIncluded(_levelList, 1, 3);
                 pnlDaftarMesyuarat.Visible = IsRoleIncluded(_levelList, 1, 2);
                 pnlKeputusanMesyuarat.Visible = IsRoleIncluded(_levelList, 1, 2, 3);
