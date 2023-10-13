@@ -56,9 +56,9 @@
 				
 				<asp:UpdatePanel ID="UpdatePanel2" runat="server">
 					<ContentTemplate>
-						<div class="row">
 							<asp:Repeater ID="Repeater1" runat="server">
 								<ItemTemplate>
+						<div class="row">
 									<div class="col-12 col-lg-6 mb-2">
 										<asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="false" RenderMode="inline" UpdateMode="conditional">
 											<ContentTemplate>
@@ -80,9 +80,9 @@
 											</Triggers>
 										</asp:UpdatePanel>
 									</div>
+						</div>
 								</ItemTemplate>
 							</asp:Repeater>
-						</div>
 						<div class="row">
 							<div class="col-12 col-lg-6 mb-1">
 								<div class="entry input-group">

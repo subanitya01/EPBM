@@ -163,7 +163,7 @@
 							</a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-								<img src="<%= Session["Profile.ProfileImage"] ?? "/assets/img/avatars/avatar.jpg" %>" class="avatar img-fluid rounded me-1" alt="" /> 
+								<img src="<%= Session["Profile.ProfileImage"] is not null ? "https://profile.nrecc.gov.my/images_library/profile/" + Session["Profile.ProfileImage"].ToString().Split('/').Last() : "/assets/img/avatars/avatar.jpg" %>" class="avatar img-fluid rounded me-1" alt="" /> 
 								<span class="text-dark text-truncate"><%= Session["Profile.FullName"] %></span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">

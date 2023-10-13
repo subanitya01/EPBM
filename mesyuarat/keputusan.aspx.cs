@@ -21,7 +21,7 @@ namespace EPBM.mesyuarat
 
         protected void initMesyuaratList()
         {
-            string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan<>4 ORDER BY Id";
+            string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan<>2 and IdStatusPengesahan<>4 ORDER BY Id";
             DataTable dtMesyuarat = Utils.GetDataTable(CommandText);
             ViewState["dtMesyuarat"] = dtMesyuarat;
             //bool selected = false;
@@ -50,28 +50,38 @@ namespace EPBM.mesyuarat
         {
             try
             {
-                DataTable dtMesyuarat = (DataTable)ViewState["dtMesyuarat"];
-                TajukMesyuaratModal.Text = dtMesyuarat.Rows[0]["MESYUARAT"].ToString();
+                DataRow[] dtMesyuarat = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + listMesyuarat.SelectedValue);
+                TajukMesyuaratModal.Text = dtMesyuarat[0]["MESYUARAT"].ToString();
                 TajukPermohonan.Text = "BAGI MESYUARAT " + TajukMesyuaratModal.Text;
                 string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN " +
-                                      "from Papar_Permohonan WHERE IdStatusPengesahan<>4 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
+                                      "from Papar_Permohonan WHERE IdStatusPengesahan<>2 and IdStatusPengesahan<>4 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", listMesyuarat.SelectedValue } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
                 GridView1.DataSource = dtPermohonan;
                 GridView1.DataBind();
-                int IdPengesahan = Convert.ToInt32(dtMesyuarat.Rows[0]["IdStatusPengesahan"]);
+                int IdPengesahan = Convert.ToInt32(dtMesyuarat[0]["IdStatusPengesahan"]);
                 sendBtn.CommandArgument = listMesyuarat.SelectedValue;
+                PanelInfo.Visible = false;
+                PanelSendBtn.Visible = true;
+                confirmBtn.CssClass = confirmBtn.CssClass.Replace(" disabled", "");
+                confirmBtn.Enabled = true;
+                if (string.IsNullOrEmpty((string)ViewState["hrefConfirmBtn"]))
+                {
+                    ViewState["hrefConfirmBtn"] = confirmBtn.Attributes["href"];
+                }
+                else
+                    confirmBtn.Attributes["href"] = (string)ViewState["hrefConfirmBtn"];
 
 
                 if (IdPengesahan == 3)
                 {
-                    CatatanPengesahan.Text = dtMesyuarat.Rows[0]["CatatanPengesahan"].ToString().Replace(System.Environment.NewLine, "<br>");
+                    CatatanPengesahan.Text = dtMesyuarat[0]["CatatanPengesahan"].ToString().Replace(System.Environment.NewLine, "<br>");
                     PanelComment.Visible = true;
                 }
                 if (IdPengesahan == 1 || IdPengesahan == 3)
                 {
-                    int JumlahMohon = Convert.ToInt32(dtMesyuarat.Rows[0]["JumlahPermohonan"]);
-                    int JumlahLulus = Convert.ToInt32(dtMesyuarat.Rows[0]["JumlahKelulusan"]);
+                    int JumlahMohon = Convert.ToInt32(dtMesyuarat[0]["JumlahPermohonan"]);
+                    int JumlahLulus = Convert.ToInt32(dtMesyuarat[0]["JumlahKelulusan"]);
                     if (JumlahMohon < 1 || JumlahMohon != JumlahLulus)
                     {
                         confirmBtn.CssClass = confirmBtn.CssClass + " disabled";
@@ -79,7 +89,15 @@ namespace EPBM.mesyuarat
                         confirmBtn.Enabled = false;
                         confirmBtn.Attributes.Remove("href");
                         confirmBtn.OnClientClick = null;
+                        Info.Text = JumlahLulus + " daripada " + JumlahMohon + " Permohonan telah diputuskan.";
+                        PanelInfo.Visible = true;
                     }
+                }
+                else if (IdPengesahan == 2)
+                {
+                    Info.Text = "Mesyuarat ini belum disahkan oleh penyelia.";
+                    PanelInfo.Visible = true;
+                    PanelSendBtn.Visible = false;
                 }
             }
             catch (Exception) { Utils.HttpNotFound(); }
@@ -105,7 +123,7 @@ namespace EPBM.mesyuarat
                 {
                     detailsList.Visible = false;
                 }
-                else
+                else if (!string.IsNullOrEmpty(drv.Row["IdStatusKeputusan"].ToString()))
                 {
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
@@ -136,9 +154,9 @@ namespace EPBM.mesyuarat
             if (idStatus == 1 || idStatus == 3)
             {
                 Utils.ExcuteQuery("UPDATE Mesyuarat SET IdStatusPengesahan = 2 WHERE Id = @Id", queryParams);
-                //Session["flash.success"] = "Mesyuarat telah dihantar untuk kelulusan penyelia!";
-                //Response.Redirect("/mesyuarat/senarai.aspx");
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "notyf.success('Mesyuarat telah dihantar untuk kelulusan penyelia!');", true);
+                Session["flash.success"] = "Mesyuarat telah dihantar untuk pengesahan penyelia!";
+                Response.Redirect("/mesyuarat/keputusan.aspx");
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "notyf.success('Mesyuarat telah dihantar untuk kelulusan penyelia!');", true);
             }
         }
     }
