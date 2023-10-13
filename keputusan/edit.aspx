@@ -119,7 +119,7 @@
 						<asp:DropDownList ID="listPbmMuktamad" CssClass="form-select" required="required" runat="server" /> 
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>
-					<div class="col-12 col-lg-6 mb-2 fail">
+					<div class="col-12 col-lg-6 mb-2 fail d-none">
 						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
 						<asp:DropDownList ID="listPbmMuktamad2" CssClass="form-select" required="required" runat="server" /> 
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad2" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>

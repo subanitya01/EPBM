@@ -13,6 +13,48 @@
 		</div>
 	</asp:Panel>
 	<asp:Panel ID="PanelFound" runat="server" Visible="false">
+	<div class="card">
+		<div class="card-header pb-0">
+			<h5 class="card-title">MESYUARAT</h5>
+		</div>
+		<div class="card-body">
+				<div class="input-group row">
+					<div class="col-md-6">
+					<asp:DropDownList ID="listMesyuarat" CssClass="form-select" runat="server" AutoPostBack="true" OnSelectedIndexChanged="RefreshPage" >  
+					</asp:DropDownList>
+					</div>
+					<div class="col-md-6">
+						<asp:Panel ID="PanelSendBtn" runat="server">
+							<div class="btn-group btn-group-sm mb-3 float-end" role="group">
+								<asp:LinkButton ID="confirmBtn" CssClass="btn btn-info" data-bs-toggle="modal" data-bs-target="#meetingModal" runat="server">
+									<i class="mt-n1" data-feather="send"></i> Hantar Untuk Pengesahan
+								</asp:LinkButton>
+							</div>
+				
+							<div class="modal fade" id="meetingModal" tabindex="-1" aria-modal="true" role="dialog">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header bg-info">
+											<h5 class="modal-title text-white text-truncate">MESYUARAT <asp:Literal ID="TajukMesyuaratModal" runat="server"></asp:Literal></h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body m-3">
+											<p class="">Anda pasti hantar mesyuarat ini untuk kelulusan penyelia?</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+											<asp:LinkButton ID="sendBtn" runat="server" CssClass="btn btn-info" OnClick="BtnSend_Click">
+												Hantar
+											</asp:LinkButton>
+										</div>
+									</div>
+								</div>
+							</div>
+						</asp:Panel>
+					</div>
+				</div>
+		</div>
+	</div>
 		<asp:Panel ID="PanelComment" runat="server" Visible="false">
 			<div class="alert alert-warning d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -22,48 +64,15 @@
 				<div class="alert-message"><asp:Literal ID="CatatanPengesahan" runat="server" /></div>
 			</div>
 		</asp:Panel>
-	<div class="card">
-		<div class="card-header pb-0">
-			<h5 class="card-title">MESYUARAT</h5>
-		</div>
-		<div class="card-body">
-			<asp:Panel ID="Panel1" runat="server">
-				<div class="input-group row">
-					<div class="col-md-6">
-					<asp:DropDownList ID="listMesyuarat" CssClass="form-select" runat="server" AutoPostBack="true" OnSelectedIndexChanged="RefreshPage" >  
-					</asp:DropDownList>
-					</div>
-					<div class="col-md-6">
-						<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-							<asp:LinkButton ID="confirmBtn" CssClass="btn btn-info" data-bs-toggle="modal" data-bs-target="#meetingModal" runat="server">
-								<i class="mt-n1" data-feather="send"></i> Hantar Untuk Pengesahan
-							</asp:LinkButton>
-						</div>
-					</div>
+		<asp:Panel ID="PanelInfo" runat="server" Visible="false">
+			<div class="alert alert-info d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				<div class="alert-icon me-3">
+					<i class="mt-n1" data-feather="info"></i>
 				</div>
-				
-				<div class="modal fade" id="meetingModal" tabindex="-1" aria-modal="true" role="dialog">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header bg-info">
-								<h5 class="modal-title text-white text-truncate">MESYUARAT <asp:Literal ID="TajukMesyuaratModal" runat="server"></asp:Literal></h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body m-3">
-								<p class="">Anda pasti hantar mesyuarat ini untuk kelulusan penyelia?</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-								<asp:LinkButton ID="sendBtn" runat="server" CssClass="btn btn-info" OnClick="BtnSend_Click">
-									Hantar
-								</asp:LinkButton>
-							</div>
-						</div>
-					</div>
-				</div>
-			</asp:Panel>
-		</div>
-	</div>
+				<div class="alert-message"><asp:Literal ID="Info" runat="server" /> Mesyuarat hanya boleh dihantar untuk pengesahan sekiranya semua permohonan telah diputuskan.</div>
+			</div>
+		</asp:Panel>
 	<div class="card">
 		<div class="card-header pb-0">
 			<h5 class="card-title">SENARAI PERMOHONAN <asp:Literal ID="TajukPermohonan" runat="server" /></h5>

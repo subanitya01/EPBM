@@ -50,8 +50,8 @@ namespace EPBM.mesyuarat
         {
             try
             {
-                DataTable dtMesyuarat = (DataTable)ViewState["dtMesyuarat"];
-                modalTitle1.Text = modalTitle2.Text = dtMesyuarat.Rows[0]["JENIS"] + " BIL. " + dtMesyuarat.Rows[0]["BILANGAN"];
+                DataRow[] dtMesyuarat = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + listMesyuarat.SelectedValue);
+                modalTitle1.Text = modalTitle2.Text = dtMesyuarat[0]["MESYUARAT"].ToString();
                 TajukPermohonan.Text = "BAGI MESYUARAT " + modalTitle1.Text;
                 string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN " +
                                       "from Papar_Permohonan WHERE IdStatusPengesahan=2 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
@@ -116,7 +116,7 @@ namespace EPBM.mesyuarat
             if (idStatus == 2)
             {
                 Utils.ExcuteQuery("UPDATE Mesyuarat SET IdStatusPengesahan = 4 WHERE Id = @Id", queryParams);
-                Session["flash.success"] = "Mesyuarat " + dtrslt[0]["JENIS"] + " Bil. " + dtrslt[0]["BILANGAN"] + "telah disahkan!";
+                Session["flash.success"] = "Mesyuarat " + dtrslt[0]["MESYUARAT"] + "telah disahkan!";
                 Response.Redirect("/mesyuarat/pengesahan.aspx");
             }
         }
@@ -134,7 +134,7 @@ namespace EPBM.mesyuarat
             if (idStatus == 2)
             {
                 Utils.ExcuteQuery("UPDATE Mesyuarat SET IdStatusPengesahan = 3, CatatanPengesahan = @Catatan WHERE Id = @Id", queryParams);
-                Session["flash.success"] = "Mesyuarat " + dtrslt[0]["JENIS"] + " Bil. " + dtrslt[0]["BILANGAN"] + "telah dikembalikan untuk pengemaskinian!";
+                Session["flash.success"] = "Mesyuarat " + dtrslt[0]["MESYUARAT"] + "telah dikembalikan untuk pengemaskinian!";
                 Response.Redirect("/mesyuarat/pengesahan.aspx");
             }
         }

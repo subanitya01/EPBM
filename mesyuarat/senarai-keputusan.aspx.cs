@@ -40,7 +40,7 @@ namespace EPBM.mesyuarat
                     CatatanPengesahan.Text = dtMesyuarat.Rows[0]["CatatanPengesahan"].ToString().Replace(System.Environment.NewLine, "<br>");
                     PanelComment.Visible = true;
                 }
-                if(IdPengesahan == 1 || IdPengesahan == 3)
+                /*if(IdPengesahan == 1 || IdPengesahan == 3)
                 {
                     PanelSendApprove.Visible = true;
                     int JumlahMohon = Convert.ToInt32(dtMesyuarat.Rows[0]["JumlahPermohonan"]);
@@ -53,7 +53,7 @@ namespace EPBM.mesyuarat
                         confirmBtn.Attributes.Remove("href");
                         confirmBtn.OnClientClick = null;
                     }
-                }
+                }*/
 
                 string CommandText2 = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusPengesahan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN from Papar_Permohonan WHERE IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", Id } };
@@ -79,10 +79,10 @@ namespace EPBM.mesyuarat
                 viewButton.NavigateUrl = "/keputusan/papar.aspx?id=" + drv.Row["Id"];
                 editButton.NavigateUrl = "/keputusan/edit.aspx?id=" + drv.Row["Id"]; 
                 
-                if (Convert.ToInt32(drv.Row["IdStatusPengesahan"]) == 4)
-                {
+                //if (Convert.ToInt32(drv.Row["IdStatusPengesahan"]) == 4)
+                //{
                     editButton.Visible = false;
-                }
+                //}
 
                 if (drv.Row["IdStatusKeputusan"].ToString()=="1")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";

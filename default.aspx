@@ -79,22 +79,22 @@
 				</div>
 				<div class="col-sm-6 col-xl-4">
 					<a href="/keputusan/senarai.aspx">
-						<div class="card">
+						<div class="card bg-secondary">
 							<div class="card-body">
 								<div class="row">
 									<div class="col mt-0">
-										<h5 class="card-title">MAKLUMAN</h5>
+										<h5 class="card-title text-white">MAKLUMAN</h5>
 									</div>
 
 									<div class="col-auto">
-										<div class="stat text-primary">
+										<div class="stat text-secondary">
 											<i class="align-middle" data-feather="inbox"></i>
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3"><asp:Literal ID="JumlahKeputusan" runat="server" >-</asp:Literal></h1>
+								<h1 class="mt-1 mb-3 text-white"><asp:Literal ID="JumlahKeputusan" runat="server" >-</asp:Literal></h1>
 								<div class="mb-0">
-									<span class="">Permohonan telah diputuskan</span>
+									<span class="text-white">Permohonan telah diputuskan</span>
 								</div>
 							</div>
 						</div>
