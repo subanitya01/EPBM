@@ -62,9 +62,9 @@ height: 27px;
                     </asp:Panel>
 				</div>
 			    <div class="col-12 col-lg-6 mb-3">
-					<label class="control-label">TARIKH MULA SST</label>					 
+					<label class="control-label">TARIKH MULA TERIMA</label>					 
 				    <asp:TextBox ID="txttkhmula" type="date" runat="server" autocomplete="off" required="required" onkeydown="return false" class="form-control mb-3" AutoPostBack="true" placeholder="TARIKH MULA"></asp:TextBox>
-					<label class="control-label">TARIKH AKHIR SST</label>
+					<label class="control-label">TARIKH AKHIR TERIMA</label>
 				    <asp:TextBox ID="txttkhakhir" runat="server" type="date"  autocomplete="off" required="required" onkeydown="return false" class="form-control mb-3" AutoPostBack="true" placeholder="TARIKH AKHIR"></asp:TextBox>					 
 				</div>
 
