@@ -45,13 +45,13 @@
 					<asp:Panel ID="pnlUrusetia" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/permohonan/daftar.aspx">
-						  <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Daftar Permohonan</span>
+						  <i class="align-middle" data-feather="file-plus"></i> <span class="align-middle">Daftar Perolehan</span>
 						</a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/permohonan/senarai.aspx">
-						  <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Senarai Permohonan</span>
+						  <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Senarai Perolehan</span>
 						</a>
 					</li>
                     </asp:Panel>
@@ -59,7 +59,7 @@
 					<asp:Panel ID="pnlPenyemak" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/permohonan/senarai-pengesahan.aspx">
-						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Senarai Pengesahan</span>
+						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Pengesahan Perolehan</span>
 						</a>
 					</li>
 					</asp:Panel>
@@ -78,26 +78,13 @@
 					</li>
 					</asp:Panel>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="/mesyuarat/senarai.aspx">
-						  <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Senarai Mesyuarat</span>
-						</a>
-					</li>
-
 					<asp:Panel ID="pnlKeputusanMesyuarat" runat="server">
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="/mesyuarat/keputusan.aspx">
-						  <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Keputusan Mesyuarat</span>
+						<a class="sidebar-link" href="/mesyuarat/senarai.aspx">
+						  <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Keputusan Mesyuarat</span>
 						</a>
 					</li>
 					</asp:Panel>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="/mesyuarat/pengesahan.aspx">
-						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Perakuan Mesyuarat</span>
-						</a>
-					</li>
-
 
 					<li class="sidebar-header">
 						Keputusan
@@ -163,7 +150,7 @@
 							</a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-								<img src="<%= Session["Profile.ProfileImage"] is not null ? "https://profile.nrecc.gov.my/images_library/profile/" + Session["Profile.ProfileImage"].ToString().Split('/').Last() : "/assets/img/avatars/avatar.jpg" %>" class="avatar img-fluid rounded me-1" alt="" /> 
+								<img src="<%= Session["Profile.ProfileImage"] ?? "/assets/img/avatars/avatar.jpg" %>" class="avatar img-fluid rounded me-1" alt="" /> 
 								<span class="text-dark text-truncate"><%= Session["Profile.FullName"] %></span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
