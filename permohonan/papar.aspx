@@ -2,10 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	
+<%--	
 	<h1 class="h3 mb-4 text-truncate">PERMOHONAN: <strong> <asp:Label ID="lblTajukUtama" runat="server" ></asp:Label></strong></h1>
 	<div class="card">
-	
+	--%>
 
 
 		<div class="card-body">
@@ -16,7 +16,7 @@
 			  <tbody>			
 				 <tr>
 				  <th scope="row" class="align-middle bg-primary text-white">TAJUK</th>
-				  <td class=""><asp:Label ID="lblTajuk" runat="server" ></asp:Label></td>
+				  <td class=""> <strong><asp:Label ID="lblTajuk" runat="server" ></asp:Label></strong></td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">JENIS PERTIMBANGAN</th>

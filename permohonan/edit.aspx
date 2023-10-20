@@ -31,7 +31,7 @@
         
         <ContentTemplate>   
             
-	<h1 class="h3 mb-3">DAFTAR <strong>PERMOHONAN</strong></h1>          
+	<h1 class="h3 mb-3">DAFTAR <strong>MAKLUMAT PEROLEHAN</strong></h1>          
 	<div class="card">
        
 		<div class="card-body">

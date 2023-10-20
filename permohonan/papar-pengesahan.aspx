@@ -19,7 +19,7 @@
 			  <tbody>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">TAJUK</th>
-				  <td class=""><asp:Label ID="lblTajuk" runat="server" ></asp:Label></td>
+				  <td class=""><strong><asp:Label ID="lblTajuk" runat="server" ></asp:Label></strong></td>
 				</tr>
 				<tr>
 				  <th scope="row" class="align-middle bg-primary text-white">JENIS PERTIMBANGAN</th>

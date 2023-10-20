@@ -148,7 +148,7 @@ namespace EPBM.Permohonan
                 {
                     lblStatus.CssClass = "badge text-bg-success";
                     HyperLinkEdit.Visible = true;
-                    HyperLinkMaju.Visible = true;
+                    //HyperLinkMaju.Visible = true;
                   
                 }                
 
