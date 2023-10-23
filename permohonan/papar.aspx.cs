@@ -56,7 +56,7 @@ namespace EPBM.permohonan
                     IdJenisPerolehan = dt.Rows[i]["IdJenisPerolehan"].ToString();
                     Organisasi_Grp_ID = dt.Rows[i]["Organisasi_Grp_ID"].ToString();
 
-                    lblTajukUtama.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Tajuk"].ToString()) ? String.Empty : (dt.Rows[0]["Tajuk"]).ToString();
+                    //lblTajukUtama.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Tajuk"].ToString()) ? String.Empty : (dt.Rows[0]["Tajuk"]).ToString();
                     lblTajuk.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Tajuk"].ToString()) ? String.Empty : (dt.Rows[0]["Tajuk"]).ToString();
                     lblJPertimbangan.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["JenisPertimbangan"].ToString()) ? String.Empty : (dt.Rows[0]["JenisPertimbangan"]).ToString();
                     lblLainLainJPertimbangan.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["LainJenisPertimbangan"].ToString()) ? String.Empty : (dt.Rows[0]["LainJenisPertimbangan"]).ToString();

@@ -33,7 +33,7 @@
     <asp:UpdatePanel ID="upContent" runat="server" UpdateMode="Conditional">
         <ContentTemplate>
           
-	<h1 class="h3 mb-3">DAFTAR <strong>PERMOHONAN</strong></h1>
+	<h1 class="h3 mb-3">DAFTAR <strong>MAKLUMAT PEROLEHAN </strong></h1>
 	<div class="card">
 
 		<div class="card-body">
@@ -64,21 +64,18 @@
          
 			</div>
 
-
                      <div class="row">
-                         <div class="col-12 col-lg-6">
+                         <div class="col-12 col-lg-12">
                              <div>
                                  <label class="control-label">TAJUK <span class="text-danger">*</span></label>
-                                 <asp:TextBox ID="txt_tajuk" runat="server" class="form-control" placeholder="TAJUK" required="required"></asp:TextBox>
+                                 <asp:TextBox ID="txt_tajuk" runat="server" class="form-control mb-3" placeholder="TAJUK" type="text" autocomplete="off" Width="100%" Height="70px" TextMode="MultiLine" required="required"></asp:TextBox>
                              </div>
                          </div>
 
-                         <div class="col-12 col-lg-6">
-                             <label class="control-label">KAEDAH PEROLEHAN <span class="text-danger">*</span></label>
-                             <asp:DropDownList ID="ddlKaedahPerolehan" CssClass="chosen-select" class="form-select mb-3" runat="server" DataTextField="Kaedah_Perolehan" required="required"></asp:DropDownList>
-                         </div>                      
+                    
+
                         <div>
-                       <br />
+                      <%-- <br />--%>
                     <div class="row"> 
                     <%--style="padding-bottom: 15px"--%>
                                 
@@ -147,7 +144,7 @@
                             <asp:TextBox ID="txttkhsahlaku" runat="server" type="date" required="required" autocomplete="off" onkeydown="return false" class="form-control mb-3" AutoPostBack="true"></asp:TextBox>
                         </div>
                     </div>
-
+                        
                     <div class="row">                                
                         <div class="col-12 col-lg-6">
                             <label class="control-label">SUMBER PERUNTUKAN <span class="text-danger">*</span></label>
@@ -157,22 +154,31 @@
                                 <br />
                             </asp:Panel>
                         </div>
+                     
                         <div class="col-12 col-lg-6">
-                            <label class="form-check mb-3">
-                                <asp:CheckBox ID="cbPerakuan1" runat="server" required="required" />
+                            <label class="form-check mb-3" style="padding-top: 20px;padding-left: 10px;">
+                                <asp:CheckBox ID="cbPerakuan1" runat="server"  required="required" />
                                 <span class="form-check-label">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN <span class="text-danger">*</span>
                                 </span>
                             </label>
                         </div>
+                                                
+                        
+                         <div class="col-12 col-lg-6">
+                             <label class="control-label">KAEDAH PEROLEHAN <span class="text-danger">*</span></label>
+                             <asp:DropDownList ID="ddlKaedahPerolehan" CssClass="chosen-select" class="form-select mb-3" runat="server" DataTextField="Kaedah_Perolehan" required="required"></asp:DropDownList>
+                         </div> 
                     </div>
-
+<br />
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 col-lg-6">
                             <div>
                                 <label class="control-label">CATATAN</label>
-                                <asp:TextBox ID="txtcatatan" runat="server" class="form-control mb-3" type="text" autocomplete="off" Width="50%" Height="70px" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="txtcatatan" runat="server" class="form-control mb-3" type="text" autocomplete="off" Width="100%" Height="70px" TextMode="MultiLine"></asp:TextBox>
                             </div>
-                        </div>                               
+                        </div>  
+
+
                     </div>
                     <div class="col-12">
                         <asp:Button ID="btnhantar" OnClick="btnHantar_Click" runat="server" class="btn btn-primary" Text="Hantar" CausesValidation="false" />

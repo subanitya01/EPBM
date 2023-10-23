@@ -125,7 +125,7 @@ namespace EPBM.Permohonan
             {
                 ImageButton btnhapus = (ImageButton)Senarai.Rows[i].FindControl("btnhapus");
                 HyperLink HyperLinkEdit = (HyperLink)Senarai.Rows[i].FindControl("HyperLinkEdit");
-                HyperLink HyperLinkMaju = (HyperLink)Senarai.Rows[i].FindControl("HyperLinkMaju");
+                //HyperLink HyperLinkMaju = (HyperLink)Senarai.Rows[i].FindControl("HyperLinkMaju");
 
                 Label lblStatus = (Label)Senarai.Rows[i].FindControl("lblStatus");
                 Label lblIDStatus = (Label)Senarai.Rows[i].FindControl("lblIDStatus");
@@ -148,7 +148,7 @@ namespace EPBM.Permohonan
                 {
                     lblStatus.CssClass = "badge text-bg-success";
                     HyperLinkEdit.Visible = true;
-                    HyperLinkMaju.Visible = true;
+                    //HyperLinkMaju.Visible = true;
                   
                 }                
 

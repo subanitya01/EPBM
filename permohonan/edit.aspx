@@ -31,7 +31,7 @@
         
         <ContentTemplate>   
             
-	<h1 class="h3 mb-3">DAFTAR <strong>PERMOHONAN</strong></h1>          
+	<h1 class="h3 mb-3">DAFTAR <strong>MAKLUMAT PEROLEHAN</strong></h1>          
 	<div class="card">
        
 		<div class="card-body">
@@ -61,16 +61,13 @@
 
 
                      <div class="row">             
-                         <div class="col-12 col-lg-6">
+                         <div class="col-12">
                              <div>                                 
                                  <label class="control-label">TAJUK <span class="text-danger">*</span></label>
-                                 <asp:TextBox ID="txt_tajuk" runat="server" class="form-control" placeholder="TAJUK" required="required"></asp:TextBox>
+                                 <asp:TextBox ID="txt_tajuk" runat="server" class="form-control" placeholder="TAJUK" type="text" autocomplete="off" Width="100%" Height="70px" TextMode="MultiLine" required="required"></asp:TextBox>
                              </div>
                          </div>
-                         <div class="col-12 col-lg-6">
-                             <label class="control-label">KAEDAH PEROLEHAN <span class="text-danger">*</span></label>
-                             <asp:DropDownList ID="ddlKaedahPerolehan" CssClass="chosen-select" class="form-select mb-3" runat="server" DataTextField="Kaedah_Perolehan" required="required"></asp:DropDownList>
-                         </div>                      
+                                            
                         <div>
                        <br />
                     <div class="row"> 
@@ -151,14 +148,19 @@
                             </asp:Panel>
                         </div>
                         <div class="col-12 col-lg-6">
-                            <label class="form-check mb-3">
+                            <label class="form-check mb-3"  style="padding-top: 20px;padding-left: 10px;">
                                 <asp:CheckBox ID="cbPerakuan1" runat="server" onclick="return false" />
                                 <span class="form-check-label">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN <span class="text-danger">*</span>
                                 </span>
                             </label>
                         </div>
-                    </div>
 
+                          <div class="col-12 col-lg-6">
+                             <label class="control-label">KAEDAH PEROLEHAN <span class="text-danger">*</span></label>
+                             <asp:DropDownList ID="ddlKaedahPerolehan" CssClass="chosen-select" class="form-select mb-3" runat="server" DataTextField="Kaedah_Perolehan" required="required"></asp:DropDownList>
+                         </div> 
+                    </div>
+<br />
                     <div class="row">
                         <div class="col-12">
                             <div>

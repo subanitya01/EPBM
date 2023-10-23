@@ -69,15 +69,6 @@ namespace EPBM.permohonan
         protected global::System.Web.UI.WebControls.TextBox txt_tajuk;
 
         /// <summary>
-        /// ddlKaedahPerolehan control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlKaedahPerolehan;
-
-        /// <summary>
         /// ddlJenisPertimbangan control.
         /// </summary>
         /// <remarks>
@@ -238,6 +229,15 @@ namespace EPBM.permohonan
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox cbPerakuan1;
+
+        /// <summary>
+        /// ddlKaedahPerolehan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlKaedahPerolehan;
 
         /// <summary>
         /// txtcatatan control.

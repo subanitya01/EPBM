@@ -17,7 +17,7 @@ height: 27px;
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 <%-- <ajaxToolkit:ToolkitScriptManager ID="tsmPage" runat="server" ScriptMode="Release" />--%>
-<h1 class="h3 mb-3">SENARAI <strong>PERMOHONAN</strong></h1>
+<h1 class="h3 mb-3">SENARAI <strong>PEROLEHAN</strong></h1>
 
 <div class="card">
 		<div class="card-body">
@@ -101,7 +101,7 @@ height: 27px;
                             <ItemTemplate>
                                 <asp:HyperLink ID="HyperLinkPapar" runat="server" NavigateUrl='<%# Eval("Id", "papar.aspx?ID={0}") %>' ImageUrl="~/image/View.png" title="Papar"></asp:HyperLink>
                                 <asp:HyperLink ID="HyperLinkEdit" runat="server" Visible="false" NavigateUrl='<%# Eval("Id", "edit.aspx?ID={0}") %>' ImageUrl="~/image/Edit.png" title="Kemaskini"></asp:HyperLink>
-                                <asp:HyperLink ID="HyperLinkMaju" runat="server" Visible="false" NavigateUrl='<%# Eval("Id", "MajuMesyuarat.aspx?ID={0}") %>' ImageUrl="~/image/Maju.png" Style="text-align: center" title="Maju Mesyuarat"></asp:HyperLink>
+<%--                                <asp:HyperLink ID="HyperLinkMaju" runat="server" Visible="false" NavigateUrl='<%# Eval("Id", "MajuMesyuarat.aspx?ID={0}") %>' ImageUrl="~/image/Maju.png" Style="text-align: center" title="Maju Mesyuarat"></asp:HyperLink>--%>
                                 <asp:ImageButton ID="btnhapus" runat="server" Visible="false" ImageUrl="~/image/delete.png" OnClick="btn_hapus_Click" ImageAlign="middle" Width="18" Height="18" title="Delete" />
 
                             </ItemTemplate>

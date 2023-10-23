@@ -2,10 +2,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	
+<%--	
 	<h1 class="h3 mb-4 text-truncate">PERMOHONAN: <strong> <asp:Label ID="lblTajukUtama" runat="server" ></asp:Label></strong></h1>
 	<div class="card">
-	
+	--%>
 
 
 		<div class="card-body">
@@ -15,69 +15,69 @@
 			<table class="table table-bordered table-hover">
 			  <tbody>			
 				 <tr>
-				  <th scope="row" class="align-middle bg-primary text-white">TAJUK</th>
-				  <td class=""><asp:Label ID="lblTajuk" runat="server" ></asp:Label></td>
+				  <th scope="row" class="align-middle bg-secondary text-white w-25">TAJUK</th>
+				  <td class=""> <strong><asp:Label ID="lblTajuk" runat="server" ></asp:Label></strong></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">JENIS PERTIMBANGAN</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">JENIS PERTIMBANGAN</th>
 				  <td class=""><asp:Label ID="lblJPertimbangan" runat="server" ></asp:Label>	<br />				   					     					   
                               <asp:Label ID="lblLainLainJPertimbangan" Visible="false" runat="server" ></asp:Label>
                     
 				  </td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">KAEDAH PEROLEHAN</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">KAEDAH PEROLEHAN</th>
 				  <td class=""><asp:Label ID="lblKaedahPerolehan" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">JENIS PEROLEHAN/KONTRAK</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">JENIS PEROLEHAN/KONTRAK</th>
 				  <td class=""><asp:Label ID="lblJenisPerolehan_Kontrak" runat="server" ></asp:Label><br />					  
                              <asp:Label ID="lblLainLainJPerolehan" runat="server" Visible="false"></asp:Label>
                    
 				</tr>				  	 
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">JABATAN</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">JABATAN</th>
 				  <td class=""><asp:Label ID="lblJabatan" runat="server" ></asp:Label></td>
 				 
 				</tr>
 
 				<asp:Panel ID="PnlBahagian" runat="server" Visible="false">
 				  <tr>
-				  <th scope="row" class="align-middle bg-primary text-white">BAHAGIAN</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">BAHAGIAN</th>
 				  <td class=""><asp:Label ID="lblBahagian" runat="server" ></asp:Label></td>
 				 
 				</tr>
 				</asp:Panel>
 
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">HARGA INDIKATIF / NILAI KONTRAK</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">HARGA INDIKATIF / NILAI KONTRAK</th>
 				  <td class="">RM <asp:Label ID="lblHargaIndikatif" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">SUMBER PERUNTUKAN</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">SUMBER PERUNTUKAN</th>
 				  <td class=""><asp:Label ID="lblSumberPeruntukan" runat="server" ></asp:Label><br />	
                               <asp:Label ID="lblLainLainSPeruntukan" runat="server" Visible="false"></asp:Label>
 				  </td>
 				 
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">PBM MUKTAMAD</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">PBM MUKTAMAD</th>
 				  <td class=""><asp:Label ID="lblPBM_Muktamad" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">TARIKH SAHLAKU TENDER/KONTRAK</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">TARIKH SAHLAKU TENDER/KONTRAK</th>
 				  <td class=""><asp:Label ID="TarikhSahlaku" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">TARIKH TERIMA</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">TARIKH TERIMA</th>
 				  <td class=""><asp:Label ID="lblTarikhTerima" runat="server" ></asp:Label></td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-middle bg-primary text-white">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN</th>
 				  <td class=""><asp:Label ID="lblLulus_Pelan" runat="server" ></asp:Label></td>
 				</tr>
 				  <tr>
-				  <th scope="row" class="align-middle bg-primary text-white">Catatan</th>
+				  <th scope="row" class="align-middle bg-secondary text-white">Catatan</th>
 				  <td class=""><asp:Label ID="lblCatatan" runat="server" ></asp:Label></td>
 				</tr>
 
