@@ -64,21 +64,18 @@
          
 			</div>
 
-
                      <div class="row">
-                         <div class="col-12 col-lg-6">
+                         <div class="col-12 col-lg-12">
                              <div>
                                  <label class="control-label">TAJUK <span class="text-danger">*</span></label>
-                                 <asp:TextBox ID="txt_tajuk" runat="server" class="form-control" placeholder="TAJUK" required="required"></asp:TextBox>
+                                 <asp:TextBox ID="txt_tajuk" runat="server" class="form-control mb-3" placeholder="TAJUK" type="text" autocomplete="off" Width="100%" Height="70px" TextMode="MultiLine" required="required"></asp:TextBox>
                              </div>
                          </div>
 
-                         <div class="col-12 col-lg-6">
-                             <label class="control-label">KAEDAH PEROLEHAN <span class="text-danger">*</span></label>
-                             <asp:DropDownList ID="ddlKaedahPerolehan" CssClass="chosen-select" class="form-select mb-3" runat="server" DataTextField="Kaedah_Perolehan" required="required"></asp:DropDownList>
-                         </div>                      
+                    
+
                         <div>
-                       <br />
+                      <%-- <br />--%>
                     <div class="row"> 
                     <%--style="padding-bottom: 15px"--%>
                                 
@@ -164,15 +161,23 @@
                                 </span>
                             </label>
                         </div>
+                                                
+                        
+                         <div class="col-12 col-lg-6">
+                             <label class="control-label">KAEDAH PEROLEHAN <span class="text-danger">*</span></label>
+                             <asp:DropDownList ID="ddlKaedahPerolehan" CssClass="chosen-select" class="form-select mb-3" runat="server" DataTextField="Kaedah_Perolehan" required="required"></asp:DropDownList>
+                         </div> 
                     </div>
-
+<br />
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 col-lg-6">
                             <div>
                                 <label class="control-label">CATATAN</label>
-                                <asp:TextBox ID="txtcatatan" runat="server" class="form-control mb-3" type="text" autocomplete="off" Width="50%" Height="70px" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="txtcatatan" runat="server" class="form-control mb-3" type="text" autocomplete="off" Width="100%" Height="70px" TextMode="MultiLine"></asp:TextBox>
                             </div>
-                        </div>                               
+                        </div>  
+
+
                     </div>
                     <div class="col-12">
                         <asp:Button ID="btnhantar" OnClick="btnHantar_Click" runat="server" class="btn btn-primary" Text="Hantar" CausesValidation="false" />
