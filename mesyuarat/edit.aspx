@@ -2,8 +2,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	<asp:HyperLink ID="LinkToList" NavigateUrl="javascript:history.back()" runat="server" CssClass="btn btn-link ps-0 pt-0" ><i class="align-middle" data-feather="corner-up-left"></i> Kembali</asp:HyperLink>
-	<h1 class="h3 mb-3">EDIT <strong>MESYUARAT</strong></h1>
+	<h1 class="h3 mb-3 d-flex">
+		<span class="text-truncate w-100">EDIT <strong>MESYUARAT</strong></span>
+		<span class="btn-group btn-group-sm float-end" role="group">
+			<asp:HyperLink ID="HyperLink3" NavigateUrl="javascript:history.back()" runat="server" CssClass="btn btn-secondary text-nowrap" ><i class="align-middle" data-feather="corner-up-left"></i> Kembali</asp:HyperLink>
+		</span>
+	</h1>
 	<asp:Panel ID="Panel1" runat="server">
 		<div class="card">
 			<div class="card-body">

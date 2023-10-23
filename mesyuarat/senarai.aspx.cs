@@ -14,6 +14,7 @@ namespace EPBM.mesyuarat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Utils.HttpNotFound();
             if (!IsPostBack)
             {
                 BindData();

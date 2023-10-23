@@ -9,7 +9,7 @@
 		<div class="col-md-5 mb-3">
 			<div class="card h-100">
 				<div class="card-body text-center">
-					<img src="<%= Session["Profile.ProfileImage"] ?? "/assets/img/avatars/avatar.jpg" %>" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+					<img src="<%= Session["Profile.ProfileImage"] is not null && !String.IsNullOrWhiteSpace(Session["Profile.ProfileImage"].ToString()) ? Session["Profile.ProfileImage"] : "/assets/img/avatars/avatar.jpg" %>" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
 					<h5 class="card-title mb-0"><%= Session["Profile.FullName"] %></h5>
 					<div class="text-muted mb-2"><%= Session["Profile.Designation"] %></div>
 

@@ -114,6 +114,15 @@ namespace EPBM.keputusan
         protected global::System.Web.UI.WebControls.TextBox txtSyarikat;
 
         /// <summary>
+        /// btnReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink btnReset;
+
+        /// <summary>
         /// btnSubmit2 control.
         /// </summary>
         /// <remarks>

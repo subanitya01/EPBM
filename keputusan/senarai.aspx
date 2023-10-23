@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 <h1 class="h3 mb-3">SENARAI <strong>KEPUTUSAN</strong></h1>
-	<div class="card">
+	<div class="card d-none">
 		<div class="card-body">
 			<asp:Panel ID="Panel1" runat="server">
 				<div class="input-group">
@@ -23,9 +23,9 @@
 			</asp:Panel>
 		</div>
 	</div>
-	<div id="advancedSearch" class="card collapse">
+	<div id="advancedSearch" class="card">
 		<div class="card-header pb-0">
-			<h5 class="card-title">CARIAN LANJUT</h5>
+			<h5 class="card-title">CARIAN</h5>
 		</div>
 		<div class="row card-body">
 				<div class="col-12 col-lg-6 mb-3">
@@ -60,6 +60,7 @@
 					</div>
 				</div>
 				<div class="col-12 text-end">
+					<asp:HyperLink ID="btnReset" NavigateUrl="/keputusan/senarai.aspx" runat="server" CssClass="btn btn-outline-danger" >RESET</asp:HyperLink>
 					<asp:LinkButton ID="btnSubmit2" CssClass="btn btn-primary" runat="server" OnClick="SearchExtend" CausesValidation="false">CARI</asp:LinkButton>
 				</div>
 		</div>
@@ -154,7 +155,7 @@
 		});
 		otherInput.dispatchEvent(new Event('change', { 'bubbles': true }));
 
-		const myCollapsible = document.getElementById('advancedSearch');
+		/*const myCollapsible = document.getElementById('advancedSearch');
         myCollapsible.addEventListener('hidden.bs.collapse', event => {
             localStorage.removeItem('open_' + event.target.id);
             document.getElementById("<%=btnSubmit.ClientID %>").classList.remove("d-none");
@@ -172,7 +173,7 @@
 			}
             else
                 document.getElementById("<%=btnSubmit.ClientID %>").classList.remove("d-none");
-        });
+        });*/
     </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">

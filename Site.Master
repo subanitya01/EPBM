@@ -82,11 +82,6 @@
 					</asp:Panel>
 
 					<asp:Panel ID="pnlKeputusanMesyuarat" runat="server">
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="/mesyuarat/senarai.aspx">
-						  <i class="align-middle" data-feather="folder"></i> <span class="align-middle">Senarai Mesyuarat</span>
-						</a>
-					</li>
 					</asp:Panel>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/mesyuarat/keputusan.aspx">
@@ -163,7 +158,7 @@
 							</a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-								<img src="<%= Session["Profile.ProfileImage"] ?? "/assets/img/avatars/avatar.jpg" %>" class="avatar img-fluid rounded me-1" alt="" /> 
+								<img src="<%= Session["Profile.ProfileImage"] is not null && !String.IsNullOrWhiteSpace(Session["Profile.ProfileImage"].ToString()) ? Session["Profile.ProfileImage"] : "/assets/img/avatars/avatar.jpg" %>" class="avatar img-fluid rounded me-1" alt="" /> 
 								<span class="text-dark text-truncate"><%= Session["Profile.FullName"] %></span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
@@ -190,6 +185,19 @@
 				</div>
 			</footer>
 			<script src="<%= ResolveUrl("~/assets/js/app.js") %>"></script>
+			<script>
+				<% if (Session["flash.success"] != null)
+				{
+					Response.Write("notyf.success(\"" + Session["flash.success"] + "\");");
+					Session.Remove("flash.success");
+				}
+				if (Session["flash.error"] != null)
+				{
+					Response.Write("notyf.error(\"" + Session["flash.error"] + "\");");
+					Session.Remove("flash.error");
+				}
+                %>
+            </script>
 		</form>
 	</div>
 	<asp:ContentPlaceHolder ID="ContentPlaceHolder4" runat="server">

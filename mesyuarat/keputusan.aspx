@@ -27,7 +27,7 @@
 						<asp:Panel ID="PanelSendBtn" runat="server">
 							<div class="btn-group btn-group-sm mb-3 float-end" role="group">
 								<asp:LinkButton ID="confirmBtn" CssClass="btn btn-info" data-bs-toggle="modal" data-bs-target="#meetingModal" runat="server">
-									<i class="mt-n1" data-feather="send"></i> Hantar Untuk Pengesahan
+									<i class="mt-n1" data-feather="send"></i> Hantar Untuk Perakuan
 								</asp:LinkButton>
 							</div>
 				
@@ -39,7 +39,7 @@
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body m-3">
-											<p class="">Anda pasti hantar mesyuarat ini untuk kelulusan penyelia?</p>
+											<p class="">Anda pasti hantar mesyuarat ini untuk perakuan penyelia?</p>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -123,8 +123,8 @@
 
 					<asp:TemplateField ItemStyle-CssClass="text-center">
 						<ItemTemplate>
-							<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/pengesahan.aspx?id=" + Eval("IdMesyuarat")) %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-							<a href="/keputusan/edit.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/pengesahan.aspx?id=" + Eval("IdMesyuarat")) %>" class="text-secondary" title="Edit Keputusan"><i class="align-middle" data-feather="edit-2"></i></a>
+							<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/keputusan.aspx?id=" + Eval("IdMesyuarat")) %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+							<a href="/keputusan/edit.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/keputusan.aspx?id=" + Eval("IdMesyuarat")) %>" class="text-secondary" title="Edit Keputusan"><i class="align-middle" data-feather="edit-2"></i></a>
 						
 						</ItemTemplate>
 					</asp:TemplateField>
