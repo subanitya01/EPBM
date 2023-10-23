@@ -144,7 +144,7 @@
                             <asp:TextBox ID="txttkhsahlaku" runat="server" type="date" required="required" autocomplete="off" onkeydown="return false" class="form-control mb-3" AutoPostBack="true"></asp:TextBox>
                         </div>
                     </div>
-
+                        
                     <div class="row">                                
                         <div class="col-12 col-lg-6">
                             <label class="control-label">SUMBER PERUNTUKAN <span class="text-danger">*</span></label>
@@ -154,9 +154,10 @@
                                 <br />
                             </asp:Panel>
                         </div>
+                     
                         <div class="col-12 col-lg-6">
-                            <label class="form-check mb-3">
-                                <asp:CheckBox ID="cbPerakuan1" runat="server" required="required" />
+                            <label class="form-check mb-3" style="padding-top: 20px;padding-left: 10px;">
+                                <asp:CheckBox ID="cbPerakuan1" runat="server"  required="required" />
                                 <span class="form-check-label">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN <span class="text-danger">*</span>
                                 </span>
                             </label>
