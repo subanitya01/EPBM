@@ -76,6 +76,21 @@
 		.btn-link{ display: inline-block; padding: 5px; }
 		.table th,.table td{ padding: 5px; }
 		.table ul{ padding-left: 20px; margin: 0; }
+		.header{
+			display: flex;
+			align-items: center;
+		}
+		.header img{
+			height: 50px;
+			margin-right: 10px;
+		}
+		.filter{ 
+			margin-bottom: 10px; 
+			margin-right: 5px; 
+			display:inline-block;
+			border: 1px solid #808080;
+			padding: 3px; 
+		}
 
 		@media print {
 			.p-hide { display:none; }
@@ -84,9 +99,26 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <span>
 			<a href="javascript:history.back()" class=" btn-link p-hide" >&lt- Kembali</a>
-			<h3>SENARAI KEPUTUSAN MESYUARAT EPBM</h3>
+			<h3 class="header">
+				<img src="/assets/img/icons/300px-Jata_MalaysiaV2.png" height="100" /> SENARAI KEPUTUSAN MESYUARAT EPBM
+			</h3>
+			<asp:Panel ID="PanelMesyuarat" runat="server" Visible="false" CssClass="filter">
+				<span><b>Mesyuarat: </b> <asp:Literal ID="NamaMesyuarat" runat="server" /></span>
+			</asp:Panel>
+			<asp:Panel ID="PanelTajuk" runat="server" Visible="false" CssClass="filter">
+				<span><b>Tajuk: </b> <asp:Literal ID="NamaTajuk" runat="server" /></span>
+			</asp:Panel>
+			<asp:Panel ID="PanelJabatan" runat="server" Visible="false" CssClass="filter">
+				<span><b>Jabatan: </b> <asp:Literal ID="NamaBahagian" runat="server" /><asp:Literal ID="NamaJabatan" runat="server" /> </span>
+			</asp:Panel>
+			<asp:Panel ID="PanelStatus" runat="server" Visible="false" CssClass="filter">
+				<span><b>Status: </b> <asp:Literal ID="NamaStatus" runat="server" /></span>
+			</asp:Panel>
+			<asp:Panel ID="PanelSyarikat" runat="server" Visible="false" CssClass="filter">
+				<span><b>Syarikat Berjaya: </b> <asp:Literal ID="NamaSyarikat" runat="server" /></span>
+			</asp:Panel>
 			<asp:GridView 
 				ID="GridView1" 
 				runat="server" 

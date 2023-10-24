@@ -136,6 +136,7 @@ namespace EPBM.mesyuarat
                 }
             }
             CommandText += " order by Tarikh desc, Id desc";
+
             DataTable dtMesyuarat = Utils.GetDataTable(CommandText, queryParams);
 
             GridView1.DataSource = dtMesyuarat;

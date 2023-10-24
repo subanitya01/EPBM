@@ -69,7 +69,7 @@
 		<div class="card-body table-responsive">
 			<div class="row input-group-sm justify-content-between">
 				<div class="col-sm-6 col-md-5 mb-3">
-					<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" /></label>
+					<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" >ID &darr;</asp:Label></label>
 				</div>
 				<div class="col-sm-3 col-md-2 mb-3 text-end">
 					<asp:LinkButton ID="btnCetak" CssClass="btn btn-info btn-sm" runat="server" CommandArgument="basic" PostBackUrl="~/keputusan/cetak-senarai.aspx" ><i class="align-middle" data-feather="printer"></i> Cetak</asp:LinkButton>

@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 	<h1 class="h3 mb-3 d-flex">
-		<span class="text-truncate w-100">EDIT <strong>MESYUARAT</strong></span>
+		<span class="text-truncate w-100">KEMASKINI <strong>MESYUARAT</strong></span>
 		<span class="btn-group btn-group-sm float-end" role="group">
 			<asp:HyperLink ID="HyperLink3" NavigateUrl="javascript:history.back()" runat="server" CssClass="btn btn-secondary text-nowrap" ><i class="align-middle" data-feather="corner-up-left"></i> Kembali</asp:HyperLink>
 		</span>
@@ -116,21 +116,30 @@
 			<div class="card-body">
 				<div class="row">
 					<div class="col-12">
-						<ul class="list-group mb-3">
-							<li class="list-group-item">
-								<input class="form-check-input me-1" type="checkbox" value="" aria-label="..." id="checkAll">
-								<label class="form-check-label" for="firstRadio">
-								<b>SEMUA</b>
-								</label>
-							</li>
+						<table class="table table-bordered table-striped table-hover">
+						  <thead>
+							<tr>
+							  <th scope="col"><input class="form-check-input me-1" type="checkbox" value="" aria-label="..." id="checkAll"></th>
+							  <th scope="col">TAJUK</th>
+							  <th scope="col">JABATAN</th>
+							  <th scope="col">HARGA INDIKATIF (RM)</th>
+							  <th scope="col">TARIKH SAHLAKU</th>
+							</tr>
+						  </thead>
+						  <tbody>
 							<asp:Repeater ID="Repeater2" runat="server" OnItemDataBound="Repeater2_ItemDataBound">
 								<ItemTemplate>
-								  <li class="list-group-item check-input-permohonan bg-white">
-									<asp:CheckBox ID="CheckBoxPermohonan" Text='<%# Eval("Tajuk").ToString() %>' runat="server" Checked='<%# !String.IsNullOrEmpty(Eval("IdMesyuarat").ToString()) %>' />
-								  </li>
+									<tr>
+										<th scope="row" class="check-input-permohonan"><asp:CheckBox ID="CheckBoxPermohonan" runat="server" Checked='<%# !String.IsNullOrEmpty(Eval("IdMesyuarat").ToString()) %>' /></th>
+										<td><%# Eval("Tajuk").ToString() %></td>
+										<td><%# Eval("Jabatan").ToString() %></td>
+										<td class="text-end"><%# string.Format("{0:#,0.00}", Eval("Harga")) %></td>
+										<td class="text-nowrap"><%# Eval("TarikhSahlakuMS").ToString() %></td>
+									</tr>
 								</ItemTemplate>
 							</asp:Repeater>
-						</ul>
+						  </tbody>
+						</table>
 					</div>
 
 				</div>

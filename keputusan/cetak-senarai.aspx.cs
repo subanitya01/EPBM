@@ -33,12 +33,21 @@ namespace EPBM.keputusan
             ViewState["txtSearch"] = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtSearch")).Text.Trim();
             ViewState["listSearchCol"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listSearchCol")).Text.Trim();
             ViewState["listMesyuarat"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listMesyuarat")).Text.Trim();
-            ViewState["txtTajuk"] = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtTajuk")).Text.Trim();
+            string listMesyuaratText = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listMesyuarat")).SelectedItem.Text;
+            string Tajuk = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtTajuk")).Text.Trim() ?? null;
             ViewState["listJabatan"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listJabatan")).Text.Trim();
+            string listJabatanText = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listJabatan")).SelectedItem.Text;
             ViewState["listBahagian"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listBahagian")).Text.Trim();
+            string listBahagianText = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listBahagian")).SelectedItem.Text;
             ViewState["listStatus"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listStatus")).Text.Trim();
-            ViewState["listCondSyarikat"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listCondSyarikat")).Text.Trim();
-            ViewState["txtSyarikat"] = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtSyarikat")).Text.Trim();
+            string listStatusText = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listStatus")).SelectedItem.Text;
+            string CondSyarikat = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listCondSyarikat")).Text.Trim() ?? null;
+            string Syarikat = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtSyarikat")).Text.Trim() ?? null;
+            int? IdMesyuarat = int.TryParse(ViewState["listMesyuarat"].ToString(), out int number) ? number : 0;
+            int? IdJabatan = int.TryParse(ViewState["listJabatan"].ToString(), out int number2) ? number2 : 0;
+            int? IdBahagian = int.TryParse(ViewState["listBahagian"].ToString(), out int number3) ? number3 : 0;
+            int? IdStatus = int.TryParse(ViewState["listStatus"].ToString(), out int number4) ? number4 : 0;
+
             ViewState["extendSearch"] = method=="extend";
             string searchTerm = Convert.ToString(ViewState["txtSearch"]) ?? null;
             string searchCol = Convert.ToString(ViewState["listSearchCol"]) ?? null;
@@ -101,13 +110,6 @@ namespace EPBM.keputusan
             if (extendSearch)
             {
 
-                int? IdMesyuarat = int.TryParse(ViewState["listMesyuarat"].ToString(), out int number) ? number : 0;
-                string Tajuk = Convert.ToString(ViewState["txtTajuk"]) ?? null;
-                int? IdJabatan = int.TryParse(ViewState["listJabatan"].ToString(), out int number2) ? number2 : 0;
-                int? IdBahagian = int.TryParse(ViewState["listBahagian"].ToString(), out int number3) ? number3 : 0;
-                int? IdStatus = int.TryParse(ViewState["listStatus"].ToString(), out int number4) ? number4 : 0;
-                string CondSyarikat = Convert.ToString(ViewState["listCondSyarikat"]) ?? null;
-                string Syarikat = Convert.ToString(ViewState["txtSyarikat"]) ?? null;
 
                 if (IdMesyuarat > 0)
                 {
@@ -162,6 +164,47 @@ namespace EPBM.keputusan
             GridView1.DataSource = dtPermohonan;
             GridView1.DataBind();
             ViewState["dtPermohonan"] = dtPermohonan;
+
+            if (!string.IsNullOrEmpty(Tajuk))
+            {
+                NamaTajuk.Text = Tajuk;
+                PanelTajuk.Visible = true;
+            }
+            else PanelTajuk.Visible = false;
+
+            if (IdMesyuarat != 0)
+            {
+                NamaMesyuarat.Text = listMesyuaratText;
+                PanelMesyuarat.Visible = true;
+            }
+            else PanelMesyuarat.Visible = false;
+
+            if (IdJabatan != 0)
+            {
+                NamaJabatan.Text = listJabatanText;
+                PanelJabatan.Visible = true;
+            }
+            else PanelJabatan.Visible = false;
+
+            if (IdBahagian != 0)
+            {
+                NamaBahagian.Text = listBahagianText + ", ";
+            }
+
+            if (IdStatus != 0)
+            {
+                NamaStatus.Text = listStatusText;
+                PanelStatus.Visible = true;
+            }
+            else PanelStatus.Visible = false;
+
+            if (!string.IsNullOrEmpty(Syarikat))
+            {
+                NamaSyarikat.Text = CondSyarikat + " '" + Syarikat + "'";
+                PanelSyarikat.Visible = true;
+            }
+            else PanelSyarikat.Visible = false;
+            
             /*}
             catch (Exception) { Utils.HttpNotFound(); }*/
         }

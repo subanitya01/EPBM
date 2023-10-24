@@ -64,7 +64,7 @@
 	<div class="card">
 		<div class="card-header pb-0">
 			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-				<asp:HyperLink ID="LinkToEdit" runat="server" CssClass="btn btn-secondary" ><i class="mt-n1" data-feather="edit-2"></i > Edit</asp:HyperLink>
+				<asp:HyperLink ID="LinkToEdit" runat="server" CssClass="btn btn-success" ><i class="mt-n1" data-feather="edit-2"></i > Edit</asp:HyperLink>
 			</div>
 			<h5 class="card-title">KEPUTUSAN</h5>
 		</div>

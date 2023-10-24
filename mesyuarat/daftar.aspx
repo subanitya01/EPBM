@@ -78,7 +78,7 @@
 		<div class="card-body">
 			<div class="row input-group-sm justify-content-between">
 				<div class="col-sm-6 col-md-5 mb-3">
-					<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" /></label>
+					<label>SUSUNAN BERDASARKAN: <asp:Label ID="lblSortRecord" runat="server" >TARIKH &darr;</asp:Label></label>
 				</div>
 				<div class="col-sm-3 col-md-2 mb-3 text-end">
 					

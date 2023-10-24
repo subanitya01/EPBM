@@ -39,8 +39,8 @@ namespace EPBM.mesyuarat
         }
         protected void BindData()
         {
-            try
-            {
+            //try
+            //{
                 var Id = Request.QueryString["id"];
                 if (string.IsNullOrEmpty(Id))
                     Utils.HttpNotFound();
@@ -68,7 +68,9 @@ namespace EPBM.mesyuarat
                 ViewState["dtAhliMesyuarat"] = dtAhliMesyuarat;
                 Repeater1.DataBind();
 
-                string CommandText3 = "Select Id, Tajuk, IdMesyuarat from Permohonan WHERE (IdMesyuarat=@Id or IdMesyuarat IS NULL) and (IdStatusPermohonan IN (3,4)) and TarikhHapus IS NULL";
+                string CommandText3 = "Select Id, Tajuk, IdMesyuarat, TarikhSahlakuMS, Harga, " +
+                    "CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan " +
+                    "from Papar_Permohonan WHERE (IdMesyuarat=@Id or IdMesyuarat IS NULL) and (IdStatusPermohonan IN (3,4)) and TarikhHapus IS NULL";
                 Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@Id", row["Id"].ToString() } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText3, queryParams3);
                 Repeater2.DataSource = dtPermohonan;
@@ -82,8 +84,8 @@ namespace EPBM.mesyuarat
                     li.Text = rowPermohonan["Tajuk"].ToString();
                     ListPermohonan.Items.Add(li);
                 }*/
-            }
-            catch (Exception) { Utils.HttpNotFound(); }
+            //}
+            //catch (Exception) { Utils.HttpNotFound(); }
         }
 
         protected void Save(object sender, EventArgs e)

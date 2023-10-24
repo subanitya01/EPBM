@@ -12,83 +12,57 @@
 		<div class="card-header pb-0">
 			<h5 class="card-title">MAKLUMAT PEROLEHAN</h5>
 		</div>
-		<div class="card-body" id="showDetails">
-			<div class="row px-2">
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">TAJUK</b>
-					<div><asp:Literal ID="LtlTajuk" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">JENIS PERTIMBANGAN</b>
-					<div><asp:Literal ID="LtlJenisPertimbangan" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">KAEDAH PEROLEHAN</b>
-					<div><asp:Literal ID="LtlKaedahPerolehan" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">JENIS PEROLEHAN/KONTRAK</b>
-					<div><asp:Literal ID="LtlJenisPerolehan" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">JABATAN</b>
-					<div><asp:Literal ID="LtlJabatan" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">HARGA INDIKATIF / NILAI KONTRAK</b>
-					<div>RM <asp:Literal ID="LtlHarga" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">SUMBER PERUNTUKAN</b>
-					<div><asp:Literal ID="LtlSumberPeruntukan" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">TARIKH SAHLAKU TENDER/KONTRAK</b>
-					<div><asp:Literal ID="LtlTarikhSahlaku" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">TARIKH TERIMA</b>
-					<div><asp:Literal ID="LtlTarikhTerima" runat="server"></asp:Literal></div>
-				</div>
-				<div class="col-md-6 border">
-					<b class="text-muted text-sm">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN</b>
-					<div><asp:Literal ID="LtlLulusPelan" runat="server"></asp:Literal></div>
-				</div>
-			</div>
-			<table class="table table-bordered table-hover table-sm d-none">
+		<div class="card-body preview collapse show" id="showDetails">
+			<table class="table table-bordered table-hover table-sm text-sm mb-0">
 			  <tbody>
-				<tr>
+				<tr">
 					<td scope="row" class="align-middle bg-secondary text-white w-25">TAJUK</td>
-					<td class=""></td>
+					<td class=""><asp:Literal ID="LtlTajuk" runat="server"></asp:Literal></td>
+				</tr>
+				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">JENIS PERTIMBANGAN</td>
-				  <td class=""></td>
+				  <td class=""><asp:Literal ID="LtlJenisPertimbangan" runat="server"></asp:Literal></td>
 				</tr>
 				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">KAEDAH PEROLEHAN</td>
-				  <td class=""></td>
+				  <td class=""><asp:Literal ID="LtlKaedahPerolehan" runat="server"></asp:Literal></td>
+				</tr>
+				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">JENIS PEROLEHAN/KONTRAK</td>
-				  <td class=""></td>
+				  <td class=""><asp:Literal ID="LtlJenisPerolehan" runat="server"></asp:Literal></td>
 				</tr>
 				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">JABATAN</td>
-				  <td class=""></td>
+				  <td class=""><asp:Literal ID="LtlJabatan" runat="server"></asp:Literal></td>
+				</tr>
+				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">HARGA INDIKATIF / NILAI KONTRAK</td>
-				  <td class=""></td>
+				  <td class="">RM <asp:Literal ID="LtlHarga" runat="server"></asp:Literal></td>
 				</tr>
 				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">SUMBER PERUNTUKAN</td>
-				  <td class=""></td>
+				  <td class=""><asp:Literal ID="LtlSumberPeruntukan" runat="server"></asp:Literal></td>
+				</tr>
+				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">TARIKH SAHLAKU TENDER/KONTRAK</td>
-				  <td class=""></td>
+				  <td class=""><asp:Literal ID="LtlTarikhSahlaku" runat="server"></asp:Literal></td>
 				</tr>
 				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">TARIKH TERIMA</td>
-				  <td class=""></td>
+				  <td class=""><asp:Literal ID="LtlTarikhTerima" runat="server"></asp:Literal></td>
+				</tr>
+				<tr>
 				  <td scope="row" class="align-middle bg-secondary text-white w-25">LULUS PELAN  PERANCANGAN PEROLEHAN TAHUNAN</td>
-				  <td class=""></td>
+				  <td class=""><asp:Literal ID="LtlLulusPelan" runat="server"></asp:Literal></td>
 				</tr>
 			  </tbody>
 			</table>
+			<div class="show-full text-center">
+				<button type="button" class="btn btn-link w-100" title="Papar Penuh" data-bs-toggle="collapse" data-bs-target="#showDetails">
+					<span class="btn-before"><i class="mt-n1" data-feather="chevrons-down"></i ></span>
+					<span class="btn-after"><i class="mt-n1" data-feather="chevrons-up"></i ></span>
+				</button>
+			</div>
 		</div>
 	</div>
 	<div class="card">

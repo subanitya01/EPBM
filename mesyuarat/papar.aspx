@@ -13,7 +13,7 @@
 		<div class="card-body">
 			<asp:Panel ID="actionButtons" runat="server">
 				<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-					<asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-secondary" ><i class="align-middle" data-feather="edit-2"></i> Edit</asp:HyperLink>
+					<asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-success" ><i class="align-middle" data-feather="edit-2"></i> Edit</asp:HyperLink>
 					<a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" class="btn btn-danger"><i class="mt-n1" data-feather="trash"></i> Hapus</a>
 					<div class="modal fade" id="deleteModal" tabindex="-1" aria-modal="true" role="dialog">
 						<div class="modal-dialog" role="document">
