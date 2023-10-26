@@ -40,8 +40,17 @@ namespace EPBM.Permohonan
 
             Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
             string CommandText = "Select * from  Papar_Permohonan  where IdStatusPermohonan IN ('1','2','3')";
-        
 
+            string filter = Request.QueryString["filter"];
+
+            if (filter == "2minggu" || cbFilter2Minggu.Checked == true)
+            {
+                CommandText += " and TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) and  IdStatusPermohonan != 4";
+               
+                cbFilter2Minggu.Checked = true;
+
+            }
+           
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 if (string.IsNullOrEmpty(searchCol) || searchCol == "SEMUA KOLUM")
