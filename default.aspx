@@ -9,7 +9,7 @@
 		<div class="w-100">
 			<div class="row">
 				<div class="col-sm-6 col-xl-4">
-					<a href="/permohonan/senarai.aspx">
+					<a href="/permohonan/senarai.aspx?filter=2minggu">
 						<div class="card bg-danger">
 							<div class="card-body">
 								<div class="row">

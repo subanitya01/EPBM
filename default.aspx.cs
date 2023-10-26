@@ -25,7 +25,7 @@ namespace EPBM
 
         protected void initData()
         {
-            string CommandText1 = "select count(*) as total from Permohonan WHERE TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND IdStatusPermohonan != 4";
+            string CommandText1 = "select count(*) as total from Permohonan WHERE TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND IdStatusPermohonan != 4";
             DataTable dtSah2Minggu = Utils.GetDataTable(CommandText1);
 
             if(dtSah2Minggu.Rows.Count > 0 )
