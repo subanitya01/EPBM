@@ -25,11 +25,11 @@ namespace EPBM.Permohonan
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            
+
             {
-                Load_GridData();        
+                Load_GridData();
             }
- 
+
         }
 
 
@@ -43,14 +43,14 @@ namespace EPBM.Permohonan
 
             string filter = Request.QueryString["filter"];
 
-            if (filter == "2minggu" || cbFilter2Minggu.Checked == true)
+            if ((filter == "2minggu" && !IsPostBack) || cbFilter2Minggu.Checked == true)
             {
                 CommandText += " and TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) and  IdStatusPermohonan != 4";
-               
+
                 cbFilter2Minggu.Checked = true;
 
             }
-           
+
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 if (string.IsNullOrEmpty(searchCol) || searchCol == "SEMUA KOLUM")
@@ -73,11 +73,11 @@ namespace EPBM.Permohonan
                     CommandText += " AND Status_Permohonan LIKE '%' + @searchTerm + '%'";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
-               
+
             }
-     
+
             CommandText += GetOrder();
-         
+
             DataTable dtProfile = Utils.GetDataTable(CommandText, queryParams, "DefaultConnection");
             dtProfile.TableName = "Papar_Permohonan";
 
@@ -98,9 +98,9 @@ namespace EPBM.Permohonan
 
         protected void btn_hapus_Click(object sender, System.EventArgs e)
         {
-        
+
             GridViewRow gr = (GridViewRow)(((ImageButton)sender).Parent.Parent);
-        
+
             string sid = ((Label)gr.FindControl("lblID")).Text.ToString();
             string tajuk = ((Label)gr.FindControl("lblTajukUtama")).Text.ToString();
             lblTajukUtama.Text = tajuk;
@@ -112,7 +112,7 @@ namespace EPBM.Permohonan
 
         protected void btnSahHapus_Click(object sender, System.EventArgs e)
         {
-          
+
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             SqlCommand cmd = new SqlCommand("SELECT * FROM Permohonan WHERE ID ='" + ID.Text + "'", conn);
 
@@ -158,18 +158,18 @@ namespace EPBM.Permohonan
                     lblStatus.CssClass = "badge text-bg-success";
                     HyperLinkEdit.Visible = true;
                     //HyperLinkMaju.Visible = true;
-                  
-                }                
 
-            }        
-        
+                }
+
+            }
+
         }
 
-        
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             Response.Redirect("/Permohonan/Senarai.aspx");
-          
+
         }
 
         protected void BtnSearch_Click(object sender, EventArgs e)
@@ -188,8 +188,8 @@ namespace EPBM.Permohonan
                 lblSortColumn.Text = "ID";
 
             if (String.IsNullOrEmpty(lblSortDirection.Text))
-                
-            lblSortDirection.Text = Constants.DESC;
+
+                lblSortDirection.Text = Constants.DESC;
 
             lblIcon.Text = lblSortDirection.Text == Constants.ASC ? "↑" : "↓";
 
@@ -237,7 +237,10 @@ namespace EPBM.Permohonan
 
 
         }
-   
 
+        protected void Filter2Minggu_Change(object sender, EventArgs args)
+        {
+            Load_GridData();
+        }
     }
 }
