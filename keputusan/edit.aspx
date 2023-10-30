@@ -172,7 +172,7 @@
 	<script src="<%= ResolveUrl("~/assets/js/autocomplete.js") %>"></script>
 	<script>
 		var company_list = <asp:Literal ID="companyList" runat="server" />;
-		set_autocomplete('<%=txtSyarikat.ClientID %>', 'autocompleteSyarikat', Object.keys(company_list));
+		set_autocomplete('<%=txtSyarikat.ClientID %>', 'autocompleteSyarikat', Object.keys(company_list), 1);
 		var inputSyarikat = document.getElementById('<%=txtSyarikat.ClientID %>');
         var errorSyarikat = document.getElementById('syarikatBerjayaLimit');
 		inputSyarikat.addEventListener('change', function (event) {
