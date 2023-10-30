@@ -87,7 +87,7 @@
 				AllowSorting="true"
 				AllowCustomPaging="true"
 				AllowPaging="True" 
-				PageSize="20"
+				PageSize="15"
 				CssClass="table table-bordered table-striped table-hover">  
 
 				<PagerSettings Mode="NumericFirstLast" Position="Bottom" PageButtonCount="5" FirstPageText="&laquo;" LastPageText="&raquo;" />
