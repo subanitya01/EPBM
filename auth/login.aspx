@@ -24,7 +24,7 @@
 							<img class="img-fluid w-25" src="/assets/img/icons/300px-Jata_MalaysiaV2.png" alt="" />
 							<h1 class="h2 text-white">Sistem Pihak Berkuasa Melulus NRECC</h1>
 							<p class="lead text-white">
-								Log masuk untuk tindakan seterusnya
+								Kementerian Sumber Asli, Alam Sekitar <br />dan Perubahan Iklim
 							</p>
 						</div>
                         <div class="card">
