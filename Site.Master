@@ -24,7 +24,7 @@
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="/">
-				  <span class="align-middle">ePBM</span>
+				  <span class="align-middle">E-PBM</span>
 				</a>
 
 				<ul class="sidebar-nav">
@@ -149,7 +149,7 @@
 		<form id="form2" class="main" runat="server">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i> </a>
-
+				<h3 class="font-weight-bold w-100">SISTEM PIHAK BERKUASA MELULUS NRECC</h3>
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">

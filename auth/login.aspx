@@ -22,14 +22,14 @@
 
 						<div class="text-center mt-4">
 							<img class="img-fluid w-25" src="/assets/img/icons/300px-Jata_MalaysiaV2.png" alt="" />
-							<h1 class="h2 text-white">Sistem Pihak Berkuasa Melulus NRECC</h1>
+							<h1 class="h2 text-white">E-PBM</h1>
 							<p class="lead text-white">
-								Kementerian Sumber Asli, Alam Sekitar <br />dan Perubahan Iklim
+								Sistem Pihak Berkuasa Melulus NRECC
 							</p>
 						</div>
                         <div class="card">
                             <div class="card-body">
-                                <div class="m-sm-3">
+                                <div class="">
                                     <form id="account" method="post" defaultfocus="txtUsername" defaultbutton="BtnLogin" runat="server">
                                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                                         <div class="form-floating">
@@ -61,14 +61,15 @@
                                             <asp:LinkButton ID="BtnLogin" runat="server" CssClass="btn btn-lg btn-primary" OnClick="Login_Click">Log masuk</asp:LinkButton>
                                         </div>
                                         <div class="text-center mt-2">
-                                            <p>
                                                 <a id="forgot-password" href="https://profile.nrecc.gov.my/ForgotPassword.aspx" target="_blank">Lupa kata laluan?</a>
-                                            </p>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
+						<p class="lead text-white text-center">
+							Kementerian Sumber Asli, Alam Sekitar <br />dan Perubahan Iklim
+						</p>
 					</div>
 				</div>
 			</div>
