@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 <h1 class="h3 mb-3">
-	SENARAI <strong>MESYUARAT BERDAFTAR</strong>
+	SENARAI <strong>MESYUARAT LEMBAGA PEROLEHAN</strong>
 	
 	<span class="btn-group btn-group-sm float-end" role="group">
 		<a class="btn btn-success" data-bs-toggle="collapse" href="#addMeeting" role="button" aria-expanded="false" aria-controls="add" title="Tambah Mesyuarat Baru"><i class="align-middle" data-feather="plus"></i> Mesyuarat Baru</a>

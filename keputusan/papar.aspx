@@ -10,7 +10,7 @@
 	</h1>
 	<div class="card">
 		<div class="card-header pb-0">
-			<h5 class="card-title">MAKLUMAT PERMOHONAN</h5>
+			<h5 class="card-title">MAKLUMAT PEROLEHAN</h5>
 		</div>
 		<div class="card-body">
 			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
@@ -99,8 +99,8 @@
 					  <th scope="row" class="align-middle bg-secondary text-white">RUJUKAN SURAT SETUJU TERIMA</th>
 					  <td class=""><asp:Literal ID="LtlRujukanSST" runat="server"></asp:Literal></td>
 					</tr>
-					<tr>
-					  <th scope="row" class="align-middle bg-secondary text-white">ALASAN</th>
+					<tr class="fail">
+					  <th scope="row" class="align-middle bg-secondary text-white">CATATAN</th>
 					  <td class=""><asp:Literal ID="LtlAlasan" runat="server"></asp:Literal></td>
 					</tr>
 					<tr>

@@ -66,7 +66,7 @@
 				  </td>
 				</tr>
 				<tr>
-				  <th scope="row" class="align-top bg-primary text-white w-25">PERMOHONAN</th>
+				  <th scope="row" class="align-top bg-primary text-white w-25">PEROLEHAN</th>
 				  <td class="">
 					  <asp:BulletedList id="ListPermohonan" DisplayMode="Text" CssClass="list-group list-group-numbered" runat="server"></asp:BulletedList>
 				  </td>

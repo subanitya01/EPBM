@@ -154,9 +154,9 @@
 					</div>
 					<div class="col-12 fail mb-2 d-none">
 						<div>
-							<label class="control-label">ALASAN <span class="text-danger">*</span></label>
-							<asp:TextBox ID="txtAlasan" runat="server" CssClass="form-control" placeholder="ALASAN" TextMode="MultiLine" Rows="4" />
-							<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Sila Isi Alasan" ControlToValidate="txtAlasan" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+							<label class="control-label">CATATAN <span class="text-danger">*</span></label>
+							<asp:TextBox ID="txtAlasan" runat="server" CssClass="form-control" placeholder="CATATAN" TextMode="MultiLine" Rows="4" />
+							<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Sila Isi Catatan" ControlToValidate="txtAlasan" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 						</div>
 					</div>
 					<div class="col-12">
