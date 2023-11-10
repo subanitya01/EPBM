@@ -13,17 +13,21 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-animated-light-x">
+<body class="bg-animated-light-x bg-secondary bg-opacity-10">
 	<main class="d-flex w-100">
 		<div class="container d-flex flex-column">
 			<div class="row vh-100">
 				<div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
-					<div class="d-table-cell align-middle">
+					<div class="d-table-cell">
 
 						<div class="text-center mt-4">
-							<img class="img-fluid w-25" src="/assets/img/icons/300px-Jata_MalaysiaV2.png" alt="" />
-							<h1 class="h2">ePBM</h1>
-							<p class="lead">
+                            <div class="row justify-content-center">
+                                <div class="col-3">
+							        <img class="img-fluid" src="/assets/img/icons/300px-Jata_MalaysiaV2.png" alt="" />
+                                </div>
+                            </div>
+							<h1 class="h2 fw-bold mb-0">ePBM</h1>
+							<p class="lead fw-bold">
 								Sistem Pihak Berkuasa Melulus NRECC
 							</p>
 						</div>
@@ -67,7 +71,7 @@
                                 </div>
                             </div>
                         </div>
-						<p class="lead text-center">
+						<p class="lead text-center fw-bold">
 							Kementerian Sumber Asli, Alam Sekitar <br />dan Perubahan Iklim
 						</p>
 					</div>
