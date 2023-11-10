@@ -13,7 +13,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
-<body class="bg-animated-light">
+<body class="bg-animated-light-x">
 	<main class="d-flex w-100">
 		<div class="container d-flex flex-column">
 			<div class="row vh-100">
@@ -22,8 +22,8 @@
 
 						<div class="text-center mt-4">
 							<img class="img-fluid w-25" src="/assets/img/icons/300px-Jata_MalaysiaV2.png" alt="" />
-							<h1 class="h2 text-white">E-PBM</h1>
-							<p class="lead text-white">
+							<h1 class="h2">ePBM</h1>
+							<p class="lead">
 								Sistem Pihak Berkuasa Melulus NRECC
 							</p>
 						</div>
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
                         </div>
-						<p class="lead text-white text-center">
+						<p class="lead text-center">
 							Kementerian Sumber Asli, Alam Sekitar <br />dan Perubahan Iklim
 						</p>
 					</div>
