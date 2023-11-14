@@ -200,6 +200,7 @@ namespace EPBM.mesyuarat
                         Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=@IdMesyuarat, IdStatusPermohonan=4 WHERE Id IN (" + updatePermohonanId.ToString() + ")", queryParams5);
                     }
 
+                    Session["flash.success"] = "Mesyuarat berjaya dikemaskini!";
                     Response.Redirect("/mesyuarat/papar.aspx?id=" + btn.CommandArgument);
                 }
                 else

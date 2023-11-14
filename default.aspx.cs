@@ -18,6 +18,10 @@ namespace EPBM
                 {
                     Response.Redirect("~/auth/login.aspx", false);
                 }
+                if (!(User.IsInRole("Administrator") || User.IsInRole("Urusetia") || User.IsInRole("Penyemak")))
+                {
+                    Response.Redirect("~/keputusan/senarai.aspx", false);
+                }
                 initData();
             }
 
@@ -25,6 +29,15 @@ namespace EPBM
 
         protected void initData()
         {
+            if (User.IsInRole("Administrator") || User.IsInRole("Penyemak"))
+            {
+                PanelPenyelia.Visible = true;
+            }
+            if (User.IsInRole("Administrator") || User.IsInRole("Urusetia"))
+            {
+                PanelUrusetia.Visible = true;
+            }
+
             string CommandText1 = "select count(*) as total from Permohonan WHERE TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND IdStatusPermohonan != 4";
             DataTable dtSah2Minggu = Utils.GetDataTable(CommandText1);
 
@@ -54,7 +67,7 @@ namespace EPBM
             {
                 BelumKeMesyuarat.Text = dtBelumKeMesyuarat.Rows[0]["total"].ToString();
             }
-
+            /*
             string CommandText4 = "select count(*) as total from Permohonan WHERE TarikhHapus IS NULL";
             DataTable dtPermohonan = Utils.GetDataTable(CommandText4);
 
@@ -64,6 +77,23 @@ namespace EPBM
             if (dtPermohonan.Rows.Count > 0 && dtPermohonanDiputuskan.Rows.Count > 0)
             {
                 JumlahKeputusan.Text = dtPermohonanDiputuskan.Rows[0]["total"] + "/" + dtPermohonan.Rows[0]["total"];
+            }
+            */
+
+            string CommandText6 = "Select count(*) as total from Permohonan where IdStatusPermohonan = '1' AND TarikhHapus IS NULL";
+            DataTable dtPengesahanPerolehan = Utils.GetDataTable(CommandText6);
+
+            if (dtPengesahanPerolehan.Rows.Count > 0)
+            {
+                PengesahanPerolehan.Text = dtPengesahanPerolehan.Rows[0]["total"].ToString();
+            }
+
+            string CommandText7 = "Select count(*) as total from Mesyuarat WHERE IdStatusPengesahan=2 AND TarikhHapus IS NULL";
+            DataTable dtPerakuanMesyuarat = Utils.GetDataTable(CommandText7);
+
+            if (dtPerakuanMesyuarat.Rows.Count > 0)
+            {
+                PerakuanMesyuarat.Text = dtPerakuanMesyuarat.Rows[0]["total"].ToString();
             }
         }
     }

@@ -7,10 +7,10 @@
 
 	<div class="d-flex">
 		<div class="w-100">
-			<div class="row">
+				<asp:Panel ID="PanelUrusetia" runat="server" Visible="false" CssClass="row">
 				<div class="col-sm-6 col-xl-4">
 					<a href="/permohonan/senarai.aspx?filter=2minggu">
-						<div class="card bg-danger">
+						<div class="card bg-secondary">
 							<div class="card-body">
 								<div class="row">
 									<div class="col mt-0">
@@ -23,7 +23,7 @@
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3 text-white"><asp:Literal ID="Sah2Minggu" runat="server" >0</asp:Literal> Permohonan</h1>
+								<h3 class="mt-1 mb-3 text-white"><asp:Literal ID="Sah2Minggu" runat="server" >0</asp:Literal> Permohonan</h3>
 								<div class="mb-0">
 									<span class="text-white">Tempoh sahlaku kurang 2 minggu</span>
 								</div>
@@ -33,7 +33,7 @@
 				</div>
 				<div class="col-sm-6 col-xl-4">
 					<asp:HyperLink ID="NextMeetingLink" runat="server" >
-						<div class="card bg-warning">
+						<div class="card bg-secondary bg-opacity-75">
 							<div class="card-body">
 								<div class="row">
 									<div class="col mt-0">
@@ -46,7 +46,7 @@
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3 text-white"><asp:Literal ID="NextMeeting" runat="server" /></h1>
+								<h3 class="mt-1 mb-3 text-white"><asp:Literal ID="NextMeeting" runat="server" /></h3>
 								<div class="mb-0">
 									<span class="text-white">Mesyuarat seterusnya</span>
 								</div>
@@ -56,7 +56,7 @@
 				</div>
 				<div class="col-sm-6 col-xl-4">
 					<a href="/permohonan/senarai.aspx">
-						<div class="card bg-info">
+						<div class="card bg-secondary bg-opacity-50">
 							<div class="card-body">
 								<div class="row">
 									<div class="col mt-0">
@@ -69,7 +69,7 @@
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3 text-white"><asp:Literal ID="BelumKeMesyuarat" runat="server" >0</asp:Literal> Permohonan</h1>
+								<h3 class="mt-1 mb-3 text-white"><asp:Literal ID="BelumKeMesyuarat" runat="server" >0</asp:Literal> Permohonan</h3>
 								<div class="mb-0">
 									<span class="text-white">Belum dibawa ke mesyuarat</span>
 								</div>
@@ -77,7 +77,7 @@
 						</div>
 					</a>
 				</div>
-				<div class="col-sm-6 col-xl-4">
+				<div class="col-sm-6 col-xl-4 d-none">
 					<a href="/keputusan/senarai.aspx">
 						<div class="card bg-secondary">
 							<div class="card-body">
@@ -92,7 +92,7 @@
 										</div>
 									</div>
 								</div>
-								<h1 class="mt-1 mb-3 text-white"><asp:Literal ID="JumlahKeputusan" runat="server" >-</asp:Literal></h1>
+								<h3 class="mt-1 mb-3 text-white"><asp:Literal ID="Literal1" runat="server" >-</asp:Literal></h3>
 								<div class="mb-0">
 									<span class="text-white">Permohonan telah diputuskan</span>
 								</div>
@@ -100,7 +100,55 @@
 						</div>
 					</a>
 				</div>
-			</div>
+				</asp:Panel>
+				<asp:Panel ID="PanelPenyelia" runat="server" Visible="false" CssClass="row">
+				<div class="col-sm-6 col-xl-4">
+					<a href="/permohonan/senarai-pengesahan.aspx">
+						<div class="card bg-secondary">
+							<div class="card-body">
+								<div class="row">
+									<div class="col mt-0">
+										<h5 class="card-title text-white">UNTUK TINDAKAN</h5>
+									</div>
+
+									<div class="col-auto">
+										<div class="stat text-secondary">
+											<i class="align-middle" data-feather="file-text"></i>
+										</div>
+									</div>
+								</div>
+								<h3 class="mt-1 mb-3 text-white"><asp:Literal ID="PengesahanPerolehan" runat="server" >-</asp:Literal></h3>
+								<div class="mb-0">
+									<span class="text-white">Perolehan untuk disahkan</span>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-6 col-xl-4">
+					<a href="/mesyuarat/pengesahan.aspx">
+						<div class="card bg-secondary bg-opacity-75">
+							<div class="card-body">
+								<div class="row">
+									<div class="col mt-0">
+										<h5 class="card-title text-white">UNTUK TINDAKAN</h5>
+									</div>
+
+									<div class="col-auto">
+										<div class="stat text-secondary">
+											<i class="align-middle" data-feather="check-square"></i>
+										</div>
+									</div>
+								</div>
+								<h3 class="mt-1 mb-3 text-white"><asp:Literal ID="PerakuanMesyuarat" runat="server" >-</asp:Literal></h3>
+								<div class="mb-0">
+									<span class="text-white">Mesyuarat untuk diperakukan</span>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				</asp:Panel>
 			<!--div class="row">
 				<div class="card">
 					<div class="card-header pb-0">

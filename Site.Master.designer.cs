@@ -24,6 +24,15 @@ namespace EPBM
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder2;
 
         /// <summary>
+        /// pnlDashboard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDashboard;
+
+        /// <summary>
         /// pnlNamaPermohonan control.
         /// </summary>
         /// <remarks>
@@ -85,6 +94,15 @@ namespace EPBM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlKeputusanMesyuarat;
+
+        /// <summary>
+        /// pnlPerakuanMesyuarat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlPerakuanMesyuarat;
 
         /// <summary>
         /// pnlSenaraiKeputusan control.

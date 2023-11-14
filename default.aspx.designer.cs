@@ -15,6 +15,15 @@ namespace EPBM
     {
 
         /// <summary>
+        /// PanelUrusetia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelUrusetia;
+
+        /// <summary>
         /// Sah2Minggu control.
         /// </summary>
         /// <remarks>
@@ -51,12 +60,39 @@ namespace EPBM
         protected global::System.Web.UI.WebControls.Literal BelumKeMesyuarat;
 
         /// <summary>
-        /// JumlahKeputusan control.
+        /// Literal1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal JumlahKeputusan;
+        protected global::System.Web.UI.WebControls.Literal Literal1;
+
+        /// <summary>
+        /// PanelPenyelia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelPenyelia;
+
+        /// <summary>
+        /// PengesahanPerolehan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal PengesahanPerolehan;
+
+        /// <summary>
+        /// PerakuanMesyuarat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal PerakuanMesyuarat;
     }
 }

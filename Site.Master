@@ -28,14 +28,15 @@
 				</a>
 
 				<ul class="sidebar-nav">
-
+					
+					<asp:Panel ID="pnlDashboard" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/">
 						  <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Utama</span>
 						</a>
 					</li>
+				   </asp:Panel>
 				
-					
 					<asp:Panel ID="pnlNamaPermohonan" runat="server">
 					<li class="sidebar-header">
 						Permohonan
@@ -82,17 +83,19 @@
 					</asp:Panel>
 
 					<asp:Panel ID="pnlKeputusanMesyuarat" runat="server">
-					</asp:Panel>
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/mesyuarat/keputusan.aspx">
 						  <i class="align-middle" data-feather="edit"></i> <span class="align-middle">Keputusan Mesyuarat</span>
 						</a>
 					</li>
+					</asp:Panel>
+					<asp:Panel ID="pnlPerakuanMesyuarat" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/mesyuarat/pengesahan.aspx">
 						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Perakuan Mesyuarat</span>
 						</a>
 					</li>
+					</asp:Panel>
 
 					<li class="sidebar-header">
 						Keputusan

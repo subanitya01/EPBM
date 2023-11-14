@@ -90,9 +90,20 @@ namespace EPBM.mesyuarat
             if (Convert.ToInt32(dtrslt.Rows[0]["IdStatusPengesahan"]) != 4)
             {
                 Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = GETDATE() WHERE Id = @Id", queryParams);
-                Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat = NULL, IdStatusPermohonan=3 WHERE IdMesyuarat = @Id", queryParams);
+
+                Utils.ExcuteQuery("UPDATE Permohonan SET " +
+                    "IdMesyuarat = NULL, " +
+                    "IdStatusKeputusan = NULL, " +
+                    "SyarikatBerjaya = NULL, " +
+                    "Tempoh = NULL, " +
+                    "LampiranKeputusan = NULL, " +
+                    "TarikhSuratSetujuTerima = NULL, " +
+                    "RujukanSuratSetujuTerima = NULL, " +
+                    "AlasanKeputusan = NULL, " +
+                    "IdStatusPermohonan=3 " +
+                    "WHERE IdMesyuarat = @Id", queryParams);
                 Session["flash.success"] = "Mesyuarat " + dtrslt.Rows[0]["JENIS"] + " Bil. " + dtrslt.Rows[0]["BILANGAN"] + " telah dihapuskan!";
-                Response.Redirect("/mesyuarat/senarai.aspx");
+                Response.Redirect("/mesyuarat/daftar.aspx");
             }
         }
     }
