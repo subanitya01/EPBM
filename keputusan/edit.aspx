@@ -74,12 +74,13 @@
 						<div class="mt-1">
 							<asp:RadioButtonList ID="RadioStatus" RepeatDirection="Horizontal" runat="server" CssClass="table table-borderless table-sm mb-0" />
 						</div>
-						<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Sila Pilih Status" ControlToValidate="RadioStatus" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Sila Pilih Status" ControlToValidate="RadioStatus" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Sila Pilih Status" ControlToValidate="RadioStatus" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>
 					<div class="col-12 col-lg-6 mb-2 success">
 						<label class="control-label" >SYARIKAT BERJAYA <span class="text-danger">*</span></label>
 								<asp:TextBox ID="txtSyarikat" runat="server" CssClass="form-control" placeholder="SYARIKAT BERJAYA" required="required" autocomplete="off" />
-								<div class="position-absolute invisible" id="autocompleteSyarikat"></div>
+								<div class="position-absolute invisible z-3" id="autocompleteSyarikat"></div>
 								<span id="syarikatBerjayaLimit" class="text-danger d-none">Syarikat ini telah dilantik melebihi 2 kali dalam 2 tahun</span>
 								<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Sila Isi Syarikat Berjaya" ControlToValidate="txtSyarikat" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>

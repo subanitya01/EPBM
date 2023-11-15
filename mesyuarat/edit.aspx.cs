@@ -1,4 +1,5 @@
 ﻿using Microsoft.Ajax.Utilities.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,6 +19,10 @@ namespace EPBM.mesyuarat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(User.IsInRole("Administrator") || User.IsInRole("Urusetia")))
+            {
+                Utils.HttpNotFound();
+            }
             if (!IsPostBack)
             {
                 BindData();
@@ -77,13 +82,32 @@ namespace EPBM.mesyuarat
                 ViewState["dtPermohonan"] = dtPermohonan;
                 Repeater2.DataBind();
 
-                /*foreach (DataRow rowPermohonan in dtPermohonan.Rows)
+                string CommandText1 = "select Pengerusi from Mesyuarat WHERE TarikhHapus IS NULL group by Pengerusi order by Pengerusi asc";
+                DataTable dtPengerusi = Utils.GetDataTable(CommandText1);
+                List<string> listPengerusi = new List<string>();
+
+                foreach (DataRow rowPengerusi in dtPengerusi.Rows)
                 {
-                    ListItem li = new ListItem();
-                    li.Attributes["class"] = "list-group-item";
-                    li.Text = rowPermohonan["Tajuk"].ToString();
-                    ListPermohonan.Items.Add(li);
-                }*/
+                    listPengerusi.Add(rowPengerusi["Pengerusi"].ToString());
+                }
+                senaraiPengerusi.Text = JsonConvert.SerializeObject(listPengerusi);
+
+                string CommandText4 = "select Nama from AhliMesyuarat group by Nama order by Nama asc";
+                DataTable dtAhliMesyuarat2 = Utils.GetDataTable(CommandText4);
+                List<string> listAhliMesyuarat = new List<string>();
+
+                foreach (DataRow rowAhliMesyuarat in dtAhliMesyuarat2.Rows)
+                {
+                    listAhliMesyuarat.Add(rowAhliMesyuarat["Nama"].ToString());
+                }
+                senaraiAhliMesyuarat.Text = JsonConvert.SerializeObject(listAhliMesyuarat);
+            /*foreach (DataRow rowPermohonan in dtPermohonan.Rows)
+            {
+                ListItem li = new ListItem();
+                li.Attributes["class"] = "list-group-item";
+                li.Text = rowPermohonan["Tajuk"].ToString();
+                ListPermohonan.Items.Add(li);
+            }*/
             //}
             //catch (Exception) { Utils.HttpNotFound(); }
         }
@@ -254,7 +278,7 @@ namespace EPBM.mesyuarat
                     newMember.Text = "";
                 }
             }
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "refreshIcon", "feather.replace()", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "refreshIcon", "set_autocomplete('"+newMember.ClientID+"', 'autocompleteAhliMesyuarat', senaraiAhliMesyuarat, 1); feather.replace()", true);
         }
         protected void Repeater2_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {

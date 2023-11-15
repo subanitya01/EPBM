@@ -13,6 +13,10 @@ namespace EPBM.mesyuarat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(User.IsInRole("Administrator") || User.IsInRole("Urusetia")))
+            {
+                Utils.HttpNotFound();
+            }
             if (!IsPostBack)
             {
                 initMesyuaratList();

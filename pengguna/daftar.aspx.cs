@@ -21,6 +21,10 @@ namespace EPBM.pengguna
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(User.IsInRole("Administrator")))
+            {
+                Utils.HttpNotFound();
+            }
             if (!IsPostBack)
             {
                 initRoleList();

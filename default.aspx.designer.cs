@@ -15,13 +15,31 @@ namespace EPBM
     {
 
         /// <summary>
-        /// PanelUrusetia control.
+        /// PanelNotify control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelUrusetia;
+        protected global::System.Web.UI.WebControls.Panel PanelNotify;
+
+        /// <summary>
+        /// NotifyMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal NotifyMsg;
+
+        /// <summary>
+        /// Panel2Minggu control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel2Minggu;
 
         /// <summary>
         /// Sah2Minggu control.
@@ -31,6 +49,15 @@ namespace EPBM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Sah2Minggu;
+
+        /// <summary>
+        /// PanelNextMeeting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelNextMeeting;
 
         /// <summary>
         /// NextMeetingLink control.
@@ -51,6 +78,15 @@ namespace EPBM
         protected global::System.Web.UI.WebControls.Literal NextMeeting;
 
         /// <summary>
+        /// PanelPertimbangan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelPertimbangan;
+
+        /// <summary>
         /// BelumKeMesyuarat control.
         /// </summary>
         /// <remarks>
@@ -69,13 +105,13 @@ namespace EPBM
         protected global::System.Web.UI.WebControls.Literal Literal1;
 
         /// <summary>
-        /// PanelPenyelia control.
+        /// PanelPenyemak1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelPenyelia;
+        protected global::System.Web.UI.WebControls.Panel PanelPenyemak1;
 
         /// <summary>
         /// PengesahanPerolehan control.
@@ -87,6 +123,15 @@ namespace EPBM
         protected global::System.Web.UI.WebControls.Literal PengesahanPerolehan;
 
         /// <summary>
+        /// PanelPenyemak2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelPenyemak2;
+
+        /// <summary>
         /// PerakuanMesyuarat control.
         /// </summary>
         /// <remarks>
@@ -94,5 +139,32 @@ namespace EPBM
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal PerakuanMesyuarat;
+
+        /// <summary>
+        /// PanelNextMeeting2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelNextMeeting2;
+
+        /// <summary>
+        /// NextMeetingLink2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink NextMeetingLink2;
+
+        /// <summary>
+        /// NextMeeting2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal NextMeeting2;
     }
 }

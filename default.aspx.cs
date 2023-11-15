@@ -29,13 +29,25 @@ namespace EPBM
 
         protected void initData()
         {
-            if (User.IsInRole("Administrator") || User.IsInRole("Penyemak"))
-            {
-                PanelPenyelia.Visible = true;
-            }
             if (User.IsInRole("Administrator") || User.IsInRole("Urusetia"))
             {
-                PanelUrusetia.Visible = true;
+                Panel2Minggu.Visible = true;
+                PanelNextMeeting.Visible = true;
+                PanelPertimbangan.Visible = true;
+            }
+            if (User.IsInRole("Administrator") || User.IsInRole("Penyemak"))
+            {
+                PanelPenyemak1.Visible = true;
+                PanelPenyemak2.Visible = true;
+                PanelNextMeeting2.Visible = !(User.IsInRole("Administrator") || User.IsInRole("Urusetia"));
+            }
+            string CommandText = "Select TOP 1 * from PaparMesyuarat WHERE IdStatusPengesahan=3";
+            DataTable dtKeputusanKembali = Utils.GetDataTable(CommandText);
+
+            if (dtKeputusanKembali.Rows.Count > 0 && (User.IsInRole("Administrator") || User.IsInRole("Urusetia")))
+            {
+                PanelNotify.Visible = true;
+                NotifyMsg.Text = "Mesyuarat <a href='/mesyuarat/keputusan.aspx?id="+ dtKeputusanKembali.Rows[0]["Id"].ToString() + "'>"+dtKeputusanKembali.Rows[0]["MESYUARAT"].ToString()+"</a> telah dikembalikan oleh pengesah untuk tindakan anda yang seterusnya.";
             }
 
             string CommandText1 = "select count(*) as total from Permohonan WHERE TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND IdStatusPermohonan != 4";
@@ -52,13 +64,13 @@ namespace EPBM
             if (dtNextMeeting.Rows.Count > 0)
             {
                 if (Convert.ToInt32(dtNextMeeting.Rows[0]["DayLeft"]) >= 1)
-                    NextMeeting.Text = dtNextMeeting.Rows[0]["DayLeft"] + " Hari Lagi";
+                    NextMeeting.Text = NextMeeting2.Text = dtNextMeeting.Rows[0]["DayLeft"] + " Hari Lagi";
                 else
-                    NextMeeting.Text = "Hari Ini";
+                    NextMeeting.Text = NextMeeting2.Text = "Hari Ini";
 
-                NextMeetingLink.NavigateUrl = "/mesyuarat/papar.aspx?id=" + dtNextMeeting.Rows[0]["Id"];
+                NextMeetingLink.NavigateUrl = NextMeetingLink2.NavigateUrl = "/mesyuarat/papar.aspx?id=" + dtNextMeeting.Rows[0]["Id"];
             }
-            else NextMeeting.Text = "Tiada";
+            else NextMeeting.Text = NextMeeting2.Text = "Tiada";
 
             string CommandText3 = "select count(*) as total from Permohonan WHERE TarikhHapus IS NULL AND IdStatusPermohonan != 4";
             DataTable dtBelumKeMesyuarat = Utils.GetDataTable(CommandText3);

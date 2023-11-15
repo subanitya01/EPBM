@@ -52,7 +52,8 @@
 						<label class="control-label">PENGERUSI</label>
 				<div class="row">
 					<div class="col-12 col-lg-6 mb-3">
-						<asp:TextBox ID="txtPengerusi" runat="server" CssClass="form-control" placeholder="PENGERUSI"></asp:TextBox>
+						<asp:TextBox ID="txtPengerusi" runat="server" CssClass="form-control" placeholder="PENGERUSI" autocomplete="off"></asp:TextBox>
+						<div class="position-absolute z-3 invisible" id="autocompletePengerusi"></div>
 					</div>
 				</div>
 				<label class="form-label">AHLI MESYUARAT</label>
@@ -90,7 +91,7 @@
 						<div class="row">
 							<div class="col-12 col-lg-6 mb-1">
 								<div class="entry input-group">
-									<asp:TextBox ID="newMember" runat="server" CssClass="form-control" placeholder="NAMA AHLI" required="required" ValidateRequestMode="Enabled">
+									<asp:TextBox ID="newMember" runat="server" CssClass="form-control" placeholder="NAMA AHLI" required="required" autocomplete="off" ValidateRequestMode="Enabled">
 									</asp:TextBox>
 
 									<span class="input-group-btn">
@@ -99,6 +100,7 @@
 										</asp:LinkButton>
 									</span>
 								</div>
+								<div class="position-absolute invisible z-3" id="autocompleteAhliMesyuarat"></div>
 								<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Sila Isi Nama Ahli Mesyuarat" ControlToValidate="newMember" ValidationGroup="newMember" ForeColor="Red"></asp:RequiredFieldValidator>
 							</div>
 						</div>
@@ -147,24 +149,29 @@
 		</div>
 		<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary" runat="server" OnClick="Save" ValidationGroup="submit">SIMPAN</asp:LinkButton>
 	</asp:Panel>
+	<script src="<%= ResolveUrl("~/assets/js/autocomplete.js") %>"></script>
+	<script>
+        var senaraiPengerusi = <asp:Literal ID="senaraiPengerusi" runat="server" />;
+        set_autocomplete('<%=txtPengerusi.ClientID %>', 'autocompletePengerusi', senaraiPengerusi, 1);
+        var senaraiAhliMesyuarat = <asp:Literal ID="senaraiAhliMesyuarat" runat="server" />;
+        set_autocomplete('<%=newMember.ClientID %>', 'autocompleteAhliMesyuarat', senaraiAhliMesyuarat, 1);
+
+        var checkAll = document.querySelector('#checkAll');
+
+        checkAll.addEventListener('change', function (event) {
+            if (checkAll.checked) {
+                getAllCheckBox = document.querySelectorAll('.check-input-permohonan input[type=checkbox]');
+                getAllCheckBox.forEach(function (checkbox, index) {
+                    checkbox.checked = true;
+                });
+            } else {
+                getAllCheckBox = document.querySelectorAll('.check-input-permohonan input[type=checkbox]');
+                getAllCheckBox.forEach(function (checkbox, index) {
+                    checkbox.checked = false;
+                });
+            }
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
-	<script>
-	
-	var checkAll = document.querySelector('#checkAll');
-    
-    checkAll.addEventListener('change', function (event) {
-        if (checkAll.checked) {
-            getAllCheckBox = document.querySelectorAll('.check-input-permohonan input[type=checkbox]');
-			getAllCheckBox.forEach(function (checkbox, index) {
-				checkbox.checked = true;
-			});
-        } else {
-            getAllCheckBox = document.querySelectorAll('.check-input-permohonan input[type=checkbox]');
-			getAllCheckBox.forEach(function (checkbox, index) {
-				checkbox.checked = false;
-			});
-        }
-    });
-    </script>
 </asp:Content>

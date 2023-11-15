@@ -14,7 +14,10 @@ namespace EPBM.mesyuarat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!(User.IsInRole("Administrator") || User.IsInRole("Urusetia")))
+            {
+                Utils.HttpNotFound();
+            }
             if (!IsPostBack)
             {
                 BindData();
@@ -46,7 +49,7 @@ namespace EPBM.mesyuarat
                 lnkDelete.CommandArgument = row["Id"].ToString();
                 HyperLink1.NavigateUrl = "/mesyuarat/edit.aspx?id=" + row["Id"].ToString();
 
-                if (Convert.ToInt32(row["IdStatusPengesahan"]) == 4)
+                if (new[] { 2, 4 }.Contains(Convert.ToInt32(row["IdStatusPengesahan"])))
                 {
                     actionButtons.Visible = false;
                 }
