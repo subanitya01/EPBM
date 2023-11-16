@@ -92,7 +92,7 @@
 					<asp:Panel ID="pnlPerakuanMesyuarat" runat="server">
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="/mesyuarat/pengesahan.aspx">
-						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Perakuan Mesyuarat</span>
+						  <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Pengesahan Mesyuarat</span>
 						</a>
 					</li>
 					</asp:Panel>
@@ -162,7 +162,7 @@
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
 								<img src="<%= Session["Profile.ProfileImage"] is not null && !String.IsNullOrWhiteSpace(Session["Profile.ProfileImage"].ToString()) ? Session["Profile.ProfileImage"] : "/assets/img/avatars/avatar.jpg" %>" class="avatar img-fluid rounded me-1" alt="" /> 
-								<span class="text-dark text-truncate"><%= Session["Profile.FullName"] %></span>
+								<div class="text-dark text-truncate d-inline-block align-middle"><b><%= Session["Profile.FullName"] %></b><asp:Literal ID="currentUserRole" runat="server" /></div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="/auth/profile.aspx"><i class="align-middle me-1" data-feather="user"></i> Profile</a>

@@ -9,7 +9,7 @@
 			<div class="alert-icon me-3">
 				<i class="mt-n1" data-feather="info"></i>
 			</div>
-			<div class="alert-message">Tiada mesyuarat untuk diperakukan buat masa ini.</div>
+			<div class="alert-message">Tiada mesyuarat untuk disahkan buat masa ini.</div>
 		</div>
 	</asp:Panel>
 	<asp:Panel ID="PanelFound" runat="server" Visible="false">
@@ -97,11 +97,11 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header bg-primary">
-					<h5 class="modal-title text-white text-truncate">PERAKUAN MESYUARAT <asp:Literal ID="modalTitle1" runat="server" /></h5>
+					<h5 class="modal-title text-white text-truncate">PENGESAHAN MESYUARAT <asp:Literal ID="modalTitle1" runat="server" /></h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body m-3">
-					<p class="mb-0">Anda pasti untuk memperakukan mesyuarat ini?</p>
+					<p class="mb-0">Anda pasti untuk mengesahkan mesyuarat ini?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

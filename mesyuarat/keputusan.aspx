@@ -39,7 +39,7 @@
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body m-3">
-											<p class="">Anda pasti hantar mesyuarat ini untuk perakuan penyelia?</p>
+											<p class="">Anda pasti hantar mesyuarat ini untuk pengesahan penyelia?</p>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

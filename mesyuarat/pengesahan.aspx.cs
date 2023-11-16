@@ -13,7 +13,7 @@ namespace EPBM.mesyuarat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!(User.IsInRole("Administrator") || User.IsInRole("Penyemak")))
+            if (!(User.IsInRole("Administrator") || User.IsInRole("Pengesah")))
             {
                 Utils.HttpNotFound();
             }

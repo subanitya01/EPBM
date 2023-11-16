@@ -11,7 +11,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Collections;
-
+using System.Web.Security;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace EPBM
 {
@@ -24,6 +25,11 @@ namespace EPBM
             if (!IsPostBack)
             {
                 string noKP = (string)Session["nokp"];
+                //string[] currentUserRoles = Roles.GetRolesForUser();
+                ApplicationUserManager UserManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                string[] currentUserRoles = UserManager.GetRoles(HttpContext.Current.User.Identity.GetUserId()).ToArray();
+                if (currentUserRoles.Length>0)
+                    currentUserRole.Text = "<br/>"+currentUserRoles[0];
 
                 if (!String.IsNullOrWhiteSpace(noKP))
                 {

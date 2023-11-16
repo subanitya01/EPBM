@@ -39,6 +39,10 @@
 							<th scope="row">Bahagian / Jabatan</th>
 							<td class="text-secondary"><%= Session["Profile.Department"] %></td>
 						</tr>
+						<tr>
+							<th scope="row">Peranan</th>
+							<td class="text-secondary"><asp:BulletedList id="ListPeranan" DisplayMode="Text" CssClass="list-group list-group-numbered" runat="server"></asp:BulletedList></td>
+						</tr>
 						</tbody>
 					</table>
 				</div>
