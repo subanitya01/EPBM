@@ -308,8 +308,8 @@ namespace EPBM.permohonan
                 this.ddlJabatan.DataTextField = "Nama";
                 this.ddlJabatan.DataValueField = "Organisasi_Grp_ID";
                 this.ddlJabatan.DataBind();
-                this.ddlJabatan.Items.Insert(0, new ListItem("-- Sila Pilih Kementerian/ Jabatan --", "0"));
-                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", "0"));
+                this.ddlJabatan.Items.Insert(0, new ListItem("-- Sila Pilih Kementerian/ Jabatan --", ""));
+                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", ""));
             }
 
         }
@@ -331,7 +331,7 @@ namespace EPBM.permohonan
                     this.ddlBahagian.DataBind();
                 }
 
-                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", "0"));
+                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", ""));
 
                 if (this.ddlJabatan.SelectedValue == "1")
                 {
@@ -343,7 +343,7 @@ namespace EPBM.permohonan
 
                 }
 
-                else if (this.ddlBahagian.SelectedValue == "0")
+                else if (this.ddlBahagian.SelectedValue == "")
                 {
 
                 }
@@ -401,7 +401,7 @@ namespace EPBM.permohonan
                 MessageAlert.Visible = false;
                 MessageAlertbhg.Visible = false;
 
-                if ((ddlBahagian.SelectedValue == "0" && ddlJabatan.SelectedValue == "1")|| (ddlJabatan.SelectedValue == "0"))
+                if ((ddlBahagian.SelectedValue == "" && ddlJabatan.SelectedValue == "1")|| (ddlJabatan.SelectedValue == ""))
                 {
 
                     MessageAlertbhg.Visible = true;
@@ -441,7 +441,7 @@ namespace EPBM.permohonan
                 using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                 {
                     conn.Open();
-                    string insertQuery = "UPDATE Permohonan SET Tajuk = '" + txt_tajuk.Text.ToString() + "',IdJenisPertimbangan = '" + ddlJenisPertimbangan.SelectedValue + "',LainJenisPertimbangan = '" + txtJenisPertimbangan.Text.ToString() + "',IdKaedahPerolehan = '" + ddlKaedahPerolehan.SelectedValue + "',IdJenisPerolehan = '" + ddlJenisPerolehan.SelectedValue + "',LainJenisPerolehan = '" + txtJenisPerolehan.Text.ToString() + "',IdJabatan = '" + ddlJabatan.SelectedValue + "',IdBahagian = '" + ddlBahagian.SelectedValue + "',Harga = '" + txtharga.Text.ToString() + "',IdSumberPeruntukan = '" + ddlSumberPeruntukan.SelectedValue + "',LainSumberPeruntukan = '" + txtSumberPeruntukan.Text.ToString() + "',IdPBMMuktamad = '" + ddlPBMMuktamad.SelectedValue + "',IdStatusPermohonan = '1',CatatanPendaftar = '" + txtcatatan.Text.ToString() + "',TarikhDicipta = '" + DateTime.Now.ToString("yyyy-MM-dd") + "',DiciptaOleh = '" + txticno.Text.ToString() + "',NamaBahagian = '" + ddlBahagian.SelectedItem.ToString() + "',  TarikhSahlaku = '" + tkhsahlaku.ToString("yyyy-MM-dd") + "', TarikhTerima = '" + tkhterima.ToString("yyyy-MM-dd") + "' where ID ='" + Request.QueryString["Id"] + "'";
+                    string insertQuery = "UPDATE Permohonan SET Tajuk = '" + txt_tajuk.Text.ToString() + "',IdJenisPertimbangan = '" + ddlJenisPertimbangan.SelectedValue + "',LainJenisPertimbangan = '" + txtJenisPertimbangan.Text.ToString() + "',IdKaedahPerolehan = '" + ddlKaedahPerolehan.SelectedValue + "',IdJenisPerolehan = '" + ddlJenisPerolehan.SelectedValue + "',LainJenisPerolehan = '" + txtJenisPerolehan.Text.ToString() + "',IdJabatan = '" + ddlJabatan.SelectedValue + "',IdBahagian = " + (string.IsNullOrEmpty(ddlBahagian.SelectedValue) ? "NULL" : ddlBahagian.SelectedValue) + ",Harga = '" + txtharga.Text.ToString() + "',IdSumberPeruntukan = '" + ddlSumberPeruntukan.SelectedValue + "',LainSumberPeruntukan = '" + txtSumberPeruntukan.Text.ToString() + "',IdPBMMuktamad = '" + ddlPBMMuktamad.SelectedValue + "',IdStatusPermohonan = '1',CatatanPendaftar = '" + txtcatatan.Text.ToString() + "',TarikhDicipta = '" + DateTime.Now.ToString("yyyy-MM-dd") + "',DiciptaOleh = '" + txticno.Text.ToString() + "',NamaBahagian = '" + ddlBahagian.SelectedItem.ToString() + "',  TarikhSahlaku = '" + tkhsahlaku.ToString("yyyy-MM-dd") + "', TarikhTerima = '" + tkhterima.ToString("yyyy-MM-dd") + "' where ID ='" + Request.QueryString["Id"] + "'";
                     SqlCommand com = new SqlCommand(insertQuery, conn);
 
                     com.ExecuteNonQuery();

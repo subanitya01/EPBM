@@ -25,12 +25,15 @@ namespace EPBM
             if (!IsPostBack)
             {
                 string noKP = (string)Session["nokp"];
-                //string[] currentUserRoles = Roles.GetRolesForUser();
-                ApplicationUserManager UserManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                string[] currentUserRoles = UserManager.GetRoles(HttpContext.Current.User.Identity.GetUserId()).ToArray();
-                if (currentUserRoles.Length>0)
-                    currentUserRole.Text = "<br/>"+currentUserRoles[0];
 
+                if (!string.IsNullOrEmpty((string)Session["Profile.UserName"]))
+                {
+                    //string[] currentUserRoles = Roles.GetRolesForUser();
+                    ApplicationUserManager UserManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                    string[] currentUserRoles = UserManager.GetRoles(HttpContext.Current.User.Identity.GetUserId()).ToArray();
+                    if (currentUserRoles.Length > 0)
+                        currentUserRole.Text = "<br/>" + currentUserRoles[0];
+                }
                 if (!String.IsNullOrWhiteSpace(noKP))
                 {
                     Enable_Panel();

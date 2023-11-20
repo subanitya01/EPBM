@@ -204,8 +204,8 @@ namespace EPBM.permohonan
                 this.ddlJabatan.DataTextField = "Nama";
                 this.ddlJabatan.DataValueField = "Organisasi_Grp_ID";
                 this.ddlJabatan.DataBind();
-                this.ddlJabatan.Items.Insert(0, new ListItem("-- Sila Pilih Kementerian/ Jabatan --", "0"));
-                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", "0"));
+                this.ddlJabatan.Items.Insert(0, new ListItem("-- Sila Pilih Kementerian/ Jabatan --", ""));
+                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", ""));
             }
 
         }
@@ -227,7 +227,7 @@ namespace EPBM.permohonan
                     this.ddlBahagian.DataBind();
                 }
 
-                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", "0"));
+                this.ddlBahagian.Items.Insert(0, new ListItem("-- Sila Pilih Bahagian/ Unit --", ""));
 
                 if (this.ddlJabatan.SelectedValue == "1")
                 {
@@ -239,7 +239,7 @@ namespace EPBM.permohonan
 
                 }
 
-                else if (this.ddlBahagian.SelectedValue == "0")
+                else if (this.ddlBahagian.SelectedValue == "")
                 {
                    
                 }
@@ -277,7 +277,7 @@ namespace EPBM.permohonan
             MessageAlert.Visible = false;
             MessageAlertbhg.Visible = false;
 
-            if ((ddlBahagian.SelectedValue == "0" && ddlJabatan.SelectedValue == "1") || (ddlJabatan.SelectedValue == "0"))
+            if ((ddlBahagian.SelectedValue == "" && ddlJabatan.SelectedValue == "1") || (ddlJabatan.SelectedValue == ""))
             {
 
                 MessageAlertbhg.Visible = true;
@@ -308,7 +308,7 @@ namespace EPBM.permohonan
                 sqlCommand.Parameters.AddWithValue("@IdJenisPerolehan", ddlJenisPerolehan.SelectedValue);
                 sqlCommand.Parameters.AddWithValue("@LainJenisPerolehan", txtJenisPerolehan.Text);
                 sqlCommand.Parameters.AddWithValue("@IdJabatan", ddlJabatan.SelectedValue);
-                sqlCommand.Parameters.AddWithValue("@IdBahagian", ddlBahagian.SelectedValue);
+                sqlCommand.Parameters.AddWithValue("@IdBahagian", (string.IsNullOrEmpty(ddlBahagian.SelectedValue) ? (object)DBNull.Value : ddlBahagian.SelectedValue));
                 sqlCommand.Parameters.AddWithValue("@Harga", txtharga.Text);
                 sqlCommand.Parameters.AddWithValue("@IdSumberPeruntukan", ddlSumberPeruntukan.SelectedValue);
                 sqlCommand.Parameters.AddWithValue("@LainSumberPeruntukan", txtSumberPeruntukan.Text);
