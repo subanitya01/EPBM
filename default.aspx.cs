@@ -18,7 +18,7 @@ namespace EPBM
                 {
                     Response.Redirect("~/auth/login.aspx", false);
                 }
-                if (!(User.IsInRole("Administrator") || User.IsInRole("Urusetia") || User.IsInRole("Penyemak")))
+                if (!(User.IsInRole("Administrator") || User.IsInRole("Urusetia") || User.IsInRole("Pengesah")))
                 {
                     Response.Redirect("~/keputusan/senarai.aspx", false);
                 }
@@ -35,7 +35,7 @@ namespace EPBM
                 PanelNextMeeting.Visible = true;
                 PanelPertimbangan.Visible = true;
             }
-            if (User.IsInRole("Administrator") || User.IsInRole("Penyemak"))
+            if (User.IsInRole("Administrator") || User.IsInRole("Pengesah"))
             {
                 PanelPenyemak1.Visible = true;
                 PanelPenyemak2.Visible = true;
