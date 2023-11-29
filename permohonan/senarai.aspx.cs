@@ -4,24 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.SessionState;
 using System.Data;
-using System.Data.SqlClient;
-using System.Net.Mail;
-using System.Web.Security;
-using System.Configuration;
 using System.Text;
-using System.Security.Cryptography;
-using System.Collections;
-using System.Web.UI.HtmlControls;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.IO;
-using System.Web.UI.WebControls.WebParts;
-using System.Globalization;
-using Newtonsoft.Json;
+using System.Drawing;
+using System.Threading;
+
+
 namespace EPBM.Permohonan
 {
     public partial class senarai : System.Web.UI.Page
     {
+        private String strConnString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private ReportFunction reportFunction = new ReportFunction();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -31,7 +29,7 @@ namespace EPBM.Permohonan
             }
 
         }
-
+        
 
         private void Load_GridData()
         {
@@ -39,13 +37,14 @@ namespace EPBM.Permohonan
             string searchCol = listSearchCol.SelectedItem.Text;
 
             Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
-            string CommandText = "Select * from  Papar_Permohonan  where IdStatusPermohonan IN ('1','2','3')";
+            string selectText = "Select * from  Papar_Permohonan ";
+            string commandText = "where IdStatusPermohonan IN ('1','2','3')";
 
             string filter = Request.QueryString["filter"];
 
             if ((filter == "2minggu" && !IsPostBack) || cbFilter2Minggu.Checked == true)
             {
-                CommandText += " and TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) and  IdStatusPermohonan != 4";
+                commandText += " and TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) and  IdStatusPermohonan != 4";
 
                 cbFilter2Minggu.Checked = true;
 
@@ -55,30 +54,26 @@ namespace EPBM.Permohonan
             {
                 if (string.IsNullOrEmpty(searchCol) || searchCol == "SEMUA KOLUM")
                 {
-                    CommandText += " AND (NamaJabatan LIKE '%' + @searchTerm + '%' OR Tajuk LIKE '%' + @searchTerm + '%' OR Status_Permohonan LIKE '%' + @searchTerm + '%' OR Harga LIKE '%' + @searchTerm + '%')";
-                    queryParams.Add("@searchTerm", searchTerm);
+                    commandText += " AND (NamaJabatan LIKE '%" + searchTerm + "%' OR Tajuk LIKE '%" + searchTerm + "%' OR Status_Permohonan LIKE '%" + searchTerm + "%' OR Harga LIKE '%" + searchTerm + "%')";
                 }
                 else if (searchCol == "JABATAN")
                 {
-                    CommandText += " AND NamaJabatan LIKE '%' + @searchTerm + '%' ";
-                    queryParams.Add("@searchTerm", searchTerm);
+                    commandText += " AND NamaJabatan LIKE '%" + searchTerm + "%' ";
                 }
                 else if (searchCol == "TAJUK")
                 {
-                    CommandText += " AND Tajuk LIKE '%' + @searchTerm + '%'";
-                    queryParams.Add("@searchTerm", searchTerm);
+                    commandText += " AND Tajuk LIKE '%" + searchTerm + "%'";
                 }
                 else if (searchCol == "STATUS")
                 {
-                    CommandText += " AND Status_Permohonan LIKE '%' + @searchTerm + '%'";
-                    queryParams.Add("@searchTerm", searchTerm);
+                    commandText += " AND Status_Permohonan LIKE '%" + searchTerm + "%'";
                 }
 
             }
 
-            CommandText += GetOrder();
+            commandText += GetOrder();
 
-            DataTable dtProfile = Utils.GetDataTable(CommandText, queryParams, "DefaultConnection");
+            DataTable dtProfile = Utils.GetDataTable(selectText + commandText, queryParams, "DefaultConnection");
             dtProfile.TableName = "Papar_Permohonan";
 
             DataSet ds = new DataSet();
@@ -86,6 +81,18 @@ namespace EPBM.Permohonan
 
             Senarai.DataSource = ds;
             Senarai.DataBind();
+
+
+            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Convert(varchar,[Harga], 20) AS 'Harga', Convert(varchar,[TarikhSahlaku],6) AS 'TarikhSahlaku' , JenisPertimbangan FROM Papar_Permohonan " + commandText, strConnString))
+            {
+                DataTable dataTable = new DataTable();
+                sqlDataAdapter.Fill(dataTable);
+
+                gvData.DataSource = dataTable;
+                gvData.DataBind();
+            }
+
+
 
         }
 
@@ -237,6 +244,86 @@ namespace EPBM.Permohonan
 
 
         }
+
+
+        #region Laporan
+
+        protected void ExportToExcel(object sender, EventArgs e)
+        {
+            try
+            {
+                string fileName = String.Empty;
+                string filePath = String.Empty;
+
+                Load_GridData();
+                DataTable dataTable = (DataTable)gvData.DataSource;
+
+                reportFunction.GenerateLaporanSenaraiPerolehanExcel(GetLaporanTitle(), dataTable, String.Empty, ref fileName, ref filePath);
+
+                DownloadFile(fileName, filePath);
+            }
+            catch (ThreadAbortException ex) { }
+            catch (Exception exception)
+            {
+                Response.Write(exception.Message);
+            }
+
+        }
+
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+            /* Verifies that the control is rendered */
+        }
+
+        protected void ExportToPDF(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string fileName = String.Empty;
+                string filePath = String.Empty;
+
+                Load_GridData();
+                DataTable dataTable = (DataTable)gvData.DataSource;
+
+                reportFunction.GenerateLaporanSenaraiPerolehanPdf(GetPdfLaporanTitle(), dataTable, String.Empty, ref fileName, ref filePath);
+
+                DownloadFile(fileName, filePath);
+            }
+            catch (ThreadAbortException ex) { }
+            catch (Exception exception)
+            {
+                Response.Write(exception.Message);
+            }
+
+        }
+
+        private string GetLaporanTitle()
+        {
+           
+
+            return String.Format("Senarai Perolehan\n");
+            
+
+        }
+
+        private string GetPdfLaporanTitle()
+        {
+            return String.Format("Senarai Perolehan\n");
+        }
+
+        private void DownloadFile(string fileName, string location)
+        {
+            Response.AddHeader(Constants.CONTENT_DISPOSITION, String.Format(Constants.FORMAT_ATTACHMENT_FILE, System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8)));
+            Response.ContentType = Constants.CONTENT_TYPE;
+            Response.Flush();
+            Response.BinaryWrite(SystemHelper.GetFileByteArray(location));
+            Response.End();
+        }
+
+        #endregion
+
+
 
         protected void Filter2Minggu_Change(object sender, EventArgs args)
         {
