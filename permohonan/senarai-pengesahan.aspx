@@ -69,6 +69,21 @@ body {
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+
+                <asp:Panel ID="Panel1" Visible="true" runat="server">
+                       <div class="btn-group btn-group-sm mb-3 float-end" role="group">
+
+                           <div class="form-group">
+
+                               <asp:Button ID="btnExcel" runat="server" OnClick="ExportToExcel" CssClass="btn btn-primary " Text="Export Excel" />
+                               <asp:Button ID="btnPdf" runat="server" OnClick="ExportToPDF" CssClass="btn btn-primary" Text="Export PDF" />
+
+                           </div>
+
+                       </div>
+                   </asp:Panel>
+
+
         </div>
 	</div>
 
