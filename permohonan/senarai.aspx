@@ -110,6 +110,20 @@ height: 27px;
 
                 </asp:GridView>
 
+                    <asp:Panel ID="Panel2" Visible="true" runat="server">
+                       <div class="btn-group btn-group-sm mb-3 float-end" role="group">
+
+                           <div class="form-group">
+
+                               <asp:Button ID="btnExcel" runat="server" OnClick="ExportToExcel" CssClass="btn btn-primary " Text="Export Excel" />
+                               <asp:Button ID="btnPdf" runat="server" OnClick="ExportToPDF" CssClass="btn btn-primary" Text="Export PDF" />
+
+                           </div>
+
+                       </div>
+                   </asp:Panel>
+                     <asp:GridView ID="gvData" runat="server" Visible="false"></asp:GridView>
+
 			</table>
 			<nav aria-label="Page navigation example">
 			
@@ -146,7 +160,15 @@ height: 27px;
 	</div>
 
 
-</ContentTemplate>    </asp:UpdatePanel> 
+</ContentTemplate>    
+      <Triggers>
+                    <asp:PostBackTrigger ControlID="btnExcel" />
+                    <asp:PostBackTrigger ControlID="btnPdf" />
+        
+                </Triggers>
+
+
+ </asp:UpdatePanel> 
 
 
 <script type="text/javascript">

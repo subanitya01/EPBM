@@ -291,7 +291,7 @@ namespace EPBM.laporan
 
             jabatan = !String.IsNullOrWhiteSpace(jabatan) ? String.Format("({0})", jabatan) : String.Empty;
 
-            return String.Format("Laporan EPBM {0}\nTarikh Mula SST: {1}{2}{3}", jabatan, TarikhMula.ToString("dd-MMM-yyyy"), "  Hingga  ",TarikhAkhir.ToString("dd-MMM-yyyy"));
+            return String.Format("Laporan EPBM {0}\nTarikh Mula: {1}{2}{3}", jabatan, TarikhMula.ToString("dd-MMM-yyyy"), "  Hingga  ",TarikhAkhir.ToString("dd-MMM-yyyy"));
 
         }
 
@@ -308,7 +308,7 @@ namespace EPBM.laporan
                 DataTable dataTable = (DataTable)gvData.DataSource;
 
 
-                reportFunction.GenerateLaporanSyarikatExcel(GetLaporanTitle1(), dataTable, "RM " + lbltotal_RepTahun2.Text, ref fileName, ref filePath);
+                reportFunction.GenerateLaporanExcel(GetLaporanTitle1(), dataTable, "RM " + lbltotal_RepTahun2.Text, ref fileName, ref filePath);
 
                 DownloadFile(fileName, filePath);
             }
@@ -336,7 +336,7 @@ namespace EPBM.laporan
                 Load_GridData();
                 DataTable dataTable = (DataTable)gvData.DataSource;
 
-                reportFunction.GenerateLaporanSyarikatPdf(GetLaporanTitle1(), dataTable, "RM " + lbltotal_RepTahun2.Text, ref fileName, ref filePath);
+                reportFunction.GenerateLaporanPdf(GetLaporanTitle1(), dataTable, "RM " + lbltotal_RepTahun2.Text, ref fileName, ref filePath);
 
                 DownloadFile(fileName, filePath);
             }
