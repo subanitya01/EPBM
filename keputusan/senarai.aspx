@@ -61,7 +61,7 @@
 				</div>
 				<div class="col-12 text-end">
 					<asp:HyperLink ID="btnReset" NavigateUrl="/keputusan/senarai.aspx" runat="server" CssClass="btn btn-outline-danger" >RESET</asp:HyperLink>
-					<asp:LinkButton ID="btnSubmit2" CssClass="btn btn-primary" runat="server" OnClick="SearchExtend" CausesValidation="false">CARI</asp:LinkButton>
+					<asp:LinkButton ID="btnSubmit2" CssClass="btn btn-primary" runat="server" OnClick="SearchExtend" PostBackUrl="~/keputusan/senarai.aspx" CausesValidation="false">CARI</asp:LinkButton>
 				</div>
 		</div>
 	</div>

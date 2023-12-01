@@ -225,7 +225,8 @@ namespace EPBM.mesyuarat
                     }
 
                     Session["flash.success"] = "Mesyuarat berjaya dikemaskini!";
-                    Response.Redirect("/mesyuarat/papar.aspx?id=" + btn.CommandArgument);
+                    //Response.Redirect("/mesyuarat/papar.aspx?id=" + btn.CommandArgument);
+                    Response.Redirect("~/mesyuarat/daftar.aspx");
                 }
                 else
                 {

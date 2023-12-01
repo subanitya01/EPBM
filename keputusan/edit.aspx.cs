@@ -63,8 +63,8 @@ namespace EPBM.mesyuarat
         }
         protected void BindData()
         {
-            try
-            {
+            //try
+            //{
                 var Id = Request.QueryString["id"];
                 if (string.IsNullOrEmpty(Id))
                     Utils.HttpNotFound();
@@ -94,7 +94,7 @@ namespace EPBM.mesyuarat
                     "CASE WHEN IdJenisPerolehan = 99 THEN LainJenisPerolehan ELSE Nama_JPerolehan END as JenisPerolehan, " +
                     "CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, " +
                     "CASE WHEN IdSumberPeruntukan = 99 THEN LainSumberPeruntukan ELSE SumberPeruntukan END as SumberPeruntukan, " +
-                    "StatusKeputusan as STATUS, SyarikatBerjaya, Tempoh, TarikhSuratSetujuTerima, RujukanSuratSetujuTerima, LampiranKeputusan, AlasanKeputusan " +
+                    "StatusKeputusan as STATUS, SyarikatBerjaya, Tempoh, TarikhSuratSetujuTerima, RujukanSuratSetujuTerima, LampiranKeputusan, AlasanKeputusan, NilaiTawaran " +
                     "from Papar_Permohonan WHERE Id=@Id and TarikhHapus IS NULL and (IdStatusPermohonan IN (3,4)) and IdStatusPengesahan <> 4";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", Id } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
@@ -121,8 +121,7 @@ namespace EPBM.mesyuarat
 
                 txtSyarikat.Text = dtPermohonan.Rows[0]["SyarikatBerjaya"].ToString();
                 txtTempoh.Text = dtPermohonan.Rows[0]["Tempoh"].ToString();
-                txtTarikhSetuju.Text = dtPermohonan.Rows[0]["TarikhSuratSetujuTerima"] == null ? ((DateTime)dtPermohonan.Rows[0]["TarikhSuratSetujuTerima"]).ToString("yyyy-MM-dd") : null;
-                txtRujukanSetuju.Text = dtPermohonan.Rows[0]["RujukanSuratSetujuTerima"].ToString();
+                txtNilaiTawaran.Text = dtPermohonan.Rows[0]["NilaiTawaran"].ToString();
                 txtAlasan.Text = dtPermohonan.Rows[0]["AlasanKeputusan"].ToString();
 
                 initStatus(dtPermohonan.Rows[0]["IdStatusKeputusan"].ToString());
@@ -139,8 +138,8 @@ namespace EPBM.mesyuarat
                     //else
                         LiteralFileName.Text = dtPermohonan.Rows[0]["LampiranKeputusan"].ToString();
                 }
-            }
-            catch (Exception) { Utils.HttpNotFound(); }
+           // }
+           // catch (Exception) { Utils.HttpNotFound(); }
         }
 
         protected void SaveSuccess(object sender, EventArgs e)
@@ -157,8 +156,7 @@ namespace EPBM.mesyuarat
                         {"@syarikat",  txtSyarikat.Text },
                         {"@Tempoh",  txtTempoh.Text },
                         {"@PbmMuktamad",  listPbmMuktamad.SelectedValue },
-                        {"@TarikhSetuju",  txtTarikhSetuju.Text ?? Convert.DBNull },
-                        {"@RujukanSetuju",  txtRujukanSetuju.Text },
+                        {"@NilaiTawaran",  txtNilaiTawaran.Text },
                         {"@Alasan", "" },
                     };
 
@@ -198,7 +196,7 @@ namespace EPBM.mesyuarat
                     else
                         queryParams.Add("@Lampiran", ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString());
 
-                    Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, SyarikatBerjaya=@syarikat, Tempoh=@Tempoh, IdPBMMuktamad=@PbmMuktamad, TarikhSuratSetujuTerima=@TarikhSetuju, RujukanSuratSetujuTerima=@RujukanSetuju, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
+                    Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, SyarikatBerjaya=@syarikat, Tempoh=@Tempoh, IdPBMMuktamad=@PbmMuktamad, NilaiTawaran=@NilaiTawaran, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
                 }
                 catch (Exception ex)
                 {
@@ -224,8 +222,7 @@ namespace EPBM.mesyuarat
                         {"@syarikat",  Convert.DBNull },
                         {"@Tempoh",  Convert.DBNull },
                         {"@PbmMuktamad",   listPbmMuktamad2.SelectedValue },
-                        {"@TarikhSetuju",  Convert.DBNull },
-                        {"@RujukanSetuju",  "" },
+                        {"@NilaiTawaran",  Convert.DBNull },
                         {"@Alasan", txtAlasan.Text },
                     };
 
@@ -271,8 +268,7 @@ namespace EPBM.mesyuarat
                     "SyarikatBerjaya=@syarikat, " +
                     "Tempoh=@Tempoh, " +
                     "IdPBMMuktamad=@PbmMuktamad, " +
-                    "TarikhSuratSetujuTerima=@TarikhSetuju, " +
-                    "RujukanSuratSetujuTerima=@RujukanSetuju, " +
+                    "NilaiTawaran=@NilaiTawaran, " +
                     "LampiranKeputusan=@Lampiran, " +
                     "AlasanKeputusan=@Alasan " +
                     "WHERE Id=@Id", queryParams);

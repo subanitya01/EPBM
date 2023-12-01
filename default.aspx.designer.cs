@@ -96,13 +96,22 @@ namespace EPBM
         protected global::System.Web.UI.WebControls.Literal BelumKeMesyuarat;
 
         /// <summary>
-        /// Literal1 control.
+        /// PanelDiputuskan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal1;
+        protected global::System.Web.UI.WebControls.Panel PanelDiputuskan;
+
+        /// <summary>
+        /// JumlahKeputusan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal JumlahKeputusan;
 
         /// <summary>
         /// PanelPenyemak1 control.

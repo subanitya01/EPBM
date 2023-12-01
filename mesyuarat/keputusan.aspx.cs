@@ -57,7 +57,7 @@ namespace EPBM.mesyuarat
                 DataRow[] dtMesyuarat = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + listMesyuarat.SelectedValue);
                 TajukMesyuaratModal.Text = dtMesyuarat[0]["MESYUARAT"].ToString();
                 TajukPermohonan.Text = "BAGI MESYUARAT " + TajukMesyuaratModal.Text;
-                string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN " +
+                string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, AlasanKeputusan as KETERANGAN " +
                                       "from Papar_Permohonan WHERE IdStatusPengesahan<>2 and IdStatusPengesahan<>4 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", listMesyuarat.SelectedValue } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
@@ -132,7 +132,7 @@ namespace EPBM.mesyuarat
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
                     dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
-                    dt.Rows.Add("NILAI", "RM " + string.Format("{0:#,0.00}", drv.Row["Harga"]));
+                    dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaran"]));
                     dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
                     detailsList.DataSource = dt;
                     detailsList.DataBind();

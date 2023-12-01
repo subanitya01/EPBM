@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -149,6 +150,46 @@ namespace EPBM.keputusan
 
                     queryParams.Add("@Syarikat", Syarikat);
                 }
+
+                if (!string.IsNullOrEmpty(Tajuk))
+                {
+                    NamaTajuk.Text = Tajuk;
+                    PanelTajuk.Visible = true;
+                }
+                else PanelTajuk.Visible = false;
+
+                if (IdMesyuarat != 0)
+                {
+                    NamaMesyuarat.Text = listMesyuaratText;
+                    PanelMesyuarat.Visible = true;
+                }
+                else PanelMesyuarat.Visible = false;
+
+                if (IdJabatan != 0)
+                {
+                    NamaJabatan.Text = listJabatanText;
+                    PanelJabatan.Visible = true;
+                }
+                else PanelJabatan.Visible = false;
+
+                if (IdBahagian != 0)
+                {
+                    NamaBahagian.Text = listBahagianText + ", ";
+                }
+
+                if (IdStatus != 0)
+                {
+                    NamaStatus.Text = listStatusText;
+                    PanelStatus.Visible = true;
+                }
+                else PanelStatus.Visible = false;
+
+                if (!string.IsNullOrEmpty(Syarikat))
+                {
+                    NamaSyarikat.Text = CondSyarikat + " '" + Syarikat + "'";
+                    PanelSyarikat.Visible = true;
+                }
+                else PanelSyarikat.Visible = false;
             }
             if (!string.IsNullOrEmpty(sortBy))
                 sortBy = " ORDER BY " + sortBy + " " + sortDir;
@@ -164,53 +205,34 @@ namespace EPBM.keputusan
             GridView1.DataSource = dtPermohonan;
             GridView1.DataBind();
             ViewState["dtPermohonan"] = dtPermohonan;
-
-            if (!string.IsNullOrEmpty(Tajuk))
-            {
-                NamaTajuk.Text = Tajuk;
-                PanelTajuk.Visible = true;
-            }
-            else PanelTajuk.Visible = false;
-
-            if (IdMesyuarat != 0)
-            {
-                NamaMesyuarat.Text = listMesyuaratText;
-                PanelMesyuarat.Visible = true;
-            }
-            else PanelMesyuarat.Visible = false;
-
-            if (IdJabatan != 0)
-            {
-                NamaJabatan.Text = listJabatanText;
-                PanelJabatan.Visible = true;
-            }
-            else PanelJabatan.Visible = false;
-
-            if (IdBahagian != 0)
-            {
-                NamaBahagian.Text = listBahagianText + ", ";
-            }
-
-            if (IdStatus != 0)
-            {
-                NamaStatus.Text = listStatusText;
-                PanelStatus.Visible = true;
-            }
-            else PanelStatus.Visible = false;
-
-            if (!string.IsNullOrEmpty(Syarikat))
-            {
-                NamaSyarikat.Text = CondSyarikat + " '" + Syarikat + "'";
-                PanelSyarikat.Visible = true;
-            }
-            else PanelSyarikat.Visible = false;
             
             /*}
             catch (Exception) { Utils.HttpNotFound(); }*/
         }
 
+
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.TableSection = TableRowSection.TableHeader;
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
+                row.TableSection = TableRowSection.TableHeader;
+                TableCell HeaderCell = new TableCell();
+                HeaderCell.Text = "";
+                HeaderCell.ColumnSpan = 6;
+                HeaderCell.Attributes.Add("class", "blank-cell");
+                row.Cells.Add(HeaderCell);
+                GridView1.Controls[0].Controls.AddAt(0, row);
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                e.Row.TableSection = TableRowSection.TableFooter;
+                foreach (TableCell cell in e.Row.Cells)
+                {
+                    cell.Attributes.Add("class", "blank-cell");
+                }
+            }
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 DataRowView drv = e.Row.DataItem as DataRowView;

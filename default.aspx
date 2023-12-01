@@ -27,8 +27,8 @@
 									</div>
 
 									<div class="col-auto">
-										<div class="stat">
-											<i class="align-middle" data-feather="clock"></i>
+										<div class="stat bg-danger">
+											<i class="align-middle text-white" data-feather="clock"></i>
 										</div>
 									</div>
 								</div>
@@ -50,8 +50,8 @@
 									</div>
 
 									<div class="col-auto">
-										<div class="stat">
-											<i class="align-middle" data-feather="calendar"></i>
+										<div class="stat bg-info">
+											<i class="align-middle text-white" data-feather="calendar"></i>
 										</div>
 									</div>
 								</div>
@@ -86,7 +86,7 @@
 						</div>
 					</a>
 				</asp:Panel>
-				<div class="col-sm-6 col-xl-4 d-none">
+				<asp:Panel ID="PanelDiputuskan" runat="server" CssClass="col-sm-6 col-xl-4" Visible="true">
 					<a href="/keputusan/senarai.aspx">
 						<div class="card">
 							<div class="card-body">
@@ -101,14 +101,14 @@
 										</div>
 									</div>
 								</div>
-								<h3 class="mt-1 mb-3"><asp:Literal ID="Literal1" runat="server" >-</asp:Literal></h3>
+								<h3 class="mt-1 mb-3"><asp:Literal ID="JumlahKeputusan" runat="server" >0</asp:Literal></h3>
 								<div class="mb-0">
 									Permohonan telah diputuskan
 								</div>
 							</div>
 						</div>
 					</a>
-				</div>
+				</asp:Panel>
 					<asp:Panel ID="PanelPenyemak1" runat="server" CssClass="col-sm-6 col-xl-4" Visible="false">
 						<a href="/permohonan/senarai-pengesahan.aspx">
 							<div class="card">
@@ -119,8 +119,8 @@
 										</div>
 
 										<div class="col-auto">
-											<div class="stat">
-												<i class="align-middle" data-feather="file-text"></i>
+											<div class="stat bg-warning">
+												<i class="align-middle text-white" data-feather="file-text"></i>
 											</div>
 										</div>
 									</div>
@@ -142,8 +142,8 @@
 										</div>
 
 										<div class="col-auto">
-											<div class="stat">
-												<i class="align-middle" data-feather="check-square"></i>
+											<div class="stat bg-warning">
+												<i class="align-middle text-white" data-feather="check-square"></i>
 											</div>
 										</div>
 									</div>
