@@ -82,13 +82,13 @@
 						<asp:DropDownList ID="listPbmMuktamad" CssClass="form-select" required="required" runat="server" /> 
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>
-					<div class="col-12 col-lg-6 mb-2 fail d-none">
+					<div class="col-12 col-lg-6 mb-2 notkiv fail d-none">
 						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
 						<asp:DropDownList ID="listPbmMuktamad2" CssClass="form-select" required="required" runat="server" /> 
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad2" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>
 					<div class="col-12 col-lg-6 mb-2 success">
-						<label class="control-label" >SYARIKAT BERJAYA <span class="text-danger">*</span></label>
+						<label class="control-label" id="lblSyarikat" >SYARIKAT BERJAYA <span class="text-danger">*</span></label>
 								<asp:TextBox ID="txtSyarikat" runat="server" CssClass="form-control" placeholder="SYARIKAT BERJAYA" required="required" autocomplete="off" />
 								<div class="position-absolute invisible z-3" id="autocompleteSyarikat"></div>
 								<span id="syarikatBerjayaLimit" class="text-danger d-none">Syarikat ini telah dilantik melebihi 2 kali dalam 2 tahun</span>
@@ -201,7 +201,12 @@
 					});
 					failFields = document.querySelectorAll('.fail');
 					failFields.forEach(function (field, index) {
-						field.classList.remove("d-none");
+                        if (status.value == 5 && field.classList.contains("notkiv")) {
+							field.classList.add("d-none");
+							document.getElementById('<%=listPbmMuktamad2.ClientID %>').value = 1;
+						}
+						else
+							field.classList.remove("d-none");
 					});
 				}
 			});
@@ -235,6 +240,28 @@
 			document.getElementById('<%=attachmentLabel2.ClientID %>').classList.add('d-none');
 			document.getElementById('<%=fileAttachment2.ClientID %>').value = '';
 			document.getElementById('<%=keepAttachment2.ClientID %>').value = 0;
+		})
+
+		var pbmMuktamad = document.getElementById('<%=listPbmMuktamad.ClientID %>');
+
+        if (pbmMuktamad.value == 1) {
+            lblSyarikat.innerHTML = 'SYARIKAT BERJAYA <span class="text-danger">*</span>';
+            document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Berjaya";
+        }
+        else {
+            lblSyarikat.innerHTML = 'SYARIKAT DIPERAKU <span class="text - danger">*</span>';
+            document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Diperaku";
+		}
+
+		pbmMuktamad.addEventListener('change', function (event) {
+            if (this.value == 1) {
+                document.getElementById('lblSyarikat').innerHTML = 'SYARIKAT BERJAYA <span class="text-danger">*</span>';
+                document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Berjaya";
+			}
+            else {
+                document.getElementById('lblSyarikat').innerHTML = 'SYARIKAT DIPERAKU <span class="text - danger">*</span>';
+                document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Diperaku";
+			}
 		})
     </script>
 </asp:Content>

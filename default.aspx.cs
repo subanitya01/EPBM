@@ -88,7 +88,7 @@ namespace EPBM
 
             if (dtPermohonan.Rows.Count > 0 && dtPermohonanDiputuskan.Rows.Count > 0)
             {
-                JumlahKeputusan.Text = dtPermohonanDiputuskan.Rows[0]["total"] + "/" + dtPermohonan.Rows[0]["total"];
+                JumlahKeputusan.Text = dtPermohonanDiputuskan.Rows[0]["total"] + " / " + dtPermohonan.Rows[0]["total"];
             }
 
             string CommandText6 = "Select count(*) as total from Permohonan where IdStatusPermohonan = '1' AND TarikhHapus IS NULL";

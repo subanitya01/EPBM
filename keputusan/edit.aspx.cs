@@ -40,7 +40,7 @@ namespace EPBM.mesyuarat
             foreach (DataRow row in dtStatus.Rows)
             {
                 ListItem item = new ListItem();
-                item.Text = row["Nama"].ToString();
+                item.Text = "&nbsp;" + row["Nama"].ToString();
                 item.Value = row["Id"].ToString();
                 item.Selected = Convert.ToBoolean(row["Selected"]);
                 RadioStatus.Items.Add(item);
@@ -195,8 +195,10 @@ namespace EPBM.mesyuarat
                     }
                     else
                         queryParams.Add("@Lampiran", ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString());
-
-                    Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, SyarikatBerjaya=@syarikat, Tempoh=@Tempoh, IdPBMMuktamad=@PbmMuktamad, NilaiTawaran=@NilaiTawaran, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
+                    if(listPbmMuktamad.SelectedValue=="1")
+                        Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, SyarikatBerjaya=@syarikat, Tempoh=@Tempoh, IdPBMMuktamad=@PbmMuktamad, NilaiTawaran=@NilaiTawaran, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
+                    else
+                        Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, MOFSyarikatDiperaku=@syarikat, MOFTempoh=@Tempoh, IdPBMMuktamad=@PbmMuktamad, MOFNilaiTawaran=@NilaiTawaran, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
                 }
                 catch (Exception ex)
                 {
@@ -207,7 +209,7 @@ namespace EPBM.mesyuarat
                 if (Request.QueryString["ReturnURL"] != null)
                     Response.Redirect(Request.QueryString["ReturnURL"]);
                 else
-                    Response.Redirect("/mesyuarat/senarai-keputusan.aspx?id=" + ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdMesyuarat"].ToString());
+                    Response.Redirect("/mesyuarat/keputusan.aspx?id=" + ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdMesyuarat"].ToString());
 
             //}
         }
@@ -279,7 +281,7 @@ namespace EPBM.mesyuarat
                 return;
             }
 
-            Response.Redirect("/mesyuarat/senarai-keputusan.aspx?id=" + ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdMesyuarat"].ToString());
+            Response.Redirect("/mesyuarat/keputusan.aspx?id=" + ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdMesyuarat"].ToString());
         }
         protected void SyarikatBerjaya_Change(Object sender, EventArgs e)
         {
