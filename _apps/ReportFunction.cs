@@ -273,8 +273,11 @@ namespace EPBM
             Paragraph topParagraph = new Paragraph(document);
             GetTitleText1("SULIT", document, ref topParagraph);
 
+            Paragraph bottomParagraph = new Paragraph(document);
+            GetTitleText1("SULIT", document, ref bottomParagraph, 14, true);
+
             GemBox.Document.HeaderFooter footer = new GemBox.Document.HeaderFooter(document, HeaderFooterType.FooterDefault,
-                 new Paragraph(document, new Run(document, "SULIT | Page "), new Field(document, FieldType.Page), new Run(document, " of "), new Field(document, FieldType.NumPages)) { ParagraphFormat = new ParagraphFormat() { Alignment = HorizontalAlignment.Right } });
+                 bottomParagraph, new Paragraph(document, new Run(document, "Page "), new Field(document, FieldType.Page), new Run(document, " of "), new Field(document, FieldType.NumPages)) { ParagraphFormat = new ParagraphFormat() { Alignment = HorizontalAlignment.Right } });
 
             Section section = new Section(document, topParagraph, headerTable, contentTable, summaryTitle);
             section.HeadersFooters.Add(footer);
@@ -564,8 +567,11 @@ namespace EPBM
             Paragraph topParagraph = new Paragraph(document);
             GetTitleText1("SULIT", document, ref topParagraph);
 
+            Paragraph bottomParagraph = new Paragraph(document);
+            GetTitleText1("SULIT", document, ref bottomParagraph, 14, true);
+
             GemBox.Document.HeaderFooter footer = new GemBox.Document.HeaderFooter(document, HeaderFooterType.FooterDefault,
-                 new Paragraph(document, new Run(document, "SULIT | Page "), new Field(document, FieldType.Page), new Run(document, " of "), new Field(document, FieldType.NumPages)) { ParagraphFormat = new ParagraphFormat() { Alignment = HorizontalAlignment.Right } });
+                 bottomParagraph, new Paragraph(document, new Run(document, "Page "), new Field(document, FieldType.Page), new Run(document, " of "), new Field(document, FieldType.NumPages)) { ParagraphFormat = new ParagraphFormat() { Alignment = HorizontalAlignment.Right } });
 
             Section section = new Section(document, topParagraph, headerTable, contentTable, summaryTitle);
             section.HeadersFooters.Add(footer);
@@ -855,8 +861,11 @@ namespace EPBM
             Paragraph topParagraph = new Paragraph(document);
             GetTitleText1("SULIT", document, ref topParagraph);
 
+            Paragraph bottomParagraph = new Paragraph(document);
+            GetTitleText1("SULIT", document, ref bottomParagraph, 14, true);
+
             GemBox.Document.HeaderFooter footer = new GemBox.Document.HeaderFooter(document, HeaderFooterType.FooterDefault,
-                 new Paragraph(document, new Run(document, "SULIT | Page "), new Field(document, FieldType.Page), new Run(document, " of "), new Field(document, FieldType.NumPages)) { ParagraphFormat = new ParagraphFormat() { Alignment = HorizontalAlignment.Right } });
+                bottomParagraph, new Paragraph(document, new Run(document, "Page "), new Field(document, FieldType.Page), new Run(document, " of "), new Field(document, FieldType.NumPages)) { ParagraphFormat = new ParagraphFormat() { Alignment = HorizontalAlignment.Right } });
 
             Section section = new Section(document, topParagraph, headerTable, contentTable, summaryTitle);
             section.HeadersFooters.Add(footer);
