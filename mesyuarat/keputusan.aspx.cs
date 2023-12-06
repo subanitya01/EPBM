@@ -52,12 +52,12 @@ namespace EPBM.mesyuarat
         }
         protected void BindData()
         {
-            try
-            {
+            //try
+            //{
                 DataRow[] dtMesyuarat = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + listMesyuarat.SelectedValue);
                 TajukMesyuaratModal.Text = dtMesyuarat[0]["MESYUARAT"].ToString();
                 TajukPermohonan.Text = "BAGI MESYUARAT " + TajukMesyuaratModal.Text;
-                string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN " +
+                string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, PBM as MUKTAMAD, StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, IdPBMMuktamad, AlasanKeputusan as KETERANGAN " +
                                       "from Papar_Permohonan WHERE IdStatusPengesahan<>2 and IdStatusPengesahan<>4 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", listMesyuarat.SelectedValue } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
@@ -103,8 +103,8 @@ namespace EPBM.mesyuarat
                     PanelInfo.Visible = true;
                     PanelSendBtn.Visible = false;
                 }
-            }
-            catch (Exception) { Utils.HttpNotFound(); }
+            //}
+            //catch (Exception) { Utils.HttpNotFound(); }
         }
 
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
@@ -120,10 +120,12 @@ namespace EPBM.mesyuarat
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
                 else if (drv.Row["IdStatusKeputusan"].ToString() == "2")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
+                else if (drv.Row["IdStatusKeputusan"].ToString() == "5")
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-warning";
                 else
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-danger";
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "3")
+                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5")
                 {
                     detailsList.Visible = false;
                 }
@@ -131,9 +133,18 @@ namespace EPBM.mesyuarat
                 {
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
-                    dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
-                    dt.Rows.Add("NILAI", "RM " + string.Format("{0:#,0.00}", drv.Row["Harga"]));
-                    dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    if (drv.Row["IdPBMMuktamad"].ToString() == "1")
+                    {
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaran"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    }
+                    else
+                    {
+                        dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["MOFSyarikatDiperaku"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["MOFNilaiTawaran"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["MOFTempoh"].ToString() + " BULAN");
+                    }
                     detailsList.DataSource = dt;
                     detailsList.DataBind();
                     LblKeterangan.Visible = false;

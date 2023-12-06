@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -54,8 +55,8 @@ namespace EPBM.keputusan
             bool extendSearch = Convert.ToBoolean(ViewState["extendSearch"]);
             string sortDir = ViewState["SortDirection"] as string;
             string sortBy = ViewState["SortExpression"] as string;
-            string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, " +
-                                "StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN, MESYUARAT ";
+            string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, PBM as MUKTAMAD, " +
+                                "StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, IdPBMMuktamad, AlasanKeputusan as KETERANGAN, MESYUARAT ";
             string CommandText = "from Papar_Permohonan WHERE TarikhHapus IS NULL AND IdStatusPengesahan = 4 ";
             string limit = "";// " OFFSET  " + (GridView1.PageIndex * GridView1.PageSize) + " ROWS FETCH NEXT " + GridView1.PageSize + " ROWS ONLY";
 
@@ -149,6 +150,46 @@ namespace EPBM.keputusan
 
                     queryParams.Add("@Syarikat", Syarikat);
                 }
+
+                if (!string.IsNullOrEmpty(Tajuk))
+                {
+                    NamaTajuk.Text = Tajuk;
+                    PanelTajuk.Visible = true;
+                }
+                else PanelTajuk.Visible = false;
+
+                if (IdMesyuarat != 0)
+                {
+                    NamaMesyuarat.Text = listMesyuaratText;
+                    PanelMesyuarat.Visible = true;
+                }
+                else PanelMesyuarat.Visible = false;
+
+                if (IdJabatan != 0)
+                {
+                    NamaJabatan.Text = listJabatanText;
+                    PanelJabatan.Visible = true;
+                }
+                else PanelJabatan.Visible = false;
+
+                if (IdBahagian != 0)
+                {
+                    NamaBahagian.Text = listBahagianText + ", ";
+                }
+
+                if (IdStatus != 0)
+                {
+                    NamaStatus.Text = listStatusText;
+                    PanelStatus.Visible = true;
+                }
+                else PanelStatus.Visible = false;
+
+                if (!string.IsNullOrEmpty(Syarikat))
+                {
+                    NamaSyarikat.Text = CondSyarikat + " '" + Syarikat + "'";
+                    PanelSyarikat.Visible = true;
+                }
+                else PanelSyarikat.Visible = false;
             }
             if (!string.IsNullOrEmpty(sortBy))
                 sortBy = " ORDER BY " + sortBy + " " + sortDir;
@@ -164,53 +205,34 @@ namespace EPBM.keputusan
             GridView1.DataSource = dtPermohonan;
             GridView1.DataBind();
             ViewState["dtPermohonan"] = dtPermohonan;
-
-            if (!string.IsNullOrEmpty(Tajuk))
-            {
-                NamaTajuk.Text = Tajuk;
-                PanelTajuk.Visible = true;
-            }
-            else PanelTajuk.Visible = false;
-
-            if (IdMesyuarat != 0)
-            {
-                NamaMesyuarat.Text = listMesyuaratText;
-                PanelMesyuarat.Visible = true;
-            }
-            else PanelMesyuarat.Visible = false;
-
-            if (IdJabatan != 0)
-            {
-                NamaJabatan.Text = listJabatanText;
-                PanelJabatan.Visible = true;
-            }
-            else PanelJabatan.Visible = false;
-
-            if (IdBahagian != 0)
-            {
-                NamaBahagian.Text = listBahagianText + ", ";
-            }
-
-            if (IdStatus != 0)
-            {
-                NamaStatus.Text = listStatusText;
-                PanelStatus.Visible = true;
-            }
-            else PanelStatus.Visible = false;
-
-            if (!string.IsNullOrEmpty(Syarikat))
-            {
-                NamaSyarikat.Text = CondSyarikat + " '" + Syarikat + "'";
-                PanelSyarikat.Visible = true;
-            }
-            else PanelSyarikat.Visible = false;
             
             /*}
             catch (Exception) { Utils.HttpNotFound(); }*/
         }
 
+
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.TableSection = TableRowSection.TableHeader;
+                GridViewRow row = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
+                row.TableSection = TableRowSection.TableHeader;
+                TableCell HeaderCell = new TableCell();
+                HeaderCell.Text = "";
+                HeaderCell.ColumnSpan = 6;
+                HeaderCell.Attributes.Add("class", "blank-cell");
+                row.Cells.Add(HeaderCell);
+                GridView1.Controls[0].Controls.AddAt(0, row);
+            }
+            if (e.Row.RowType == DataControlRowType.Footer)
+            {
+                e.Row.TableSection = TableRowSection.TableFooter;
+                foreach (TableCell cell in e.Row.Cells)
+                {
+                    cell.Attributes.Add("class", "blank-cell");
+                }
+            }
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 DataRowView drv = e.Row.DataItem as DataRowView;
@@ -218,7 +240,7 @@ namespace EPBM.keputusan
                 ListView detailsList = e.Row.FindControl("DetailsList") as ListView;
                 Literal numbering = e.Row.FindControl("Numbering") as Literal;
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "3")
+                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5")
                 {
                     detailsList.Visible = false;
                 }
@@ -226,9 +248,18 @@ namespace EPBM.keputusan
                 {
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
-                    dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
-                    dt.Rows.Add("NILAI", "RM " + string.Format("{0:#,0.00}", drv.Row["Harga"]));
-                    dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    if (drv.Row["IdPBMMuktamad"].ToString() == "1")
+                    {
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaran"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    }
+                    else
+                    {
+                        dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["MOFSyarikatDiperaku"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["MOFNilaiTawaran"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["MOFTempoh"].ToString() + " BULAN");
+                    }
                     detailsList.DataSource = dt;
                     detailsList.DataBind();
                     LblKeterangan.Visible = false;

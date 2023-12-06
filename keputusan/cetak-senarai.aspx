@@ -54,6 +54,7 @@
 		  }
 		  .table {
 			border-collapse: collapse !important;
+			border: 0;
 		  }
 		  .table td,
 		  .table th {
@@ -76,30 +77,38 @@
 		.btn-link{ display: inline-block; padding: 5px; }
 		.table th,.table td{ padding: 5px; }
 		.table ul{ padding-left: 20px; margin: 0; }
-		.header{
-			display: flex;
-			align-items: center;
-		}
+		.header{ display: flex; align-items: center;margin: 25px 0 0 0;}
 		.header img{
 			height: 50px;
 			margin-right: 10px;
 		}
 		.filter{ 
-			margin-bottom: 10px; 
-			margin-right: 5px; 
+			margin: 15px 5px 0 0;
 			display:inline-block;
 			border: 1px solid #808080;
 			padding: 3px; 
 		}
+		header, footer{
+			display: none;
+		}
+		form{
+			margin-top: 5px;
+		}
+		table td.blank-cell{padding:15px;border:0 !important;}
 
 		@media print {
 			.p-hide { display:none; }
+			header, footer{ display: block; }
+			footer{ position: fixed;bottom: 0; right: 0; }
+			header{ position: fixed;top: 0; left: 0; }
+			thead {display: table-header-group; margin-top:10px;}
 		}
 	</style>
 </head>
 <body>
+	<header>SULIT</header>
     <form id="form1" runat="server">
-        <span>
+		<section>
 			<a href="javascript:history.back()" class=" btn-link p-hide" >&lt- Kembali</a>
 			<h3 class="header">
 				<img src="/assets/img/icons/300px-Jata_MalaysiaV2.png" height="100" /> SENARAI KEPUTUSAN MESYUARAT EPBM
@@ -124,6 +133,7 @@
 				runat="server" 
 				EmptyDataText="Tiada Rekod Dijumpai." 
 				ShowHeaderWhenEmpty="True" 
+				ShowFooter="True"
 				AutoGenerateColumns="False" 
 				OnRowDataBound="GridView1_OnRowDataBound" 
 				AllowPaging="False" 
@@ -141,6 +151,9 @@
 					</asp:BoundField>
 
 					<asp:BoundField DataField="JABATAN" HeaderText="JABATAN" HeaderStyle-CssClass="text-center">
+					</asp:BoundField>
+
+					<asp:BoundField DataField="MUKTAMAD" HeaderText="MUKTAMAD" HeaderStyle-CssClass="text-center" SortExpression="MUKTAMAD">
 					</asp:BoundField>
 
 					<asp:BoundField DataField="STATUS" HeaderText="STATUS" HeaderStyle-CssClass="text-center">
@@ -164,8 +177,10 @@
 					</asp:TemplateField>
 				</Columns>
 			</asp:GridView>
-        </div>
+		</section>
     </form>
+	
+	<footer>SULIT</footer>
 	<script>window.print();</script>
 </body>
 </html>

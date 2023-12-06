@@ -89,8 +89,8 @@ namespace EPBM.keputusan
             bool extendSearch = Convert.ToBoolean(ViewState["extendSearch"]);
             string sortDir = ViewState["SortDirection"] as string;
             string sortBy = ViewState["SortExpression"] as string;
-            string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, " +
-                                "StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN, MESYUARAT ";
+            string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, PBM as MUKTAMAD, " +
+                                "StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, IdPBMMuktamad, AlasanKeputusan as KETERANGAN, MESYUARAT ";
             string CommandText = "from Papar_Permohonan WHERE TarikhHapus IS NULL AND IdStatusPengesahan = 4 ";
             string limit = " OFFSET  " + (GridView1.PageIndex * GridView1.PageSize) + " ROWS FETCH NEXT " + GridView1.PageSize + " ROWS ONLY";
 
@@ -235,10 +235,12 @@ namespace EPBM.keputusan
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
                 else if (drv.Row["IdStatusKeputusan"].ToString() == "2")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
+                else if (drv.Row["IdStatusKeputusan"].ToString() == "5")
+                    lblStatus.CssClass = lblStatus.CssClass + " text-bg-warning";
                 else
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-danger";
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "3")
+                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5")
                 {
                     detailsList.Visible = false;
                 }
@@ -246,9 +248,18 @@ namespace EPBM.keputusan
                 {
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
-                    dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
-                    dt.Rows.Add("NILAI", "RM " + string.Format("{0:#,0.00}", drv.Row["Harga"]));
-                    dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    if (drv.Row["IdPBMMuktamad"].ToString() == "1")
+                    {
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaran"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    }
+                    else
+                    {
+                        dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["MOFSyarikatDiperaku"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["MOFNilaiTawaran"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["MOFTempoh"].ToString() + " BULAN");
+                    }
                     detailsList.DataSource = dt;
                     detailsList.DataBind();
                     LblKeterangan.Visible = false;
