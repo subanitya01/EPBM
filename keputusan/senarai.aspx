@@ -136,6 +136,8 @@
 					<asp:TemplateField ItemStyle-CssClass="text-center">
 						<ItemTemplate>
 							<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/keputusan/senarai.aspx") %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
+							<asp:HyperLink ID="LinkEditSST" runat="server" CssClass="text-secondary" title="Kemaskini SST" Visible="false" ><i class="align-middle" data-feather="edit-2"></i></asp:HyperLink>
+							<asp:HyperLink ID="LinkEditMOF" runat="server" CssClass="text-secondary" title="Keputusan MOF" Visible="false" ><i class="align-middle" data-feather="edit"></i></asp:HyperLink>
 						</ItemTemplate>
 					</asp:TemplateField>
 				</Columns>

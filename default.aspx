@@ -149,7 +149,7 @@
 									</div>
 									<h3 class="mt-1 mb-3"><asp:Literal ID="PerakuanMesyuarat" runat="server" >-</asp:Literal></h3>
 									<div class="mb-0">
-										Mesyuarat untuk diperakukan
+										Mesyuarat untuk disahkan
 									</div>
 								</div>
 							</div>

@@ -19,21 +19,23 @@ namespace EPBM.mesyuarat
         }
         protected void BindData()
         {
-            try
-            {
+            //try
+            //{
                 var Id = Request.QueryString["id"];
                 if (string.IsNullOrEmpty(Id))
                     Utils.HttpNotFound();
 
-                string CommandText2 = "Select Id, IdMesyuarat, IdStatusKeputusan, PBM, Tajuk, KaedahPerolehan, Harga, TarikhSahlakuMS, TarikhTerimaMS, LulusPelanPPT, " +
-                    "CASE WHEN IdJenisPertimbangan = 99 THEN LainJenisPertimbangan ELSE JenisPertimbangan END as JenisPertimbangan, " +
-                    "CASE WHEN IdJenisPerolehan = 99 THEN LainJenisPerolehan ELSE Nama_JPerolehan END as JenisPerolehan, " +
+                string CommandText2 = "Select Id, IdMesyuarat, IdStatusKeputusan, IdStatusPengesahan, IdJenisPertimbangan, IdPBMMuktamad, PBM, Tajuk, KaedahPerolehan, Harga, TarikhSahlakuMS, TarikhTerimaMS, LulusPelanPPT, MESYUARAT, " +
+                    "CASE WHEN IdJenisPertimbangan = 99 THEN concat(JenisPertimbangan, ' - ', LainJenisPertimbangan) ELSE JenisPertimbangan END as JenisPertimbangan, NilaiTawaran, " +
+                    "CASE WHEN IdJenisPerolehan = 99 THEN concat(Nama_JPerolehan, ' - ', LainJenisPerolehan) ELSE Nama_JPerolehan END as JenisPerolehan, " +
                     "CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, " +
-                    "CASE WHEN IdSumberPeruntukan = 99 THEN LainSumberPeruntukan ELSE SumberPeruntukan END as SumberPeruntukan, " +
-                    "StatusKeputusan, SyarikatBerjaya, Tempoh, TarikhSuratSetujuTerimaMS, RujukanSuratSetujuTerima, LampiranKeputusan, AlasanKeputusan " +
+                    "CASE WHEN IdSumberPeruntukan = 99 THEN concat(SumberPeruntukan, ' - ', LainSumberPeruntukan) ELSE SumberPeruntukan END as SumberPeruntukan, " +
+                    "StatusKeputusan, SyarikatBerjaya, Tempoh, TarikhSuratSetujuTerimaMS, RujukanSuratSetujuTerima, LampiranKeputusan, AlasanKeputusan, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, JenisPentadbiranKontrak " +
                     "from Papar_Permohonan WHERE Id=@Id and TarikhHapus IS NULL and (IdStatusPermohonan IN (3,4))";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", Id } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
+
+                if (dtPermohonan.Rows.Count < 1) Utils.HttpNotFound();
 
                 string CommandText = "Select * from PaparMesyuarat WHERE Id=@Id";
                 Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@Id", dtPermohonan.Rows[0]["IdMesyuarat"] } };
@@ -52,15 +54,50 @@ namespace EPBM.mesyuarat
                 LtlLulusPelan.Text = dtPermohonan.Rows[0]["LulusPelanPPT"].ToString();
 
                 LtlStatus.Text = dtPermohonan.Rows[0]["StatusKeputusan"].ToString();
-                LtlMesyuarat.Text = dtMesyuarat.Rows[0]["JENIS"] + " BIL. " + dtMesyuarat.Rows[0]["BILANGAN"];
-                LtlSyarikat.Text = dtPermohonan.Rows[0]["SyarikatBerjaya"].ToString();
-                LtlTempoh.Text = dtPermohonan.Rows[0]["Tempoh"].ToString();
+                LtlMesyuarat.Text = dtMesyuarat.Rows[0]["MESYUARAT"].ToString();
+                LtlJenisPentadbiranKontrak.Text = dtPermohonan.Rows[0]["JenisPentadbiranKontrak"].ToString();
+
+                if (dtPermohonan.Rows[0]["IdPBMMuktamad"].ToString() == "1")
+                {
+                    LtlTempoh.Text = dtPermohonan.Rows[0]["Tempoh"].ToString();
+
+                    if (dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() == "2")
+                    {
+                        LtlJenisPentadbiranKontrak.Text = dtPermohonan.Rows[0]["JenisPentadbiranKontrak"].ToString();
+                    }
+                    if (dtPermohonan.Rows[0]["IdStatusKeputusan"].ToString() == "1" && dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() != "2" && dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() != "99")
+                    {
+                        LtlSyarikat.Text = dtPermohonan.Rows[0]["SyarikatBerjaya"].ToString();
+                        LtlNilaiTawaran.Text = "RM " + string.Format("{0:#,0.00}", dtPermohonan.Rows[0]["NilaiTawaran"]);
+                        LtlTarikhSST.Text = dtPermohonan.Rows[0]["TarikhSuratSetujuTerimaMS"].ToString();
+                        LtlRujukanSST.Text = dtPermohonan.Rows[0]["RujukanSuratSetujuTerima"].ToString();
+                        LinkToEditSST.NavigateUrl = "~/keputusan/sst.aspx?id=" + dtPermohonan.Rows[0]["Id"];
+
+                        if (dtPermohonan.Rows[0]["IdStatusPengesahan"].ToString() == "4")
+                            PanelSST.Visible = true;
+                    }
+                }
+                else if (dtPermohonan.Rows[0]["IdStatusKeputusan"].ToString() == "1")
+                {
+                    LtlLabelSyarikat.Text = "SYARIKAT DIPERAKU";
+                    LtlSyarikat.Text = dtPermohonan.Rows[0]["MOFSyarikatDiperaku"].ToString();
+                    LtlSyarikat2.Text = dtPermohonan.Rows[0]["SyarikatBerjaya"].ToString();
+                    LtlTempoh.Text = dtPermohonan.Rows[0]["MOFTempoh"].ToString();
+                    LtlTempoh2.Text = dtPermohonan.Rows[0]["Tempoh"].ToString();
+                    LtlNilaiTawaran.Text = "RM " + string.Format("{0:#,0.00}", dtPermohonan.Rows[0]["MOFNilaiTawaran"]);
+                    LtlNilaiTawaran2.Text = "RM " + string.Format("{0:#,0.00}", dtPermohonan.Rows[0]["NilaiTawaran"]);
+                    LinkToEditMOF.NavigateUrl = "~/keputusan/mof.aspx?id=" + dtPermohonan.Rows[0]["Id"];
+
+                    if (dtPermohonan.Rows[0]["IdStatusPengesahan"].ToString() == "4")
+                        PanelMOF.Visible = true;
+                }
+
                 LtlPbmMuktamad.Text = dtPermohonan.Rows[0]["PBM"].ToString();
-                LtlTarikhSST.Text = dtPermohonan.Rows[0]["TarikhSuratSetujuTerimaMS"].ToString();
-                LtlRujukanSST.Text = dtPermohonan.Rows[0]["RujukanSuratSetujuTerima"].ToString();
                 LtlAlasan.Text = dtPermohonan.Rows[0]["AlasanKeputusan"].ToString().Replace(Environment.NewLine, "<br />");
                 LtlIdStatus.Text = dtPermohonan.Rows[0]["IdStatusKeputusan"].ToString();
+                LtlIdJenisPertimbangan.Text = dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString();
                 string returnUrl = "";
+
                 if (Request.QueryString["ReturnURL"] != null)
                 {
                     returnUrl = "&ReturnURL=" + System.Web.HttpUtility.UrlEncode(Request.QueryString["ReturnURL"]);
@@ -90,8 +127,8 @@ namespace EPBM.mesyuarat
                     LinkLampiran.Text = LinkLampiran.Text + dtPermohonan.Rows[0]["LampiranKeputusan"];
                     //LinkLampiran.Attributes.Add("download", dtPermohonan.Rows[0]["LampiranKeputusan"].ToString());
                 }
-            }
-            catch (Exception) { Utils.HttpNotFound(); }
+            //}
+            //catch (Exception) { Utils.HttpNotFound(); }
         }
     }
 }

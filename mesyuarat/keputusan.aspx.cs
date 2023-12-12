@@ -57,8 +57,9 @@ namespace EPBM.mesyuarat
                 DataRow[] dtMesyuarat = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + listMesyuarat.SelectedValue);
                 TajukMesyuaratModal.Text = dtMesyuarat[0]["MESYUARAT"].ToString();
                 TajukPermohonan.Text = "BAGI MESYUARAT " + TajukMesyuaratModal.Text;
-                string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, PBM as MUKTAMAD, StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, IdPBMMuktamad, AlasanKeputusan as KETERANGAN " +
-                                      "from Papar_Permohonan WHERE IdStatusPengesahan<>2 and IdStatusPengesahan<>4 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
+                string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, IdJenisPertimbangan, IdPBMMuktamad, PBM as MUKTAMAD, " +
+                                    "StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, AlasanKeputusan as KETERANGAN, JenisPentadbiranKontrak " +
+                                    "from Papar_Permohonan WHERE IdStatusPengesahan<>2 and IdStatusPengesahan<>4 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", listMesyuarat.SelectedValue } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
                 GridView1.DataSource = dtPermohonan;
@@ -125,21 +126,28 @@ namespace EPBM.mesyuarat
                 else
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-danger";
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5")
+                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5" || (drv.Row["IdStatusKeputusan"].ToString() == "1" && drv.Row["IdJenisPertimbangan"].ToString() == "99"))
                 {
                     detailsList.Visible = false;
                 }
-                else if (!string.IsNullOrEmpty(drv.Row["IdStatusKeputusan"].ToString()))
+                else if (drv.Row["IdStatusKeputusan"].ToString() == "1")
                 {
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
-                    if (drv.Row["IdPBMMuktamad"].ToString() == "1")
+                    
+                    if(drv.Row["IdJenisPertimbangan"].ToString() == "2")
+                    {
+                        dt.Rows.Add("JENIS PENTADBIRAN KONTRAK", drv.Row["JenisPentadbiranKontrak"].ToString());
+                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    }
+                    else if ((drv.Row["IdPBMMuktamad"].ToString() == "1" ||
+                        (drv.Row["IdPBMMuktamad"].ToString() == "2" && !string.IsNullOrEmpty(drv.Row["SyarikatBerjaya"].ToString()))))
                     {
                         dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
                         dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaran"]));
                         dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
                     }
-                    else
+                    else if (drv.Row["IdPBMMuktamad"].ToString() == "2")
                     {
                         dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["MOFSyarikatDiperaku"].ToString());
                         dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["MOFNilaiTawaran"]));

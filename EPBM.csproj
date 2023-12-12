@@ -122,7 +122,9 @@
     <Content Include="errors\404.aspx" />
     <Content Include="errors\default.aspx" />
     <Content Include="keputusan\cetak-senarai.aspx" />
+    <Content Include="keputusan\mof.aspx" />
     <Content Include="keputusan\senarai.aspx" />
+    <Content Include="keputusan\sst.aspx" />
     <Content Include="laporan\carian.aspx" />
     <Content Include="auth\login.aspx" />
     <Content Include="laporan\CarianSyarikat.aspx" />
@@ -177,6 +179,20 @@
     </Compile>
     <Compile Include="keputusan\cetak-senarai.aspx.designer.cs">
       <DependentUpon>cetak-senarai.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="keputusan\mof.aspx.cs">
+      <DependentUpon>mof.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="keputusan\mof.aspx.designer.cs">
+      <DependentUpon>mof.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="keputusan\sst.aspx.cs">
+      <DependentUpon>sst.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="keputusan\sst.aspx.designer.cs">
+      <DependentUpon>sst.aspx</DependentUpon>
     </Compile>
     <Compile Include="laporan\CarianSyarikat.aspx.cs">
       <DependentUpon>CarianSyarikat.aspx</DependentUpon>

@@ -63,6 +63,9 @@
 
                 <asp:BoundField DataField="JABATAN" HeaderText="JABATAN" HeaderStyle-CssClass="text-center">
                 </asp:BoundField>
+				
+				<asp:BoundField DataField="MUKTAMAD" HeaderText="MUKTAMAD" HeaderStyle-CssClass="text-center" SortExpression="MUKTAMAD">
+				</asp:BoundField>
 
 				<asp:TemplateField HeaderText="STATUS" ItemStyle-CssClass="text-center" HeaderStyle-CssClass="text-center">
 					<ItemTemplate>

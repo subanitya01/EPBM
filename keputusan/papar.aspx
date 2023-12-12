@@ -72,34 +72,34 @@
 			<table class="table table-bordered table-hover">
 				<tbody>
 					<tr>
-					  <th scope="row" class="align-middle bg-secondary text-white w-25">STATUS</th>
-					  <td class=""><asp:Literal ID="LtlStatus" runat="server"></asp:Literal></td>
-					</tr>
-					<tr>
 					  <th scope="row" class="align-middle bg-secondary text-white">MESYUARAT</th>
 					  <td class=""><asp:Literal ID="LtlMesyuarat" runat="server"></asp:Literal></td>
 					</tr>
-					<tr class="success">
-					  <th scope="row" class="align-middle bg-secondary text-white">SYARIKAT BERJAYA</th>
-					  <td class=""><asp:Literal ID="LtlSyarikat" runat="server"></asp:Literal></td>
-					</tr>
-					<tr class="success">
-					  <th scope="row" class="align-middle bg-secondary text-white">TEMPOH</th>
-					  <td class=""><asp:Literal ID="LtlTempoh" runat="server"></asp:Literal> BULAN</td>
+					<tr>
+					  <th scope="row" class="align-middle bg-secondary text-white w-25">STATUS</th>
+					  <td class=""><asp:Literal ID="LtlStatus" runat="server"></asp:Literal></td>
 					</tr>
 					<tr>
 					  <th scope="row" class="align-middle bg-secondary text-white">PBM MUKTAMAD</th>
 					  <td class=""><asp:Literal ID="LtlPbmMuktamad" runat="server"></asp:Literal></td>
 					</tr>
-					<tr class="success">
-					  <th scope="row" class="align-middle bg-secondary text-white">TARIKH SURAT SETUJU TERIMA</th>
-					  <td class=""><asp:Literal ID="LtlTarikhSST" runat="server"></asp:Literal></td>
+					<tr class="success2">
+					  <th scope="row" class="align-middle bg-secondary text-white">JENIS PENTADBIRAN KONTRAK</th>
+					  <td class=""><asp:Literal ID="LtlJenisPentadbiranKontrak" runat="server"></asp:Literal></td>
 					</tr>
 					<tr class="success">
-					  <th scope="row" class="align-middle bg-secondary text-white">RUJUKAN SURAT SETUJU TERIMA</th>
-					  <td class=""><asp:Literal ID="LtlRujukanSST" runat="server"></asp:Literal></td>
+					  <th scope="row" class="align-middle bg-secondary text-white"><asp:Literal ID="LtlLabelSyarikat" runat="server">SYARIKAT BERJAYA</asp:Literal></th>
+					  <td class=""><asp:Literal ID="LtlSyarikat" runat="server"></asp:Literal></td>
 					</tr>
-					<tr class="fail">
+					<tr class="success success2">
+					  <th scope="row" class="align-middle bg-secondary text-white">TEMPOH</th>
+					  <td class=""><asp:Literal ID="LtlTempoh" runat="server"></asp:Literal> BULAN</td>
+					</tr>
+					<tr class="success">
+					  <th scope="row" class="align-middle bg-secondary text-white">NILAI TAWARAN</th>
+					  <td class=""><asp:Literal ID="LtlNilaiTawaran" runat="server"></asp:Literal></td>
+					</tr>
+					<tr class="fail success2">
 					  <th scope="row" class="align-middle bg-secondary text-white">CATATAN</th>
 					  <td class=""><asp:Literal ID="LtlAlasan" runat="server"></asp:Literal></td>
 					</tr>
@@ -111,10 +111,69 @@
 			</table>
 		</div>
 	</div>
+	<asp:Panel ID="PanelMOF" runat="server" CssClass="card" Visible="false">
+		<div class="card-header pb-0">
+			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
+				<asp:HyperLink ID="LinkToEditMOF" runat="server" CssClass="btn btn-success" ><i class="mt-n1" data-feather="edit-2"></i > Edit</asp:HyperLink>
+			</div>
+			<h5 class="card-title">KEPUTUSAN MOF</h5>
+		</div>
+		<div class="card-body table-responsive">
+			<table class="table table-bordered table-hover">
+				<tbody>
+					<tr>
+					  <th scope="row" class="align-middle bg-secondary text-white">SYARIKAT BERJAYA</th>
+					  <td class=""><asp:Literal ID="LtlSyarikat2" runat="server"></asp:Literal></td>
+					</tr>
+					<tr>
+					  <th scope="row" class="align-middle bg-secondary text-white">TEMPOH</th>
+					  <td class=""><asp:Literal ID="LtlTempoh2" runat="server"></asp:Literal> BULAN</td>
+					</tr>
+					<tr>
+					  <th scope="row" class="align-middle bg-secondary text-white">NILAI TAWARAN</th>
+					  <td class=""><asp:Literal ID="LtlNilaiTawaran2" runat="server"></asp:Literal></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</asp:Panel>
+	<asp:Panel ID="PanelSST" runat="server" CssClass="card" Visible="false">
+		<div class="card-header pb-0">
+			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
+				<asp:HyperLink ID="LinkToEditSST" runat="server" CssClass="btn btn-success" ><i class="mt-n1" data-feather="edit-2"></i > Edit</asp:HyperLink>
+			</div>
+			<h5 class="card-title">MAKLUMAT SST</h5>
+		</div>
+		<div class="card-body table-responsive">
+			<table class="table table-bordered table-hover">
+				<tbody>
+					<tr class="success">
+					  <th scope="row" class="align-middle bg-secondary text-white">TARIKH SURAT SETUJU TERIMA</th>
+					  <td class=""><asp:Literal ID="LtlTarikhSST" runat="server"></asp:Literal></td>
+					</tr>
+					<tr class="success">
+					  <th scope="row" class="align-middle bg-secondary text-white">RUJUKAN SURAT SETUJU TERIMA</th>
+					  <td class=""><asp:Literal ID="LtlRujukanSST" runat="server"></asp:Literal></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</asp:Panel>
 	<script>
 		var statusKeputusan = <asp:Literal ID="LtlIdStatus" runat="server"></asp:Literal>;
-        if (statusKeputusan == 1 || statusKeputusan == 2) {
-            failFields = document.querySelectorAll('.fail');
+		var jenisPertimbangan = <asp:Literal ID="LtlIdJenisPertimbangan" runat="server"></asp:Literal>;
+        if ((statusKeputusan == 1 || statusKeputusan == 2) && jenisPertimbangan == 2) {
+            failFields = document.querySelectorAll('.fail, .success');
+            failFields.forEach(function (field, index) {
+                field.classList.add("d-none");
+            });
+            successFields = document.querySelectorAll('.success2');
+            successFields.forEach(function (field, index) {
+                field.classList.remove("d-none");
+            });
+		}
+		else if (statusKeputusan == 1 && jenisPertimbangan != 99) {
+            failFields = document.querySelectorAll('.fail, .success2');
             failFields.forEach(function (field, index) {
                 field.classList.add("d-none");
             });
@@ -122,8 +181,9 @@
             successFields.forEach(function (field, index) {
                 field.classList.remove("d-none");
             });
-        } else {
-            successFields = document.querySelectorAll('.success');
+		}
+		else {
+            successFields = document.querySelectorAll('.success, .success2');
             successFields.forEach(function (field, index) {
                 field.classList.add("d-none");
             });

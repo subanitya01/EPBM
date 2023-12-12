@@ -97,6 +97,7 @@
 		table td.blank-cell{padding:15px;border:0 !important;}
 
 		@media print {
+			@page { size: landscape; }
 			.p-hide { display:none; }
 			header, footer{ display: block; }
 			footer{ position: fixed;bottom: 0; right: 0; }
@@ -170,7 +171,7 @@
 									</ul>
 								</LayoutTemplate>
 								<ItemTemplate>
-									<li class="list-group-item p-1 text-nowrap"><b><%#: Eval("Label") %>:</b> <%#: Eval("Text") %></li>
+									<li class="list-group-item p-1 text-nowrap"><b><%#: Eval("Label") %>:</b> <br /><%#: Eval("Text") %></li>
 								</ItemTemplate>
 							</asp:ListView>
 						</ItemTemplate>

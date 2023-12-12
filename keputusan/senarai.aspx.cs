@@ -89,8 +89,8 @@ namespace EPBM.keputusan
             bool extendSearch = Convert.ToBoolean(ViewState["extendSearch"]);
             string sortDir = ViewState["SortDirection"] as string;
             string sortBy = ViewState["SortExpression"] as string;
-            string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, PBM as MUKTAMAD, " +
-                                "StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, IdPBMMuktamad, AlasanKeputusan as KETERANGAN, MESYUARAT ";
+            string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, IdJenisPertimbangan, IdPBMMuktamad, PBM as MUKTAMAD, " +
+                                "StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, AlasanKeputusan as KETERANGAN, MESYUARAT, JenisPentadbiranKontrak ";
             string CommandText = "from Papar_Permohonan WHERE TarikhHapus IS NULL AND IdStatusPengesahan = 4 ";
             string limit = " OFFSET  " + (GridView1.PageIndex * GridView1.PageSize) + " ROWS FETCH NEXT " + GridView1.PageSize + " ROWS ONLY";
 
@@ -230,6 +230,8 @@ namespace EPBM.keputusan
                 Label LblKeterangan = e.Row.FindControl("LblKeterangan") as Label;
                 ListView detailsList = e.Row.FindControl("DetailsList") as ListView;
                 Literal numbering = e.Row.FindControl("Numbering") as Literal;
+                HyperLink LinkEditSST = e.Row.FindControl("LinkEditSST") as HyperLink;
+                HyperLink LinkEditMOF = e.Row.FindControl("LinkEditMOF") as HyperLink;
                 
                 if (drv.Row["IdStatusKeputusan"].ToString() == "1")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
@@ -240,21 +242,28 @@ namespace EPBM.keputusan
                 else
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-danger";
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5")
+                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5" || (drv.Row["IdStatusKeputusan"].ToString() == "1" && drv.Row["IdJenisPertimbangan"].ToString() == "99"))
                 {
                     detailsList.Visible = false;
                 }
-                else if (!string.IsNullOrEmpty(drv.Row["IdStatusKeputusan"].ToString()))
+                else if (drv.Row["IdStatusKeputusan"].ToString() == "1")
                 {
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
-                    if (drv.Row["IdPBMMuktamad"].ToString() == "1")
+
+                    if (drv.Row["IdJenisPertimbangan"].ToString() == "2")
+                    {
+                        dt.Rows.Add("JENIS PENTADBIRAN KONTRAK", drv.Row["JenisPentadbiranKontrak"].ToString());
+                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                    }
+                    else if ((drv.Row["IdPBMMuktamad"].ToString() == "1" ||
+                        (drv.Row["IdPBMMuktamad"].ToString() == "2" && !string.IsNullOrEmpty(drv.Row["SyarikatBerjaya"].ToString()))))
                     {
                         dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
                         dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaran"]));
                         dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
                     }
-                    else
+                    else if (drv.Row["IdPBMMuktamad"].ToString() == "2")
                     {
                         dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["MOFSyarikatDiperaku"].ToString());
                         dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["MOFNilaiTawaran"]));
@@ -263,7 +272,22 @@ namespace EPBM.keputusan
                     detailsList.DataSource = dt;
                     detailsList.DataBind();
                     LblKeterangan.Visible = false;
+
+                    if (User.IsInRole("Administrator") || User.IsInRole("Urusetia") || User.IsInRole("Pengesah"))
+                    {
+                        if (drv.Row["IdJenisPertimbangan"].ToString() != "2" && drv.Row["IdJenisPertimbangan"].ToString() != "99" && drv.Row["IdPBMMuktamad"].ToString() == "1")
+                        {
+                            LinkEditSST.NavigateUrl = "/keputusan/sst.aspx?id=" + drv.Row["Id"] + "&ReturnURL=" + System.Web.HttpUtility.UrlEncode("/keputusan/senarai.aspx");
+                            LinkEditSST.Visible = true;
+                        }
+                        if (drv.Row["IdJenisPertimbangan"].ToString() != "2" && drv.Row["IdJenisPertimbangan"].ToString() != "99" && drv.Row["IdPBMMuktamad"].ToString() == "2")
+                        {
+                            LinkEditMOF.NavigateUrl = "/keputusan/mof.aspx?id=" + drv.Row["Id"] + "&ReturnURL=" + System.Web.HttpUtility.UrlEncode("/keputusan/senarai.aspx");
+                            LinkEditMOF.Visible = true;
+                        }
+                    }
                 }
+
                 numbering.Text = (GridView1.PageIndex * GridView1.PageSize + e.Row.RowIndex + 1).ToString();
             }
         }

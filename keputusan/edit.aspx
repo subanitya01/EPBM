@@ -67,7 +67,6 @@
 	</div>
 	<div class="card">
 		<div class="card-body">
-			<asp:Panel ID="Panel1" runat="server">
 				<div class="row">
 					<div class="col-12 mb-2">
 						<label class="control-label">STATUS <span class="text-danger">*</span></label>
@@ -77,24 +76,22 @@
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Sila Pilih Status" ControlToValidate="RadioStatus" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Sila Pilih Status" ControlToValidate="RadioStatus" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>
-					<div class="col-12 col-lg-6 mb-2 success">
+				</div>
+				<asp:Panel ID="PanelSuccess1" runat="server" CssClass="row success" Visible="false">
+					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
 						<asp:DropDownList ID="listPbmMuktamad" CssClass="form-select" required="required" runat="server" /> 
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 					</div>
-					<div class="col-12 col-lg-6 mb-2 notkiv fail d-none">
-						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
-						<asp:DropDownList ID="listPbmMuktamad2" CssClass="form-select" required="required" runat="server" /> 
-						<asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad2" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-					</div>
-					<div class="col-12 col-lg-6 mb-2 success">
+					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label" id="lblSyarikat" >SYARIKAT BERJAYA <span class="text-danger">*</span></label>
-								<asp:TextBox ID="txtSyarikat" runat="server" CssClass="form-control" placeholder="SYARIKAT BERJAYA" required="required" autocomplete="off" />
-								<div class="position-absolute invisible z-3" id="autocompleteSyarikat"></div>
-								<span id="syarikatBerjayaLimit" class="text-danger d-none">Syarikat ini telah dilantik melebihi 2 kali dalam 2 tahun</span>
-								<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Sila Isi Syarikat Berjaya" ControlToValidate="txtSyarikat" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+						<asp:TextBox ID="txtSyarikat" runat="server" CssClass="form-control" placeholder="SYARIKAT BERJAYA" required="required" autocomplete="off" />
+						<div class="position-absolute invisible z-3" id="autocompleteSyarikat"></div>
+						<span id="syarikatBerjayaLimit" class="text-danger d-none">Syarikat ini telah dilantik melebihi 2 kali dalam 2 tahun</span>
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Sila Isi Syarikat Berjaya" ControlToValidate="txtSyarikat" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+	
 					</div>
-					<div class="col-12 col-lg-6 mb-2 success">
+					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label" >TEMPOH <span class="text-danger">*</span></label>
 						<div class="input-group">
 							<asp:TextBox ID="txtTempoh" runat="server" CssClass="form-control" TextMode="Number" placeholder="TEMPOH" step="1" min="1" required="required" />
@@ -103,14 +100,15 @@
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Sila Isi Tempoh" ControlToValidate="txtTempoh" ValidationGroup="success" ForeColor="Red"></asp:RequiredFieldValidator>
 						<asp:CompareValidator runat="server" Operator="DataTypeCheck" Type="Integer" ControlToValidate="txtTempoh" ErrorMessage="Tempoh hanya dalam digit sahaja" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true" />
 					</div>
-					<div class="col-12 col-lg-6 mb-2 success">
-						<label class="control-label" >NILAI TAWARAN</label>
+					<div class="col-12 col-lg-6 mb-2">
+						<label class="control-label" >NILAI TAWARAN <span class="text-danger">*</span></label>
 						<div class="input-group">
 							<span class="input-group-text">RM</span>
-							<asp:TextBox ID="txtNilaiTawaran" runat="server" CssClass="form-control" TextMode="Number" placeholder="NILAI TAWARAN" />
+							<asp:TextBox ID="txtNilaiTawaran" runat="server" CssClass="form-control" TextMode="Number" placeholder="NILAI TAWARAN" required="required" />
 						</div>
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Sila Isi Tempoh" ControlToValidate="txtNilaiTawaran" ValidationGroup="success" ForeColor="Red"></asp:RequiredFieldValidator>
 					</div>
-					<div class="col-12 col-lg-6 mb-2 success">
+					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">LAMPIRAN</label>
 						<div class="d-flex position-relative">
 							<asp:Label runat="server" id="attachmentLabel" AssociatedControlId="fileAttachment" class="w-100 preview-file position-absolute border bg-white text-truncate d-flex align-items-stretch" title="168187124571_Screenshot 2023-04-04 110107.jpg">
@@ -131,10 +129,169 @@
 							SetFocusOnError="true">
 						</asp:RegularExpressionValidator> 
 					</div>
-					<div class="col-12 col-lg-6 mb-2 fail d-none">
+						<script src="<%= ResolveUrl("~/assets/js/autocomplete.js") %>"></script>
+						<script>
+                            var company_list = <asp:Literal ID="companyList" runat="server" />;
+                            set_autocomplete('<%=txtSyarikat.ClientID %>', 'autocompleteSyarikat', Object.keys(company_list), 1);
+                            var inputSyarikat = document.getElementById('<%=txtSyarikat.ClientID %>');
+                            var errorSyarikat = document.getElementById('syarikatBerjayaLimit');
+                            inputSyarikat.addEventListener('change', function (event) {
+                                if (event.target.value in company_list && company_list[event.target.value] != "") {
+                                    errorSyarikat.classList.remove("d-none");
+                                }
+                                else errorSyarikat.classList.add("d-none");
+                            })
+
+                            var fileAttachment = document.getElementById('<%=fileAttachment.ClientID %>');
+                            fileAttachment.addEventListener('change', function (event) {
+                                if (fileAttachment.files.length > 0)
+                                    document.getElementById('<%=attachmentLabel.ClientID %>').classList.add('d-none');
+								else if (document.getElementById('<%=LiteralFileName.ClientID %>').innerText.trim() != "")
+									document.getElementById('<%=attachmentLabel.ClientID %>').classList.remove('d-none');
+							})
+							var removeAttachment = document.getElementById('removeAttachment');
+							removeAttachment.addEventListener('click', function (event) {
+								document.getElementById('<%=attachmentLabel.ClientID %>').classList.add('d-none');
+								document.getElementById('<%=fileAttachment.ClientID %>').value = '';
+								document.getElementById('<%=keepAttachment.ClientID %>').value = 0;
+							})
+
+							var pbmMuktamad = document.getElementById('<%=listPbmMuktamad.ClientID %>');
+                            function changeSyarikat(val) {
+                                if (val == 1) {
+									document.getElementById('lblSyarikat').innerHTML = 'SYARIKAT BERJAYA <span class="text-danger">*</span>';
+									document.getElementById('<%=txtSyarikat.ClientID %>').placeholder = "SYARIKAT BERJAYA";
+                                    document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Berjaya";
+								}
+								else {
+                                    document.getElementById('lblSyarikat').innerHTML = 'SYARIKAT DIPERAKU <span class="text - danger">*</span>';
+                                    document.getElementById('<%=txtSyarikat.ClientID %>').placeholder = "SYARIKAT DIPERAKU";
+									document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Diperaku";
+								}
+							}
+							changeSyarikat(pbmMuktamad.value);
+
+							pbmMuktamad.addEventListener('change', function (event) {
+                                changeSyarikat(this.value);
+							})
+                        </script>
+				</asp:Panel>
+				<asp:Panel ID="PanelSuccess2" runat="server" CssClass="row success" Visible="false">
+					<div class="col-12 col-lg-6 mb-2">
+						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
+						<asp:DropDownList ID="listPbmMuktamad3" CssClass="form-select" required="required" runat="server" /> 
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad3" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+					</div>
+					<div class="col-12 col-lg-6 mb-2">
+						<label class="control-label">JENIS PENTADBIRAN KONTRAK <span class="text-danger">*</span></label>
+						<asp:DropDownList ID="listJenisPentadbiranKontrak" CssClass="form-select" required="required" runat="server" /> 
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Sila Pilih Jenis Pentadbiran Kontrak" ControlToValidate="listJenisPentadbiranKontrak" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+					</div>
+					<div class="col-12 col-lg-6 mb-2">
+						<label class="control-label" >TEMPOH</label>
+						<div class="input-group">
+							<asp:TextBox ID="txtTempoh2" runat="server" CssClass="form-control" TextMode="Number" placeholder="TEMPOH" step="1" min="1" />
+							<span class="input-group-text">BULAN</span>
+						</div>
+						<asp:CompareValidator runat="server" Operator="DataTypeCheck" Type="Integer" ControlToValidate="txtTempoh2" ErrorMessage="Tempoh hanya dalam digit sahaja" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true" />
+					</div>
+					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">LAMPIRAN</label>
 						<div class="d-flex position-relative">
-							<asp:Label runat="server" id="attachmentLabel2" AssociatedControlId="fileAttachment2" class="w-100 preview-file position-absolute border bg-white text-truncate d-flex align-items-stretch" title="168187124571_Screenshot 2023-04-04 110107.jpg">
+							<asp:Label runat="server" id="attachmentLabel3" AssociatedControlId="fileAttachment3" class="w-100 preview-file position-absolute border bg-white text-truncate d-flex align-items-stretch">
+								<span class="py-1 px-3 bg-body-tertiary border">Choose File</span> 
+								<span class="py-1 px-2"><asp:Literal ID="LiteralFileName3" runat="server"></asp:Literal></span> 
+							</asp:Label>
+							<asp:FileUpload ID="fileAttachment3" runat="server" CssClass="form-control" placeholder="LAMPIRAN" />
+							<button id="removeAttachment3" class="m-1 bg-white  position-absolute border-0 top-0 end-0 z-10" title="Remove" type="button"><i class="mt-n1" data-feather="x"></i ></button>
+						</div>
+						<asp:HiddenField ID="keepAttachment3" Value="1" runat="server" />
+						<asp:RegularExpressionValidator   
+							id="FileUpLoadValidator3" runat="server"   
+							ErrorMessage="Hanya fail PDF, DOCX, DOC, XLSX, XLS, PPTX, PPT, JPG, PNG dibenarkan."   
+							ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.[Pp][Dd][Ff]|.[Dd][Oo][Cc]([Xx]?)|.[Xx][Ll][Ss]([Xx]?)|.[Pp][Pp][Tt]([Xx]?)|.[Jj][Pp][Gg]|.[Pp][Nn][Gg])$"   
+							ControlToValidate="fileAttachment3"
+							ValidationGroup="fail"
+							SetFocusOnError="true"
+							ForeColor="Red">  
+						</asp:RegularExpressionValidator> 
+					</div>
+					<script>
+                        var fileAttachment3 = document.getElementById('<%=fileAttachment3.ClientID %>');
+                        fileAttachment3.addEventListener('change', function (event) {
+                            if (fileAttachment3.files.length > 0)
+                                document.getElementById('<%=attachmentLabel3.ClientID %>').classList.add('d-none');
+							else if (document.getElementById('<%=LiteralFileName3.ClientID %>').innerText.trim() != "")
+								document.getElementById('<%=attachmentLabel3.ClientID %>').classList.remove('d-none');
+						})
+						var removeAttachment3 = document.getElementById('removeAttachment3');
+						removeAttachment3.addEventListener('click', function (event) {
+							document.getElementById('<%=attachmentLabel3.ClientID %>').classList.add('d-none');
+							document.getElementById('<%=fileAttachment3.ClientID %>').value = '';
+							document.getElementById('<%=keepAttachment3.ClientID %>').value = 0;
+						})
+                    </script>
+				</asp:Panel>
+				<asp:Panel ID="PanelSuccess3" runat="server" CssClass="row success" Visible="false">
+					<div class="col-12 col-lg-6 mb-2">
+						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
+						<asp:DropDownList ID="listPbmMuktamad4" CssClass="form-select" required="required" runat="server" /> 
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad4" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+					</div>
+					<div class="col-12 col-lg-6 mb-2">
+						<label class="control-label">LAMPIRAN</label>
+						<div class="d-flex position-relative">
+							<asp:Label runat="server" id="attachmentLabel4" AssociatedControlId="fileAttachment3" class="w-100 preview-file position-absolute border bg-white text-truncate d-flex align-items-stretch">
+								<span class="py-1 px-3 bg-body-tertiary border">Choose File</span> 
+								<span class="py-1 px-2"><asp:Literal ID="LiteralFileName4" runat="server"></asp:Literal></span> 
+							</asp:Label>
+							<asp:FileUpload ID="fileAttachment4" runat="server" CssClass="form-control" placeholder="LAMPIRAN" />
+							<button id="removeAttachment4" class="m-1 bg-white  position-absolute border-0 top-0 end-0 z-10" title="Remove" type="button"><i class="mt-n1" data-feather="x"></i ></button>
+						</div>
+						<asp:HiddenField ID="keepAttachment4" Value="1" runat="server" />
+						<asp:RegularExpressionValidator   
+							id="FileUpLoadValidator4" runat="server"   
+							ErrorMessage="Hanya fail PDF, DOCX, DOC, XLSX, XLS, PPTX, PPT, JPG, PNG dibenarkan."   
+							ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))(.[Pp][Dd][Ff]|.[Dd][Oo][Cc]([Xx]?)|.[Xx][Ll][Ss]([Xx]?)|.[Pp][Pp][Tt]([Xx]?)|.[Jj][Pp][Gg]|.[Pp][Nn][Gg])$"   
+							ControlToValidate="fileAttachment4"
+							ValidationGroup="fail"
+							SetFocusOnError="true"
+							ForeColor="Red">  
+						</asp:RegularExpressionValidator> 
+					</div>
+					<div class="col-12 success mb-2">
+						<div>
+							<label class="control-label">CATATAN <span class="text-danger">*</span></label>
+							<asp:TextBox ID="txtAlasan2" runat="server" CssClass="form-control" placeholder="CATATAN" TextMode="MultiLine" Rows="4" />
+							<asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Sila Isi Catatan" ControlToValidate="txtAlasan2" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+						</div>
+					</div>
+					<script>
+                        var fileAttachment4 = document.getElementById('<%=fileAttachment4.ClientID %>');
+                        fileAttachment4.addEventListener('change', function (event) {
+                            if (fileAttachment4.files.length > 0)
+                                document.getElementById('<%=attachmentLabel4.ClientID %>').classList.add('d-none');
+							else if (document.getElementById('<%=LiteralFileName4.ClientID %>').innerText.trim() != "")
+								document.getElementById('<%=attachmentLabel4.ClientID %>').classList.remove('d-none');
+						})
+						var removeAttachment4 = document.getElementById('removeAttachment4');
+						removeAttachment4.addEventListener('click', function (event) {
+							document.getElementById('<%=attachmentLabel4.ClientID %>').classList.add('d-none');
+							document.getElementById('<%=fileAttachment4.ClientID %>').value = '';
+							document.getElementById('<%=keepAttachment4.ClientID %>').value = 0;
+						})
+                    </script>
+				</asp:Panel>
+				<asp:Panel ID="PanelFail" runat="server" CssClass="row fail d-none">
+					<div class="col-12 col-lg-6 mb-2 notkiv">
+						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
+						<asp:DropDownList ID="listPbmMuktamad2" CssClass="form-select" required="required" runat="server" /> 
+						<asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad2" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
+					</div>
+					<div class="col-12 col-lg-6 mb-2">
+						<label class="control-label">LAMPIRAN</label>
+						<div class="d-flex position-relative">
+							<asp:Label runat="server" id="attachmentLabel2" AssociatedControlId="fileAttachment2" class="w-100 preview-file position-absolute border bg-white text-truncate d-flex align-items-stretch">
 								<span class="py-1 px-3 bg-body-tertiary border">Choose File</span> 
 								<span class="py-1 px-2"><asp:Literal ID="LiteralFileName2" runat="server"></asp:Literal></span> 
 							</asp:Label>
@@ -152,35 +309,22 @@
 							ForeColor="Red">  
 						</asp:RegularExpressionValidator> 
 					</div>
-					<div class="col-12 fail mb-2 d-none">
+					<div class="col-12 fail mb-2">
 						<div>
 							<label class="control-label">CATATAN <span class="text-danger">*</span></label>
 							<asp:TextBox ID="txtAlasan" runat="server" CssClass="form-control" placeholder="CATATAN" TextMode="MultiLine" Rows="4" />
 							<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Sila Isi Catatan" ControlToValidate="txtAlasan" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
 						</div>
 					</div>
-					<div class="col-12">
-						<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary success" ValidationGroup="success" runat="server" OnClick="SaveSuccess">HANTAR</asp:LinkButton>
-						<asp:LinkButton ID="btnSubmit2" CssClass="btn btn-primary fail d-none" runat="server" ValidationGroup="fail" OnClick="SaveFail">HANTAR</asp:LinkButton>
-					</div>
-
+				</asp:Panel>
+				<div class="col-12">
+					<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary success" ValidationGroup="success" runat="server" OnClick="SaveSuccess">HANTAR</asp:LinkButton>
+					<asp:LinkButton ID="btnSubmit2" CssClass="btn btn-primary fail d-none" runat="server" ValidationGroup="fail" OnClick="SaveFail">HANTAR</asp:LinkButton>
 				</div>
-			</asp:Panel>
 		</div>
 	</div>
 	
-	<script src="<%= ResolveUrl("~/assets/js/autocomplete.js") %>"></script>
 	<script>
-		var company_list = <asp:Literal ID="companyList" runat="server" />;
-		set_autocomplete('<%=txtSyarikat.ClientID %>', 'autocompleteSyarikat', Object.keys(company_list), 1);
-		var inputSyarikat = document.getElementById('<%=txtSyarikat.ClientID %>');
-        var errorSyarikat = document.getElementById('syarikatBerjayaLimit');
-		inputSyarikat.addEventListener('change', function (event) {
-            if (event.target.value in company_list && company_list[event.target.value] != "") {
-                errorSyarikat.classList.remove("d-none");
-			}
-            else errorSyarikat.classList.add("d-none");
-		})
 		var statuses = document.querySelectorAll('#<%=RadioStatus.ClientID %> input[type="radio"]');
 
 		statuses.forEach(status => {
@@ -200,33 +344,26 @@
 						field.classList.add("d-none");
 					});
 					failFields = document.querySelectorAll('.fail');
-					failFields.forEach(function (field, index) {
-                        if (status.value == 5 && field.classList.contains("notkiv")) {
-							field.classList.add("d-none");
-							document.getElementById('<%=listPbmMuktamad2.ClientID %>').value = 1;
+                    failFields.forEach(function (field, index) {
+                        field.classList.remove("d-none");
+						var notkivfields = field.querySelectorAll(".notkiv");
+
+                        if (status.value == 5) {
+                            notkivfields.forEach(notkivfield => {
+                                notkivfield.classList.add("d-none");
+							})
+							//document.getElementById('<%=listPbmMuktamad2.ClientID %>').value = 1;
 						}
-						else
-							field.classList.remove("d-none");
+                        else
+                            notkivfields.forEach(notkivfield => {
+                                notkivfield.classList.remove("d-none");
+                            })
 					});
 				}
 			});
             if (status.checked)
             status.dispatchEvent(new Event('change'));
 		});
-
-        var fileAttachment = document.getElementById('<%=fileAttachment.ClientID %>');
-        fileAttachment.addEventListener('change', function (event) {
-            if (fileAttachment.files.length > 0) 
-                document.getElementById('<%=attachmentLabel.ClientID %>').classList.add('d-none');
-            else if (document.getElementById('<%=LiteralFileName.ClientID %>').innerText.trim() != "")
-                document.getElementById('<%=attachmentLabel.ClientID %>').classList.remove('d-none');
-		})
-		var removeAttachment = document.getElementById('removeAttachment');
-		removeAttachment.addEventListener('click', function (event) {
-			document.getElementById('<%=attachmentLabel.ClientID %>').classList.add('d-none');
-			document.getElementById('<%=fileAttachment.ClientID %>').value = '';
-			document.getElementById('<%=keepAttachment.ClientID %>').value = 0;
-		})
 
         var fileAttachment2 = document.getElementById('<%=fileAttachment2.ClientID %>');
         fileAttachment2.addEventListener('change', function (event) {
@@ -240,28 +377,6 @@
 			document.getElementById('<%=attachmentLabel2.ClientID %>').classList.add('d-none');
 			document.getElementById('<%=fileAttachment2.ClientID %>').value = '';
 			document.getElementById('<%=keepAttachment2.ClientID %>').value = 0;
-		})
-
-		var pbmMuktamad = document.getElementById('<%=listPbmMuktamad.ClientID %>');
-
-        if (pbmMuktamad.value == 1) {
-            lblSyarikat.innerHTML = 'SYARIKAT BERJAYA <span class="text-danger">*</span>';
-            document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Berjaya";
-        }
-        else {
-            lblSyarikat.innerHTML = 'SYARIKAT DIPERAKU <span class="text - danger">*</span>';
-            document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Diperaku";
-		}
-
-		pbmMuktamad.addEventListener('change', function (event) {
-            if (this.value == 1) {
-                document.getElementById('lblSyarikat').innerHTML = 'SYARIKAT BERJAYA <span class="text-danger">*</span>';
-                document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Berjaya";
-			}
-            else {
-                document.getElementById('lblSyarikat').innerHTML = 'SYARIKAT DIPERAKU <span class="text - danger">*</span>';
-                document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Diperaku";
-			}
 		})
     </script>
 </asp:Content>

@@ -47,11 +47,28 @@ namespace EPBM.mesyuarat
             }
         }
 
+        protected void initJenisPentadbiranKontrakList(string selected = null)
+        {
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@selected", selected } };
+            DataTable dtJenisPentadbiranKontrak = Utils.GetDataTable("Select *, CASE WHEN Id = @selected THEN 1 ELSE 0 END as Selected from JenisPentadbiranKontrak", queryParams);
+            listJenisPentadbiranKontrak.Items.Add(new ListItem("SILA PILIH", ""));
+
+            foreach (DataRow row in dtJenisPentadbiranKontrak.Rows)
+            {
+                ListItem item = new ListItem(row["Nama"].ToString(), row["Id"].ToString());
+                item.Selected = Convert.ToBoolean(row["Selected"]);
+                listJenisPentadbiranKontrak.Items.Add(item);
+            }
+        }
+
         protected void initPbmMuktamadList(string selected = null)
         {
             Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>() { { "@selected", selected } };
             DataTable dtMuktamad = Utils.GetDataTable("Select *, CASE WHEN Id = @selected THEN 1 ELSE 0 END as Selected from PBMMuktamad", queryParams);
             listPbmMuktamad.Items.Add(new ListItem("SILA PILIH", ""));
+            listPbmMuktamad2.Items.Add(new ListItem("SILA PILIH", ""));
+            listPbmMuktamad3.Items.Add(new ListItem("SILA PILIH", ""));
+            listPbmMuktamad4.Items.Add(new ListItem("SILA PILIH", ""));
 
             foreach (DataRow row in dtMuktamad.Rows)
             {
@@ -59,6 +76,8 @@ namespace EPBM.mesyuarat
                 item.Selected = Convert.ToBoolean(row["Selected"]);
                 listPbmMuktamad.Items.Add(item);
                 listPbmMuktamad2.Items.Add(item);
+                listPbmMuktamad3.Items.Add(item);
+                listPbmMuktamad4.Items.Add(item);
             }
         }
         protected void BindData()
@@ -89,15 +108,18 @@ namespace EPBM.mesyuarat
                 }
                 companyList.Text = JsonConvert.SerializeObject(listSyarikat);
                 
-                string CommandText2 = "Select Id, IdMesyuarat, IdStatusKeputusan, IdPBMMuktamad, Tajuk, KaedahPerolehan, Harga, TarikhSahlakuMS, TarikhTerimaMS, LulusPelanPPT, " +
-                    "CASE WHEN IdJenisPertimbangan = 99 THEN LainJenisPertimbangan ELSE JenisPertimbangan END as JenisPertimbangan, " +
-                    "CASE WHEN IdJenisPerolehan = 99 THEN LainJenisPerolehan ELSE Nama_JPerolehan END as JenisPerolehan, " +
+                string CommandText2 = "Select Id, IdMesyuarat, IdStatusKeputusan, IdJenisPertimbangan, IdPBMMuktamad, Tajuk, KaedahPerolehan, Harga, TarikhSahlakuMS, TarikhTerimaMS, LulusPelanPPT, " +
+                    "CASE WHEN IdJenisPertimbangan = 99 THEN concat(JenisPertimbangan, ' - ', LainJenisPertimbangan) ELSE JenisPertimbangan END as JenisPertimbangan, " +
+                    "CASE WHEN IdJenisPerolehan = 99 THEN concat(Nama_JPerolehan, ' - ', LainJenisPerolehan) ELSE Nama_JPerolehan END as JenisPerolehan, " +
                     "CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, " +
-                    "CASE WHEN IdSumberPeruntukan = 99 THEN LainSumberPeruntukan ELSE SumberPeruntukan END as SumberPeruntukan, " +
-                    "StatusKeputusan as STATUS, SyarikatBerjaya, Tempoh, TarikhSuratSetujuTerima, RujukanSuratSetujuTerima, LampiranKeputusan, AlasanKeputusan, NilaiTawaran " +
+                    "CASE WHEN IdSumberPeruntukan = 99 THEN concat(SumberPeruntukan, ' - ', LainSumberPeruntukan) ELSE SumberPeruntukan END as SumberPeruntukan, " +
+                    "StatusKeputusan as STATUS, SyarikatBerjaya, Tempoh, TarikhSuratSetujuTerima, RujukanSuratSetujuTerima, LampiranKeputusan, AlasanKeputusan, NilaiTawaran, IdJenisPentadbiranKontrak, " +
+                    "MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh " +
                     "from Papar_Permohonan WHERE Id=@Id and TarikhHapus IS NULL and (IdStatusPermohonan IN (3,4)) and IdStatusPengesahan <> 4";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", Id } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
+
+                if (dtPermohonan.Rows.Count < 1) Utils.HttpNotFound();
 
                 LtlTajuk.Text               = dtPermohonan.Rows[0]["TAJUK"].ToString();
                 LtlKaedahPerolehan.Text     = dtPermohonan.Rows[0]["KaedahPerolehan"].ToString();
@@ -119,24 +141,57 @@ namespace EPBM.mesyuarat
                 btnSubmit.CommandArgument = Id;
                 btnSubmit2.CommandArgument = Id;
 
-                txtSyarikat.Text = dtPermohonan.Rows[0]["SyarikatBerjaya"].ToString();
-                txtTempoh.Text = dtPermohonan.Rows[0]["Tempoh"].ToString();
-                txtNilaiTawaran.Text = dtPermohonan.Rows[0]["NilaiTawaran"].ToString();
-                txtAlasan.Text = dtPermohonan.Rows[0]["AlasanKeputusan"].ToString();
+                if(dtPermohonan.Rows[0]["IdPBMMuktamad"].ToString() == "1")
+                {
+                    txtSyarikat.Text = dtPermohonan.Rows[0]["SyarikatBerjaya"].ToString();
+                    txtTempoh.Text = txtTempoh2.Text = dtPermohonan.Rows[0]["Tempoh"].ToString();
+                    txtNilaiTawaran.Text = string.Format("{0:#,0.00}", dtPermohonan.Rows[0]["NilaiTawaran"]);
+                }
+                else
+                {
+                    txtSyarikat.Text = dtPermohonan.Rows[0]["MOFSyarikatDiperaku"].ToString();
+                    txtTempoh.Text = txtTempoh2.Text = dtPermohonan.Rows[0]["MOFTempoh"].ToString();
+                    txtNilaiTawaran.Text = string.Format("{0:#,0.00}", dtPermohonan.Rows[0]["MOFNilaiTawaran"]);
+                }
+                txtAlasan.Text = txtAlasan2.Text = dtPermohonan.Rows[0]["AlasanKeputusan"].ToString();
 
                 initStatus(dtPermohonan.Rows[0]["IdStatusKeputusan"].ToString());
                 initPbmMuktamadList(dtPermohonan.Rows[0]["IdPBMMuktamad"].ToString());
+                initJenisPentadbiranKontrakList(dtPermohonan.Rows[0]["IdJenisPentadbiranKontrak"].ToString());
+
+                if(dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() == "2")
+                {
+                    PanelSuccess1.Visible = false;
+                    PanelSuccess2.Visible = true;
+                    PanelSuccess3.Visible = false;
+                }
+                else if (dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() == "99")
+                {
+                    PanelSuccess1.Visible = false;
+                    PanelSuccess2.Visible = false;
+                    PanelSuccess3.Visible = true;
+                }
+                else
+                {
+                    PanelSuccess1.Visible = true;
+                    PanelSuccess2.Visible = false;
+                    PanelSuccess3.Visible = false;
+                }
 
                 if (string.IsNullOrEmpty(dtPermohonan.Rows[0]["LampiranKeputusan"].ToString()))
                 {
                     attachmentLabel.Attributes.Add("class", attachmentLabel.Attributes["class"] + " d-none");
                     attachmentLabel2.Attributes.Add("class", attachmentLabel2.Attributes["class"] + " d-none");
+                    attachmentLabel3.Attributes.Add("class", attachmentLabel2.Attributes["class"] + " d-none");
+                    attachmentLabel4.Attributes.Add("class", attachmentLabel2.Attributes["class"] + " d-none");
                 }
                 else{
                     //if (dtPermohonan.Rows[0]["IdStatusKeputusan"].ToString() == "3")
                         LiteralFileName2.Text = dtPermohonan.Rows[0]["LampiranKeputusan"].ToString();
                     //else
                         LiteralFileName.Text = dtPermohonan.Rows[0]["LampiranKeputusan"].ToString();
+                        LiteralFileName3.Text = dtPermohonan.Rows[0]["LampiranKeputusan"].ToString();
+                        LiteralFileName4.Text = dtPermohonan.Rows[0]["LampiranKeputusan"].ToString();
                 }
            // }
            // catch (Exception) { Utils.HttpNotFound(); }
@@ -148,6 +203,126 @@ namespace EPBM.mesyuarat
 
             if (Page.IsValid)
             {*/
+            string IdJenisPertimbangan = ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdJenisPertimbangan"].ToString();
+
+            if (IdJenisPertimbangan == "2")
+            {
+                LinkButton btn = (LinkButton)sender;
+                Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
+                    {
+                        {"@Id",  btn.CommandArgument },
+                        {"@Status",  RadioStatus.SelectedValue },
+                        {"@Tempoh",  txtTempoh2.Text },
+                        {"@PbmMuktamad",  listPbmMuktamad3.SelectedValue },
+                        {"@JenisPentadbiranKontrak",  listJenisPentadbiranKontrak.SelectedValue },
+                        {"@Alasan", "" },
+                    };
+
+                try
+                {
+                    if (fileAttachment3.HasFile)
+                    {
+                        string fnwext = Path.GetFileNameWithoutExtension(fileAttachment3.PostedFile.FileName);
+                        fnwext = fnwext.Length > 40 ? fnwext.Substring(0, 30) : fnwext;
+                        string ext = Path.GetExtension(fileAttachment3.PostedFile.FileName);
+                        string fn = fnwext + " " + DateTime.Now.ToFileTime() + ext;
+                        string SaveLocation = Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + fn;
+                        fileAttachment3.SaveAs(SaveLocation);
+                        queryParams.Add("@Lampiran", fn);
+
+                        string oldFile = ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString();
+                        if (!string.IsNullOrEmpty(oldFile))
+                        {
+                            if (File.Exists(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile))
+                            {
+                                File.Delete(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile);
+                            }
+                        }
+                    }
+                    else if (keepAttachment3.Value == "0")
+                    {
+
+                        queryParams.Add("@Lampiran", "");
+                        string oldFile = ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString();
+                        if (!string.IsNullOrEmpty(oldFile))
+                        {
+                            if (File.Exists(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile))
+                            {
+                                File.Delete(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile);
+                            }
+                        }
+                    }
+                    else
+                        queryParams.Add("@Lampiran", ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString());
+                    
+                    Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, IdJenisPentadbiranKontrak=@JenisPentadbiranKontrak, IdPBMMuktamad=@PbmMuktamad, Tempoh=@Tempoh, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
+                    
+                }
+                catch (Exception ex)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" + ex.Message.Replace(System.Environment.NewLine, " ") + "\");", true);
+                    return;
+                }
+            }
+            else if (IdJenisPertimbangan == "99")
+            {
+                LinkButton btn = (LinkButton)sender;
+                Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
+                    {
+                        {"@Id",  btn.CommandArgument },
+                        {"@Status",  RadioStatus.SelectedValue },
+                        {"@PbmMuktamad",  listPbmMuktamad4.SelectedValue },
+                        {"@Alasan", txtAlasan2.Text },
+                    };
+
+                try
+                {
+                    if (fileAttachment4.HasFile)
+                    {
+                        string fnwext = Path.GetFileNameWithoutExtension(fileAttachment4.PostedFile.FileName);
+                        fnwext = fnwext.Length > 40 ? fnwext.Substring(0, 30) : fnwext;
+                        string ext = Path.GetExtension(fileAttachment4.PostedFile.FileName);
+                        string fn = fnwext + " " + DateTime.Now.ToFileTime() + ext;
+                        string SaveLocation = Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + fn;
+                        fileAttachment4.SaveAs(SaveLocation);
+                        queryParams.Add("@Lampiran", fn);
+
+                        string oldFile = ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString();
+                        if (!string.IsNullOrEmpty(oldFile))
+                        {
+                            if (File.Exists(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile))
+                            {
+                                File.Delete(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile);
+                            }
+                        }
+                    }
+                    else if (keepAttachment4.Value == "0")
+                    {
+
+                        queryParams.Add("@Lampiran", "");
+                        string oldFile = ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString();
+                        if (!string.IsNullOrEmpty(oldFile))
+                        {
+                            if (File.Exists(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile))
+                            {
+                                File.Delete(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile);
+                            }
+                        }
+                    }
+                    else
+                        queryParams.Add("@Lampiran", ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString());
+
+                    Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, IdPBMMuktamad=@PbmMuktamad, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
+
+                }
+                catch (Exception ex)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" + ex.Message.Replace(System.Environment.NewLine, " ") + "\");", true);
+                    return;
+                }
+            }
+            else
+            {
                 LinkButton btn = (LinkButton)sender;
                 Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
                     {
@@ -165,7 +340,7 @@ namespace EPBM.mesyuarat
                     if (fileAttachment.HasFile)
                     {
                         string fnwext = Path.GetFileNameWithoutExtension(fileAttachment.PostedFile.FileName);
-                        fnwext = fnwext.Length>40 ? fnwext.Substring(0, 30) : fnwext;
+                        fnwext = fnwext.Length > 40 ? fnwext.Substring(0, 30) : fnwext;
                         string ext = Path.GetExtension(fileAttachment.PostedFile.FileName);
                         string fn = fnwext + " " + DateTime.Now.ToFileTime() + ext;
                         string SaveLocation = Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + fn;
@@ -173,14 +348,15 @@ namespace EPBM.mesyuarat
                         queryParams.Add("@Lampiran", fn);
 
                         string oldFile = ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString();
-                        if (!string.IsNullOrEmpty(oldFile)){
+                        if (!string.IsNullOrEmpty(oldFile))
+                        {
                             if (File.Exists(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile))
                             {
                                 File.Delete(Server.MapPath("..\\uploads\\lampiran-keputusan") + "\\" + oldFile);
                             }
                         }
                     }
-                    else if(keepAttachment.Value == "0")
+                    else if (keepAttachment.Value == "0")
                     {
 
                         queryParams.Add("@Lampiran", "");
@@ -195,22 +371,23 @@ namespace EPBM.mesyuarat
                     }
                     else
                         queryParams.Add("@Lampiran", ((DataTable)ViewState["dtPermohonan"]).Rows[0]["LampiranKeputusan"].ToString());
-                    if(listPbmMuktamad.SelectedValue=="1")
-                        Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, SyarikatBerjaya=@syarikat, Tempoh=@Tempoh, IdPBMMuktamad=@PbmMuktamad, NilaiTawaran=@NilaiTawaran, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
+                    if (listPbmMuktamad.SelectedValue == "1")
+                        Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, MOFSyarikatDiperaku=NULL, MOFTempoh=NULL, MOFNilaiTawaran=NULL, SyarikatBerjaya=@syarikat, Tempoh=@Tempoh, NilaiTawaran=@NilaiTawaran, IdPBMMuktamad=@PbmMuktamad, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
                     else
-                        Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, MOFSyarikatDiperaku=@syarikat, MOFTempoh=@Tempoh, IdPBMMuktamad=@PbmMuktamad, MOFNilaiTawaran=@NilaiTawaran, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
+                        Utils.ExcuteQuery("UPDATE Permohonan SET IdStatusKeputusan=@Status, MOFSyarikatDiperaku=@syarikat, MOFTempoh=@Tempoh, MOFNilaiTawaran=@NilaiTawaran, SyarikatBerjaya=NULL, Tempoh=NULL, NilaiTawaran=NULL, IdPBMMuktamad=@PbmMuktamad, LampiranKeputusan=@Lampiran, AlasanKeputusan=@Alasan WHERE Id=@Id", queryParams);
                 }
                 catch (Exception ex)
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" + ex.Message.Replace(System.Environment.NewLine, " ")+ "\");", true);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "window.notyf.error(\"" + ex.Message.Replace(System.Environment.NewLine, " ") + "\");", true);
                     return;
                 }
+            }
 
                 if (Request.QueryString["ReturnURL"] != null)
                     Response.Redirect(Request.QueryString["ReturnURL"]);
                 else
                     Response.Redirect("/mesyuarat/keputusan.aspx?id=" + ((DataTable)ViewState["dtPermohonan"]).Rows[0]["IdMesyuarat"].ToString());
-
+            
             //}
         }
 

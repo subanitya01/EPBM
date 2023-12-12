@@ -132,6 +132,15 @@ namespace EPBM.mesyuarat
         protected global::System.Web.UI.WebControls.HyperLink LinkToEdit;
 
         /// <summary>
+        /// LtlMesyuarat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlMesyuarat;
+
+        /// <summary>
         /// LtlStatus control.
         /// </summary>
         /// <remarks>
@@ -141,13 +150,31 @@ namespace EPBM.mesyuarat
         protected global::System.Web.UI.WebControls.Literal LtlStatus;
 
         /// <summary>
-        /// LtlMesyuarat control.
+        /// LtlPbmMuktamad control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlMesyuarat;
+        protected global::System.Web.UI.WebControls.Literal LtlPbmMuktamad;
+
+        /// <summary>
+        /// LtlJenisPentadbiranKontrak control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlJenisPentadbiranKontrak;
+
+        /// <summary>
+        /// LtlLabelSyarikat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlLabelSyarikat;
 
         /// <summary>
         /// LtlSyarikat control.
@@ -168,31 +195,13 @@ namespace EPBM.mesyuarat
         protected global::System.Web.UI.WebControls.Literal LtlTempoh;
 
         /// <summary>
-        /// LtlPbmMuktamad control.
+        /// LtlNilaiTawaran control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlPbmMuktamad;
-
-        /// <summary>
-        /// LtlTarikhSST control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlTarikhSST;
-
-        /// <summary>
-        /// LtlRujukanSST control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlRujukanSST;
+        protected global::System.Web.UI.WebControls.Literal LtlNilaiTawaran;
 
         /// <summary>
         /// LtlAlasan control.
@@ -213,6 +222,87 @@ namespace EPBM.mesyuarat
         protected global::System.Web.UI.WebControls.HyperLink LinkLampiran;
 
         /// <summary>
+        /// PanelMOF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelMOF;
+
+        /// <summary>
+        /// LinkToEditMOF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink LinkToEditMOF;
+
+        /// <summary>
+        /// LtlSyarikat2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlSyarikat2;
+
+        /// <summary>
+        /// LtlTempoh2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlTempoh2;
+
+        /// <summary>
+        /// LtlNilaiTawaran2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlNilaiTawaran2;
+
+        /// <summary>
+        /// PanelSST control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelSST;
+
+        /// <summary>
+        /// LinkToEditSST control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink LinkToEditSST;
+
+        /// <summary>
+        /// LtlTarikhSST control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlTarikhSST;
+
+        /// <summary>
+        /// LtlRujukanSST control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlRujukanSST;
+
+        /// <summary>
         /// LtlIdStatus control.
         /// </summary>
         /// <remarks>
@@ -220,5 +310,14 @@ namespace EPBM.mesyuarat
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal LtlIdStatus;
+
+        /// <summary>
+        /// LtlIdJenisPertimbangan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LtlIdJenisPertimbangan;
     }
 }

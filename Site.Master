@@ -191,12 +191,12 @@
 			<script>
 				<% if (Session["flash.success"] != null)
 				{
-					Response.Write("notyf.success(\"" + Session["flash.success"] + "\");");
+					Response.Write("notyf.success(\"" + HttpUtility.HtmlEncode(Session["flash.success"]) + "\");");
 					Session.Remove("flash.success");
 				}
 				if (Session["flash.error"] != null)
 				{
-					Response.Write("notyf.error(\"" + Session["flash.error"] + "\");");
+					Response.Write("notyf.error(\"" + HttpUtility.HtmlEncode(Session["flash.error"]) + "\");");
 					Session.Remove("flash.error");
 				}
                 %>
