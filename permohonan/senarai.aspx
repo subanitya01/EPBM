@@ -129,13 +129,13 @@ height: 27px;
 			
 			</nav>
 
-			  <div class="col-12 col-lg-6">
+			 <%-- <div class="col-12 col-lg-6">
                             <label class="form-check mb-3" style="padding-top: 20px;padding-left: 10px;">
                                 <asp:CheckBox ID="cbFilter2Minggu" runat="server" OnCheckedChanged="Filter2Minggu_Change" AutoPostBack="true" />
                                 <span class="form-check-label">Tempoh Sah Laku kurang 2 Minggu </span>
                                 </span>
                             </label>
-                        </div>
+                        </div>--%>
 		</div>
 	<asp:TextBox ID="ID" runat="server" Style="display: none;" type="text"></asp:TextBox>		
 	</div>	   
