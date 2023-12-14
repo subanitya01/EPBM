@@ -16,11 +16,11 @@ namespace EPBM
             {
                 if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    Response.Redirect("~/auth/login.aspx", false);
+                    Response.Redirect("~/auth/login.aspx", true);
                 }
                 if (!(User.IsInRole("Administrator") || User.IsInRole("Urusetia") || User.IsInRole("Pengesah")))
                 {
-                    Response.Redirect("~/keputusan/senarai.aspx", false);
+                    Response.Redirect("~/keputusan/senarai.aspx", true);
                 }
                 initData();
             }
@@ -50,7 +50,7 @@ namespace EPBM
                 NotifyMsg.Text = "Mesyuarat <a href='/mesyuarat/keputusan.aspx?id="+ dtKeputusanKembali.Rows[0]["Id"].ToString() + "'>"+dtKeputusanKembali.Rows[0]["MESYUARAT"].ToString()+"</a> telah dikembalikan oleh pengesah untuk tindakan anda yang seterusnya.";
             }
 
-            string CommandText1 = "select count(*) as total from Permohonan WHERE TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND IdStatusPermohonan != 4";
+            string CommandText1 = "select count(*) as total from Permohonan WHERE TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND (IdStatusPermohonan IN ('1','2','3') or (IdStatusPermohonan = 4 and IdPBMMuktamad = 2 AND IdStatusKeputusan = 1 and (SyarikatBerjaya is null or SyarikatBerjaya = '')))";
             DataTable dtSah2Minggu = Utils.GetDataTable(CommandText1);
 
             if(dtSah2Minggu.Rows.Count > 0 )
@@ -58,7 +58,7 @@ namespace EPBM
                 Sah2Minggu.Text = dtSah2Minggu.Rows[0]["total"].ToString();
             }
 
-            string CommandText2 = "select TOP 1 *, DATEDIFF(day, CAST( GETDATE() AS Date ) , Tarikh) AS DayLeft from Mesyuarat WHERE Tarikh >= CAST( GETDATE() AS Date ) AND TarikhHapus IS NULL ORDER BY Tarikh desc";
+            string CommandText2 = "select TOP 1 *, DATEDIFF(day, CAST( GETDATE() AS Date ) , Tarikh) AS DayLeft from Mesyuarat WHERE Tarikh >= CAST( GETDATE() AS Date ) AND TarikhHapus IS NULL ORDER BY Tarikh asc";
             DataTable dtNextMeeting = Utils.GetDataTable(CommandText2);
 
             if (dtNextMeeting.Rows.Count > 0)

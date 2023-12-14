@@ -18,7 +18,7 @@
 		<div class="w-100">
 			<div class="row">
 				<asp:Panel ID="Panel2Minggu" runat="server" CssClass="col-sm-6 col-xl-4" Visible="false">
-					<a href="/permohonan/senarai.aspx?filter=2minggu">
+					<a href="/segera.aspx">
 						<div class="card">
 							<div class="card-body">
 								<div class="row">
@@ -32,7 +32,7 @@
 										</div>
 									</div>
 								</div>
-								<h3 class="mt-1 mb-3"><asp:Literal ID="Sah2Minggu" runat="server" >0</asp:Literal> Permohonan</h3>
+								<h3 class="mt-1 mb-3"><asp:Literal ID="Sah2Minggu" runat="server" >0</asp:Literal> Perolehan</h3>
 								<div class="mb-0">
 									Tempoh sahlaku kurang 2 minggu
 								</div>
@@ -78,7 +78,7 @@
 										</div>
 									</div>
 								</div>
-								<h3 class="mt-1 mb-3"><asp:Literal ID="BelumKeMesyuarat" runat="server" >0</asp:Literal> Permohonan</h3>
+								<h3 class="mt-1 mb-3"><asp:Literal ID="BelumKeMesyuarat" runat="server" >0</asp:Literal> Perolehan</h3>
 								<div class="mb-0">
 									Belum dibawa ke mesyuarat
 								</div>
@@ -103,7 +103,7 @@
 								</div>
 								<h3 class="mt-1 mb-3"><asp:Literal ID="JumlahKeputusan" runat="server" >0</asp:Literal></h3>
 								<div class="mb-0">
-									Permohonan telah diputuskan
+									Perolehan telah diputuskan
 								</div>
 							</div>
 						</div>

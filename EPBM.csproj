@@ -146,6 +146,7 @@
     <Content Include="permohonan\papar.aspx" />
     <Content Include="permohonan\senarai-pengesahan.aspx" />
     <Content Include="permohonan\senarai.aspx" />
+    <Content Include="segera.aspx" />
     <Content Include="Web.config" />
     <Content Include="default.aspx" />
   </ItemGroup>
@@ -222,6 +223,13 @@
     </Compile>
     <Compile Include="permohonan\MajuMesyuarat.aspx.designer.cs">
       <DependentUpon>MajuMesyuarat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="segera.aspx.cs">
+      <DependentUpon>segera.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="segera.aspx.designer.cs">
+      <DependentUpon>segera.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="keputusan\senarai.aspx.cs">
