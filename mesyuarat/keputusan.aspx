@@ -127,8 +127,19 @@
 					<asp:TemplateField ItemStyle-CssClass="text-center">
 						<ItemTemplate>
 							<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/keputusan.aspx?id=" + Eval("IdMesyuarat")) %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-							<a href="/keputusan/edit.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/keputusan.aspx?id=" + Eval("IdMesyuarat")) %>" class="text-secondary" title="Edit Keputusan"><i class="align-middle" data-feather="edit-2"></i></a>
-						
+							<asp:HyperLink 
+								ID="lnkEdit" 
+								runat="server" 
+								CssClass="text-secondary"  
+								data-bs-toggle="modal" 
+								data-bs-target="#muktamadModal" 
+								title="Edit Keputusan"
+								CommandArgument='<%# Eval("Id") %>' 
+								CausesValidation="false" 
+								OnClick='<%# string.Concat("if(!popup(this",",\"MESYUARAT ",Eval("MESYUARAT"),"\"))return false; ") %>'
+							>
+								<i class="align-middle" data-feather="edit-2"></i>
+							</asp:HyperLink>
 						</ItemTemplate>
 					</asp:TemplateField>
 				</Columns>
@@ -136,6 +147,31 @@
 		</div>
 	</div>
 	</asp:Panel>
+	<div class="modal fade" id="muktamadModal" tabindex="-1" aria-modal="true" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-secondary">
+					<h5 class="modal-title text-white text-truncate">Muktamad Mesyuarat</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body m-3">
+					<p class="mb-0">Dimana mesyuarat ini dimuktamadkan?</p>
+				</div>
+				<div class="modal-footer">
+					<a href="#" type="button" class="btn btn-info muktamad-1">LP NRECC</a>
+					<a href="#" type="button" class="btn btn-primary muktamad-2">MOF</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+        function popup(lnk, title) {
+            document.querySelector("#muktamadModal .modal-header h5").innerText = title;
+            document.querySelector("#muktamadModal .modal-footer a.muktamad-1").setAttribute('href', lnk.getAttribute('href')+"&muktamad=1");
+            document.querySelector("#muktamadModal .modal-footer a.muktamad-2").setAttribute('href', lnk.getAttribute('href')+"&muktamad=2");
+
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
 </asp:Content>

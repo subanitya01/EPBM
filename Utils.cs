@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Text;
 
 namespace EPBM
 {
@@ -79,6 +80,30 @@ namespace EPBM
                     return foundCtrl;
             }
             return null;
+        }
+
+        public static string BuildList(string[] item, bool ordered = true)
+        {
+            var sb = new StringBuilder();
+
+            if (item.Length > 0)
+            {
+                if(ordered)
+                    sb.Append("<ol>");
+                else
+                    sb.Append("<ul>");
+
+                foreach (var n in item)
+                {
+                    sb.Append("<li>" + n + "</li>");
+                }
+
+                if (ordered)
+                    sb.Append("</ol>");
+                else
+                    sb.Append("</ol>");
+            }
+            return sb.ToString();
         }
     }
 }

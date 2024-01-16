@@ -77,7 +77,7 @@
 					</tr>
 					<tr>
 					  <th scope="row" class="align-middle bg-secondary text-white w-25">STATUS</th>
-					  <td class=""><asp:Literal ID="LtlStatus" runat="server"></asp:Literal></td>
+					  <td class=""><asp:Literal ID="LtlStatusKementerian" runat="server"></asp:Literal></td>
 					</tr>
 					<tr>
 					  <th scope="row" class="align-middle bg-secondary text-white">PBM MUKTAMAD</th>
@@ -85,27 +85,27 @@
 					</tr>
 					<tr class="success2">
 					  <th scope="row" class="align-middle bg-secondary text-white">JENIS PENTADBIRAN KONTRAK</th>
-					  <td class=""><asp:Literal ID="LtlJenisPentadbiranKontrak" runat="server"></asp:Literal></td>
+					  <td class=""><asp:Literal ID="LtlJPKKementerian" runat="server"></asp:Literal></td>
 					</tr>
 					<tr class="success">
 					  <th scope="row" class="align-middle bg-secondary text-white"><asp:Literal ID="LtlLabelSyarikat" runat="server">SYARIKAT BERJAYA</asp:Literal></th>
-					  <td class=""><asp:Literal ID="LtlSyarikat" runat="server"></asp:Literal></td>
+					  <td class=""><asp:Literal ID="LtlSyarikatKementerian" runat="server"></asp:Literal></td>
 					</tr>
 					<tr class="success success2">
 					  <th scope="row" class="align-middle bg-secondary text-white">TEMPOH</th>
-					  <td class=""><asp:Literal ID="LtlTempoh" runat="server"></asp:Literal> BULAN</td>
+					  <td class=""><asp:Literal ID="LtlTempohKementerian" runat="server"></asp:Literal> BULAN</td>
 					</tr>
 					<tr class="success">
 					  <th scope="row" class="align-middle bg-secondary text-white">NILAI TAWARAN</th>
-					  <td class=""><asp:Literal ID="LtlNilaiTawaran" runat="server"></asp:Literal></td>
+					  <td class=""><asp:Literal ID="LtlNilaiTawaranKementerian" runat="server"></asp:Literal></td>
 					</tr>
-					<tr class="fail success2">
+					<tr class="fail">
 					  <th scope="row" class="align-middle bg-secondary text-white">CATATAN</th>
-					  <td class=""><asp:Literal ID="LtlAlasan" runat="server"></asp:Literal></td>
+					  <td class=""><asp:Literal ID="LtlCatatanKementerian" runat="server"></asp:Literal></td>
 					</tr>
 					<tr>
 					  <th scope="row" class="align-middle bg-secondary text-white">LAMPIRAN</th>
-					  <td class=""><asp:HyperLink ID="LinkLampiran" runat="server" Target="_blank" ><i class="mt-n1" data-feather="download"></i > </asp:HyperLink></td>
+					  <td class=""><asp:HyperLink ID="LinkLampiranKementerian" runat="server" Target="_blank" ><i class="mt-n1" data-feather="download"></i > </asp:HyperLink></td>
 					</tr>
 				</tbody>
 			</table>
@@ -122,16 +122,32 @@
 			<table class="table table-bordered table-hover">
 				<tbody>
 					<tr>
+					  <th scope="row" class="align-middle bg-secondary text-white w-25">STATUS</th>
+					  <td class=""><asp:Literal ID="LtlStatusMOF" runat="server"></asp:Literal></td>
+					</tr>
+					<tr class="success4">
+					  <th scope="row" class="align-middle bg-secondary text-white">JENIS PENTADBIRAN KONTRAK</th>
+					  <td class=""><asp:Literal ID="LtlJPKMOF" runat="server"></asp:Literal></td>
+					</tr>
+					<tr class="success3">
 					  <th scope="row" class="align-middle bg-secondary text-white">SYARIKAT BERJAYA</th>
-					  <td class=""><asp:Literal ID="LtlSyarikat2" runat="server"></asp:Literal></td>
+					  <td class=""><asp:Literal ID="LtlSyarikatMOF" runat="server"></asp:Literal></td>
 					</tr>
-					<tr>
+					<tr class="success3">
 					  <th scope="row" class="align-middle bg-secondary text-white">TEMPOH</th>
-					  <td class=""><asp:Literal ID="LtlTempoh2" runat="server"></asp:Literal> BULAN</td>
+					  <td class=""><asp:Literal ID="LtlTempohMOF" runat="server"></asp:Literal> BULAN</td>
+					</tr>
+					<tr class="success3">
+					  <th scope="row" class="align-middle bg-secondary text-white">NILAI TAWARAN</th>
+					  <td class=""><asp:Literal ID="LtlNilaiTawaranMOF" runat="server"></asp:Literal></td>
+					</tr>
+					<tr class="fail2 success4">
+					  <th scope="row" class="align-middle bg-secondary text-white">CATATAN</th>
+					  <td class=""><asp:Literal ID="LtlCatatanMOF" runat="server"></asp:Literal></td>
 					</tr>
 					<tr>
-					  <th scope="row" class="align-middle bg-secondary text-white">NILAI TAWARAN</th>
-					  <td class=""><asp:Literal ID="LtlNilaiTawaran2" runat="server"></asp:Literal></td>
+					  <th scope="row" class="align-middle bg-secondary text-white">LAMPIRAN</th>
+					  <td class=""><asp:HyperLink ID="LinkLampiranMOF" runat="server" Target="_blank" ><i class="mt-n1" data-feather="download"></i > </asp:HyperLink></td>
 					</tr>
 				</tbody>
 			</table>
@@ -160,9 +176,10 @@
 		</div>
 	</asp:Panel>
 	<script>
-		var statusKeputusan = <asp:Literal ID="LtlIdStatus" runat="server"></asp:Literal>;
+        var statusKeputusanKementerian = <asp:Literal ID="LtlIdStatusKementerian" runat="server"></asp:Literal>;
+        var statusKeputusanMOF = <asp:Literal ID="LtlIdStatusMOF" runat="server"></asp:Literal>;
 		var jenisPertimbangan = <asp:Literal ID="LtlIdJenisPertimbangan" runat="server"></asp:Literal>;
-        if ((statusKeputusan == 1 || statusKeputusan == 2) && jenisPertimbangan == 2) {
+        if ((statusKeputusanKementerian == 1 || statusKeputusanKementerian == 2) && jenisPertimbangan == 2) {
             failFields = document.querySelectorAll('.fail, .success');
             failFields.forEach(function (field, index) {
                 field.classList.add("d-none");
@@ -172,7 +189,7 @@
                 field.classList.remove("d-none");
             });
 		}
-		else if (statusKeputusan == 1 && jenisPertimbangan != 99) {
+        else if (statusKeputusanKementerian == 1 && jenisPertimbangan != 99) {
             failFields = document.querySelectorAll('.fail, .success2');
             failFields.forEach(function (field, index) {
                 field.classList.add("d-none");
@@ -189,6 +206,37 @@
             });
             failFields = document.querySelectorAll('.fail');
             failFields.forEach(function (field, index) {
+                field.classList.remove("d-none");
+            });
+		}
+
+        if ((statusKeputusanMOF == 1 || statusKeputusanMOF == 2) && jenisPertimbangan == 2) {
+            failFields2 = document.querySelectorAll('.fail2, .success3');
+            failFields2.forEach(function (field, index) {
+                field.classList.add("d-none");
+            });
+            successFields2 = document.querySelectorAll('.success4');
+            successFields2.forEach(function (field, index) {
+                field.classList.remove("d-none");
+            });
+		}
+        else if (statusKeputusanMOF == 1 && jenisPertimbangan != 99) {
+            failFields2 = document.querySelectorAll('.fail2, .success4');
+            failFields2.forEach(function (field, index) {
+                field.classList.add("d-none");
+            });
+            successFields2 = document.querySelectorAll('.success3');
+            successFields2.forEach(function (field, index) {
+                field.classList.remove("d-none");
+            });
+		}
+		else {
+            successFields2 = document.querySelectorAll('.success3, .success4');
+            successFields2.forEach(function (field, index) {
+                field.classList.add("d-none");
+            });
+            failFields2 = document.querySelectorAll('.fail2');
+            failFields2.forEach(function (field, index) {
                 field.classList.remove("d-none");
             });
         }

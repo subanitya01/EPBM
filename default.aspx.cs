@@ -50,7 +50,7 @@ namespace EPBM
                 NotifyMsg.Text = "Mesyuarat <a href='/mesyuarat/keputusan.aspx?id="+ dtKeputusanKembali.Rows[0]["Id"].ToString() + "'>"+dtKeputusanKembali.Rows[0]["MESYUARAT"].ToString()+"</a> telah dikembalikan oleh pengesah untuk tindakan anda yang seterusnya.";
             }
 
-            string CommandText1 = "select count(*) as total from Permohonan WHERE TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND (IdStatusPermohonan IN ('1','2','3') or (IdStatusPermohonan = 4 and IdPBMMuktamad = 2 AND IdStatusKeputusan = 1 and (SyarikatBerjaya is null or SyarikatBerjaya = '')))";
+            string CommandText1 = "select count(*) as total from Papar_Permohonan WHERE TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND (IdStatusPermohonan IN ('1','2','3') or (IdStatusPengesahan = 4 AND IdPBMMuktamad = 2 AND IdStatusKeputusanKementerian = 1 AND IdStatusKeputusanMOF IS NULL))";
             DataTable dtSah2Minggu = Utils.GetDataTable(CommandText1);
 
             if(dtSah2Minggu.Rows.Count > 0 )

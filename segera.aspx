@@ -68,8 +68,8 @@ height: 27px;
                         <asp:TemplateField HeaderText="TINDAKAN">
                             <ItemStyle Width="9%" Wrap="true" />
                             <ItemTemplate>
-                                <asp:HyperLink ID="HyperLinkPapar" runat="server" NavigateUrl='<%# Eval("Id", "papar.aspx?ID={0}") %>' title="Papar"><i class="align-middle" data-feather="eye"></i></asp:HyperLink>
-                                <asp:HyperLink ID="HyperLinkEdit" runat="server" Visible="false" NavigateUrl='<%# Eval("Id", "edit.aspx?ID={0}") %>' title="Kemaskini"><i class="align-middle" data-feather="edit-2"></i></asp:HyperLink>
+                                <asp:HyperLink ID="HyperLinkPapar" runat="server" NavigateUrl='<%# Eval("Id", "~/permohonan/papar.aspx?ID={0}") %>' title="Papar"><i class="align-middle" data-feather="eye"></i></asp:HyperLink>
+                                <asp:HyperLink ID="HyperLinkEdit" runat="server" Visible="false" NavigateUrl='<%# Eval("Id", "~/permohonan/edit.aspx?ID={0}") %>' title="Kemaskini"><i class="align-middle" data-feather="edit-2"></i></asp:HyperLink>
 
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -118,6 +118,8 @@ height: 27px;
 
 					<asp:TemplateField HeaderText="KETERANGAN" HeaderStyle-CssClass="text-center">
 						<ItemTemplate>
+							<asp:Label ID="LblKeterangan" runat="server"><%# Eval("KETERANGAN").ToString().Replace(Environment.NewLine, "<br />") %></asp:Label>
+						
 							<asp:ListView runat="server"  ID="DetailsList">
 								<LayoutTemplate>
 									<ul class="list-group text-sm">

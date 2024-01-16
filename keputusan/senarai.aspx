@@ -14,7 +14,6 @@
 						<asp:ListItem>JABATAN</asp:ListItem>  
 						<asp:ListItem>STATUS</asp:ListItem>  
 						<asp:ListItem>SYARIKAT BERJAYA</asp:ListItem>  
-						<asp:ListItem>ALASAN DIBATALKAN</asp:ListItem>  
 					</asp:DropDownList>
 					<asp:TextBox ID="txtSearch" CssClass="form-control w-25" placeholder="Carian..." runat="server"></asp:TextBox>
 					<asp:LinkButton ID="btnSubmit" CssClass="btn btn-primary" runat="server" OnClick="Search" CausesValidation="false"><i class="align-middle" data-feather="search"></i></asp:LinkButton>
@@ -45,7 +44,7 @@
 				</div>
 				<div class="col-12 col-lg-6 mb-3">
 					<label class="control-label">STATUS</label>
-					<asp:DropDownList ID="listStatus" CssClass="form-select" runat="server" />
+					<asp:TextBox ID="txtStatus" runat="server" CssClass="form-control"  />
 				</div>
 				<div class="col-12 col-lg-6 mb-3">
 					<label class="control-label">SYARIKAT BERJAYA</label>

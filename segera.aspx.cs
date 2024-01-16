@@ -57,10 +57,11 @@ namespace EPBM
             Senarai.DataBind();
 
 
-            string selectData2 = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, IdJenisPertimbangan, IdPBMMuktamad, PBM as MUKTAMAD, " +
-                                "StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, AlasanKeputusan as KETERANGAN, MESYUARAT, JenisPentadbiranKontrak ";
+            string selectData2 = "Select *, PBM as MUKTAMAD, StatusKeputusan as STATUS, NamaPendekBahagianJabatan as JABATAN, " +
+                                    "CASE WHEN IdPBMMuktamad = 1 THEN IdStatusKeputusanKementerian ELSE IdStatusKeputusanMOF END as IdStatusKeputusan, " +
+                                    "CASE WHEN IdPBMMuktamad = 1 THEN CatatanKementerian ELSE CatatanMOF END as KETERANGAN ";
             string CommandText2 = "from Papar_Permohonan WHERE TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND " +
-                "IdStatusPengesahan = 4 AND IdStatusKeputusan = 1 AND IdPBMMuktamad = 2 AND IdJenisPertimbangan NOT IN (2, 99) AND (SyarikatBerjaya IS NULL OR SyarikatBerjaya = '') ORDER BY Id desc";
+                "IdStatusPengesahan = 4 AND IdPBMMuktamad = 2 AND IdStatusKeputusanKementerian = 1 AND IdStatusKeputusanMOF IS NULL ORDER BY Id desc";
 
             DataTable dtPermohonan = Utils.GetDataTable(selectData2 + CommandText2, queryParams);
 
@@ -75,7 +76,7 @@ namespace EPBM
 
             for (int i = 0; i <= Senarai.Rows.Count - 1; i++)
             {
-                ImageButton btnhapus = (ImageButton)Senarai.Rows[i].FindControl("btnhapus");
+                //ImageButton btnhapus = (ImageButton)Senarai.Rows[i].FindControl("btnhapus");
                 HyperLink HyperLinkEdit = (HyperLink)Senarai.Rows[i].FindControl("HyperLinkEdit");
                 //HyperLink HyperLinkMaju = (HyperLink)Senarai.Rows[i].FindControl("HyperLinkMaju");
 
@@ -86,14 +87,14 @@ namespace EPBM
                 {
                     lblStatus.CssClass = "badge text-bg-primary";
                     HyperLinkEdit.Visible = true;
-                    btnhapus.Visible = true;
+                    //btnhapus.Visible = true;
                 }
 
                 if (lblIDStatus.Text == "2")
                 {
                     lblStatus.CssClass = "badge text-bg-warning";
                     HyperLinkEdit.Visible = true;
-                    btnhapus.Visible = true;
+                    //btnhapus.Visible = true;
                 }
 
                 if (lblIDStatus.Text == "3")
@@ -114,29 +115,71 @@ namespace EPBM
             {
                 DataRowView drv = e.Row.DataItem as DataRowView;
                 Label lblStatus = e.Row.FindControl("lblStatus") as Label;
+                Label LblKeterangan = e.Row.FindControl("LblKeterangan") as Label;
                 ListView detailsList = e.Row.FindControl("DetailsList") as ListView;
                 HyperLink LinkEditMOF = e.Row.FindControl("LinkEditMOF") as HyperLink;
+                string IdStatusKeputusan = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["IdStatusKeputusanMOF"].ToString() : drv.Row["IdStatusKeputusanKementerian"].ToString();
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "1")
+                LinkEditMOF.NavigateUrl = "/keputusan/mof.aspx?id=" + drv.Row["Id"] + "&ReturnURL=" + System.Web.HttpUtility.UrlEncode("/segera.aspx");
+
+                if (IdStatusKeputusan == "1")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
-                else if (drv.Row["IdStatusKeputusan"].ToString() == "2")
+                else if (IdStatusKeputusan == "2")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
-                else if (drv.Row["IdStatusKeputusan"].ToString() == "5")
+                else if (IdStatusKeputusan == "5")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-warning";
                 else
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-danger";
 
-                DataTable dt = new DataTable();
-                dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
+                if (IdStatusKeputusan == "3" || IdStatusKeputusan == "5" || (IdStatusKeputusan == "1" && drv.Row["IdJenisPertimbangan"].ToString() == "99"))
+                {
 
-                dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["MOFSyarikatDiperaku"].ToString());
-                dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["MOFNilaiTawaran"]));
-                dt.Rows.Add("TEMPOH", drv.Row["MOFTempoh"].ToString() + " BULAN");
-                detailsList.DataSource = dt;
-                detailsList.DataBind();
-                
-                LinkEditMOF.NavigateUrl = "/keputusan/mof.aspx?id=" + drv.Row["Id"] + "&ReturnURL=" + System.Web.HttpUtility.UrlEncode("/keputusan/senarai.aspx");
-                    
+                    LblKeterangan.Text = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["CatatanMOF"].ToString() : drv.Row["CatatanKementerian"].ToString();
+                    detailsList.Visible = false;
+                }
+                else if (IdStatusKeputusan == "1")
+                {
+                    LblKeterangan.Visible = false;
+                    DataTable dt = new DataTable();
+                    dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
+
+                    if (drv.Row["IdJenisPertimbangan"].ToString() == "2")
+                    {
+                        string[] JPK = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["JenisPentadbiranKontrakMOF"].ToString().Split(',') : drv.Row["JenisPentadbiranKontrakKementerian"].ToString().Split(',');
+
+                        if (JPK.Length > 0)
+                        {
+                            LblKeterangan.Text = "JENIS PENTADBIRAN KONTRAK:";
+                            LblKeterangan.CssClass = "fw-bold text-sm";
+                            LblKeterangan.Visible = true;
+
+                            for (var i = 0; i < JPK.Length; i++)
+                            {
+                                dt.Rows.Add(i + 1, JPK[i]);
+                            }
+                        }
+                    }
+                    else if (drv.Row["IdPBMMuktamad"].ToString() == "1")
+                    {
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjayaKementerian"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranKementerian"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohKementerian"].ToString() + " BULAN");
+                    }
+                    else if ((drv.Row["IdPBMMuktamad"].ToString() == "2" && !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString())))
+                    {
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjayaMOF"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranMOF"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohMOF"].ToString() + " BULAN");
+                    }
+                    else if (drv.Row["IdPBMMuktamad"].ToString() == "2")
+                    {
+                        dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["SyarikatBerjayaKementerian"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranKementerian"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohKementerian"].ToString() + " BULAN");
+                    }
+                    detailsList.DataSource = dt;
+                    detailsList.DataBind();
+                }
             }
         }
     }

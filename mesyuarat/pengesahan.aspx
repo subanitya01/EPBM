@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-	<h1 class="h3 mb-3">PERAKUAN <strong>MESYUARAT</strong></h1>
+	<h1 class="h3 mb-3">PENGESAHAN <strong>MESYUARAT</strong></h1>
 	<asp:Panel ID="PanelNotFound" runat="server">
 		<div class="alert alert-info d-flex align-items-center w-100 alert-outline alert-dismissible" role="alert">
 			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -88,7 +88,7 @@
 					<asp:TemplateField ItemStyle-CssClass="text-center">
 						<ItemTemplate>
 							<a href="/keputusan/papar.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/pengesahan.aspx?id=" + Eval("IdMesyuarat")) %>" title="Papar"><i class="align-middle" data-feather="eye"></i></a>
-							<a href="/keputusan/edit.aspx?id=<%# Eval("Id") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/pengesahan.aspx?id=" + Eval("IdMesyuarat")) %>" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
+							<a href="/keputusan/edit.aspx?id=<%# Eval("Id") %>&muktamad=<%# Eval("IdPBMMuktamad") %>&ReturnURL=<%# System.Web.HttpUtility.UrlEncode("/mesyuarat/pengesahan.aspx?id=" + Eval("IdMesyuarat")) %>" class="text-secondary" title="Edit"><i class="align-middle" data-feather="edit-2"></i></a>
 						
 						</ItemTemplate>
 					</asp:TemplateField>

@@ -57,9 +57,9 @@ namespace EPBM.mesyuarat
                 DataRow[] dtMesyuarat = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + listMesyuarat.SelectedValue);
                 modalTitle1.Text = modalTitle2.Text = dtMesyuarat[0]["MESYUARAT"].ToString();
                 TajukPermohonan.Text = "BAGI MESYUARAT " + modalTitle1.Text;
-                string CommandText2 = "Select Id, IdMesyuarat, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaBahagian ELSE NamaJabatan END as Jabatan, IdStatusKeputusan, JenisPentadbiranKontrak, " +
-                                    "StatusKeputusan as STATUS, SyarikatBerjaya, Harga, Tempoh, AlasanKeputusan as KETERANGAN, IdJenisPertimbangan, IdPBMMuktamad, PBM as MUKTAMAD, NilaiTawaran, " +
-                                    "MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, PBM as MUKTAMAD " +
+                string CommandText2 = "Select *, PBM as MUKTAMAD, StatusKeputusan as STATUS, NamaPendekBahagianJabatan as JABATAN, " +
+                                    "CASE WHEN IdPBMMuktamad = 1 THEN IdStatusKeputusanKementerian ELSE IdStatusKeputusanMOF END as IdStatusKeputusan, " +
+                                    "CASE WHEN IdPBMMuktamad = 1 THEN CatatanKementerian ELSE CatatanMOF END as KETERANGAN " +
                                     "from Papar_Permohonan WHERE IdStatusPengesahan=2 and IdMesyuarat=@Id and TarikhHapus IS NULL ORDER BY Id";
                 Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@Id", listMesyuarat.SelectedValue } };
                 DataTable dtPermohonan = Utils.GetDataTable(CommandText2, queryParams2);
@@ -79,46 +79,65 @@ namespace EPBM.mesyuarat
                 Label lblStatus = e.Row.FindControl("lblStatus") as Label;
                 Label LblKeterangan = e.Row.FindControl("LblKeterangan") as Label;
                 ListView detailsList = e.Row.FindControl("DetailsList") as ListView;
+                string IdStatusKeputusan = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["IdStatusKeputusanMOF"].ToString() : drv.Row["IdStatusKeputusanKementerian"].ToString();
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "1")
+                if (IdStatusKeputusan == "1")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-info";
-                else if (drv.Row["IdStatusKeputusan"].ToString() == "2")
+                else if (IdStatusKeputusan == "2")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-success";
-                else if (drv.Row["IdStatusKeputusan"].ToString() == "5")
+                else if (IdStatusKeputusan == "5")
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-warning";
                 else
                     lblStatus.CssClass = lblStatus.CssClass + " text-bg-danger";
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5" || (drv.Row["IdStatusKeputusan"].ToString() == "1" && drv.Row["IdJenisPertimbangan"].ToString() == "99"))
+                if (IdStatusKeputusan == "3" || IdStatusKeputusan == "5" || (IdStatusKeputusan == "1" && drv.Row["IdJenisPertimbangan"].ToString() == "99"))
                 {
+
+                    LblKeterangan.Text = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["CatatanMOF"].ToString() : drv.Row["CatatanKementerian"].ToString();
                     detailsList.Visible = false;
                 }
-                else if (drv.Row["IdStatusKeputusan"].ToString() == "1")
+                else if (IdStatusKeputusan == "1")
                 {
+                    LblKeterangan.Visible = false;
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
 
                     if (drv.Row["IdJenisPertimbangan"].ToString() == "2")
                     {
-                        dt.Rows.Add("JENIS PENTADBIRAN KONTRAK", drv.Row["JenisPentadbiranKontrak"].ToString());
-                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                        string[] JPK = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["JenisPentadbiranKontrakMOF"].ToString().Split(',') : drv.Row["JenisPentadbiranKontrakKementerian"].ToString().Split(',');
+
+                        if (JPK.Length > 0)
+                        {
+                            LblKeterangan.Text = "JENIS PENTADBIRAN KONTRAK:";
+                            LblKeterangan.CssClass = "fw-bold text-sm";
+                            LblKeterangan.Visible = true;
+
+                            for (var i = 0; i < JPK.Length; i++)
+                            {
+                                dt.Rows.Add(i + 1, JPK[i]);
+                            }
+                        }
                     }
-                    else if ((drv.Row["IdPBMMuktamad"].ToString() == "1" ||
-                        (drv.Row["IdPBMMuktamad"].ToString() == "2" && !string.IsNullOrEmpty(drv.Row["SyarikatBerjaya"].ToString()))))
+                    else if (drv.Row["IdPBMMuktamad"].ToString() == "1")
                     {
-                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
-                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaran"]));
-                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjayaKementerian"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranKementerian"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohKementerian"].ToString() + " BULAN");
+                    }
+                    else if ((drv.Row["IdPBMMuktamad"].ToString() == "2" && !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString())))
+                    {
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjayaMOF"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranMOF"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohMOF"].ToString() + " BULAN");
                     }
                     else if (drv.Row["IdPBMMuktamad"].ToString() == "2")
                     {
-                        dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["MOFSyarikatDiperaku"].ToString());
-                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["MOFNilaiTawaran"]));
-                        dt.Rows.Add("TEMPOH", drv.Row["MOFTempoh"].ToString() + " BULAN");
+                        dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["SyarikatBerjayaKementerian"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranKementerian"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohKementerian"].ToString() + " BULAN");
                     }
                     detailsList.DataSource = dt;
                     detailsList.DataBind();
-                    LblKeterangan.Visible = false;
                 }
             }
         }

@@ -61,7 +61,7 @@
                 <asp:BoundField DataField="TAJUK" HeaderText="TAJUK">
                 </asp:BoundField>
 
-                <asp:BoundField DataField="JABATAN" HeaderText="JABATAN" HeaderStyle-CssClass="text-center">
+                <asp:BoundField DataField="NamaPendekBahagianJabatan" HeaderText="JABATAN" HeaderStyle-CssClass="text-center">
                 </asp:BoundField>
 				
 				<asp:BoundField DataField="MUKTAMAD" HeaderText="MUKTAMAD" HeaderStyle-CssClass="text-center" SortExpression="MUKTAMAD">

@@ -171,7 +171,7 @@
 									</ul>
 								</LayoutTemplate>
 								<ItemTemplate>
-									<li class="list-group-item p-1 text-nowrap"><b><%#: Eval("Label") %>:</b> <br /><%#: Eval("Text") %></li>
+									<li class="list-group-item p-1 text-nowrap"><b><%#: Eval("Label") %>:</b> <%#: Eval("Text") %></li>
 								</ItemTemplate>
 							</asp:ListView>
 						</ItemTemplate>

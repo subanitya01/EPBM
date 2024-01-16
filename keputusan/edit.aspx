@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="edit.aspx.cs" Inherits="EPBM.mesyuarat.edit_keputusan" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+		<link href="<%= ResolveUrl("~/assets/libs/vanillaSelectBox/vanillaSelectBox.css") %>" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 	<h1 class="h3 mb-3 d-flex">
@@ -66,10 +67,13 @@
 		</div>
 	</div>
 	<div class="card">
+		<div class="card-header bg-info pb-0">
+			<h5 class="card-title text-white">PBM MUKTAMAD: <asp:Literal ID="LtlPBMMuktamad" runat="server"></asp:Literal></h5>
+		</div>
 		<div class="card-body">
 				<div class="row">
 					<div class="col-12 mb-2">
-						<label class="control-label">STATUS <span class="text-danger">*</span></label>
+						<label class="control-label">KEPUTUSAN <span class="text-danger">*</span></label>
 						<div class="mt-1">
 							<asp:RadioButtonList ID="RadioStatus" RepeatDirection="Horizontal" runat="server" CssClass="table table-borderless table-sm mb-0" />
 						</div>
@@ -78,11 +82,6 @@
 					</div>
 				</div>
 				<asp:Panel ID="PanelSuccess1" runat="server" CssClass="row success" Visible="false">
-					<div class="col-12 col-lg-6 mb-2">
-						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
-						<asp:DropDownList ID="listPbmMuktamad" CssClass="form-select" required="required" runat="server" /> 
-						<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-					</div>
 					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label" id="lblSyarikat" >SYARIKAT BERJAYA <span class="text-danger">*</span></label>
 						<asp:TextBox ID="txtSyarikat" runat="server" CssClass="form-control" placeholder="SYARIKAT BERJAYA" required="required" autocomplete="off" />
@@ -156,7 +155,6 @@
 								document.getElementById('<%=keepAttachment.ClientID %>').value = 0;
 							})
 
-							var pbmMuktamad = document.getElementById('<%=listPbmMuktamad.ClientID %>');
                             function changeSyarikat(val) {
                                 if (val == 1) {
 									document.getElementById('lblSyarikat').innerHTML = 'SYARIKAT BERJAYA <span class="text-danger">*</span>';
@@ -168,32 +166,16 @@
                                     document.getElementById('<%=txtSyarikat.ClientID %>').placeholder = "SYARIKAT DIPERAKU";
 									document.getElementById('<%=RequiredFieldValidator4.ClientID %>').textContent = "Sila Isi Syarikat Diperaku";
 								}
-							}
-							changeSyarikat(pbmMuktamad.value);
-
-							pbmMuktamad.addEventListener('change', function (event) {
-                                changeSyarikat(this.value);
-							})
+                            }
+                            const urlParams = new URLSearchParams(window.location.search);
+                            changeSyarikat(urlParams.get('muktamad'));
                         </script>
 				</asp:Panel>
 				<asp:Panel ID="PanelSuccess2" runat="server" CssClass="row success" Visible="false">
 					<div class="col-12 col-lg-6 mb-2">
-						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
-						<asp:DropDownList ID="listPbmMuktamad3" CssClass="form-select" required="required" runat="server" /> 
-						<asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad3" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-					</div>
-					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">JENIS PENTADBIRAN KONTRAK <span class="text-danger">*</span></label>
-						<asp:DropDownList ID="listJenisPentadbiranKontrak" CssClass="form-select" required="required" runat="server" /> 
+						<asp:ListBox ID="listJenisPentadbiranKontrak" CssClass="form-select" required="required" runat="server" SelectionMode="Multiple"/>
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Sila Pilih Jenis Pentadbiran Kontrak" ControlToValidate="listJenisPentadbiranKontrak" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-					</div>
-					<div class="col-12 col-lg-6 mb-2">
-						<label class="control-label" >TEMPOH</label>
-						<div class="input-group">
-							<asp:TextBox ID="txtTempoh2" runat="server" CssClass="form-control" TextMode="Number" placeholder="TEMPOH" step="1" min="1" />
-							<span class="input-group-text">BULAN</span>
-						</div>
-						<asp:CompareValidator runat="server" Operator="DataTypeCheck" Type="Integer" ControlToValidate="txtTempoh2" ErrorMessage="Tempoh hanya dalam digit sahaja" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true" />
 					</div>
 					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">LAMPIRAN</label>
@@ -216,7 +198,16 @@
 							ForeColor="Red">  
 						</asp:RegularExpressionValidator> 
 					</div>
+					<script src="<%= ResolveUrl("~/assets/libs/vanillaSelectBox/vanillaSelectBox.min.js") %>"></script>
 					<script>
+						let selectBox = new vanillaSelectBox("#<%=listJenisPentadbiranKontrak.ClientID %>", {
+							"maxHeight": 200,
+                            placeHolder: "SILA PILIH",
+							disableSelectAll: true,
+							keepInlineStyles: false,
+                            itemsSeparator: ", ",
+                            "translations": { "all": "SEMUA", "selectAll": "PILIH SEMUA", "clearAll": "KOSONGKAN", "item": "JENIS", "items": "JENIS" } 
+						});
                         var fileAttachment3 = document.getElementById('<%=fileAttachment3.ClientID %>');
                         fileAttachment3.addEventListener('change', function (event) {
                             if (fileAttachment3.files.length > 0)
@@ -233,11 +224,6 @@
                     </script>
 				</asp:Panel>
 				<asp:Panel ID="PanelSuccess3" runat="server" CssClass="row success" Visible="false">
-					<div class="col-12 col-lg-6 mb-2">
-						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
-						<asp:DropDownList ID="listPbmMuktamad4" CssClass="form-select" required="required" runat="server" /> 
-						<asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad4" ValidationGroup="success" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-					</div>
 					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">LAMPIRAN</label>
 						<div class="d-flex position-relative">
@@ -283,11 +269,6 @@
                     </script>
 				</asp:Panel>
 				<asp:Panel ID="PanelFail" runat="server" CssClass="row fail d-none">
-					<div class="col-12 col-lg-6 mb-2 notkiv">
-						<label class="control-label">PBM MUKTAMAD <span class="text-danger">*</span></label>
-						<asp:DropDownList ID="listPbmMuktamad2" CssClass="form-select" required="required" runat="server" /> 
-						<asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ErrorMessage="Sila Pilih PBM Muktamad" ControlToValidate="listPbmMuktamad2" ValidationGroup="fail" ForeColor="Red" SetFocusOnError="true"></asp:RequiredFieldValidator>
-					</div>
 					<div class="col-12 col-lg-6 mb-2">
 						<label class="control-label">LAMPIRAN</label>
 						<div class="d-flex position-relative">
@@ -352,7 +333,6 @@
                             notkivfields.forEach(notkivfield => {
                                 notkivfield.classList.add("d-none");
 							})
-							//document.getElementById('<%=listPbmMuktamad2.ClientID %>').value = 1;
 						}
                         else
                             notkivfields.forEach(notkivfield => {

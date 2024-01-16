@@ -40,14 +40,12 @@ namespace EPBM.keputusan
             string listJabatanText = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listJabatan")).SelectedItem.Text;
             ViewState["listBahagian"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listBahagian")).Text.Trim();
             string listBahagianText = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listBahagian")).SelectedItem.Text;
-            ViewState["listStatus"] = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listStatus")).Text.Trim();
-            string listStatusText = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listStatus")).SelectedItem.Text;
+            string status = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtStatus")).Text.Trim() ?? null;
             string CondSyarikat = ((DropDownList)Utils.FindControlRecursive(Page.PreviousPage, "listCondSyarikat")).Text.Trim() ?? null;
             string Syarikat = ((TextBox)Utils.FindControlRecursive(Page.PreviousPage, "txtSyarikat")).Text.Trim() ?? null;
             int? IdMesyuarat = int.TryParse(ViewState["listMesyuarat"].ToString(), out int number) ? number : 0;
             int? IdJabatan = int.TryParse(ViewState["listJabatan"].ToString(), out int number2) ? number2 : 0;
             int? IdBahagian = int.TryParse(ViewState["listBahagian"].ToString(), out int number3) ? number3 : 0;
-            int? IdStatus = int.TryParse(ViewState["listStatus"].ToString(), out int number4) ? number4 : 0;
 
             ViewState["extendSearch"] = method=="extend";
             string searchTerm = Convert.ToString(ViewState["txtSearch"]) ?? null;
@@ -55,8 +53,9 @@ namespace EPBM.keputusan
             bool extendSearch = Convert.ToBoolean(ViewState["extendSearch"]);
             string sortDir = ViewState["SortDirection"] as string;
             string sortBy = ViewState["SortExpression"] as string;
-            string selectData = "Select Id, Tajuk, CASE WHEN IdJabatan = 1 THEN NamaPendekBahagian ELSE ShortName END as Jabatan, IdStatusKeputusan, PBM as MUKTAMAD, IdJenisPertimbangan, JenisPentadbiranKontrak, " +
-                                "StatusKeputusan as STATUS, SyarikatBerjaya, NilaiTawaran, Tempoh, MOFSyarikatDiperaku, MOFNilaiTawaran, MOFTempoh, IdPBMMuktamad, AlasanKeputusan as KETERANGAN, MESYUARAT ";
+            string selectData = "Select *, NamaPendekBahagianJabatan as JABATAN, PBM as MUKTAMAD, StatusKeputusan as STATUS, " +
+                "CASE WHEN IdPBMMuktamad = 1 THEN IdStatusKeputusanKementerian ELSE IdStatusKeputusanMOF END as IdStatusKeputusan, " +
+                "CASE WHEN IdPBMMuktamad = 1 THEN CatatanKementerian ELSE CatatanMOF END as KETERANGAN ";
             string CommandText = "from Papar_Permohonan WHERE TarikhHapus IS NULL AND IdStatusPengesahan = 4 ";
             string limit = "";// " OFFSET  " + (GridView1.PageIndex * GridView1.PageSize) + " ROWS FETCH NEXT " + GridView1.PageSize + " ROWS ONLY";
 
@@ -69,11 +68,12 @@ namespace EPBM.keputusan
                     CommandText += " AND (" +
                             "MESYUARAT LIKE '%' + @searchTerm + '%' " +
                             "OR TAJUK LIKE '%' + @searchTerm + '%' " +
-                            "OR (NamaBahagian LIKE '%' + @searchTerm + '%' AND IdJabatan = 1) " +
-                            "OR (NamaJabatan LIKE '%' + @searchTerm + '%' AND IdJabatan <> 1) " +
+                            "OR NamaPendekBahagianJabatan LIKE '%' + @searchTerm + '%' " +
+                            "OR BahagianJabatan LIKE '%' + @searchTerm + '%' " +
+                            "OR NamaPendekBahagianJabatan LIKE '%' + @searchTerm + '%' " +
                             "OR StatusKeputusan LIKE '%' + @searchTerm + '%'" +
-                            "OR SyarikatBerjaya LIKE '%' + @searchTerm + '%'" +
-                            "OR AlasanKeputusan LIKE '%' + @searchTerm + '%'" +
+                            "OR (SyarikatBerjayaMOF IS NULL AND SyarikatBerjayaKementerian LIKE '%' + @searchTerm + '%')" +
+                            "OR (SyarikatBerjayaMOF IS NOT NULL AND SyarikatBerjayaMOF LIKE '%' + @searchTerm + '%')" +
                         ")";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
@@ -99,12 +99,7 @@ namespace EPBM.keputusan
                 }
                 else if (searchCol == "SYARIKAT BERJAYA")
                 {
-                    CommandText += " AND SyarikatBerjaya LIKE '%' + @searchTerm + '%'";
-                    queryParams.Add("@searchTerm", searchTerm);
-                }
-                else if (searchCol == "ALASAN DIBATALKAN")
-                {
-                    CommandText += " AND AlasanKeputusan LIKE '%' + @searchTerm + '%'";
+                    CommandText += " AND ((SyarikatBerjayaMOF IS NULL AND SyarikatBerjayaKementerian LIKE '%' + @searchTerm + '%') OR (SyarikatBerjayaMOF IS NOT NULL AND SyarikatBerjayaMOF LIKE '%' + @searchTerm + '%'))";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
             }
@@ -132,21 +127,21 @@ namespace EPBM.keputusan
                     CommandText += " AND IdBahagian = @IdBahagian";
                     queryParams.Add("@IdBahagian", IdBahagian);
                 }
-                if (IdStatus > 0)
+                if (!string.IsNullOrEmpty(status))
                 {
-                    CommandText += " AND IdStatusKeputusan = @IdStatus";
-                    queryParams.Add("@IdStatus", IdStatus);
+                    CommandText += " AND StatusKeputusan LIKE '%' + @status + '%'";
+                    queryParams.Add("@status", status);
                 }
                 if (!string.IsNullOrEmpty(Syarikat))
                 {
                     if (CondSyarikat == "SAMA DENGAN")
-                        CommandText += " AND SyarikatBerjaya = @Syarikat";
+                        CommandText += " AND ((SyarikatBerjayaMOF IS NULL AND SyarikatBerjayaKementerian = @Syarikat) OR (SyarikatBerjayaMOF IS NOT NULL AND SyarikatBerjayaMOF = @Syarikat))";
                     else if (CondSyarikat == "BERMULA DENGAN")
-                        CommandText += " AND SyarikatBerjaya LIKE @Syarikat + '%'";
+                        CommandText += " AND ((SyarikatBerjayaMOF IS NULL AND SyarikatBerjayaKementerian LIKE @Syarikat + '%') OR (SyarikatBerjayaMOF IS NOT NULL AND SyarikatBerjayaMOF LIKE @Syarikat + '%'))";
                     else if (CondSyarikat == "BERAKHIR DENGAN")
-                        CommandText += " AND SyarikatBerjaya LIKE '%' + @Syarikat";
+                        CommandText += " AND ((SyarikatBerjayaMOF IS NULL AND SyarikatBerjayaKementerian LIKE '%' + @Syarikat) OR (SyarikatBerjayaMOF IS NOT NULL AND SyarikatBerjayaMOF LIKE '%' + @Syarikat))";
                     else
-                        CommandText += " AND SyarikatBerjaya LIKE '%' + @Syarikat + '%'";
+                        CommandText += " AND ((SyarikatBerjayaMOF IS NULL AND SyarikatBerjayaKementerian LIKE '%' + @Syarikat + '%') OR (SyarikatBerjayaMOF IS NOT NULL AND SyarikatBerjayaMOF LIKE '%' + @Syarikat + '%'))";
 
                     queryParams.Add("@Syarikat", Syarikat);
                 }
@@ -177,9 +172,9 @@ namespace EPBM.keputusan
                     NamaBahagian.Text = listBahagianText + ", ";
                 }
 
-                if (IdStatus != 0)
+                if (!string.IsNullOrEmpty(status))
                 {
-                    NamaStatus.Text = listStatusText;
+                    NamaStatus.Text = status;
                     PanelStatus.Visible = true;
                 }
                 else PanelStatus.Visible = false;
@@ -240,37 +235,58 @@ namespace EPBM.keputusan
                 ListView detailsList = e.Row.FindControl("DetailsList") as ListView;
                 Literal numbering = e.Row.FindControl("Numbering") as Literal;
 
-                if (drv.Row["IdStatusKeputusan"].ToString() == "3" || drv.Row["IdStatusKeputusan"].ToString() == "5" || (drv.Row["IdStatusKeputusan"].ToString() == "1" && drv.Row["IdJenisPertimbangan"].ToString() == "99"))
+                string IdStatusKeputusan = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["IdStatusKeputusanMOF"].ToString() : drv.Row["IdStatusKeputusanKementerian"].ToString();
+
+                if (IdStatusKeputusan == "3" || IdStatusKeputusan == "5" || (IdStatusKeputusan == "1" && drv.Row["IdJenisPertimbangan"].ToString() == "99"))
                 {
+
+                    LblKeterangan.Text = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["CatatanMOF"].ToString() : drv.Row["CatatanKementerian"].ToString();
                     detailsList.Visible = false;
                 }
-                else if (drv.Row["IdStatusKeputusan"].ToString() == "1")
+                else if (IdStatusKeputusan == "1")
                 {
+                    LblKeterangan.Visible = false;
                     DataTable dt = new DataTable();
                     dt.Columns.AddRange(new DataColumn[2] { new DataColumn("Label"), new DataColumn("Text") });
 
                     if (drv.Row["IdJenisPertimbangan"].ToString() == "2")
                     {
-                        dt.Rows.Add("JENIS PENTADBIRAN KONTRAK", drv.Row["JenisPentadbiranKontrak"].ToString());
-                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                        string[] JPK = !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString()) ? drv.Row["JenisPentadbiranKontrakMOF"].ToString().Split(',') : drv.Row["JenisPentadbiranKontrakKementerian"].ToString().Split(',');
+
+                        if (JPK.Length > 0)
+                        {
+                            LblKeterangan.Text = "JENIS PENTADBIRAN KONTRAK:";
+                            LblKeterangan.CssClass = "fw-bold text-sm";
+                            LblKeterangan.Visible = true;
+
+                            for (var i = 0; i < JPK.Length; i++)
+                            {
+                                dt.Rows.Add(i + 1, JPK[i]);
+                            }
+                        }
                     }
-                    else if ((drv.Row["IdPBMMuktamad"].ToString() == "1" ||
-                        (drv.Row["IdPBMMuktamad"].ToString() == "2" && !string.IsNullOrEmpty(drv.Row["SyarikatBerjaya"].ToString()))))
+                    else if (drv.Row["IdPBMMuktamad"].ToString() == "1")
                     {
-                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjaya"].ToString());
-                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaran"]));
-                        dt.Rows.Add("TEMPOH", drv.Row["Tempoh"].ToString() + " BULAN");
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjayaKementerian"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranKementerian"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohKementerian"].ToString() + " BULAN");
+                    }
+                    else if ((drv.Row["IdPBMMuktamad"].ToString() == "2" && !string.IsNullOrEmpty(drv.Row["IdStatusKeputusanMOF"].ToString())))
+                    {
+                        dt.Rows.Add("SYARIKAT BERJAYA", drv.Row["SyarikatBerjayaMOF"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranMOF"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohMOF"].ToString() + " BULAN");
                     }
                     else if (drv.Row["IdPBMMuktamad"].ToString() == "2")
                     {
-                        dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["MOFSyarikatDiperaku"].ToString());
-                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["MOFNilaiTawaran"]));
-                        dt.Rows.Add("TEMPOH", drv.Row["MOFTempoh"].ToString() + " BULAN");
+                        dt.Rows.Add("SYARIKAT DIPERAKU", drv.Row["SyarikatBerjayaKementerian"].ToString());
+                        dt.Rows.Add("NILAI TAWARAN", "RM " + string.Format("{0:#,0.00}", drv.Row["NilaiTawaranKementerian"]));
+                        dt.Rows.Add("TEMPOH", drv.Row["TempohKementerian"].ToString() + " BULAN");
                     }
                     detailsList.DataSource = dt;
                     detailsList.DataBind();
-                    LblKeterangan.Visible = false;
                 }
+
                 numbering.Text = (e.Row.RowIndex + 1).ToString();
             }
         }
