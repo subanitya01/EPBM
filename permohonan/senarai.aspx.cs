@@ -40,15 +40,15 @@ namespace EPBM.Permohonan
             string selectText = "Select * from  Papar_Permohonan ";
             string commandText = "where IdStatusPermohonan IN ('1','2','3')";
 
-            string filter = Request.QueryString["filter"];
+            //string filter = Request.QueryString["filter"];
 
-            if ((filter == "2minggu" && !IsPostBack) || cbFilter2Minggu.Checked == true)
-            {
-                commandText += " and TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) and  IdStatusPermohonan != 4";
+            //if ((filter == "2minggu" && !IsPostBack) || cbFilter2Minggu.Checked == true)
+            //{
+            //    commandText += " and TarikhSahlaku >= DATEADD(day,-14, CAST( GETDATE() AS Date ) ) and  IdStatusPermohonan != 4";
 
-                cbFilter2Minggu.Checked = true;
+            //    cbFilter2Minggu.Checked = true;
 
-            }
+            //}
 
             if (!string.IsNullOrEmpty(searchTerm))
             {

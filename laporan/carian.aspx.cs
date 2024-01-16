@@ -277,6 +277,8 @@ namespace EPBM.laporan
         private string GetLaporanTitle1()
         {
             string jabatan = String.Empty;
+            string peruntukan = String.Empty;
+            //string jperolehan = String.Empty;
             DateTime TarikhMula = SystemHelper.GetDateTime(txttkhmula.Text);
             DateTime TarikhAkhir = SystemHelper.GetDateTime(txttkhakhir.Text);
 
@@ -289,9 +291,21 @@ namespace EPBM.laporan
                 jabatan = "Kementerian";
             }
 
+            else if (ddlSumberPeruntukan.SelectedValue == "1")
+
+            {
+                peruntukan = ddlSumberPeruntukan.SelectedItem.Text;
+            }
+
+            //else if (ddlJenisPerolehan.SelectedValue == "1")
+
+            //{
+            //    jperolehan = ddlJenisPerolehan.SelectedItem.Text;
+            //}
+
             jabatan = !String.IsNullOrWhiteSpace(jabatan) ? String.Format("({0})", jabatan) : String.Empty;
 
-            return String.Format("Laporan EPBM {0}\nTarikh Mula: {1}{2}{3}", jabatan, TarikhMula.ToString("dd-MMM-yyyy"), "  Hingga  ",TarikhAkhir.ToString("dd-MMM-yyyy"));
+            return String.Format("Laporan EPBM {0}\nTarikh Mula: {1}{2}{3}\n{4}", jabatan, TarikhMula.ToString("dd-MMM-yyyy"), "  Hingga  ", TarikhAkhir.ToString("dd-MMM-yyyy"), peruntukan);
 
         }
 
