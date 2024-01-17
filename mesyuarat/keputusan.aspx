@@ -155,7 +155,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body m-3">
-					<p class="mb-0">Dimana mesyuarat ini dimuktamadkan?</p>
+					<p class="mb-0">Sila pilih PBM  Muktamad bagi perolehan ini?</p>
 				</div>
 				<div class="modal-footer">
 					<a href="#" type="button" class="btn btn-info muktamad-1">LP NRECC</a>

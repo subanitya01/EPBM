@@ -109,6 +109,19 @@
 					</li>
 						</asp:Panel>
 					
+
+					<li class="sidebar-header">
+						Surat Setuju Terima
+					</li>
+					<asp:Panel ID="pnlSST" runat="server">
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/sst/senarai.aspx">
+						  <i class="align-middle" data-feather="award"></i> <span class="align-middle">Senarai SST</span>
+						</a>
+					</li>
+					</asp:Panel>
+
 					<asp:Panel ID="pnlLaporan" runat="server">
 					<li class="sidebar-header">
 						Laporan

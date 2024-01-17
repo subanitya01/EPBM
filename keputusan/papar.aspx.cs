@@ -109,7 +109,7 @@ namespace EPBM.mesyuarat
                     {
                         LtlTarikhSST.Text = dtPermohonan.Rows[0]["TarikhSSTKementerian"].ToString();
                         LtlRujukanSST.Text = dtPermohonan.Rows[0]["RujukanSSTKementerian"].ToString();
-                        LinkToEditSST.NavigateUrl = "~/keputusan/sst.aspx?id=" + dtPermohonan.Rows[0]["Id"] + returnUrl;
+                        LinkToEditSST.NavigateUrl = "~/sst/edit.aspx?id=" + dtPermohonan.Rows[0]["Id"] + returnUrl;
 
                         if (dtPermohonan.Rows[0]["IdStatusPengesahan"].ToString() == "4")
                             PanelSST.Visible = true;

@@ -7,182 +7,137 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPBM
+namespace EPBM.sst
 {
 
 
-    public partial class Site
+    public partial class edit
     {
 
         /// <summary>
-        /// ContentPlaceHolder2 control.
+        /// TajukPerolehan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder2;
+        protected global::System.Web.UI.WebControls.Literal TajukPerolehan;
 
         /// <summary>
-        /// pnlDashboard control.
+        /// HyperLink3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDashboard;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink3;
 
         /// <summary>
-        /// pnlNamaPermohonan control.
+        /// TajukMesyuarat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlNamaPermohonan;
+        protected global::System.Web.UI.WebControls.Literal TajukMesyuarat;
 
         /// <summary>
-        /// pnlUrusetia control.
+        /// LtlStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlUrusetia;
+        protected global::System.Web.UI.WebControls.Literal LtlStatus;
 
         /// <summary>
-        /// pnlSenaraiPerolehan control.
+        /// LtlPbmMuktamad control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSenaraiPerolehan;
+        protected global::System.Web.UI.WebControls.Literal LtlPbmMuktamad;
 
         /// <summary>
-        /// pnlPenyemak control.
+        /// LtlSyarikat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlPenyemak;
+        protected global::System.Web.UI.WebControls.Literal LtlSyarikat;
 
         /// <summary>
-        /// pnlNamaMesyuarat control.
+        /// LtlTempoh control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlNamaMesyuarat;
+        protected global::System.Web.UI.WebControls.Literal LtlTempoh;
 
         /// <summary>
-        /// pnlDaftarMesyuarat control.
+        /// LtlNilai control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlDaftarMesyuarat;
+        protected global::System.Web.UI.WebControls.Literal LtlNilai;
 
         /// <summary>
-        /// pnlKeputusanMesyuarat control.
+        /// LinkLampiran control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlKeputusanMesyuarat;
+        protected global::System.Web.UI.WebControls.HyperLink LinkLampiran;
 
         /// <summary>
-        /// pnlPerakuanMesyuarat control.
+        /// txtTarikhSST control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlPerakuanMesyuarat;
+        protected global::System.Web.UI.WebControls.TextBox txtTarikhSST;
 
         /// <summary>
-        /// pnlSenaraiKeputusan control.
+        /// RequiredFieldValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSenaraiKeputusan;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator;
 
         /// <summary>
-        /// pnlSST control.
+        /// txtRujukanSST control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSST;
+        protected global::System.Web.UI.WebControls.TextBox txtRujukanSST;
 
         /// <summary>
-        /// pnlLaporan control.
+        /// RequiredFieldValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLaporan;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
 
         /// <summary>
-        /// pnlAdmin control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlAdmin;
-
-        /// <summary>
-        /// form2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form2;
-
-        /// <summary>
-        /// currentUserRole control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal currentUserRole;
-
-        /// <summary>
-        /// LinkButton1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
-
-        /// <summary>
-        /// ContentPlaceHolder3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder3;
-
-        /// <summary>
-        /// ContentPlaceHolder4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder4;
+        protected global::System.Web.UI.WebControls.LinkButton btnSubmit;
     }
 }

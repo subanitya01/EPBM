@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace EPBM.sst
+namespace EPBM.keputusan
 {
     public partial class cetak_senarai : System.Web.UI.Page
     {

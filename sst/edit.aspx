@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="sst.aspx.cs" Inherits="EPBM.keputusan.sst" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="edit.aspx.cs" Inherits="EPBM.sst.edit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
@@ -10,7 +10,7 @@
 	</h1>
 	<div class="card">
 		<div class="card-header pb-0">
-			<h5 class="card-title">KEPUTUSAN MESYUARAT <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></h5>
+			<h5 class="card-title">KEPUTUSAN <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></h5>
 		</div>
 		<div class="card-body table-responsive">
 			<table class="table table-bordered table-hover table-sm">

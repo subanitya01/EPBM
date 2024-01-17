@@ -65,6 +65,7 @@ namespace EPBM
                 pnlKeputusanMesyuarat.Visible = IsRoleIncluded(_levelList, 1, 2);
                 pnlPerakuanMesyuarat.Visible = IsRoleIncluded(_levelList, 1, 3);
                 pnlSenaraiKeputusan.Visible = IsRoleIncluded(_levelList, 1, 2, 3, 4);
+                pnlSST.Visible = IsRoleIncluded(_levelList, 1, 2, 3);
                 pnlLaporan.Visible = IsRoleIncluded(_levelList, 1, 2, 3, 4);
                 pnlNamaPermohonan.Visible = IsRoleIncluded(_levelList, 1,2,3);
                 pnlNamaMesyuarat.Visible = IsRoleIncluded(_levelList, 1,2,3);

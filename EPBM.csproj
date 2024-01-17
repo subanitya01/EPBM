@@ -121,10 +121,12 @@
     <Content Include="auth\profile.aspx" />
     <Content Include="errors\404.aspx" />
     <Content Include="errors\default.aspx" />
+    <Content Include="sst\cetak-senarai.aspx" />
+    <Content Include="sst\senarai.aspx" />
+    <Content Include="sst\edit.aspx" />
     <Content Include="keputusan\cetak-senarai.aspx" />
     <Content Include="keputusan\mof.aspx" />
     <Content Include="keputusan\senarai.aspx" />
-    <Content Include="keputusan\sst.aspx" />
     <Content Include="laporan\carian.aspx" />
     <Content Include="auth\login.aspx" />
     <Content Include="laporan\CarianSyarikat.aspx" />
@@ -174,6 +176,27 @@
     <Compile Include="errors\default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="sst\cetak-senarai.aspx.cs">
+      <DependentUpon>cetak-senarai.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sst\cetak-senarai.aspx.designer.cs">
+      <DependentUpon>cetak-senarai.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="sst\senarai.aspx.cs">
+      <DependentUpon>senarai.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sst\senarai.aspx.designer.cs">
+      <DependentUpon>senarai.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="sst\edit.aspx.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sst\edit.aspx.designer.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="keputusan\cetak-senarai.aspx.cs">
       <DependentUpon>cetak-senarai.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -187,13 +210,6 @@
     </Compile>
     <Compile Include="keputusan\mof.aspx.designer.cs">
       <DependentUpon>mof.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="keputusan\sst.aspx.cs">
-      <DependentUpon>sst.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="keputusan\sst.aspx.designer.cs">
-      <DependentUpon>sst.aspx</DependentUpon>
     </Compile>
     <Compile Include="laporan\CarianSyarikat.aspx.cs">
       <DependentUpon>CarianSyarikat.aspx</DependentUpon>

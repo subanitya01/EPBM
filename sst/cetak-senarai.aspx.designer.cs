@@ -7,137 +7,128 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPBM.keputusan
+namespace EPBM.sst
 {
 
 
-    public partial class sst
+    public partial class cetak_senarai
     {
 
         /// <summary>
-        /// TajukPerolehan control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal TajukPerolehan;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// HyperLink3 control.
+        /// PanelMesyuarat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink3;
+        protected global::System.Web.UI.WebControls.Panel PanelMesyuarat;
 
         /// <summary>
-        /// TajukMesyuarat control.
+        /// NamaMesyuarat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal TajukMesyuarat;
+        protected global::System.Web.UI.WebControls.Literal NamaMesyuarat;
 
         /// <summary>
-        /// LtlStatus control.
+        /// PanelTajuk control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlStatus;
+        protected global::System.Web.UI.WebControls.Panel PanelTajuk;
 
         /// <summary>
-        /// LtlPbmMuktamad control.
+        /// NamaTajuk control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlPbmMuktamad;
+        protected global::System.Web.UI.WebControls.Literal NamaTajuk;
 
         /// <summary>
-        /// LtlSyarikat control.
+        /// PanelJabatan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlSyarikat;
+        protected global::System.Web.UI.WebControls.Panel PanelJabatan;
 
         /// <summary>
-        /// LtlTempoh control.
+        /// NamaBahagian control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlTempoh;
+        protected global::System.Web.UI.WebControls.Literal NamaBahagian;
 
         /// <summary>
-        /// LtlNilai control.
+        /// NamaJabatan control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LtlNilai;
+        protected global::System.Web.UI.WebControls.Literal NamaJabatan;
 
         /// <summary>
-        /// LinkLampiran control.
+        /// PanelStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink LinkLampiran;
+        protected global::System.Web.UI.WebControls.Panel PanelStatus;
 
         /// <summary>
-        /// txtTarikhSST control.
+        /// NamaStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTarikhSST;
+        protected global::System.Web.UI.WebControls.Literal NamaStatus;
 
         /// <summary>
-        /// RequiredFieldValidator control.
+        /// PanelSyarikat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator;
+        protected global::System.Web.UI.WebControls.Panel PanelSyarikat;
 
         /// <summary>
-        /// txtRujukanSST control.
+        /// NamaSyarikat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRujukanSST;
+        protected global::System.Web.UI.WebControls.Literal NamaSyarikat;
 
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-
-        /// <summary>
-        /// btnSubmit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnSubmit;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
     }
 }
