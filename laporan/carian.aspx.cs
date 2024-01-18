@@ -154,7 +154,7 @@ namespace EPBM.laporan
 
 
             //using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Nama_JPerolehan AS 'Jenis Perolehan' , NamaJabatan AS 'Kemen /Jabatan', Tempoh, Convert(varchar,[Harga],6)Harga ,SyarikatBerjaya ,StatusKeputusan ,Convert(varchar,[TarikhSuratSetujuTerima],20) AS 'Tarikh Surat Setuju Terima' FROM Papar_Laporan " + GetCondition(), conn))
-            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (" + GetOrder() + ")  AS 'Bil.', Tajuk, Nama_JPerolehan AS 'Jenis Perolehan' , NamaJabatan AS 'Kemen /Jabatan', Tempoh, Convert(varchar,[Harga],20) AS 'Harga' ,SyarikatBerjaya ,StatusKeputusan ,Convert(varchar,[TarikhSuratSetujuTerima],6) AS 'Tarikh Surat Setuju Terima' FROM Papar_Laporan " + GetCondition(), conn))
+            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (" + GetOrder() + ")  AS 'Bil.', Tajuk, Nama_JPerolehan AS 'Jenis Perolehan' , NamaJabatan AS 'Kemen /Jabatan', Tempoh, Convert(varchar,[Harga],20) AS 'Harga' ,SyarikatBerjaya ,JenisPertimbangan ,StatusKeputusan ,PBM AS 'MUKTAMAD' FROM Papar_Laporan " + GetCondition(), conn))
             {
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);
@@ -255,7 +255,7 @@ namespace EPBM.laporan
         {
             //List<string> conditions = new List<string>();
 
-            string condition = String.Format("Where Id_StatusKeputusan IN ('1','2','3') AND TarikhTerima > '{0}' AND TarikhTerima < '{1}'", SystemHelper.GetDate(txttkhmula.Text).ToString("yyyy-MM-dd"), SystemHelper.GetDate(txttkhakhir.Text).ToString("yyyy-MM-dd"));
+            string condition = String.Format("Where Id_StatusKeputusan IN ('1','3','5') AND TarikhTerima > '{0}' AND TarikhTerima < '{1}'", SystemHelper.GetDate(txttkhmula.Text).ToString("yyyy-MM-dd"), SystemHelper.GetDate(txttkhakhir.Text).ToString("yyyy-MM-dd"));
 
             int jenisLaporan = SystemHelper.GetInteger(ddlFilterLaporan.SelectedValue);
             int jabatanId = SystemHelper.GetInteger(ddlFilterJabatan.SelectedValue);
@@ -388,9 +388,9 @@ namespace EPBM.laporan
 
                 }
 
-                if (lblIDStatus.Text == "2")
+                if (lblIDStatus.Text == "5")
                 {
-                    lblStatus.CssClass = "badge text-bg-success";
+                    lblStatus.CssClass = "badge text-bg-warning";
 
                 }
 

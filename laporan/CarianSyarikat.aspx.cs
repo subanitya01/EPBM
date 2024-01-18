@@ -38,7 +38,7 @@ namespace EPBM.laporan
         {
             SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
             con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT DISTINCT SyarikatBerjaya FROM Permohonan Where SyarikatBerjaya NOT IN ('')", con);
+            SqlCommand cmd = new SqlCommand("SELECT DISTINCT SyarikatBerjaya FROM Papar_Laporan Where SyarikatBerjaya NOT IN ('')", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -98,7 +98,7 @@ namespace EPBM.laporan
             conn.Open();
             //string curUser = (string)Session["name"];
 
-            SqlCommand cmd = new SqlCommand("select* FROM Papar_Laporan where SyarikatBerjaya = '" + ddlSyarikat.SelectedValue + "' AND Id_StatusKeputusan IN ('1','2')", conn);
+            SqlCommand cmd = new SqlCommand("select* FROM Papar_Laporan where SyarikatBerjaya = '" + ddlSyarikat.SelectedValue + "' AND Id_StatusKeputusan ='1'", conn);
 
             da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
@@ -106,7 +106,7 @@ namespace EPBM.laporan
             Senarai.DataSource = ds;
             Senarai.DataBind();
 
-            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Nama_JPerolehan AS 'Jenis Perolehan' , NamaJabatan AS 'Kemen /Jabatan', Tempoh, Harga ,SyarikatBerjaya ,StatusKeputusan , TarikhSuratSetujuTerima AS 'Tarikh Surat Setuju Terima' FROM Papar_Laporan WHERE (SyarikatBerjaya='" + ddlSyarikat.SelectedValue + "') AND Id_StatusKeputusan IN ('1','2')", conn))
+            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Nama_JPerolehan AS 'Jenis Perolehan' , NamaJabatan AS 'Kemen /Jabatan', Tempoh, Harga ,SyarikatBerjaya ,StatusKeputusan ,PBM AS MUKTAMAD, TarikhSuratSetujuTerima AS 'Tarikh Surat Setuju Terima' FROM Papar_Laporan WHERE (SyarikatBerjaya='" + ddlSyarikat.SelectedValue + "') AND Id_StatusKeputusan ='1'", conn))
             {
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);
@@ -133,7 +133,7 @@ namespace EPBM.laporan
             {
 
                 //string curUser = (string)Session["name"];
-                SqlCommand sqlcmd = new SqlCommand("SELECT count (Id) FROM Papar_Laporan WHERE SyarikatBerjaya ='" + ddlSyarikat.SelectedValue + "' AND Id_StatusKeputusan IN ('1','2')", conn);
+                SqlCommand sqlcmd = new SqlCommand("SELECT count (Id) FROM Papar_Laporan WHERE SyarikatBerjaya ='" + ddlSyarikat.SelectedValue + "' AND Id_StatusKeputusan IN ('1')", conn);
 
                 conn.Open();
 

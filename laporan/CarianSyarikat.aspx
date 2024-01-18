@@ -88,6 +88,10 @@ height: 27px;
                            <%--<asp:BoundField DataField="Status_Permohonan" HeaderText="Status" SortExpression="Status">
                                                 <ItemStyle  Wrap="true" />
                                             </asp:BoundField>--%>
+                           <asp:BoundField DataField="PBM" HeaderText="MUKTAMAD" SortExpression="MUKTAMAD">
+                               <ItemStyle Wrap="true" />
+                           </asp:BoundField>
+                           
                            <asp:TemplateField HeaderText="Status">
                                <ItemStyle Width="0.5%" Wrap="true" />
                                <ItemTemplate>
