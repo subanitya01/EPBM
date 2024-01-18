@@ -213,6 +213,8 @@ namespace EPBM.mesyuarat
                     {
                         {"@IdPermohonan",  btn.CommandArgument },
                         {"@Status",  RadioStatus.SelectedValue },
+                        {"@TarikhKemaskini", DateTime.Now },
+                        {"@DikemaskiniOleh", Session["Profile.ICNO"] },
                     };
 
             try
@@ -227,8 +229,8 @@ namespace EPBM.mesyuarat
                     queryParamsKM1.Add("@Alasan", "");
 
                     Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanKementerian WHERE IdPermohonan = @IdPermohonan) " +
-                            "BEGIN UPDATE KeputusanKementerian SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan WHERE IdPermohonan=@IdPermohonan; END " +
-                            "ELSE BEGIN INSERT INTO KeputusanKementerian (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan) values(@Status, @Lampiran, @Alasan, @IdPermohonan) END", queryParamsKM1);
+                            "BEGIN UPDATE KeputusanKementerian SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE IdPermohonan=@IdPermohonan; END " +
+                            "ELSE BEGIN INSERT INTO KeputusanKementerian (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan, TarikhDicipta, DiciptaOleh) values(@Status, @Lampiran, @Alasan, @IdPermohonan, @TarikhKemaskini, @DikemaskiniOleh) END", queryParamsKM1);
 
                     string CommandText3 = "select * from KeputusanKementerian where IdPermohonan=@id";
                     Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@Id", btn.CommandArgument } };
@@ -266,8 +268,8 @@ namespace EPBM.mesyuarat
                     queryParamsKM1.Add("@Alasan", txtAlasan2.Text);
 
                     Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanKementerian WHERE IdPermohonan = @IdPermohonan) " +
-                            "BEGIN UPDATE KeputusanKementerian SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan WHERE IdPermohonan=@IdPermohonan; END " +
-                            "ELSE BEGIN INSERT INTO KeputusanKementerian (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan) values(@Status, @Lampiran, @Alasan, @IdPermohonan) END", queryParamsKM1);
+                            "BEGIN UPDATE KeputusanKementerian SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE IdPermohonan=@IdPermohonan; END " +
+                            "ELSE BEGIN INSERT INTO KeputusanKementerian (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan, TarikhDicipta, DiciptaOleh) values(@Status, @Lampiran, @Alasan, @IdPermohonan, @TarikhKemaskini, @DikemaskiniOleh) END", queryParamsKM1);
                 }
                 else
                 {
@@ -276,8 +278,8 @@ namespace EPBM.mesyuarat
                     queryParamsKM1.Add("@Alasan", "");
 
                     Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanKementerian WHERE IdPermohonan = @IdPermohonan) " +
-                            "BEGIN UPDATE KeputusanKementerian SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan WHERE IdPermohonan=@IdPermohonan; END " +
-                            "ELSE BEGIN INSERT INTO KeputusanKementerian (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan) values(@Status, @Lampiran, @Alasan, @IdPermohonan) END", queryParamsKM1);
+                            "BEGIN UPDATE KeputusanKementerian SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE IdPermohonan=@IdPermohonan; END " +
+                            "ELSE BEGIN INSERT INTO KeputusanKementerian (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan, TarikhDicipta, DiciptaOleh) values(@Status, @Lampiran, @Alasan, @IdPermohonan, @TarikhKemaskini, @DikemaskiniOleh) END", queryParamsKM1);
 
                     string CommandText3 = "select * from KeputusanKementerian where IdPermohonan=@id";
                     Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@Id", btn.CommandArgument } };
@@ -339,6 +341,8 @@ namespace EPBM.mesyuarat
                         {"@IdPermohonan",  btn.CommandArgument },
                         {"@Status",  RadioStatus.SelectedValue },
                         {"@Alasan", txtAlasan.Text },
+                        {"@TarikhKemaskini", DateTime.Now },
+                        {"@DikemaskiniOleh", Session["Profile.ICNO"] },
                     };
 
             try
@@ -348,8 +352,8 @@ namespace EPBM.mesyuarat
 
                 Utils.ExcuteQuery("UPDATE Permohonan SET IdPBMMuktamad=@PbmMuktamad WHERE Id=@Id", queryParams);
                 Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanKementerian WHERE IdPermohonan = @IdPermohonan) " +
-                        "BEGIN UPDATE KeputusanKementerian SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan WHERE IdPermohonan=@IdPermohonan; END " +
-                        "ELSE BEGIN INSERT INTO KeputusanKementerian (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan) values(@Status, @Lampiran, @Alasan, @IdPermohonan) END", queryParamsKM1);
+                        "BEGIN UPDATE KeputusanKementerian SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE IdPermohonan=@IdPermohonan; END " +
+                        "ELSE BEGIN INSERT INTO KeputusanKementerian (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan, TarikhDicipta, DiciptaOleh) values(@Status, @Lampiran, @Alasan, @IdPermohonan, @TarikhKemaskini, @DikemaskiniOleh) END", queryParamsKM1);
 
                 string CommandText3 = "select * from KeputusanKementerian where IdPermohonan=@id";
                 DataTable dtKeputusanKementerian = Utils.GetDataTable(CommandText3, queryParams);

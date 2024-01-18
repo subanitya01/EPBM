@@ -126,11 +126,13 @@ namespace EPBM.mesyuarat
                     {"@Tahun",  txtTahun.Text },
                     {"@Tarikh",  txtTarikh.Text },
                     {"@Pengerusi",  txtPengerusi.Text },
+                    {"@TarikhKemaskini", DateTime.Now },
+                    {"@DikemaskiniOleh", Session["Profile.ICNO"] },
                 };
                 DataTable dtMesyuarat = Utils.GetDataTable("Select count(*) as total from Mesyuarat where IdJenisMesyuarat=@Jenis AND Bilangan=@Bil AND Tahun=@Tahun AND TarikhHapus IS NULL AND Id<>@Id", queryParams);
                 if (dtMesyuarat.Rows.Count == 0 || Convert.ToInt32(dtMesyuarat.Rows[0]["total"]) == 0)
                 {
-                    Utils.ExcuteQuery("UPDATE Mesyuarat SET IdJenisMesyuarat=@Jenis, Bilangan=@Bil, Tahun=@Tahun, Tarikh=@Tarikh, Pengerusi=@Pengerusi WHERE Id=@Id", queryParams);
+                    Utils.ExcuteQuery("UPDATE Mesyuarat SET IdJenisMesyuarat=@Jenis, Bilangan=@Bil, Tahun=@Tahun, Tarikh=@Tarikh, Pengerusi=@Pengerusi, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE Id=@Id", queryParams);
 
                     Dictionary<string, dynamic> queryParams2 = new Dictionary<string, dynamic>() { { "@IdMesyuarat", btn.CommandArgument } };
                     //Delete Existing Ahli Mesyuarat

@@ -135,7 +135,7 @@ namespace EPBM.keputusan
 
             txtSyarikat.Text = dtPermohonan.Rows[0]["SyarikatBerjayaMOF"].ToString();
             txtTempoh.Text = dtPermohonan.Rows[0]["TempohMOF"].ToString();
-            txtNilaiTawaran.Text = string.Format("{0:#,0.00}", dtPermohonan.Rows[0]["NilaiTawaranMOF"]);
+            txtNilaiTawaran.Text = string.Format("{0:0.00}", dtPermohonan.Rows[0]["NilaiTawaranMOF"]);
             txtAlasan.Text = txtAlasan2.Text = dtPermohonan.Rows[0]["CatatanMOF"].ToString();
             
             btnSubmit.CommandArgument = Id;
@@ -198,6 +198,8 @@ namespace EPBM.keputusan
                     {
                         {"@IdPermohonan",  btn.CommandArgument },
                         {"@Status",  RadioStatus.SelectedValue },
+                        {"@TarikhKemaskini", DateTime.Now },
+                        {"@DikemaskiniOleh", Session["Profile.ICNO"] },
                     };
 
             try
@@ -211,8 +213,8 @@ namespace EPBM.keputusan
                     queryParamsKM1.Add("@Alasan", "");
 
                     Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanMOF WHERE IdPermohonan = @IdPermohonan) " +
-                            "BEGIN UPDATE KeputusanMOF SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan WHERE IdPermohonan=@IdPermohonan; END " +
-                            "ELSE BEGIN INSERT INTO KeputusanMOF (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan) values(@Status, @Lampiran, @Alasan, @IdPermohonan) END", queryParamsKM1);
+                            "BEGIN UPDATE KeputusanMOF SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE IdPermohonan=@IdPermohonan; END " +
+                            "ELSE BEGIN INSERT INTO KeputusanMOF (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan, TarikhDicipta, DiciptaOleh) values(@Status, @Lampiran, @Alasan, @IdPermohonan, @TarikhKemaskini, @DikemaskiniOleh) END", queryParamsKM1);
 
                     string CommandText3 = "select * from KeputusanMOF where IdPermohonan=@id";
                     Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@Id", btn.CommandArgument } };
@@ -250,8 +252,8 @@ namespace EPBM.keputusan
                     queryParamsKM1.Add("@Alasan", txtAlasan2.Text);
 
                     Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanMOF WHERE IdPermohonan = @IdPermohonan) " +
-                            "BEGIN UPDATE KeputusanMOF SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan WHERE IdPermohonan=@IdPermohonan; END " +
-                            "ELSE BEGIN INSERT INTO KeputusanMOF (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan) values(@Status, @Lampiran, @Alasan, @IdPermohonan) END", queryParamsKM1);
+                            "BEGIN UPDATE KeputusanMOF SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE IdPermohonan=@IdPermohonan; END " +
+                            "ELSE BEGIN INSERT INTO KeputusanMOF (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan, TarikhDicipta, DiciptaOleh) values(@Status, @Lampiran, @Alasan, @IdPermohonan, @TarikhKemaskini, @DikemaskiniOleh) END", queryParamsKM1);
                 }
                 else
                 {
@@ -260,8 +262,8 @@ namespace EPBM.keputusan
                     queryParamsKM1.Add("@Alasan", "");
 
                     Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanMOF WHERE IdPermohonan = @IdPermohonan) " +
-                            "BEGIN UPDATE KeputusanMOF SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan WHERE IdPermohonan=@IdPermohonan; END " +
-                            "ELSE BEGIN INSERT INTO KeputusanMOF (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan) values(@Status, @Lampiran, @Alasan, @IdPermohonan) END", queryParamsKM1);
+                            "BEGIN UPDATE KeputusanMOF SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE IdPermohonan=@IdPermohonan; END " +
+                            "ELSE BEGIN INSERT INTO KeputusanMOF (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan, TarikhDicipta, DiciptaOleh) values(@Status, @Lampiran, @Alasan, @IdPermohonan, @TarikhKemaskini, @DikemaskiniOleh) END", queryParamsKM1);
 
                     string CommandText3 = "select * from KeputusanMOF where IdPermohonan=@id";
                     Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { { "@Id", btn.CommandArgument } };
@@ -317,6 +319,8 @@ namespace EPBM.keputusan
                         {"@IdPermohonan",  btn.CommandArgument },
                         {"@Status",  RadioStatus.SelectedValue },
                         {"@Alasan", txtAlasan.Text },
+                        {"@TarikhKemaskini", DateTime.Now },
+                        {"@DikemaskiniOleh", Session["Profile.ICNO"] },
                     };
 
             try
@@ -325,8 +329,8 @@ namespace EPBM.keputusan
                 queryParamsKM1.Add("@Lampiran", lampiran);
 
                 Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanMOF WHERE IdPermohonan = @IdPermohonan) " +
-                        "BEGIN UPDATE KeputusanMOF SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan WHERE IdPermohonan=@IdPermohonan; END " +
-                        "ELSE BEGIN INSERT INTO KeputusanMOF (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan) values(@Status, @Lampiran, @Alasan, @IdPermohonan) END", queryParamsKM1);
+                        "BEGIN UPDATE KeputusanMOF SET IdStatusKeputusan=@Status, Lampiran=@Lampiran, Catatan=@Alasan, TarikhKemaskini=@TarikhKemaskini, DikemaskiniOleh=@DikemaskiniOleh WHERE IdPermohonan=@IdPermohonan; END " +
+                        "ELSE BEGIN INSERT INTO KeputusanMOF (IdStatusKeputusan, Lampiran, Catatan, IdPermohonan, TarikhDicipta, DiciptaOleh) values(@Status, @Lampiran, @Alasan, @IdPermohonan, @TarikhKemaskini, @DikemaskiniOleh) END", queryParamsKM1);
 
                 string CommandText3 = "select * from KeputusanMOF where IdPermohonan=@id";
                 Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()

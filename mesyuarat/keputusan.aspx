@@ -27,7 +27,7 @@
 						<asp:Panel ID="PanelSendBtn" runat="server">
 							<div class="btn-group btn-group-sm mb-3 float-end" role="group">
 								<asp:LinkButton ID="confirmBtn" CssClass="btn btn-info" data-bs-toggle="modal" data-bs-target="#meetingModal" runat="server">
-									<i class="mt-n1" data-feather="send"></i> Hantar Untuk Perakuan
+									<i class="mt-n1" data-feather="send"></i> Hantar Untuk Pengesahan
 								</asp:LinkButton>
 							</div>
 				

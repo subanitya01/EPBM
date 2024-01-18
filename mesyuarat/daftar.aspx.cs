@@ -243,22 +243,19 @@ namespace EPBM.mesyuarat
             LinkButton btn = (LinkButton)sender;
             Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>()
                 {
-                    {"@Id",  btn.CommandArgument }
+                    {"@Id",  btn.CommandArgument },
+                    {"@TarikhHapus", DateTime.Now },
+                    {"@DihapusOleh", Session["Profile.ICNO"] },
                 };
             DataRow[] dtrslt = ((DataTable)ViewState["dtMesyuarat"]).Select("Id = " + btn.CommandArgument);
 
             if (Convert.ToInt32(dtrslt[0]["IdStatusPengesahan"]) != 4)
             {
-                Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = GETDATE() WHERE Id = @Id", queryParams);
+                Utils.ExcuteQuery("UPDATE Mesyuarat SET TarikhHapus = @TarikhHapus, DihapusOleh = @DihapusOleh WHERE Id = @Id", queryParams);
+                Utils.ExcuteQuery("DELETE FROM KeputusanKementerian where IdPermohonan in (select distinct Id from Permohonan where IdMesyuarat=@Id)", queryParams);
+                Utils.ExcuteQuery("DELETE FROM KeputusanMOF where IdPermohonan in (select distinct Id from Permohonan where IdMesyuarat=@Id)", queryParams);
                 Utils.ExcuteQuery("UPDATE Permohonan SET " +
                     "IdMesyuarat = NULL, " +
-                    "IdStatusKeputusan = NULL, " +
-                    "SyarikatBerjaya = NULL, " +
-                    "Tempoh = NULL, " +
-                    "LampiranKeputusan = NULL, " +
-                    "TarikhSuratSetujuTerima = NULL, " +
-                    "RujukanSuratSetujuTerima = NULL, " +
-                    "AlasanKeputusan = NULL, " +
                     "IdStatusPermohonan=3 " +
                     "WHERE IdMesyuarat = @Id", queryParams);
                 Session["flash.success"] = "Mesyuarat " + dtrslt[0]["JENIS"] + " Bil. " + dtrslt[0]["BILANGAN"] + " telah dihapuskan!";
