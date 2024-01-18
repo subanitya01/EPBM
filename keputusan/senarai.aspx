@@ -106,6 +106,9 @@
 					<asp:BoundField DataField="JABATAN" HeaderText="JABATAN" HeaderStyle-CssClass="text-center" SortExpression="JABATAN">
 					</asp:BoundField>
 
+					<asp:BoundField DataField="JENIS PERTIMBANGAN" HeaderText="JENIS PERTIMBANGAN" HeaderStyle-CssClass="text-center" SortExpression="JENIS PERTIMBANGAN">
+					</asp:BoundField>
+
 					<asp:BoundField DataField="MUKTAMAD" HeaderText="MUKTAMAD" HeaderStyle-CssClass="text-center" SortExpression="MUKTAMAD">
 					</asp:BoundField>
 

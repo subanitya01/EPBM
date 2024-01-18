@@ -77,7 +77,7 @@ namespace EPBM.keputusan
             bool extendSearch = Convert.ToBoolean(ViewState["extendSearch"]);
             string sortDir = ViewState["SortDirection"] as string;
             string sortBy = ViewState["SortExpression"] as string;
-            string selectData = "Select *, NamaPendekBahagianJabatan as JABATAN, PBM as MUKTAMAD, StatusKeputusan as STATUS, " +
+            string selectData = "Select *, NamaPendekBahagianJabatan as JABATAN, PBM as MUKTAMAD, StatusKeputusan as STATUS, JenisPertimbangan AS 'JENIS PERTIMBANGAN', " +
                 "CASE WHEN IdPBMMuktamad = 1 THEN IdStatusKeputusanKementerian ELSE IdStatusKeputusanMOF END as IdStatusKeputusan, " +
                 "CASE WHEN IdPBMMuktamad = 1 THEN CatatanKementerian ELSE CatatanMOF END as KETERANGAN ";
             string CommandText = "from Papar_Permohonan WHERE TarikhHapus IS NULL AND IdStatusPengesahan = 4 ";
@@ -177,7 +177,7 @@ namespace EPBM.keputusan
                 }
             }
             if (!string.IsNullOrEmpty(sortBy))
-                sortBy = " ORDER BY " + sortBy + " " + sortDir;
+                sortBy = " ORDER BY [" + sortBy + "] " + sortDir;
             else
                 sortBy = " ORDER BY Id desc";
 
