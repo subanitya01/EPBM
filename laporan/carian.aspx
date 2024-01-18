@@ -130,7 +130,10 @@ height: 27px;
                             </asp:BoundField>                            
                              <asp:BoundField DataField="TarikhSuratSetujuTerima" HeaderText="TKH SST" DataFormatString="{0:dd/MM/yyyy}" SortExpression="TarikhSuratSetujuTerima">
                                <ItemStyle Wrap="true" />
-                           </asp:BoundField>                     
+                           </asp:BoundField>           
+                           <asp:BoundField DataField="PBM" HeaderText="MUKTAMAD" SortExpression="PBM">
+                               <ItemStyle Wrap="true" />
+                           </asp:BoundField> 
                            <asp:TemplateField HeaderText="STATUS" SortExpression="StatusKeputusan" >
                                <ItemStyle Width="0.5%" Wrap="true" />
                                <ItemTemplate>
