@@ -207,17 +207,11 @@ namespace EPBM.mesyuarat
                     }
 
                     if (p1 > 1) //Delete Existing Permohonan
-                        Utils.ExcuteQuery("UPDATE Permohonan SET " +
-                            "IdMesyuarat=NULL, " +
-                            "IdStatusPermohonan=3, " +
-                            "IdStatusKeputusan=NULL, " +
-                            "SyarikatBerjaya=NULL, " +
-                            "Tempoh=NULL, " +
-                            "LampiranKeputusan=NULL, " +
-                            "TarikhSuratSetujuTerima=NULL, " +
-                            "RujukanSuratSetujuTerima=NULL, " +
-                            "AlasanKeputusan=NULL " +
-                            "where IdMesyuarat=@IdMesyuarat and Id in (" + uncheckPermohonanId.ToString() + ")", queryParams4);
+                    {
+                        Utils.ExcuteQuery("UPDATE Permohonan SET IdMesyuarat=NULL, IdStatusPermohonan=3 where IdMesyuarat=@IdMesyuarat and Id in (" + uncheckPermohonanId.ToString() + ")", queryParams4);
+                        Utils.ExcuteQuery("DELETE FROM KeputusanKementerian where IdPermohonan in (" + uncheckPermohonanId.ToString() + ")", queryParams4);
+                        Utils.ExcuteQuery("DELETE FROM KeputusanMOF where IdPermohonan in (" + uncheckPermohonanId.ToString() + ")", queryParams4);
+                    }
 
                     if (p2 > 1)
                     {
