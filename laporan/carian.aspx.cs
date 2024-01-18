@@ -154,7 +154,7 @@ namespace EPBM.laporan
 
 
             //using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Nama_JPerolehan AS 'Jenis Perolehan' , NamaJabatan AS 'Kemen /Jabatan', Tempoh, Convert(varchar,[Harga],6)Harga ,SyarikatBerjaya ,StatusKeputusan ,Convert(varchar,[TarikhSuratSetujuTerima],20) AS 'Tarikh Surat Setuju Terima' FROM Papar_Laporan " + GetCondition(), conn))
-            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (" + GetOrder() + ")  AS 'Bil.', Tajuk, Nama_JPerolehan AS 'Jenis Perolehan' , NamaJabatan AS 'Kemen /Jabatan', Tempoh, Convert(varchar,[Harga],20) AS 'Harga' ,SyarikatBerjaya ,StatusKeputusan ,PBM AS MUKTAMAD,Convert(varchar,[TarikhSuratSetujuTerima],6) AS 'Tarikh Surat Setuju Terima' FROM Papar_Laporan " + GetCondition(), conn))
+            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (" + GetOrder() + ")  AS 'Bil.', Tajuk, Nama_JPerolehan AS 'Jenis Perolehan' , NamaJabatan AS 'Kemen /Jabatan', Tempoh, Convert(varchar,[Harga],20) AS 'Harga' ,SyarikatBerjaya ,JenisPertimbangan ,StatusKeputusan ,PBM AS 'MUKTAMAD' FROM Papar_Laporan " + GetCondition(), conn))
             {
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);

@@ -128,7 +128,7 @@ height: 27px;
                             <asp:BoundField DataField="Harga" HeaderText="HARGA"  FooterText="Total" DataFormatString= "RM {0:#,##0.00}" SortExpression="Harga">
                                <ItemStyle Wrap="true" />
                             </asp:BoundField>                            
-                             <asp:BoundField DataField="TarikhSuratSetujuTerima" HeaderText="TKH SST" DataFormatString="{0:dd/MM/yyyy}" SortExpression="TarikhSuratSetujuTerima">
+                             <asp:BoundField DataField="JenisPertimbangan" HeaderText="JENIS PERTIMBANGAN" SortExpression="JenisPertimbangan">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>           
                            <asp:BoundField DataField="PBM" HeaderText="MUKTAMAD" SortExpression="PBM">
