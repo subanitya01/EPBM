@@ -61,6 +61,7 @@
 			</table>
 		</div>
 	</div>
+	<asp:Panel ID="PanelKeputusan" runat="server" CssClass="card" Visible="false">
 	<div class="card">
 		<div class="card-header pb-0">
 			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
@@ -111,6 +112,7 @@
 			</table>
 		</div>
 	</div>
+	</asp:Panel>
 	<asp:Panel ID="PanelMOF" runat="server" CssClass="card" Visible="false">
 		<div class="card-header pb-0">
 			<div class="btn-group btn-group-sm mb-3 float-end" role="group">

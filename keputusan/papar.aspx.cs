@@ -71,6 +71,9 @@ namespace EPBM.mesyuarat
 
                 LtlMesyuarat.Text = dtMesyuarat.Rows[0]["MESYUARAT"].ToString();
 
+                if (string.IsNullOrEmpty(dtPermohonan.Rows[0]["IdStatusKeputusanKementerian"].ToString()))
+                    PanelKeputusan.Visible = false;
+
                 if (dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() == "2")
                     LtlStatusKementerian.Text = dtPermohonan.Rows[0]["StatusPentadbiranKontrakKementerian"].ToString();
                 else if (dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() == "99")

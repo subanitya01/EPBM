@@ -123,6 +123,15 @@ namespace EPBM.mesyuarat
         protected global::System.Web.UI.WebControls.Literal LtlLulusPelan;
 
         /// <summary>
+        /// PanelKeputusan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelKeputusan;
+
+        /// <summary>
         /// LinkToEdit control.
         /// </summary>
         /// <remarks>
