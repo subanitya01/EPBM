@@ -26,7 +26,7 @@
 					</div>
 					<div class="col-md-6">
 						<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-							<a href="#" data-bs-toggle="modal" data-bs-target="#approveModal" class="btn btn-success"><i class="mt-n1" data-feather="check"></i> SAHKAN</a>
+							<a href="#" data-bs-toggle="modal" data-bs-target="#approveModal" class="btn btn-primary"><i class="mt-n1" data-feather="check"></i> SAHKAN</a>
 							<a href="#" data-bs-toggle="modal" data-bs-target="#rejectModal" class="btn btn-warning"><i class="mt-n1" data-feather="x"></i> KEMBALIKAN</a>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 	</div>
 	<div class="card">
 		<div class="card-header pb-0">
-			<h5 class="card-title">SENARAI PERMOHONAN <asp:Literal ID="TajukPermohonan" runat="server" /></h5>
+			<h5 class="card-title">SENARAI PEROLEHAN <asp:Literal ID="TajukPermohonan" runat="server" /></h5>
 		</div>
 		<div class="card-body table-responsive">
 			<asp:GridView 

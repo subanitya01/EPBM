@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 	<h1 class="h3 mb-3 d-flex">
-		<span class="text-truncate w-100">SENARAI KEPUTUSAN BAGI <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></span>
+		<span class="text-truncate w-100">SENARAI PEROLEHAN BAGI <strong><asp:Literal ID="TajukMesyuarat" runat="server"></asp:Literal></strong></span>
 		<span class="btn-group btn-group-sm float-end" role="group">
 			<asp:HyperLink ID="HyperLink1" NavigateUrl="javascript:history.back()" runat="server" CssClass="btn btn-secondary text-nowrap" ><i class="align-middle" data-feather="corner-up-left"></i> Kembali</asp:HyperLink>
 		</span>

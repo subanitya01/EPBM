@@ -39,7 +39,7 @@
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body m-3">
-											<p class="">Anda pasti hantar mesyuarat ini untuk pengesahan penyelia?</p>
+											<p class="">Anda pasti untuk menghantar mesyuarat ini untuk pengesahan pegawai pengesah?</p>
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -75,7 +75,7 @@
 		</asp:Panel>
 	<div class="card">
 		<div class="card-header pb-0">
-			<h5 class="card-title">SENARAI PERMOHONAN <asp:Literal ID="TajukPermohonan" runat="server" /></h5>
+			<h5 class="card-title">SENARAI PEROLEHAN <asp:Literal ID="TajukPermohonan" runat="server" /></h5>
 		</div>
 		<div class="card-body table-responsive">
 			<asp:GridView 
