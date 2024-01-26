@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-<h1 class="h3 mb-3">SENARAI <strong>KEPUTUSAN</strong></h1>
+<h1 class="h3 mb-3">SENARAI <strong>SST</strong></h1>
 	<div class="card d-none">
 		<div class="card-body">
 			<asp:Panel ID="Panel1" runat="server">
