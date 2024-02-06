@@ -166,7 +166,7 @@
 			<table class="table table-bordered table-hover">
 				<tbody>
 					<tr class="success">
-					  <th scope="row" class="align-middle bg-secondary text-white">TARIKH SURAT SETUJU TERIMA</th>
+					  <th scope="row" class="align-middle bg-secondary text-white w-25">TARIKH SURAT SETUJU TERIMA</th>
 					  <td class=""><asp:Literal ID="LtlTarikhSST" runat="server"></asp:Literal></td>
 					</tr>
 					<tr class="success">
