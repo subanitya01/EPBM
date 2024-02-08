@@ -99,6 +99,10 @@ namespace EPBM.mesyuarat
 
                 if (dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() != "2" && dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString() != "99")
                 {
+                    if (User.IsInRole("Administrator") || User.IsInRole("Urusetia") || User.IsInRole("Pengesah"))
+                    {
+                        LinkToEditSST.Visible = true;
+                    }
                     if (dtPermohonan.Rows[0]["IdPBMMuktamad"].ToString() == "2" && dtPermohonan.Rows[0]["IdStatusKeputusanMOF"].ToString() == "1" )
                     {
                         LtlTarikhSST.Text = dtPermohonan.Rows[0]["TarikhSSTMOF"].ToString();

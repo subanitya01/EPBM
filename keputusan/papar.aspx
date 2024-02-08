@@ -158,7 +158,7 @@
 	<asp:Panel ID="PanelSST" runat="server" CssClass="card" Visible="false">
 		<div class="card-header pb-0">
 			<div class="btn-group btn-group-sm mb-3 float-end" role="group">
-				<asp:HyperLink ID="LinkToEditSST" runat="server" CssClass="btn btn-success" ><i class="mt-n1" data-feather="edit-2"></i > Edit</asp:HyperLink>
+				<asp:HyperLink ID="LinkToEditSST" Visible="false" runat="server" CssClass="btn btn-success" ><i class="mt-n1" data-feather="edit-2"></i > Edit</asp:HyperLink>
 			</div>
 			<h5 class="card-title">MAKLUMAT SST</h5>
 		</div>
