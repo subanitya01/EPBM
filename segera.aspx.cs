@@ -34,6 +34,7 @@ namespace EPBM
                     Response.Redirect("/", true);
                 }
                 Load_GridData();
+                Load_GridData2();
             }
 
         }
@@ -43,7 +44,7 @@ namespace EPBM
         {
             Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
             string selectText = "Select * from  Papar_Permohonan ";
-            string commandText = "where TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL and IdStatusPermohonan IN ('1','2','3')";
+            string commandText = "where TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhSahlaku >= CAST( GETDATE() AS Date ) AND TarikhHapus IS NULL and IdStatusPermohonan IN ('1','2','3')";
 
             commandText += " order by ID desc";
 
@@ -60,28 +61,60 @@ namespace EPBM
             string selectData2 = "Select *, PBM as MUKTAMAD, StatusKeputusan as STATUS, NamaPendekBahagianJabatan as JABATAN, " +
                                     "CASE WHEN IdPBMMuktamad = 1 THEN IdStatusKeputusanKementerian ELSE IdStatusKeputusanMOF END as IdStatusKeputusan, " +
                                     "CASE WHEN IdPBMMuktamad = 1 THEN CatatanKementerian ELSE CatatanMOF END as KETERANGAN ";
-            string CommandText2 = "from Papar_Permohonan WHERE TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhHapus IS NULL AND " +
+            string CommandText2 = "from Papar_Permohonan WHERE TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhSahlaku >= CAST( GETDATE() AS Date ) AND TarikhHapus IS NULL AND " +
                 "IdStatusPengesahan = 4 AND IdPBMMuktamad = 2 AND IdStatusKeputusanKementerian = 1 AND IdStatusKeputusanMOF IS NULL ORDER BY Id desc";
 
             DataTable dtPermohonan = Utils.GetDataTable(selectData2 + CommandText2, queryParams);
 
             GridView1.DataSource = dtPermohonan;
             GridView1.DataBind();
-            ViewState["dtPermohonan"] = dtPermohonan;
+            //ViewState["dtPermohonan"] = dtPermohonan;
+        }
+        
+
+        private void Load_GridData2()
+        {
+            Dictionary<string, dynamic> queryParams = new Dictionary<string, dynamic>();
+            string selectText = "Select * from  Papar_Permohonan ";
+            string commandText = "where TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhSahlaku < CAST( GETDATE() AS Date ) AND TarikhHapus IS NULL and IdStatusPermohonan IN ('1','2','3')";
+
+            commandText += " order by ID desc";
+
+            DataTable dtProfile = Utils.GetDataTable(selectText + commandText, queryParams, "DefaultConnection");
+            dtProfile.TableName = "Papar_Permohonan";
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dtProfile);
+
+            Senarai2.DataSource = ds;
+            Senarai2.DataBind();
+
+
+            string selectData2 = "Select *, PBM as MUKTAMAD, StatusKeputusan as STATUS, NamaPendekBahagianJabatan as JABATAN, " +
+                                    "CASE WHEN IdPBMMuktamad = 1 THEN IdStatusKeputusanKementerian ELSE IdStatusKeputusanMOF END as IdStatusKeputusan, " +
+                                    "CASE WHEN IdPBMMuktamad = 1 THEN CatatanKementerian ELSE CatatanMOF END as KETERANGAN ";
+            string CommandText2 = "from Papar_Permohonan WHERE TarikhSahlaku <= DATEADD(day,14, CAST( GETDATE() AS Date ) ) AND TarikhSahlaku < CAST( GETDATE() AS Date ) AND TarikhHapus IS NULL AND " +
+                "IdStatusPengesahan = 4 AND IdPBMMuktamad = 2 AND IdStatusKeputusanKementerian = 1 AND IdStatusKeputusanMOF IS NULL ORDER BY Id desc";
+
+            DataTable dtPermohonan = Utils.GetDataTable(selectData2 + CommandText2, queryParams);
+
+            GridView2.DataSource = dtPermohonan;
+            GridView2.DataBind();
+            //ViewState["dtPermohonan2"] = dtPermohonan;
         }
 
 
-        protected void Senarai_DataBound(object sender, EventArgs e)
+        protected void Senarai_DataBound(object sender, GridViewRowEventArgs e)
         {
 
-            for (int i = 0; i <= Senarai.Rows.Count - 1; i++)
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 //ImageButton btnhapus = (ImageButton)Senarai.Rows[i].FindControl("btnhapus");
-                HyperLink HyperLinkEdit = (HyperLink)Senarai.Rows[i].FindControl("HyperLinkEdit");
+                HyperLink HyperLinkEdit = (HyperLink)e.Row.FindControl("HyperLinkEdit");
                 //HyperLink HyperLinkMaju = (HyperLink)Senarai.Rows[i].FindControl("HyperLinkMaju");
 
-                Label lblStatus = (Label)Senarai.Rows[i].FindControl("lblStatus");
-                Label lblIDStatus = (Label)Senarai.Rows[i].FindControl("lblIDStatus");
+                Label lblStatus = (Label)e.Row.FindControl("lblStatus");
+                Label lblIDStatus = (Label)e.Row.FindControl("lblIDStatus");
 
                 if (lblIDStatus.Text == "1")
                 {
