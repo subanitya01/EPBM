@@ -165,7 +165,7 @@
 		<form id="form2" class="main" runat="server">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i> </a>
-				<h3 class="font-weight-bold w-100">SISTEM PIHAK BERKUASA MELULUS NRECC</h3>
+				<h3 class="font-weight-bold w-100">SISTEM PIHAK BERKUASA MELULUS NRES</h3>
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<li class="nav-item dropdown">
@@ -196,7 +196,7 @@
 			<footer class="footer">
 				<div class="container-fluid">
 					<p class="mb-0 text-center">
-						<span class="text-muted">&copy; 2023, Hak Cipta Terpelihara</span> Kementerian Sumber Asli, Alam Sekitar dan Perubahan Iklim.
+						<span class="text-muted">&copy; 2024<%= DateTime.Now.Year!=2024 ? "-" + DateTime.Now.Year : "" %>, Hak Cipta Terpelihara</span> Kementerian Sumber Asli dan Kelestarian Alam.
 					</p>
 				</div>
 			</footer>

@@ -28,7 +28,7 @@
                             </div>
 							<h1 class="h2 fw-bold mb-0">ePBM</h1>
 							<p class="lead fw-bold">
-								Sistem Pihak Berkuasa Melulus NRECC
+								Sistem Pihak Berkuasa Melulus NRES
 							</p>
 						</div>
                         <div class="card">
@@ -37,7 +37,7 @@
                                     <form id="account" method="post" defaultfocus="txtUsername" defaultbutton="BtnLogin" runat="server">
                                         <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                                         <div class="form-floating">
-                                            <asp:TextBox ID="txtUsername" runat="server" class="form-control" required="required" placeholder="No Kad Pengenalan"></asp:TextBox>
+                                            <asp:TextBox ID="txtUsername" runat="server" class="form-control" required="required" placeholder="No Kad Pengenalan" autocomplete="off"></asp:TextBox>
                                             <label for="txtUsername" class="form-label">No. Kad Pengenalan</label>
                                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtUsername"
                                                 CssClass="text-danger" ErrorMessage="No. Kad Pengenalan wajib diisi." />
@@ -72,7 +72,7 @@
                             </div>
                         </div>
 						<p class="lead text-center fw-bold">
-							Kementerian Sumber Asli, Alam Sekitar <br />dan Perubahan Iklim
+							Kementerian Sumber Asli dan Kelestarian Alam
 						</p>
 					</div>
 				</div>
