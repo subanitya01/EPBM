@@ -95,16 +95,17 @@ namespace EPBM.SyarikatBerjayaSblm2023
             conn.Open();
             //string curUser = (string)Session["name"];
 
-            SqlCommand cmd = new SqlCommand("Select * FROM PaparSyarikatBerjayaSebelum2023 " + GetCondition(), conn);
+            SqlCommand cmd = new SqlCommand("Select * FROM PaparSyarikatBerjayaSebelum2023 " + GetCondition() + GetOrder(), conn);
 
             da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
             Senarai.DataSource = ds;
             Senarai.DataBind();
-
-            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Nama AS 'Jenis Perolehan',Tempoh, Convert(varchar,[Harga],20) AS Harga ,NamaSyarikat, TahunLantikan AS 'TahunLantikan',NamaSyarikat FROM PaparSyarikatBerjayaSebelum2023 " + GetCondition(), conn))
-            {
+            
+            //using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Nama AS 'Jenis Perolehan',Tempoh, Convert(varchar,[Harga],20) AS Harga ,NamaSyarikat, TahunLantikan AS 'TahunLantikan',NamaSyarikat FROM PaparSyarikatBerjayaSebelum2023 " + GetCondition(), conn))
+            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER(" + GetOrder() + ")  AS 'Bil.', Tajuk, Nama AS 'Jenis Perolehan',Tempoh, Convert(varchar,[Harga],20) AS Harga ,NamaSyarikat, TahunLantikan AS 'TahunLantikan',NamaSyarikat FROM PaparSyarikatBerjayaSebelum2023 " + GetCondition(), conn))
+                {
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);
 
@@ -293,6 +294,48 @@ namespace EPBM.SyarikatBerjayaSblm2023
 
          
             return condition;
+
+        }
+
+
+        private string GetOrder()
+        {
+            string orderBy = String.Empty;
+
+            if (String.IsNullOrEmpty(lblSortColumn.Text))
+                lblSortColumn.Text = "TahunLantikan";
+
+            if (String.IsNullOrEmpty(lblSortDirection.Text))
+                lblSortDirection.Text = Constants.DESC;
+
+            lblSortRecord.Text = String.Format(" {0} {1}", GetSortingHeader(lblSortColumn.Text), lblIcon.Text);
+
+            lblIcon.Text = lblSortDirection.Text == Constants.ASC ? "↑" : "↓";
+
+            return String.Format(" order by {0} {1}", lblSortColumn.Text, lblSortDirection.Text);
+        }
+
+        private string GetSortingHeader(string columnName)
+        {
+            foreach (DataControlField column in Senarai.Columns)
+            {
+                if (column.SortExpression.Equals(columnName))
+                    return column.HeaderText;
+            }
+
+            return "TahunLantikan";
+        }
+
+        protected void Senarai_Sorting(object sender, GridViewSortEventArgs e)
+        {
+
+            if (lblSortColumn.Text.Equals(e.SortExpression))
+                lblSortDirection.Text = lblSortDirection.Text.Equals(Constants.ASC) ? Constants.DESC : Constants.ASC;
+            else
+                lblSortColumn.Text = e.SortExpression;
+
+            Load_GridData();
+
 
         }
 

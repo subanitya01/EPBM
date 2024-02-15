@@ -80,7 +80,20 @@ height: 27px;
            
            <div class="card">
                <div class="card-body table-responsive">
-                   <asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" OnPageIndexChanging="Senarai_PageIndexChanging" CssClass="table table-striped table-bordered table-hover Grid" OnDataBound="Senarai_DataBound" AllowPaging="True">
+
+                   <div id="SORT" runat="server" visible="true" class="row input-group-sm justify-content-between">
+                       <div class="col-sm-6 col-md-8 mb-3">
+                           <label>
+                               SUSUNAN BERDASARKAN:
+              <asp:Label ID="lblSortRecord" runat="server" /></label>
+                           <asp:Label ID="lblSortColumn" runat="server" Visible="false" />
+                           <asp:Label ID="lblSortDirection" runat="server" Visible="false" />
+                           <asp:Label ID="lblIcon" runat="server" Visible="false" />
+                       </div>
+                       <div class="col-sm-3 col-md-2 mb-3 text-end">
+                       </div>
+                   </div>
+                   <asp:GridView ID="Senarai" runat="server" AutoGenerateColumns="False" OnPageIndexChanging="Senarai_PageIndexChanging" CssClass="table table-striped table-bordered table-hover Grid" OnDataBound="Senarai_DataBound" OnSorting="Senarai_Sorting" AllowSorting="true" AllowPaging="True">
                        <PagerSettings Mode="Numeric" Position="Bottom" />
                        <Columns>
                            <asp:TemplateField HeaderText="ID" Visible="false">
@@ -100,16 +113,16 @@ height: 27px;
                            <asp:BoundField DataField="NamaJabatan" HeaderText="KEMENTERIAN/ JABATAN " SortExpression="NamaJabatan">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
-                           <asp:BoundField DataField="Nama" HeaderText="JENIS PEROLEHAN" SortExpression="Jenis Perolehan">
+                           <asp:BoundField DataField="Nama" HeaderText="JENIS PEROLEHAN" SortExpression="Nama">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
                             <asp:BoundField DataField="Harga" HeaderText="HARGA" DataFormatString= "RM {0:n}" SortExpression="Harga">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
-                             <asp:BoundField DataField="TahunLantikan" HeaderText="TahunLantikan" DataFormatString="{0:dd/MM/yyyy}" SortExpression="TarikhSuratSetujuTerima">
+                             <asp:BoundField DataField="TahunLantikan" HeaderText="TAHUN LANTIKAN" DataFormatString="{0:dd/MM/yyyy}" SortExpression="TahunLantikan">
                                <ItemStyle Wrap="true" />
                            </asp:BoundField>
-                                 <asp:BoundField DataField="NamaSyarikat" HeaderText="NamaSyarikat" SortExpression="NamaSyarikat">
+                                 <asp:BoundField DataField="NamaSyarikat" HeaderText="NAMA SYARIKAT" SortExpression="NamaSyarikat">
         <ItemStyle Wrap="true" />
     </asp:BoundField>
                            <asp:BoundField DataField="Tempoh" HeaderText="TEMPOH" SortExpression="Tempoh">

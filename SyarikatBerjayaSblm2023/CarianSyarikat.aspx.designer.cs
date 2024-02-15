@@ -96,6 +96,51 @@ namespace EPBM.SyarikatBerjayaSblm2023
         protected global::System.Web.UI.WebControls.Panel PanelGrid;
 
         /// <summary>
+        /// SORT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SORT;
+
+        /// <summary>
+        /// lblSortRecord control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSortRecord;
+
+        /// <summary>
+        /// lblSortColumn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSortColumn;
+
+        /// <summary>
+        /// lblSortDirection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSortDirection;
+
+        /// <summary>
+        /// lblIcon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIcon;
+
+        /// <summary>
         /// Senarai control.
         /// </summary>
         /// <remarks>
