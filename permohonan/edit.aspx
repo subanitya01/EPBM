@@ -110,7 +110,8 @@
                         <div class="col-12 col-lg-6">
                             <div>
                                 <label class="control-label">HARGA INDIKATIF / NILAI KONTRAK <span class="text-danger">*</span></label>
-                                <asp:TextBox ID="txtharga" runat="server" class="form-control mb-3" type="number" step=".01" autocomplete="off" required="required"></asp:TextBox>
+                                     <asp:TextBox type="hidden" ID="txtharga" runat="server" />
+                                <asp:TextBox ID="txthargaIn" runat="server" class="form-control mb-3" type="text" step=".01" autocomplete="off" required="required"></asp:TextBox>
                                 <%--					<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
                                         ControlToValidate="txtharga" Display="Dynamic"
                                         ErrorMessage="Sila masukan Nombor shj"
@@ -208,7 +209,12 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
+	 <script src="<%= ResolveUrl("~/assets/js/easy-number-separator.js") %>"></script>
 	<script>
+        easyNumberSeparator({
+            selector: '#<%=txthargaIn.ClientID %>',
+         resultInput: '#<%=txtharga.ClientID %>',
+     })
         var otherInputs = document.querySelectorAll('.other-input select');
         otherInputs.forEach(otherInput => {
             otherInput.addEventListener('change', function (event) {

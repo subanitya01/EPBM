@@ -168,6 +168,15 @@ namespace EPBM.permohonan
         protected global::System.Web.UI.WebControls.TextBox txtharga;
 
         /// <summary>
+        /// txthargaIn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txthargaIn;
+
+        /// <summary>
         /// ddlPBMMuktamad control.
         /// </summary>
         /// <remarks>

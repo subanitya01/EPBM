@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\2024\EPBMDEPLOY</_PublishTargetUrl>
-    <History>True|2024-02-15T08:30:20.0781965Z;True|2024-01-31T11:01:15.6083827+08:00;</History>
+    <History>False|2024-02-15T08:55:12.9499729Z;True|2024-02-15T16:30:20.0781965+08:00;True|2024-01-31T11:01:15.6083827+08:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
