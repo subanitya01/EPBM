@@ -26,10 +26,11 @@ namespace EPBM.SyarikatBerjayaSblm2023
         protected void Page_Load(object sender, EventArgs e)
         {   
             
-           Load_GridData();
+           
 
             if (!IsPostBack)
             {
+                Load_GridData();
                 
                 PanelGrid.Visible = true;
                 Panel1.Visible = false;
@@ -64,25 +65,25 @@ namespace EPBM.SyarikatBerjayaSblm2023
 
         }
 
-        //protected void btnCari_Click(object sender, EventArgs e)
-        //{
-        //    DateTime TarikhMula = SystemHelper.GetDateTime(txttkhmula.Text);
-        //    DateTime TarikhAkhir = SystemHelper.GetDateTime(txttkhakhir.Text);
+        protected void btnCari_Click(object sender, EventArgs e)
+        {
+            DateTime TarikhMula = SystemHelper.GetDateTime(txttkhmula.Text);
+            DateTime TarikhAkhir = SystemHelper.GetDateTime(txttkhakhir.Text);
 
-        //    try
-        //    {
+            try
+            {
 
-        //        {
-        //            Load_GridData();
+                {
+                    Load_GridData();
 
 
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.Write(ex.Message);
-        //    }
-        //}
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write(ex.Message);
+            }
+        }
 
         #region PaparData Syarikat
 
@@ -264,7 +265,7 @@ namespace EPBM.SyarikatBerjayaSblm2023
             SqlCommand com = new SqlCommand(insertQuery, conn);
             com.ExecuteNonQuery();
 
-            Response.Redirect("/SyarikatBerjayaSblm2023/CarianSyarikat.aspx.aspx");
+            Response.Redirect("/SyarikatBerjayaSblm2023/CarianSyarikat.aspx");
             conn.Close();
 
         }

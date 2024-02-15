@@ -67,7 +67,7 @@ namespace EPBM.SyarikatBerjayaSblm2023
                     ddlJabatan.SelectedValue = String.IsNullOrWhiteSpace(dt.Rows[0]["Organisasi_Grp_ID"].ToString()) ? String.Empty : (dt.Rows[0]["Organisasi_Grp_ID"]).ToString();
                     ddlBahagian.SelectedValue = String.IsNullOrWhiteSpace(dt.Rows[0]["IdBahagian"].ToString()) ? String.Empty : (dt.Rows[0]["IdBahagian"]).ToString();
                     //txtharga.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Harga"].ToString()) ? String.Empty : ((Decimal)dt.Rows[0]["Harga"]).ToString();
-                    txtharga.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Harga"].ToString()) ? String.Empty : ((Decimal)dt.Rows[0]["Harga"]).ToString("##.##");
+                    txthargaIn.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Harga"].ToString()) ? String.Empty : ((Decimal)dt.Rows[0]["Harga"]).ToString("##.##");
                     txtahunlantikan.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["TahunLantikan"].ToString()) ? String.Empty : ((DateTime)dt.Rows[0]["TahunLantikan"]).ToString("yyyy-MM-dd");
                     //txttkhterima.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["TarikhTerima"].ToString()) ? String.Empty : ((DateTime)dt.Rows[0]["TarikhTerima"]).ToString("yyyy-MM-dd");
                     txtcatatan.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["CatatanPendaftar"].ToString()) ? String.Empty : (dt.Rows[0]["CatatanPendaftar"]).ToString();

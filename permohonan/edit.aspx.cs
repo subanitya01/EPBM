@@ -86,7 +86,7 @@ namespace EPBM.permohonan
                     ddlBahagian.SelectedValue = String.IsNullOrWhiteSpace(dt.Rows[0]["IdBahagian"].ToString()) ? String.Empty : (dt.Rows[0]["IdBahagian"]).ToString();
 
                     //txtharga.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Harga"].ToString()) ? String.Empty : ((Decimal)dt.Rows[0]["Harga"]).ToString();
-                    txtharga.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Harga"].ToString()) ? String.Empty : ((Decimal)dt.Rows[0]["Harga"]).ToString("##.##");
+                    txthargaIn.Text = String.IsNullOrWhiteSpace(dt.Rows[0]["Harga"].ToString()) ? String.Empty : ((Decimal)dt.Rows[0]["Harga"]).ToString("##.##");
 
                     ddlPBMMuktamad.SelectedValue = String.IsNullOrWhiteSpace(dt.Rows[0]["IdPBMMuktamad"].ToString()) ? String.Empty : (dt.Rows[0]["IdPBMMuktamad"]).ToString();
                     

@@ -65,7 +65,7 @@ height: 27px;
                         <asp:DropDownList ID="ddlSyarikat" class="form-select mb-3" CssClass="chosen-select" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSyarikat_SelectedIndexChanged"></asp:DropDownList><br />
                         <br>
                         <asp:HyperLink ID="btnReset" NavigateUrl="/SyarikatBerjayaSblm2023/CarianSyarikat.aspx" runat="server" CssClass="btn btn-outline-danger">RESET</asp:HyperLink>
-<%--                        <asp:Button ID="btncari" runat="server" Text="Cari" OnClick="btnCari_Click" CssClass="btn btn-primary" />--%>
+                        <asp:Button ID="btncari" runat="server" Text="Cari" OnClick="btnCari_Click" CssClass="btn btn-primary" />
 
                     </div>
 				</div>

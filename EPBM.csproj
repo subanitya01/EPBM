@@ -149,6 +149,10 @@
     <Content Include="permohonan\senarai-pengesahan.aspx" />
     <Content Include="permohonan\senarai.aspx" />
     <Content Include="segera.aspx" />
+    <Content Include="SyarikatBerjayaSblm2023\CarianSyarikat.aspx" />
+    <Content Include="SyarikatBerjayaSblm2023\daftar.aspx" />
+    <Content Include="SyarikatBerjayaSblm2023\edit.aspx" />
+    <Content Include="SyarikatBerjayaSblm2023\papar.aspx" />
     <Content Include="Web.config" />
     <Content Include="default.aspx" />
   </ItemGroup>
@@ -246,6 +250,34 @@
     </Compile>
     <Compile Include="segera.aspx.designer.cs">
       <DependentUpon>segera.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SyarikatBerjayaSblm2023\CarianSyarikat.aspx.cs">
+      <DependentUpon>CarianSyarikat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SyarikatBerjayaSblm2023\CarianSyarikat.aspx.designer.cs">
+      <DependentUpon>CarianSyarikat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SyarikatBerjayaSblm2023\daftar.aspx.cs">
+      <DependentUpon>daftar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SyarikatBerjayaSblm2023\daftar.aspx.designer.cs">
+      <DependentUpon>daftar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SyarikatBerjayaSblm2023\edit.aspx.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SyarikatBerjayaSblm2023\edit.aspx.designer.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SyarikatBerjayaSblm2023\papar.aspx.cs">
+      <DependentUpon>papar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SyarikatBerjayaSblm2023\papar.aspx.designer.cs">
+      <DependentUpon>papar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="keputusan\senarai.aspx.cs">

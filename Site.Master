@@ -138,7 +138,16 @@
 						</a>
 					</li>
 					</asp:Panel>
+                    <asp:Panel ID="PnlDataSejarah" runat="server">
+                        <li class="sidebar-header">Data Sejarah Sebelum 2023
+                        </li>
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="/SyarikatBerjayaSblm2023/CarianSyarikat.aspx">
+                                <i class="align-middle" data-feather="bar-chart-2"></i><span class="align-middle">Syarikat Berjaya</span>
+                            </a>
+                        </li>
+                    </asp:Panel>
 
 					<asp:Panel ID="pnlAdmin" runat="server">
 					<li class="sidebar-header">

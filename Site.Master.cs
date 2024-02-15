@@ -70,7 +70,7 @@ namespace EPBM
                 pnlNamaPermohonan.Visible = IsRoleIncluded(_levelList, 1,2,3);
                 pnlNamaMesyuarat.Visible = IsRoleIncluded(_levelList, 1,2,3);
                 pnlAdmin.Visible = IsRoleIncluded(_levelList, 1);
-
+                PnlDataSejarah.Visible = IsRoleIncluded(_levelList, 1, 2, 3);
             }
         }
 
