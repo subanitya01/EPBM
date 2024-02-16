@@ -131,7 +131,7 @@
 
                         <div class="col-12 col-lg-6">
                             <div>
-                                <label class="control-label">TEMPOH<span class="text-danger">*</span></label>
+                                <label class="control-label">TEMPOH(BULAN)<span class="text-danger">*</span></label>
                                 <asp:TextBox ID="txttempoh" runat="server" class="form-control mb-3" type="text" step=".01" autocomplete="off" required="required"></asp:TextBox>  
                                 
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
