@@ -278,9 +278,13 @@ namespace EPBM.laporan
         {
             string jabatan = String.Empty;
             string peruntukan = String.Empty;
+            string jperolehan = String.Empty;
+
             //string jperolehan = String.Empty;
             DateTime TarikhMula = SystemHelper.GetDateTime(txttkhmula.Text);
             DateTime TarikhAkhir = SystemHelper.GetDateTime(txttkhakhir.Text);
+
+ 
 
             if (ddlFilterLaporan.SelectedValue == "2")
             {
@@ -291,21 +295,34 @@ namespace EPBM.laporan
                 jabatan = "Kementerian";
             }
 
-            else if (ddlSumberPeruntukan.SelectedValue == "1")
+            
+            if (ddlSumberPeruntukan.SelectedIndex > 0)
 
             {
                 peruntukan = ddlSumberPeruntukan.SelectedItem.Text;
             }
 
-            //else if (ddlJenisPerolehan.SelectedValue == "1")
+            if (ddlJenisPerolehan.SelectedIndex > 0)
 
-            //{
-            //    jperolehan = ddlJenisPerolehan.SelectedItem.Text;
-            //}
+            {
+                jperolehan = ddlJenisPerolehan.SelectedItem.Text;
+            }
 
-            jabatan = !String.IsNullOrWhiteSpace(jabatan) ? String.Format("({0})", jabatan) : String.Empty;
+            if (ddlSumberPeruntukan.SelectedIndex == 0)
+            {
+                peruntukan = "SEMUA";
+            }
 
-            return String.Format("Laporan EPBM {0}\nTarikh Mula: {1}{2}{3}\n{4}", jabatan, TarikhMula.ToString("dd-MMM-yyyy"), "  Hingga  ", TarikhAkhir.ToString("dd-MMM-yyyy"), peruntukan);
+            if (ddlJenisPerolehan.SelectedIndex == 0)  
+
+            {
+                jperolehan = "SEMUA";
+            } 
+            
+
+                jabatan = !String.IsNullOrWhiteSpace(jabatan) ? String.Format("({0})", jabatan) : String.Empty;
+         
+            return String.Format("Laporan EPBM {0}\nTarikh Mula: {1}{2}{3}\nSumber Peruntukan :{4}\nJenis Perolehan : {5}", jabatan, TarikhMula.ToString("dd-MMM-yyyy"), "  Hingga  ", TarikhAkhir.ToString("dd-MMM-yyyy"), peruntukan,jperolehan);
 
         }
 
