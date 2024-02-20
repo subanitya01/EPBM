@@ -36,6 +36,11 @@
 						</a>
 					</li>
 				   </asp:Panel>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/assets/Panduan Pengguna ePBM.pdf" target="_blank">
+						  <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">Manual Pengguna</span>
+						</a>
+					</li>
 				
 					<asp:Panel ID="pnlNamaPermohonan" runat="server">
 					<li class="sidebar-header">
