@@ -9,7 +9,7 @@
 <link href="../assets/css/chosen.css" rel="stylesheet" />
 
 <style>
-	img {
+	td img {
 padding-top: 10px;
 width: 22px;
 height: 27px;
