@@ -83,7 +83,7 @@ namespace EPBM.Permohonan
             Senarai.DataBind();
 
 
-            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Convert(varchar,[Harga], 20) AS 'Harga', Convert(varchar,[TarikhSahlaku],6) AS 'TarikhSahlaku' , JenisPertimbangan FROM Papar_Permohonan " + commandText, strConnString))
+            using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Convert(varchar,[Harga], 20) AS 'Harga', Convert(varchar,[TarikhSahlaku],6) AS 'TarikhSahlaku' , JenisPertimbangan, KaedahPerolehan, SumberPeruntukan , Nama_JPerolehan AS 'Jenis Perolehan', PBM ,  Convert(varchar,[TarikhTerima],6) AS 'TarikhTerima', CatatanPendaftar, ShortName AS 'Jabatan' FROM Papar_Permohonan " + commandText, strConnString))
             {
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);
