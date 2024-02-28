@@ -214,6 +214,12 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
     
+    <script type="text/javascript">
+        Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(function (sender, args) {
+            FUNCTION();
+        });
+        </script>
+
     <script src="<%= ResolveUrl("~/assets/js/easy-number-separator.js") %>"></script>
 	<script>
         easyNumberSeparator({
