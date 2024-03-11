@@ -9,7 +9,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
 
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="../assets/js/jquery.min.js"></script>
 
 <link href="../assets/css/chosen.min.css" rel="stylesheet"/>	
@@ -118,13 +118,17 @@
                         <div class="col-12 col-lg-6">
                             <div>
                                 <label class="control-label">HARGA INDIKATIF / NILAI KONTRAK <span class="text-danger">*</span></label>
-                                <asp:TextBox type="hidden" ID="txtharga" runat="server" />
-                                <asp:TextBox ID="txthargaIn" runat="server" class="form-control mb-3" type="text" step=".01" autocomplete="off" required="required"></asp:TextBox>
-                                <%--					<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
-                                        ControlToValidate="txtharga" Display="Dynamic"
-                                        ErrorMessage="Sila masukan Nombor shj"
-                                        ValidationExpression="^[0-9]+[.][0-9]{2}$"
-                                        Font-Bold="True" Font-Italic="True" ForeColor="#CC3300" SetFocusOnError="True"></asp:RegularExpressionValidator>--%>
+
+                                <asp:TextBox ID="txtharga" class="form-control mb-3" type="text" step=".01" autocomplete="off" required="required" onkeyup = "javascript:this.value=Comma(this.value);" runat="server" />
+
+                             <%--   <asp:TextBox type="hidden" ID="txtharga" runat="server" />--%>
+                               <%-- <asp:TextBox ID="txthargaIn" runat="server" class="form-control mb-3" type="text" step=".01" autocomplete="off" required="required"></asp:TextBox>--%>
+
+                                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server"
+                                    ControlToValidate="txtharga" Display="Dynamic"
+                                    ErrorMessage="Sila masukan Nombor shj"
+                                    ValidationExpression="^(((([0-9]{1,3},)([0-9]{3},)*[0-9]{3})|[0-9]{1,3})(\.[0-9]+)?)$"
+                                    Font-Bold="True" Font-Italic="True" ForeColor="#CC3300" SetFocusOnError="True"></asp:RegularExpressionValidator>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
@@ -214,12 +218,42 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder4" runat="server">
     
-    <script src="<%= ResolveUrl("~/assets/js/easy-number-separator.js") %>"></script>
-	<script>
-        easyNumberSeparator({
-            selector: '#<%=txthargaIn.ClientID %>',
-            resultInput: '#<%=txtharga.ClientID %>',
-        })
+    
+	<script type="text/javascript">
+
+    function Comma(Num)
+      {
+      Num += '';
+      Num = Num.replace(/,/g, '');
+
+      x = Num.split('.');
+      x1 = x[0];
+
+      x2 = x.length > 1 ? '.' + x[1] : '';
+
+      var rgx = /(\d)((\d{3}?)+)$/;
+
+      while (rgx.test(x1))
+
+      x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    
+      return x1 + x2;       
+       
+     }
+
+
+    </script>
+
+    
+
+ <%--   <script type="text/javascript">
+        Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(function (sender, args) {
+            FUNCTION();
+        });
+        </script>--%>
+
+
+<script type="text/javascript">
 	var otherInputs = document.querySelectorAll('.other-input select');
 	otherInputs.forEach(otherInput => {
 		otherInput.addEventListener('change', function (event) {

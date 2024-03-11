@@ -167,7 +167,7 @@ namespace EPBM.SyarikatBerjayaSblm2023
                 Load_GridData(); 
                 DataTable dataTable = (DataTable)gvData.DataSource;
 
-                reportFunction.GenerateLaporanSyarikatExcel(GetPdfLaporanTitle(), dataTable, String.Empty, ref fileName, ref filePath);
+                reportFunction.GenerateLaporanSyarikatExcel(GetLaporanTitle1(), dataTable, String.Empty, ref fileName, ref filePath);
 
                 DownloadFile(fileName, filePath);
             }
@@ -195,7 +195,7 @@ namespace EPBM.SyarikatBerjayaSblm2023
                 Load_GridData();
                 DataTable dataTable = (DataTable)gvData.DataSource;
 
-                reportFunction.GenerateLaporanSyarikatPdf(GetPdfLaporanTitle(), dataTable, String.Empty, ref fileName, ref filePath);
+                reportFunction.GenerateLaporanSyarikatPdf(GetLaporanTitle1(), dataTable, String.Empty, ref fileName, ref filePath);
 
                 DownloadFile(fileName, filePath);
             }
@@ -212,11 +212,53 @@ namespace EPBM.SyarikatBerjayaSblm2023
             return String.Format("CARIAN BERDASARKAN KEPADA SYARIKAT BERJAYA\n" + ddlSyarikat.SelectedItem.Text);
         }
 
-        private string GetPdfLaporanTitle()
-        {
-            return String.Format("CARIAN BERDASARKAN KEPADA SYARIKAT BERJAYA\n" + ddlSyarikat.SelectedItem.Text);
-        }
 
+        private string GetLaporanTitle1()
+        {
+ 
+
+            string NamaSyarikat = String.Empty;
+
+
+            //string TarikhMula = txttkhmula.Text;
+            //string TarikhAkhir = txttkhmula.Text;
+            DateTime TarikhMula = SystemHelper.GetDate(txttkhmula.Text);
+            DateTime TarikhAkhir = SystemHelper.GetDate(txttkhakhir.Text);
+
+            if (ddlSyarikat.SelectedIndex > 0)
+
+            {
+                NamaSyarikat = ddlSyarikat.SelectedItem.Text;
+            }
+
+            if (ddlSyarikat.SelectedIndex == 0)
+
+            {
+                NamaSyarikat = "SEMUA";
+            }
+
+            if (txttkhmula.Text == "" && txttkhakhir.Text == "")
+            {
+
+                return String.Format("DATA SEJARAH SYARIKAT BERJAYA SEBELUM 2024 \nNama Syarikat :{0} ", NamaSyarikat);
+            }
+
+            //if (TarikhMula==null )
+            //{
+
+            //    return String.Format("DATA SEJARAH SYARIKAT BERJAYA SEBELUM 2024 \nTarikh Mula: {0}\nNama Syarikat :{1} ", TarikhMula.ToString("dd-MMM-yyyy"), NamaSyarikat);
+            //}
+
+            //if (TarikhAkhir == null)
+            //{
+
+            //    return String.Format("DATA SEJARAH SYARIKAT BERJAYA SEBELUM 2024 \nTarikh Akhir: {0}\nNama Syarikat :{1} ", TarikhAkhir.ToString("dd-MMM-yyyy"), NamaSyarikat);
+            //}
+            
+            return String.Format("DATA SEJARAH SYARIKAT BERJAYA SEBELUM 2024 \nTarikh Mula: {0}{1}{2}\nNama Syarikat :{3} ", TarikhMula.ToString("dd-MMM-yyyy"), "  Hingga  ", TarikhAkhir.ToString("dd-MMM-yyyy"), NamaSyarikat);
+
+
+        }
         private void DownloadFile(string fileName, string location)
         {
             Response.AddHeader(Constants.CONTENT_DISPOSITION, String.Format(Constants.FORMAT_ATTACHMENT_FILE, System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8)));

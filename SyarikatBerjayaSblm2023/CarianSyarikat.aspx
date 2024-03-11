@@ -25,7 +25,7 @@ height: 27px;
         <a class="btn btn-success" href="daftar.aspx" role="button" aria-expanded="false" aria-controls="add" title="Tambah Syarikat Berjaya"><i class="align-middle" data-feather="plus"></i>Tambah Syarikat Berjaya</a>
     </span>
 
-<h1 class="h3 mb-3">CARIAN SYARIKAT BERJAYA</h1>	
+<h1 class="h3 mb-3">CARIAN SYARIKAT BERJAYA (DATA SEJARAH SEBELUM 2024)</h1>	
 
 <asp:ScriptManager ID="ScriptManager1"  EnablePageMethods="true"   EnablePartialRendering="true" runat="server">  </asp:ScriptManager>
  <asp:UpdatePanel ID="UpdatePanel1" runat="server"  UpdateMode="Conditional">

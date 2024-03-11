@@ -144,7 +144,7 @@
 					</li>
 					</asp:Panel>
                     <asp:Panel ID="PnlDataSejarah" runat="server">
-                        <li class="sidebar-header">Data Sejarah Sebelum 2023
+                        <li class="sidebar-header">Data Sejarah Sebelum 2024
                         </li>
 
                         <li class="sidebar-item">
