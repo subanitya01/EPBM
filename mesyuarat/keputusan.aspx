@@ -158,7 +158,7 @@
 					<p class="mb-0">Sila pilih PBM  Muktamad bagi perolehan ini?</p>
 				</div>
 				<div class="modal-footer">
-					<a href="#" type="button" class="btn btn-info muktamad-1">LP NRECC</a>
+					<a href="#" type="button" class="btn btn-info muktamad-1">LP Kementerian</a>
 					<a href="#" type="button" class="btn btn-primary muktamad-2">MOF</a>
 				</div>
 			</div>

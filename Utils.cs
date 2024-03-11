@@ -105,5 +105,10 @@ namespace EPBM
             }
             return sb.ToString();
         }
+        public static decimal ParseDecimal(string s)
+        {
+            s = s.Replace(",", "");
+            return decimal.Parse(s);
+        }
     }
 }

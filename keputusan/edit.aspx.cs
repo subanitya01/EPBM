@@ -149,7 +149,7 @@ namespace EPBM.mesyuarat
 
                 txtSyarikat.Text = dtPermohonan.Rows[0]["SyarikatBerjayaKementerian"].ToString();
                 txtTempoh.Text = dtPermohonan.Rows[0]["TempohKementerian"].ToString();
-                txtNilaiTawaran.Text = string.Format("{0:0.00}", dtPermohonan.Rows[0]["NilaiTawaranKementerian"]);
+                txtNilaiTawaran.Text = string.Format("{0:#,0.00}", dtPermohonan.Rows[0]["NilaiTawaranKementerian"]);
                 txtAlasan.Text = txtAlasan2.Text = dtPermohonan.Rows[0]["CatatanKementerian"].ToString();
 
                 initStatus(Muktamad, dtPermohonan.Rows[0]["IdJenisPertimbangan"].ToString(), dtPermohonan.Rows[0]["IdStatusKeputusanKementerian"].ToString());
@@ -301,7 +301,7 @@ namespace EPBM.mesyuarat
                         {"@Id",  dtKeputusanKementerian.Rows[0]["Id"].ToString() },
                         {"@IdSyarikat",  dtSyarikat.Rows[0]["Id"].ToString() },
                         {"@Tempoh",  txtTempoh.Text },
-                        {"@NilaiTawaran",  txtNilaiTawaran.Text },
+                        {"@NilaiTawaran",  Utils.ParseDecimal(txtNilaiTawaran.Text) },
                     };
 
                     Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanPerlantikanKontraktor WHERE IdKeputusanKementerian = @Id) " +
