@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Drawing;
 using System.Threading;
+using System.Globalization;
 
 
 namespace EPBM.Permohonan
@@ -52,28 +53,29 @@ namespace EPBM.Permohonan
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
+                queryParams.Add("@searchTerm", searchTerm);
                 if (string.IsNullOrEmpty(searchCol) || searchCol == "SEMUA KOLUM")
                 {
-                    commandText += " AND (NamaJabatan LIKE '%" + searchTerm + "%' OR Tajuk LIKE '%" + searchTerm + "%' OR Status_Permohonan LIKE '%" + searchTerm + "%' OR Harga LIKE '%" + searchTerm + "%')";
+                    commandText += " AND (NamaJabatan LIKE '%' + @searchTerm + '%' OR Tajuk LIKE '%' + @searchTerm + '%' OR Status_Permohonan LIKE '%' + @searchTerm + '%' OR Harga LIKE '%' + @searchTerm + '%')";
                 }
                 else if (searchCol == "JABATAN")
                 {
-                    commandText += " AND NamaJabatan LIKE '%" + searchTerm + "%' ";
+                    commandText += " AND NamaJabatan LIKE '%' + @searchTerm + '%' ";
                 }
                 else if (searchCol == "TAJUK")
                 {
-                    commandText += " AND Tajuk LIKE '%" + searchTerm + "%'";
+                    commandText += " AND Tajuk LIKE '%' + @searchTerm + '%'";
                 }
                 else if (searchCol == "STATUS")
                 {
-                    commandText += " AND Status_Permohonan LIKE '%" + searchTerm + "%'";
+                    commandText += " AND Status_Permohonan LIKE '%' + @searchTerm + '%'";
                 }
 
             }
 
             commandText += GetOrder();
 
-            DataTable dtProfile = Utils.GetDataTable(selectText + commandText, queryParams, "DefaultConnection");
+            DataTable dtProfile = Utils.GetDataTable(selectText + commandText, queryParams);
             dtProfile.TableName = "Papar_Permohonan";
 
             DataSet ds = new DataSet();
@@ -85,6 +87,7 @@ namespace EPBM.Permohonan
 
             using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT ROW_NUMBER() OVER (Order by Id DESC) AS 'Bil.', Tajuk, Convert(varchar,[Harga], 20) AS 'Harga', Convert(varchar,[TarikhSahlaku],6) AS 'TarikhSahlaku' , JenisPertimbangan, KaedahPerolehan, SumberPeruntukan , Nama_JPerolehan AS 'Jenis Perolehan', PBM ,  Convert(varchar,[TarikhTerima],6) AS 'TarikhTerima', CatatanPendaftar, ShortName AS 'Jabatan' FROM Papar_Permohonan " + commandText, strConnString))
             {
+                sqlDataAdapter.SelectCommand.Parameters.AddWithValue("@searchTerm", searchTerm);
                 DataTable dataTable = new DataTable();
                 sqlDataAdapter.Fill(dataTable);
 

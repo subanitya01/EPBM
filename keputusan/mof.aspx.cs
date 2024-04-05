@@ -285,7 +285,7 @@ namespace EPBM.keputusan
                         {"@Id",  dtKeputusanMOF.Rows[0]["Id"].ToString() },
                         {"@IdSyarikat",  dtSyarikat.Rows[0]["Id"].ToString() },
                         {"@Tempoh",  txtTempoh.Text },
-                        {"@NilaiTawaran",  txtNilaiTawaran.Text },
+                        {"@NilaiTawaran",  Utils.ParseDecimal(txtNilaiTawaran.Text) },
                     };
 
                     Utils.ExcuteQuery("IF EXISTS (SELECT 1 FROM KeputusanPerlantikanKontraktor WHERE IdKeputusanMOF = @Id) " +

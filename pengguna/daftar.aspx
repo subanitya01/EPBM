@@ -56,7 +56,7 @@
 					<asp:BoundField DataField="NAMA" HeaderText="NAMA" SortExpression="NAMA">
 					</asp:BoundField>
 
-					<asp:BoundField DataField="NO K/P" HeaderText="NO K/P" SortExpression="NO K/P">
+					<asp:BoundField DataField="NO. K/P" HeaderText="NO. K/P" SortExpression="NO. K/P">
 					</asp:BoundField>
 
 					<asp:TemplateField HeaderText="E-MEL" SortExpression="E-MEL">
@@ -82,9 +82,9 @@
 								data-bs-target="#addModal" 
 								title="Tambah"
 								CommandName='<%# Eval("E-MEL") %>' 
-								CommandArgument='<%# Eval("NO K/P") %>' 
+								CommandArgument='<%# DataBinder.GetPropertyValue(Container.DataItem, "NO. K/P") %>' 
 								OnClick="BtnAddUser_Click"
-								OnClientClick='<%# string.Concat("if(!popup(this",",\"",Eval("[NO K/P]"),"\",\"",Eval("NAMA"),"\",\"",Eval("ProfileId"),"\",\"",Eval("E-MEL"),"\"))return false; ") %>'
+								OnClientClick='<%# string.Concat("if(!popup(this",",\"",DataBinder.GetPropertyValue(Container.DataItem, "NO. K/P"),"\",\"",Eval("NAMA"),"\",\"",Eval("ProfileId"),"\",\"",Eval("E-MEL"),"\"))return false; ") %>'
 							>
 								<i class="align-middle" data-feather="plus-circle"></i>
 							</asp:LinkButton>

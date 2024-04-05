@@ -25,7 +25,7 @@ namespace EPBM.keputusan
 
         protected void initDropdownList()
         {
-            string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan=4 ORDER BY Id";
+            string CommandText = "Select * from PaparMesyuarat WHERE IdStatusPengesahan=4 ORDER BY Id desc";
             DataTable dtMesyuarat = Utils.GetDataTable(CommandText);
             ViewState["dtMesyuarat"] = dtMesyuarat;
             //bool selected = false;

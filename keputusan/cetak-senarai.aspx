@@ -95,6 +95,10 @@
 			margin-top: 5px;
 		}
 		table td.blank-cell{padding:15px;border:0 !important;}
+		.list-unstyled{
+			list-style: none;
+			padding-left: 0;
+		}
 
 		@media print {
 			@page { size: landscape; }

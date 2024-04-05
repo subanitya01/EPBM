@@ -430,28 +430,55 @@ namespace EPBM.permohonan
             DateTime tkhterima = SystemHelper.GetDateTime(txttkhterima.Text);
             DateTime tkhsahlaku = SystemHelper.GetDateTime(txttkhsahlaku.Text);
 
-
             try
-
             {
+                Dictionary<string, dynamic> queryParams3 = new Dictionary<string, dynamic>() { 
+                    { "@Tajuk", txt_tajuk.Text.ToString() },
+                    { "@IdJenisPertimbangan", ddlJenisPertimbangan.SelectedValue },
+                    { "@LainJenisPertimbangan", txtJenisPertimbangan.Text.ToString() },
+                    { "@IdKaedahPerolehan", ddlKaedahPerolehan.SelectedValue },
+                    { "@IdJenisPerolehan", ddlJenisPerolehan.SelectedValue },
+                    { "@LainJenisPerolehan", txtJenisPerolehan.Text.ToString() },
+                    { "@IdJabatan", ddlJabatan.SelectedValue },
+                    { "@IdBahagian", (string.IsNullOrEmpty(ddlBahagian.SelectedValue) ? "NULL" : ddlBahagian.SelectedValue) },
+                    { "@Harga", txtharga.Text.ToString() },
+                    { "@IdSumberPeruntukan", ddlSumberPeruntukan.SelectedValue },
+                    { "@LainSumberPeruntukan", txtSumberPeruntukan.Text.ToString() },
+                    { "@IdPBMMuktamad", ddlPBMMuktamad.SelectedValue },
+                    { "@IdStatusPermohonan", 1 },
+                    { "@CatatanPendaftar", txtcatatan.Text.ToString() },
+                    { "@TarikhDicipta", DateTime.Now.ToString("yyyy-MM-dd") },
+                    { "@DiciptaOleh", txticno.Text.ToString() },
+                    { "@NamaBahagian", ddlBahagian.SelectedItem.ToString() },
+                    { "@TarikhSahlaku", tkhsahlaku.ToString("yyyy-MM-dd") },
+                    { "@TarikhTerima", tkhterima.ToString("yyyy-MM-dd") },
+                    { "@ID", Request.QueryString["Id"] },
+                };
 
-                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Permohonan WHERE ID ='" + Request.QueryString["Id"] + "'", conn);
+                Utils.ExcuteQuery("UPDATE Permohonan SET " +
+                    "Tajuk=@Tajuk," +
+                    "IdJenisPertimbangan=@IdJenisPertimbangan," +
+                    "LainJenisPertimbangan=@LainJenisPertimbangan," +
+                    "IdKaedahPerolehan=@IdKaedahPerolehan," +
+                    "IdJenisPerolehan=@IdJenisPerolehan," +
+                    "LainJenisPerolehan=@LainJenisPerolehan," +
+                    "IdJabatan=@IdJabatan," +
+                    "IdBahagian=@IdBahagian," +
+                    "Harga=@Harga," +
+                    "IdSumberPeruntukan=@IdSumberPeruntukan," +
+                    "LainSumberPeruntukan=@LainSumberPeruntukan," +
+                    "IdPBMMuktamad=@IdPBMMuktamad," +
+                    "IdStatusPermohonan=@IdStatusPermohonan," +
+                    "CatatanPendaftar=@CatatanPendaftar," +
+                    "TarikhDicipta=@TarikhDicipta," +
+                    "DiciptaOleh=@DiciptaOleh," +
+                    "NamaBahagian=@NamaBahagian," +
+                    "TarikhSahlaku=@TarikhSahlaku," +
+                    "TarikhTerima=@TarikhTerima " +
+                    "where ID=@ID", queryParams3);
 
-                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                {
-                    conn.Open();
-                    string insertQuery = "UPDATE Permohonan SET Tajuk = '" + txt_tajuk.Text.ToString() + "',IdJenisPertimbangan = '" + ddlJenisPertimbangan.SelectedValue + "',LainJenisPertimbangan = '" + txtJenisPertimbangan.Text.ToString() + "',IdKaedahPerolehan = '" + ddlKaedahPerolehan.SelectedValue + "',IdJenisPerolehan = '" + ddlJenisPerolehan.SelectedValue + "',LainJenisPerolehan = '" + txtJenisPerolehan.Text.ToString() + "',IdJabatan = '" + ddlJabatan.SelectedValue + "',IdBahagian = " + (string.IsNullOrEmpty(ddlBahagian.SelectedValue) ? "NULL" : ddlBahagian.SelectedValue) + ",Harga = '" + txtharga.Text.ToString() + "',IdSumberPeruntukan = '" + ddlSumberPeruntukan.SelectedValue + "',LainSumberPeruntukan = '" + txtSumberPeruntukan.Text.ToString() + "',IdPBMMuktamad = '" + ddlPBMMuktamad.SelectedValue + "',IdStatusPermohonan = '1',CatatanPendaftar = '" + txtcatatan.Text.ToString() + "',TarikhDicipta = '" + DateTime.Now.ToString("yyyy-MM-dd") + "',DiciptaOleh = '" + txticno.Text.ToString() + "',NamaBahagian = '" + ddlBahagian.SelectedItem.ToString() + "',  TarikhSahlaku = '" + tkhsahlaku.ToString("yyyy-MM-dd") + "', TarikhTerima = '" + tkhterima.ToString("yyyy-MM-dd") + "' where ID ='" + Request.QueryString["Id"] + "'";
-                    SqlCommand com = new SqlCommand(insertQuery, conn);
-
-                    com.ExecuteNonQuery();
-                    
-                    Response.Redirect("/Permohonan/senarai.aspx");
-
-                    conn.Close();
-            
-                }
-        }
+                Response.Redirect("/Permohonan/senarai.aspx");
+            }
             catch (Exception ex)
             {
                 throw new Exception("Error: " + ex);

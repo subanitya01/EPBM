@@ -54,7 +54,7 @@
                 <asp:BoundField DataField="NAMA" HeaderText="NAMA" SortExpression="NAMA">
                 </asp:BoundField>
 
-                <asp:BoundField DataField="NO K/P" HeaderText="NO K/P" SortExpression="NO K/P">
+                <asp:BoundField DataField="NO. K/P" HeaderText="NO. K/P" SortExpression="NO. K/P">
                 </asp:BoundField>
 
 				<asp:TemplateField HeaderText="E-MEL" SortExpression="E-MEL">
@@ -98,7 +98,7 @@
 								title="Edit"
 								CommandArgument='<%# Eval("Id") %>' 
 								OnClick="BtnEditUser_Click"
-								OnClientClick='<%# string.Concat("if(!popupEdit(this",",\"",Eval("[NO K/P]"),"\",\"",Eval("NAMA"),"\"))return false; ") %>'
+								OnClientClick='<%# string.Concat("if(!popupEdit(this",",\"",DataBinder.GetPropertyValue(Container.DataItem, "NO. K/P"),"\",\"",Eval("NAMA"),"\"))return false; ") %>'
 							>
 								<i class="align-middle" data-feather="edit-2"></i>
 						</asp:LinkButton>
@@ -112,7 +112,7 @@
 							CommandArgument='<%# Eval("Id") %>' 
 							CausesValidation="false"
 							OnClick="BtnDeleteUser_Click"
-							OnClientClick='<%# string.Concat("if(!popup(this",",",Eval("[NO K/P]"),",\"",Eval("NAMA"),"\"))return false; ") %>'
+							OnClientClick='<%# string.Concat("if(!popup(this",",",DataBinder.GetPropertyValue(Container.DataItem, "NO. K/P"),",\"",Eval("NAMA"),"\"))return false; ") %>'
 						>
 							<i class="align-middle" data-feather="trash"></i>
 						</asp:LinkButton>

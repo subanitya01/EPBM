@@ -85,7 +85,7 @@
 						<label class="control-label" >NILAI TAWARAN <span class="text-danger">*</span></label>
 						<div class="input-group">
 							<span class="input-group-text">RM</span>
-							<asp:TextBox ID="txtNilaiTawaran" runat="server" CssClass="form-control" TextMode="Number" placeholder="NILAI TAWARAN" required="required" />
+							<asp:TextBox ID="txtNilaiTawaran" runat="server" CssClass="form-control" TextMode="SingleLine" placeholder="NILAI TAWARAN" required="required" />
 						</div>
 						<asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Sila Isi Tempoh" ControlToValidate="txtNilaiTawaran" ValidationGroup="success" ForeColor="Red"></asp:RequiredFieldValidator>
 					</div>
@@ -111,7 +111,12 @@
 						</asp:RegularExpressionValidator> 
 					</div>
 						<script src="<%= ResolveUrl("~/assets/js/autocomplete.js") %>"></script>
+						<script src="<%= ResolveUrl("~/assets/js/easy-number-separator.js") %>"></script>
 						<script>
+                            easyNumberSeparator({
+                                selector: '#<%=txtNilaiTawaran.ClientID %>',
+                                //resultInput: '#<%=txtNilaiTawaran.ClientID %>',
+                            })
                             var company_list = <asp:Literal ID="companyList" runat="server" />;
                             set_autocomplete('<%=txtSyarikat.ClientID %>', 'autocompleteSyarikat', Object.keys(company_list), 1);
                             var inputSyarikat = document.getElementById('<%=txtSyarikat.ClientID %>');

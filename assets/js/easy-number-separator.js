@@ -60,9 +60,15 @@ function easyNumberSeparator(config) {
   listenFields()
 
   // Fire separator when every element append to page
-  document.addEventListener("DOMNodeInserted", function (e) {
-    if ((e.target).classList.contains(obj.selector.replace('.', ''))) {
-      listenFields()
-    }
-  });
+    /*document.addEventListener("DOMNodeInserted", function (e) {
+        if ((e.target).classList.contains(obj.selector.replace('.', ''))) {
+            listenFields()
+        }
+    });*/
+    const observer = new MutationObserver((mutations) => {
+        if ((mutations[0].target).classList.contains(obj.selector.replace('.', ''))) {
+            listenFields()
+        }
+    });
+    observer.observe(document, { subtree: true, childList: true });
 }

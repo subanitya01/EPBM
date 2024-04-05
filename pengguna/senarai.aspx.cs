@@ -75,7 +75,7 @@ namespace EPBM.pengguna
 
 
             //get user info from eProfile
-            string CommandText = "Select EU.Id, UP.UserId as ProfileId, RoleName, UP.ICNO as 'NO K/P', UC.UserName as 'NAMA PENGGUNA', UC.LoginType, UserEmail as 'E-MEL', PhoneNo as 'NO. TEL', FullName as 'NAMA', Designation as 'JAWATAN', ProfileImage, O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN',  IIF(UP.Blocked='True' Or UP.Deleted='True', 1, 0) as Inactive "
+            string CommandText = "Select EU.Id, UP.UserId as ProfileId, RoleName, UP.ICNO as 'NO. K/P', UC.UserName as 'NAMA PENGGUNA', UC.LoginType, UserEmail as 'E-MEL', PhoneNo as 'NO. TEL', FullName as 'NAMA', Designation as 'JAWATAN', ProfileImage, O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN',  IIF(UP.Blocked='True' Or UP.Deleted='True', 1, 0) as Inactive "
                             + "from UserCredential UC, Organization O, OrganizationGroup OG, UserProfile UP "
                             + "inner join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, ProfileId, RoleName)) as EU on EU.ProfileId=UP.UserId "
                             + "WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId";
@@ -88,7 +88,7 @@ namespace EPBM.pengguna
                     CommandText += " AND (UP.ICNO LIKE '%' + @searchTerm + '%' OR UserEmail LIKE '%' + @searchTerm + '%' OR FullName LIKE '%' + @searchTerm + '%' OR O.Name LIKE '%' + @searchTerm + '%' OR RoleName LIKE '%' + @searchTerm + '%')";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
-                else if (searchCol == "NO K/P")
+                else if (searchCol == "NO. K/P")
                 {
                     CommandText += " AND UP.ICNO LIKE '%' + @searchTerm + '%'";
                     queryParams.Add("@searchTerm", searchTerm);
@@ -129,7 +129,7 @@ namespace EPBM.pengguna
 
             GridView1.DataSource = ds;
             GridView1.DataBind();
-            ViewState["dtProfile"] = dtProfile;
+            ViewState["ds"] = ds;
         }
 
         private string GetSortDirection(string column)
@@ -210,11 +210,16 @@ namespace EPBM.pengguna
 
         protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
         {
-            DataTable dtrslt = (DataTable)ViewState["dtProfile"];
-            if (dtrslt.Rows.Count > 0)
+            DataSet dtrslt = (DataSet)ViewState["ds"];
+            if (dtrslt.Tables[0].Rows.Count > 0)
             {
                 lblSortRecord.Text = e.SortExpression + " " + GetSortDirection(e.SortExpression);
-                dtrslt.DefaultView.Sort = e.SortExpression + " " + ViewState["SortDirection"];
+                dtrslt.Tables[0].DefaultView.Sort = e.SortExpression + " " + ViewState["SortDirection"];
+                DataTable dt = dtrslt.Tables[0].DefaultView.ToTable();
+                dtrslt.Tables[0].Rows.Clear();
+                foreach (DataRow row in dt.Rows)
+                    dtrslt.Tables[0].Rows.Add(row.ItemArray);
+
                 GridView1.DataSource = dtrslt;
                 GridView1.DataBind();
             }

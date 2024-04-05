@@ -56,7 +56,7 @@ namespace EPBM.pengguna
                 userValues.Add("('" + row["Id"] + "','" + row["ProfileId"] + "','" + row["RoleName"] + "')");
             }
             //get user info from eProfile
-            string selectData = "Select UP.UserId as ProfileId, UP.ICNO as 'NO K/P', UserEmail as 'E-MEL', FullName as 'NAMA', O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN', EU.Id as 'Exist' ";
+            string selectData = "Select UP.UserId as ProfileId, UP.ICNO as 'NO. K/P', UserEmail as 'E-MEL', FullName as 'NAMA', O.Name as 'PENEMPATAN', OG.Name as 'JABATAN/KEMENTERIAN', EU.Id as 'Exist' ";
             string CommandText = "from UserCredential UC, Organization O, OrganizationGroup OG, UserProfile UP "
                             + "left join (select * from (values" + string.Join(",", userValues.ToArray()) + ") as EpbmUsers (Id, ProfileId, RoleName)) as EU on EU.ProfileId=UP.UserId "
                             + "WHERE UP.UserId=UC.UserId and O.OrganizationId=UP.OrganizationId and O.GroupId=OG.GroupId And UP.Blocked='False' And UP.Deleted='False'";
@@ -68,7 +68,7 @@ namespace EPBM.pengguna
                     CommandText += " AND (UP.ICNO LIKE '%' + @searchTerm + '%' OR UserEmail LIKE '%' + @searchTerm + '%' OR FullName LIKE '%' + @searchTerm + '%')";
                     queryParams.Add("@searchTerm", searchTerm);
                 }
-                else if (searchCol == "NO K/P")
+                else if (searchCol == "NO. K/P")
                 {
                     CommandText += " AND UP.ICNO LIKE '%' + @searchTerm + '%'";
                     queryParams.Add("@searchTerm", searchTerm);
